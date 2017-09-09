@@ -1,0 +1,971 @@
+count,category,label
+297,Case Management ,Current plan:
+297,Case Management ,Patient discussed with multidisciplinary team:
+296,Case Management ,Dialysis:
+296,Case Management ,Primary insurance:
+296,Case Management ,Secondary insurance:
+296,Case Management ,Medicaid application:
+296,Case Management ,Status:
+296,Case Management ,Insurance reviewer:
+245,Case Management ,Phone:
+13612,Discharge summary,IMPRESSION:
+6662,Discharge summary,DISCHARGE DIAGNOSES:
+5545,Discharge summary,PAST MEDICAL HISTORY:
+4914,Discharge summary,DISCHARGE MEDICATIONS:
+3738,Discharge summary,REASON FOR THIS EXAMINATION:
+2461,Discharge summary,DISCHARGE DIAGNOSIS:
+1852,Discharge summary,MEDICATIONS ON DISCHARGE:
+1850,Discharge summary,MEDICATIONS ON ADMISSION:
+1837,Discharge summary,ADMISSION LABS:
+1735,Discharge summary,IMAGING:
+1727,Discharge summary,FINAL DIAGNOSIS:
+1581,Discharge summary,MEDICATIONS:
+1497,Discharge summary,HOSPITAL COURSE:
+1418,Discharge summary,PULSES:
+1264,Discharge summary,DISCHARGE LABS:
+1165,Discharge summary,PMH:
+1101,Discharge summary,FINDINGS:
+919,Discharge summary,MICRO:
+859,Discharge summary,PAST SURGICAL HISTORY:
+848,Discharge summary,COMMENTS:
+811,Discharge summary,MICROBIOLOGY:
+805,Discharge summary,CARE RECOMMENDATIONS:
+799,Discharge summary,PHYSICAL EXAM:
+792,Discharge summary,STUDIES:
+767,Discharge summary,DISCHARGE INSTRUCTIONS:
+755,Discharge summary,TRANSITIONAL ISSUES:
+693,Discharge summary,CXR:
+618,Discharge summary,DIAGNOSIS:
+573,Discharge summary,INTERPRETATION:
+572,Discharge summary,PSH:
+571,Discharge summary,ADMISSION PHYSICAL EXAM:
+565,Discharge summary,ADMISSION EXAM:
+493,Discharge summary,DISCHARGE EXAM:
+426,Discharge summary,FOLLOWING:
+425,Discharge summary,ADMISSION MEDICATIONS:
+419,Discharge summary,MEDICATIONS ON TRANSFER:
+413,Discharge summary,LABS:
+412,Discharge summary,MEASUREMENTS:
+392,Discharge summary,ADDENDUM:
+391,Discharge summary,CARE AND RECOMMENDATIONS:
+382,Discharge summary,PE:
+372,Discharge summary,ACTIVE ISSUES:
+367,Discharge summary,MEDICATIONS AT HOME:
+353,Discharge summary,DISCHARGE PHYSICAL EXAM:
+352,Discharge summary,ALLERGIES:
+347,Discharge summary,ROS:
+336,Discharge summary,PRIMARY:
+332,Discharge summary,ON ADMISSION:
+330,Discharge summary,HOSPITAL COURSE BY SYSTEM:
+325,Discharge summary,HOSPITAL COURSE BY SYSTEMS:
+310,Discharge summary,REGIONAL LEFT VENTRICULAR WALL MOTION:
+309,Discharge summary,SUMMARY OF HOSPITAL COURSE BY SYSTEMS:
+285,Discharge summary,ECHO:
+283,Discharge summary,HOME MEDICATIONS:
+281,Discharge summary,PHYSICAL EXAMINATION:
+273,Discharge summary,CBC:
+269,Discharge summary,CONTRAINDICATIONS FOR IV CONTRAST:
+268,Discharge summary,SECONDARY:
+253,Discharge summary,IMMUNIZATIONS RECOMMENDED:
+249,Discharge summary,CONCLUSION:
+241,Discharge summary,LABS ON ADMISSION:
+228,Discharge summary,REVIEW OF SYSTEMS:
+228,Discharge summary,EKG:
+224,Discharge summary,CHRONIC ISSUES:
+222,Discharge summary,SECONDARY DIAGNOSES:
+215,Discharge summary,NEURO:
+202,Discharge summary,PROCEDURE:
+202,Discharge summary,ON DISCHARGE:
+44467291,ECG,""
+45794,Echo,TEST INFORMATION:
+45794,Echo,INTERPRETATION:
+42996,Echo,LEFT VENTRICLE:
+41747,Echo,MITRAL VALVE:
+41228,Echo,AORTIC VALVE:
+41203,Echo,RIGHT VENTRICLE:
+40534,Echo,PERICARDIUM:
+39280,Echo,TRICUSPID VALVE:
+37112,Echo,LEFT ATRIUM:
+36295,Echo,AORTA:
+36123,Echo,INTERATRIAL SEPTUM:
+29386,Echo,PULMONARY ARTERY:
+27137,Echo,GENERAL COMMENTS:
+15739,Echo,IMPRESSION:
+8686,Echo,LV WALL MOTION:
+3303,Echo,CLINICAL IMPLICATIONS:
+2356,Echo,BYPASS:
+1684,Echo,CPB:
+206,Echo,POST CPB:
+2182,General,Total time spent:
+861,General,Plan:
+858,General,Nutrition:
+754,General,Assessment:
+751,General,Neurologic:
+711,General,Allergies:
+675,General,Cardiovascular:
+654,General,Action:
+653,General,Response:
+647,General,Urine:
+646,General,Balance:
+644,General,Heart rhythm:
+643,General,Drains:
+643,General,Total out:
+643,General,Stool:
+642,General,Blood products:
+641,General,Communication:
+636,General,Prophylaxis:
+632,General,Other labs:
+622,General,Code status:
+617,General,Infusions:
+610,General,Stress ulcer:
+606,General,Tmax:
+606,General,Comments:
+604,General,Lines:
+602,General,Disposition:
+558,General,Other medications:
+492,General,Imaging:
+468,General,Height:
+418,General,Skin:
+364,General,Total time:
+363,General,Tcurrent:
+360,General,Abdominal:
+340,General,Review of systems:
+316,General,Ventilator mode:
+309,General,Ve:
+308,General,Endocrine:
+297,General,Changes to medical and family history:
+293,General,Renal:
+284,General,Pulmonary:
+282,General,Tube feeding:
+282,General,Current medications:
+281,General,Ext:
+270,General,Consults:
+269,General,Wounds:
+269,General,Hematology:
+243,General,T current:
+234,General,Abd:
+226,General,Gen:
+216,General,Labs:
+505489,Nursing,Assessment:
+504375,Nursing,Plan:
+504254,Nursing,Response:
+502544,Nursing,Action:
+31354,Nursing,PMH:
+24079,Nursing,BP:
+22526,Nursing,S:
+22497,Nursing,weight:
+22459,Nursing,D:
+22149,Nursing,valuables:
+19433,Nursing,with:
+19430,Nursing,Glucose:
+18287,Nursing,]:
+12268,Nursing,rate:
+12031,Nursing,status:
+11802,Nursing,history:
+11672,Nursing,Precautions:
+11362,Nursing,HPI:
+11337,Nursing,from:
+11284,Nursing,to:
+11257,Nursing,diagnosis:
+11255,Nursing,Temperature:
+11251,Nursing,out:
+11250,Nursing,MD:
+11249,Nursing,Height:
+11246,Nursing,rhythm:
+11246,Nursing,in:
+11245,Nursing,Reactions:
+11242,Nursing,Rate:
+11241,Nursing,Transfer:
+11238,Nursing,device:
+11236,Nursing,date:
+11236,Nursing,saturation:
+11232,Nursing,flow:
+11231,Nursing,set:
+11203,Nursing,Creatinine:
+11194,Nursing,Results:
+11155,Nursing,BUN:
+11064,Nursing,Clothes:
+11016,Nursing,Jewelry:
+10924,Nursing,Potassium:
+10911,Nursing,Sodium:
+10909,Nursing,Hematocrit:
+10898,Nursing,Chloride:
+10652,Nursing,Money:
+8131,Nursing,Events:
+5748,Nursing,Neuro:
+5438,Nursing,PMHx:
+5194,Nursing,GI:
+4772,Nursing,re:
+4694,Nursing,on:
+4685,Nursing,By:
+4361,Nursing,Resp:
+4125,Nursing,complaint:
+4119,Nursing,GU:
+3898,Nursing,TITLE:
+3669,Nursing,CV:
+3430,Nursing,Social:
+2610,Nursing,PSH:
+2063,Nursing,HR:
+2043,Nursing,were:
+2024,Nursing,Skin:
+1922,Nursing,Allergies:
+1900,Nursing,EVENTS:
+1833,Nursing,Endo:
+1789,Nursing,labs:
+1766,Nursing,Access:
+1602,Nursing,Pain:
+1574,Nursing,Complaint:
+1518,Nursing,Drains:
+1498,Nursing,setting:
+1390,Nursing,note:
+1360,Nursing,ABG:
+1296,Nursing,sensitivity:
+1223,Nursing,mode:
+1182,Nursing,Injuries:
+1170,Nursing,access:
+1168,Nursing,RR:
+1167,Nursing,VS:
+1147,Nursing,threshold:
+1045,Nursing,History:
+1028,Nursing,include:
+1012,Nursing,type:
+1005,Nursing,ID:
+998,Nursing,s:
+986,Nursing,condition:
+986,Nursing,Cardiac:
+977,Nursing,LS:
+934,Nursing,ventricular:
+916,Nursing,atrial:
+900,Nursing,Cardio:
+858,Nursing,sats:
+842,Nursing,medications:
+783,Nursing,Status:
+765,Nursing,SOCIAL:
+753,Nursing,ROS:
+736,Nursing,events:
+674,Nursing,Lungs:
+669,Nursing,ISSUES:
+663,Nursing,including:
+647,Nursing,Renal:
+639,Nursing,ED:
+634,Nursing,RESP:
+613,Nursing,settings:
+575,Nursing,course:
+573,Nursing,ACCESS:
+570,Nursing,Gi:
+524,Nursing,abg:
+498,Nursing,Family:
+481,Nursing,Cv:
+469,Nursing,CC:
+467,Nursing,NOTE:
+463,Nursing,PLAN:
+450,Nursing,Hx:
+441,Nursing,Addendum:
+435,Nursing,SKIN:
+421,Nursing,INFORMATION:
+410,Nursing,Dentures:
+399,Nursing,Note:
+395,Nursing,Cr:
+394,Nursing,P:
+383,Nursing,ALLERGIES:
+380,Nursing,EF:
+379,Nursing,NEURO:
+370,Nursing,admission:
+370,Nursing,vitals:
+369,Nursing,CODE:
+364,Nursing,Amount:
+362,Nursing,Tele:
+355,Nursing,RENAL:
+352,Nursing,All:
+342,Nursing,Endoc:
+336,Nursing,Cards:
+334,Nursing,Id:
+332,Nursing,MS:
+329,Nursing,CT:
+328,Nursing,overnight:
+321,Nursing,Goal:
+317,Nursing,c:
+313,Nursing,HISTORY:
+311,Nursing,UPDATE:
+309,Nursing,WBC:
+308,Nursing,ENDO:
+298,Nursing,includes:
+296,Nursing,Fraction:
+293,Nursing,showed:
+289,Nursing,Weight:
+286,Nursing,Code:
+283,Nursing,Dispo:
+281,Nursing,Pulm:
+276,Nursing,pmh:
+273,Nursing,ALL:
+265,Nursing,CXR:
+262,Nursing,failure:
+258,Nursing,POX:
+257,Nursing,Allergy:
+257,Nursing,ADMISSION:
+256,Nursing,CVS:
+255,Nursing,Antibiotics:
+255,Nursing,T:
+245,Nursing,Illness:
+239,Nursing,cc:
+236,Nursing,Meds:
+229,Nursing,Abg:
+226,Nursing,today:
+225,Nursing,transfer:
+224,Nursing,am:
+224,Nursing,Soc:
+223,Nursing,vent:
+221,Nursing,MAP:
+219,Nursing,Infusions:
+213,Nursing,Gu:
+213,Nursing,Others:
+208,Nursing,follows:
+206,Nursing,ILLNESS:
+201,Nursing,Wt:
+658094330,Nursing/other,""
+7987,Nutrition,Labs:
+7644,Nutrition,Pertinent medications:
+6364,Nutrition,Specifics:
+3405,Nutrition,Calories:
+3401,Nutrition,Protein:
+3394,Nutrition,Diagnosis:
+3331,Nutrition,Estimation of current intake:
+3323,Nutrition,Fluid:
+3109,Nutrition,Food allergies and intolerances:
+2390,Nutrition,Estimation of previous intake:
+2112,Nutrition,Pt at risk due to:
+1367,Nutrition,Calculations based on:
+1308,Nutrition,Patient at risk due to:
+1304,Nutrition,Comments:
+1180,Nutrition,Tube feeding recommendations:
+847,Nutrition,Other:
+551,Nutrition,Wt:
+522,Nutrition,Starting rate:
+440,Nutrition,Tube feed:
+368,Nutrition,Diet:
+287,Nutrition,Ht:
+277,Nutrition,Skin:
+258,Nutrition,Oral supplements:
+241,Nutrition,Tube feeding:
+138781,Physician ,BP:
+137760,Physician ,HR:
+137310,Physician ,RR:
+137085,Physician ,PO:
+136910,Physician ,NG:
+133767,Physician ,DVT:
+130732,Physician ,ABG:
+117803,Physician ,INR:
+108960,Physician ,IVF:
+105887,Physician ,TF:
+98746,Physician ,VAP:
+80017,Physician ,AST:
+73119,Physician ,HPI:
+68238,Physician ,LDH:
+64751,Physician ,PEEP:
+62565,Physician ,PIP:
+58220,Physician ,HEENT:
+40653,Physician ,PS :
+37820,Physician ,FEN:
+35783,Physician ,CVP:
+27964,Physician ,TITLE:
+26051,Physician ,RSBI:
+24169,Physician ,CV:
+14772,Physician ,CXR:
+11824,Physician ,PMH:
+11461,Physician ,ACCESS:
+10538,Physician ,NEURO:
+10477,Physician ,CODE:
+9798,Physician ,ID:
+9159,Physician ,PSH:
+8806,Physician ,HTN:
+8795,Physician ,ABD:
+8190,Physician ,ECG:
+8073,Physician ,DISPO:
+8004,Physician ,LUNGS:
+7837,Physician ,PULM:
+7816,Physician ,PPX:
+7713,Physician ,PROPHYLAXIS:
+7503,Physician ,ABDOMEN:
+7496,Physician ,SKIN:
+7361,Physician ,GI:
+7319,Physician ,CARDIAC:
+7279,Physician ,GEN:
+7165,Physician ,GENERAL:
+6928,Physician ,IMPRESSION:
+6885,Physician ,EXT:
+6758,Physician ,NECK:
+6687,Physician ,EXTREMITIES:
+6257,Physician ,ARF:
+5767,Physician ,CVS:
+5681,Physician ,CAD:
+5559,Physician ,TLD:
+5194,Physician ,PAP:
+5052,Physician ,RHYTHM:
+5025,Physician ,CODE STATUS:
+4879,Physician ,DISPOSITION:
+4709,Physician ,DM:
+4449,Physician ,PUMP:
+4439,Physician ,CORONARIES:
+4031,Physician ,RENAL:
+3813,Physician ,CHF:
+3720,Physician ,GU:
+3707,Physician ,CONSULTS:
+3647,Physician ,COPD:
+3588,Physician ,CONTACT:
+3327,Physician ,HEME:
+3302,Physician ,ENDO:
+3248,Physician ,COMM:
+3168,Physician ,EKG:
+3037,Physician ,UTI:
+3025,Physician ,PULSES:
+2994,Physician ,BILLING DIAGNOSIS:
+2854,Physician ,ASSESSMENT AND PLAN:
+2657,Physician ,PLAN:
+2633,Physician ,GLYCEMIC CONTROL:
+2590,Physician ,COMMUNICATIONS:
+2567,Physician ,GERD:
+2358,Physician ,VS:
+2347,Physician ,ICU CARE:
+2345,Physician ,ICP:
+2322,Physician ,ESRD:
+2210,Physician ,CT:
+2075,Physician ,MICRO:
+1931,Physician ,ICU:
+1926,Physician ,IMAGING:
+1833,Physician ,LUE:
+1830,Physician ,SVR:
+1830,Physician ,EMERGENCY CONTACT:
+1810,Physician ,SV:
+1782,Physician ,NOS:
+1752,Physician ,SVI:
+1730,Physician ,LLE:
+1725,Physician ,RVR:
+1719,Physician ,RUE:
+1712,Physician ,PNA:
+1684,Physician ,CK:
+1684,Physician ,EF:
+1661,Physician ,RLE:
+1640,Physician ,PE:
+1640,Physician ,PTT:
+1573,Physician ,TTE:
+1543,Physician ,MIN:
+1518,Physician ,FINDINGS:
+1500,Physician ,PT:
+1402,Physician ,NSTEMI:
+1398,Physician ,HD:
+1383,Physician ,AMS:
+1381,Physician ,PR DAILY:
+1309,Physician ,CABG:
+1285,Physician ,ALLERGIES:
+1281,Physician ,CHEST:
+1273,Physician ,CHIEF COMPLAINT:
+1244,Physician ,ISSUES:
+1238,Physician ,BAL:
+1231,Physician ,RESP:
+1185,Physician ,OSA:
+1176,Physician ,HOUR EVENTS:
+1168,Physician ,CVA:
+1157,Physician ,GIB:
+1130,Physician ,PSYCH:
+1112,Physician ,EVENTS:
+1101,Physician ,BPH:
+1087,Physician ,CKD:
+1076,Physician ,ALT:
+1075,Physician ,MB:
+1065,Physician ,COR:
+1036,Physician ,AP:
+1027,Physician ,ECHO:
+1013,Physician ,UA:
+1002,Physician ,TAB PO BID:
+1001,Physician ,NEUROLOGIC:
+972,Physician ,ROS:
+947,Physician ,CC:
+930,Physician ,NUTRITION:
+904,Physician ,ASSESSMENT:
+865,Physician ,CA:
+864,Physician ,LUNG:
+863,Physician ,NIF:
+837,Physician ,EXTR:
+835,Physician ,CARD:
+823,Physician ,CARDIAC RISK FACTORS:
+816,Physician ,HIV:
+803,Physician ,OSH:
+801,Physician ,CARDIAC HISTORY:
+787,Physician ,PULMONARY:
+772,Physician ,CTA:
+767,Physician ,PVD:
+763,Physician ,MS:
+760,Physician ,CARDIOVASCULAR:
+752,Physician ,DRAINS:
+746,Physician ,ESLD:
+740,Physician ,ANEMIA:
+739,Physician ,ENDOCRINE:
+735,Physician ,OTHER PAST MEDICAL HISTORY:
+735,Physician ,HEMATOLOGY:
+727,Physician ,FLUIDS:
+726,Physician ,ABX:
+722,Physician ,DMII:
+718,Physician ,WOUNDS:
+717,Physician ,ICD:
+708,Physician ,CURRENT MEDICATIONS:
+684,Physician ,ED:
+620,Physician ,HEART:
+617,Physician ,ARDS:
+594,Physician ,HCP:
+592,Physician ,SENSITIVITIES:
+588,Physician ,PAST MEDICAL HISTORY:
+585,Physician ,AS:
+584,Physician ,PERCUTANEOUS CORONARY INTERVENTIONS:
+583,Physician ,ETOH:
+583,Physician ,COMMUNICATION:
+582,Physician ,MEDICAL:
+578,Physician ,II:
+578,Physician ,PO BID:
+573,Physician ,DISP:
+572,Physician ,CSF:
+569,Physician ,PCP:
+567,Physician ,UGIB:
+558,Physician ,SOB:
+550,Physician ,AM:
+543,Physician ,DKA:
+518,Physician ,DERM:
+511,Physician ,MRI:
+501,Physician ,STEMI:
+500,Physician ,PCWP:
+499,Physician ,GVHD:
+498,Physician ,EXTREM:
+491,Physician ,CRI:
+489,Physician ,WBC:
+480,Physician ,KUB:
+479,Physician ,PC :
+475,Physician ,HOME MEDICATIONS:
+460,Physician ,PM:
+445,Physician ,DIC:
+433,Physician ,OH:
+431,Physician ,SBP:
+412,Physician ,US:
+406,Physician ,HYPOTENSION:
+403,Physician ,FINAL DIAGNOSIS:
+399,Physician ,L PO QID:
+391,Physician ,EEG:
+388,Physician ,HL:
+383,Physician ,MSK:
+379,Physician ,SBO:
+377,Physician ,RESPIRATORY FAILURE:
+371,Physician ,HAP:
+370,Physician ,AF:
+366,Physician ,AC:
+366,Physician ,ALL:
+361,Physician ,HCT:
+357,Physician ,UOP:
+355,Physician ,AML:
+351,Physician ,DIABETES:
+339,Physician ,SVT:
+335,Physician ,FAMILY HISTORY:
+332,Physician ,ECHOCARDIOGRAM:
+324,Physician ,PMI:
+322,Physician ,GFR:
+320,Physician ,CARDIAC CATH:
+317,Physician ,MEDICATIONS:
+315,Physician ,BNP:
+311,Physician ,MI:
+311,Physician ,STUDIES:
+304,Physician ,TP QID:
+298,Physician ,EGD:
+295,Physician ,AVR:
+294,Physician ,SLE:
+293,Physician ,OTHER:
+292,Physician ,MR:
+288,Physician ,PO HS:
+287,Physician ,ICU CONSENT:
+284,Physician ,HYPERTENSION:
+280,Physician ,DM II:
+278,Physician ,SOCIAL HISTORY:
+269,Physician ,ACUTE RENAL FAILURE:
+263,Physician ,TELEMETRY:
+263,Physician ,ENT:
+253,Physician ,LEUKOCYTOSIS:
+253,Physician ,AIDS:
+252,Physician ,PO DAILY:
+252,Physician ,ACUTE:
+249,Physician ,SDH:
+247,Physician ,TP TID:
+245,Physician ,REVIEW OF SYSTEMS:
+241,Physician ,PO QID:
+240,Physician ,TSH:
+229,Physician ,MEDICATIONS ON TRANSFER:
+225,Physician ,MBI:
+223,Physician ,MRSA:
+220,Physician ,LABORATORY DATA:
+220,Physician ,VBG:
+218,Physician ,RUQ US:
+218,Physician ,BRBPR:
+218,Physician ,ERCP:
+217,Physician ,HF:
+215,Physician ,HYPOTHYROIDISM:
+214,Physician ,RUE DVT:
+213,Physician ,TEE:
+212,Physician ,HLD:
+212,Physician ,BACK:
+211,Physician ,IDDM:
+209,Physician ,HIT:
+205,Physician ,CLL:
+205,Physician ,LAD:
+204,Physician ,ACS:
+204,Physician ,HYPERLIPIDEMIA:
+203,Physician ,FEVER:
+203,Physician ,BUN:
+203,Physician ,PR HS:
+202,Physician ,SH:
+495287,Radiology,MEDICAL CONDITION:
+495000,Radiology,REASON FOR THIS EXAMINATION:
+379094,Radiology,IMPRESSION:
+242832,Radiology,INDICATION:
+229337,Radiology,FINDINGS:
+182618,Radiology,COMPARISON:
+149505,Radiology,HISTORY:
+125994,Radiology,TECHNIQUE:
+56997,Radiology,WET READ:
+21554,Radiology,CLINICAL HISTORY:
+21010,Radiology,COMPARISONS:
+15473,Radiology,STUDY:
+13655,Radiology,PFI:
+13191,Radiology,BONE WINDOWS:
+12772,Radiology,REASON FOR EXAMINATION:
+12762,Radiology,REASON FOR EXAM:
+12273,Radiology,CLINICAL INDICATION:
+11546,Radiology,IV CONTRAST:
+11339,Radiology,PROCEDURE:
+10507,Radiology,CLINICAL INFORMATION:
+9728,Radiology,INDICATIONS:
+8813,Radiology,CONCLUSION:
+6807,Radiology,CHEST:
+6260,Radiology,EXAMINATION:
+6065,Radiology,INTERPRETATION:
+5594,Radiology,RADIOLOGISTS:
+5419,Radiology,OSSEOUS STRUCTURES:
+4764,Radiology,EXAM:
+4397,Radiology,CONTRAST:
+4121,Radiology,ANESTHESIA:
+4039,Radiology,PROCEDURE AND FINDINGS:
+3882,Radiology,PORTABLE CHEST:
+3662,Radiology,CT OF THE PELVIS WITH IV CONTRAST:
+3643,Radiology,PELVIS:
+3370,Radiology,TYPE OF EXAMINATION:
+3213,Radiology,PORTABLE AP CHEST:
+3074,Radiology,ABDOMEN:
+3045,Radiology,CT PELVIS:
+2962,Radiology,CT OF THE ABDOMEN WITH IV CONTRAST:
+2931,Radiology,B:
+2805,Radiology,CT ABDOMEN:
+2637,Radiology,PA AND LATERAL CHEST:
+2542,Radiology,COMMENT:
+2464,Radiology,RADIOPHARMACEUTICAL DATA:
+2419,Radiology,ADDENDUM:
+2381,Radiology,TWO VIEWS:
+2370,Radiology,CONTRAST HEAD CT:
+2345,Radiology,OPERATORS:
+2311,Radiology,REASON:
+2273,Radiology,COMPLICATIONS:
+2267,Radiology,VIEWS:
+2113,Radiology,COMMENTS:
+2061,Radiology,CT PELVIS WITH IV CONTRAST:
+2029,Radiology,RADIOLOGIST:
+2028,Radiology,CT OF THE CHEST WITH IV CONTRAST:
+2014,Radiology,PA AND LATERAL:
+1884,Radiology,MEDICATIONS:
+1860,Radiology,A:
+1754,Radiology,RAY:
+1728,Radiology,CT OF THE PELVIS:
+1713,Radiology,CT ABDOMEN WITH IV CONTRAST:
+1674,Radiology,AP CHEST:
+1669,Radiology,COMPARISON STUDY:
+1657,Radiology,AP:
+1647,Radiology,REFERENCE EXAM:
+1645,Radiology,TECHNIQUE AND FINDINGS:
+1645,Radiology,CT RECONSTRUCTIONS:
+1638,Radiology,CT PELVIS WITH CONTRAST:
+1607,Radiology,ONE VIEW:
+1576,Radiology,PHYSICIANS:
+1538,Radiology,CT OF THE ABDOMEN:
+1538,Radiology,EG:
+1521,Radiology,CT CHEST:
+1506,Radiology,PA AND LATERAL VIEWS OF THE CHEST:
+1501,Radiology,THREE VIEWS:
+1500,Radiology,CHEST AP:
+1483,Radiology,CT ABDOMEN WITH CONTRAST:
+1470,Radiology,RADIOPHARMECEUTICAL DATA:
+1463,Radiology,PORTABLE AP CHEST RADIOGRAPH:
+1419,Radiology,CT OF THE PELVIS WITH INTRAVENOUS CONTRAST:
+1410,Radiology,CT OF THE PELVIS WITH CONTRAST:
+1269,Radiology,BONES:
+1214,Radiology,CTA:
+1207,Radiology,MUSCULOSKELETAL:
+1189,Radiology,RENAL ULTRASOUND:
+1160,Radiology,METHODS:
+1159,Radiology,IMPRESSIONS:
+1159,Radiology,CT CHEST WITH IV CONTRAST:
+1153,Radiology,RIGHT UPPER QUADRANT ULTRASOUND:
+1123,Radiology,PREOPERATIVE DIAGNOSIS:
+1117,Radiology,CT OF THE ABDOMEN WITHOUT IV CONTRAST:
+1109,Radiology,CT OF THE ABDOMEN WITH INTRAVENOUS CONTRAST:
+1090,Radiology,SINGLE VIEW:
+1082,Radiology,CT OF THE PELVIS WITHOUT IV CONTRAST:
+1072,Radiology,CT OF THE ABDOMEN WITH CONTRAST:
+1055,Radiology,UPRIGHT AP VIEW OF THE CHEST:
+1025,Radiology,CONSENT:
+1023,Radiology,O CONTRAST:
+1014,Radiology,DLP:
+1005,Radiology,CT CHEST WITH CONTRAST:
+989,Radiology,FRONTAL CHEST RADIOGRAPH:
+972,Radiology,COMPARISON STUDIES:
+970,Radiology,PA AND LATERAL CHEST RADIOGRAPHS:
+926,Radiology,PROCEDURE IN DETAIL:
+924,Radiology,POSTOPERATIVE DIAGNOSIS:
+905,Radiology,AP UPRIGHT CHEST:
+849,Radiology,ABDOMINAL ULTRASOUND:
+845,Radiology,REPORT:
+838,Radiology,CT OF THE CHEST:
+827,Radiology,PA AND LATERAL CHEST RADIOGRAPH:
+823,Radiology,CT HEAD:
+792,Radiology,AP PORTABLE CHEST:
+752,Radiology,SUMMARY OF EXERCISE DATA FROM THE REPORT OF THE EXERCISE LAB:
+733,Radiology,MEDICAL HISTORY:
+732,Radiology,CT OF THE CHEST WITH INTRAVENOUS CONTRAST:
+727,Radiology,RESULTS:
+722,Radiology,DOPPLER EXAMINATION:
+714,Radiology,CT HEAD WITHOUT CONTRAST:
+713,Radiology,HEAD CT:
+696,Radiology,BONE WINDOW:
+693,Radiology,CHEST SINGLE AP FILM:
+683,Radiology,NOTE:
+682,Radiology,CT OF THE CHEST WITH CONTRAST:
+681,Radiology,CT ABDOMEN WITHOUT IV CONTRAST:
+674,Radiology,QUESTIONS TO BE ANSWERED:
+641,Radiology,CT HEAD WITHOUT IV CONTRAST:
+641,Radiology,PORTABLE AP:
+636,Radiology,CTA CHEST:
+627,Radiology,PORTABLE CHEST RADIOGRAPH:
+627,Radiology,SPINE:
+625,Radiology,SEDATION:
+623,Radiology,CLINICIANS:
+618,Radiology,NECK:
+608,Radiology,CT PELVIS WITHOUT IV CONTRAST:
+590,Radiology,NOTE ADDED AT ATTENDING REVIEW:
+579,Radiology,O IV CONTRAST:
+570,Radiology,AP CHEST RADIOGRAPH:
+564,Radiology,MRA OF THE HEAD:
+563,Radiology,EXAM ORDER:
+547,Radiology,METHOD:
+540,Radiology,THORACIC SPINE:
+537,Radiology,SUMMARY OF DATA FROM THE EXERCISE LAB:
+527,Radiology,BILATERAL LOWER EXTREMITY ULTRASOUND:
+522,Radiology,HEAD CT WITHOUT IV CONTRAST:
+518,Radiology,CT OF THE CHEST WITHOUT IV CONTRAST:
+517,Radiology,CT ABDOMEN WITHOUT CONTRAST:
+516,Radiology,LUMBAR SPINE:
+515,Radiology,CT PELVIS WITH INTRAVENOUS CONTRAST:
+512,Radiology,BRAIN MRI:
+508,Radiology,SUPINE AP VIEW OF THE CHEST:
+505,Radiology,HOURS:
+502,Radiology,SINGLE VIEW CHEST:
+501,Radiology,PORTABLE:
+499,Radiology,UPRIGHT AP CHEST:
+493,Radiology,CT OF THE ABDOMEN WITHOUT CONTRAST:
+487,Radiology,CT ANGIOGRAM:
+486,Radiology,AP SUPINE CHEST:
+478,Radiology,AP PELVIS:
+471,Radiology,VIDEO OROPHARYNGEAL SWALLOW:
+466,Radiology,CHEST RADIOGRAPH:
+464,Radiology,CT CHEST WITHOUT CONTRAST:
+463,Radiology,CTA HEAD:
+461,Radiology,CLINICAL DETAILS:
+458,Radiology,CT ABDOMEN WITH INTRAVENOUS CONTRAST:
+457,Radiology,TWO VIEWS OF THE CHEST:
+457,Radiology,CT PELVIS WITHOUT CONTRAST:
+448,Radiology,RIGHT:
+448,Radiology,INDICATION FOR EXAM:
+446,Radiology,PROCEDURE PERFORMED:
+445,Radiology,CT OF THE PELVIS WITHOUT CONTRAST:
+442,Radiology,CHEST PA AND LATERAL:
+439,Radiology,SUMMARY OF THE PRELIMINARY REPORT FROM THE EXERCISE LAB:
+438,Radiology,SINGLE AP PORTABLE VIEW OF THE CHEST:
+436,Radiology,AP PORTABLE:
+434,Radiology,UPRIGHT CHEST:
+431,Radiology,ASSISTANT:
+427,Radiology,ONE VIEW OF THE CHEST:
+426,Radiology,LEFT:
+424,Radiology,CHEST PORTABLE:
+418,Radiology,CT OF THE ABDOMEN WITH AND WITHOUT IV CONTRAST:
+418,Radiology,SUPINE AP CHEST:
+418,Radiology,PROCEDURES:
+413,Radiology,CT OF THE PELVIS WITHOUT INTRAVENOUS CONTRAST:
+413,Radiology,MRA:
+412,Radiology,SINGLE FRONTAL VIEW OF THE CHEST:
+412,Radiology,CTA OF THE CHEST:
+404,Radiology,UPRIGHT CHEST RADIOGRAPH:
+399,Radiology,IMAGING METHOD:
+393,Radiology,BILATERAL LOWER EXTREMITY VENOUS ULTRASOUND:
+392,Radiology,LATERAL:
+391,Radiology,CT OF THE ABDOMEN WITHOUT INTRAVENOUS CONTRAST:
+391,Radiology,CERVICAL SPINE:
+389,Radiology,CT OF THE ABDOMEN WITHOUT AND WITH IV CONTRAST:
+389,Radiology,SINGLE AP VIEW:
+386,Radiology,HEAD CT WITHOUT CONTRAST:
+383,Radiology,NONCONTRAST HEAD CT:
+379,Radiology,ERCP:
+374,Radiology,SUMMARY FROM THE EXERCISE LAB:
+370,Radiology,CT CHEST WITHOUT IV CONTRAST:
+369,Radiology,LUNG BASES:
+362,Radiology,CT CHEST WITH INTRAVENOUS CONTRAST:
+349,Radiology,DX:
+338,Radiology,PA AND LATERAL VIEWS:
+330,Radiology,DECISION:
+327,Radiology,ICA:
+324,Radiology,CT OF THE CHEST WITHOUT CONTRAST:
+323,Radiology,ABDOMEN SINGLE FILM:
+323,Radiology,AP UPRIGHT CHEST RADIOGRAPH:
+322,Radiology,MRA HEAD:
+316,Radiology,DATE:
+312,Radiology,NOTE ADDED IN ATTENDING REVIEW:
+312,Radiology,PORTABLE SUPINE CHEST:
+311,Radiology,CT PERFUSION:
+310,Radiology,ATTENDING:
+310,Radiology,LATERAL CHEST:
+308,Radiology,OSSEOUS FINDINGS:
+307,Radiology,COMPARISON EXAM:
+301,Radiology,CT OF THE HEAD WITHOUT CONTRAST:
+296,Radiology,CT:
+293,Radiology,PROCEDURE DETAILS:
+290,Radiology,INDICATION FOR STUDY:
+290,Radiology,BONES AND SOFT TISSUES:
+289,Radiology,CT ABDOMEN AND PELVIS:
+288,Radiology,CHEST CT WITH IV CONTRAST:
+287,Radiology,MEDIASTINUM:
+287,Radiology,MRI OF THE BRAIN:
+283,Radiology,FRONTAL AND LATERAL CHEST RADIOGRAPHS:
+283,Radiology,LEFT SIDE:
+280,Radiology,MULTIPLANAR REFORMATS:
+276,Radiology,AP UPRIGHT VIEW OF THE CHEST:
+274,Radiology,SINGLE AP FILM:
+273,Radiology,CT ABDOMEN WITHOUT AND WITH IV CONTRAST:
+269,Radiology,RIGHT SIDE:
+268,Radiology,TIME:
+262,Radiology,SINGLE AP PORTABLE VIEW:
+261,Radiology,VIEW:
+261,Radiology,DATE OF EXAM:
+261,Radiology,DETAILS OF PROCEDURE:
+261,Radiology,MRI BRAIN:
+260,Radiology,WITH INTRAVENOUS CONTRAST:
+260,Radiology,CT OF THE CHEST WITHOUT AND WITH IV CONTRAST:
+260,Radiology,CHEST AP PORTABLE:
+259,Radiology,DATE OF SERVICE:
+258,Radiology,DATE OF EXAMINATION:
+257,Radiology,SINGLE AP VIEW OF THE CHEST:
+256,Radiology,LIMITED ABDOMINAL ULTRASOUND:
+251,Radiology,CT OF THE CHEST WITH AND WITHOUT IV CONTRAST:
+248,Radiology, :
+247,Radiology,GFR:
+247,Radiology,DIAGNOSIS:
+246,Radiology,CT OF THE CHEST WITHOUT INTRAVENOUS CONTRAST:
+245,Radiology,SINGLE PORTABLE CHEST RADIOGRAPH:
+243,Radiology,PELVIS WITH CONTRAST:
+243,Radiology,FOUR VIEWS:
+240,Radiology,PORTABLE UPRIGHT CHEST RADIOGRAPH:
+237,Radiology,CONTRAST CT HEAD:
+237,Radiology,TIME OF EXAM:
+235,Radiology,REASON FOR THE EXAMINATION:
+234,Radiology,REFORMATTED IMAGES:
+233,Radiology,PA AND LATERAL RADIOGRAPHS OF THE CHEST:
+232,Radiology,AP AND LATERAL:
+227,Radiology,CT OF THE ABDOMEN WITHOUT AND WITH INTRAVENOUS CONTRAST:
+225,Radiology,CONTRAST HEAD CT SCAN:
+221,Radiology,SINGLE FRONTAL CHEST RADIOGRAPH:
+218,Radiology,AP SUPINE CHEST RADIOGRAPH:
+218,Radiology,HEAD ULTRASOUND:
+216,Radiology,RENAL TRANSPLANT ULTRASOUND:
+215,Radiology,PORTABLE ABDOMEN:
+214,Radiology,DESCRIPTION OF PROCEDURE:
+213,Radiology,RIGHT KNEE:
+212,Radiology,HEAD CTA:
+212,Radiology,AM:
+210,Radiology,PROC:
+209,Radiology,FINDINGS AND IMPRESSION:
+207,Radiology,PORTABLE UPRIGHT CHEST:
+207,Radiology,CT THORAX:
+206,Radiology,DOB:
+206,Radiology,LEFT KNEE:
+205,Radiology,PORTABLE SUPINE CHEST RADIOGRAPH:
+205,Radiology,FRONTAL AND LATERAL VIEWS OF THE CHEST:
+205,Radiology,AP UPRIGHT PORTABLE CHEST:
+204,Radiology,ATTENDING NOTE:
+204,Radiology,SUPINE ABDOMEN:
+204,Radiology,ABDOMEN WITH CONTRAST:
+203,Radiology,HR:
+3424,Rehab Services,Transfer:
+3418,Rehab Services,Rolling:
+3295,Rehab Services,Balance:
+3259,Rehab Services,Total distance walked:
+3256,Rehab Services,Minutes:
+3196,Rehab Services,Ambulation:
+3138,Rehab Services,Stairs:
+2687,Rehab Services,Other:
+2267,Rehab Services,Medications:
+2252,Rehab Services,Radiology:
+2165,Rehab Services,Time frame:
+2164,Rehab Services,Diagnosis:
+2157,Rehab Services,Labs:
+2121,Rehab Services,Posture:
+2068,Rehab Services,Other labs:
+1971,Rehab Services,Intervention:
+1933,Rehab Services,Referral date:
+1932,Rehab Services,Reason of referral:
+1172,Rehab Services,Assessment:
+1149,Rehab Services,Objective:
+1147,Rehab Services,Updated medical status:
+1077,Rehab Services,Gait:
+1066,Rehab Services,Face time:
+1023,Rehab Services,Plan:
+885,Rehab Services,Total time:
+669,Rehab Services,Secretions:
+662,Rehab Services,Teeth:
+280,Rehab Services,Time:
+207,Rehab Services,Date:
+83723,Respiratory ,Comments:
+37281,Respiratory ,Type:
+37259,Respiratory ,Size:
+28128,Respiratory ,Day of mechanical ventilation:
+27777,Respiratory ,Ideal body weight:
+27760,Respiratory ,Ideal tidal volume:
+26821,Respiratory ,Level of breathing assistance:
+26715,Respiratory ,Visual assessment of breathing pattern:
+25657,Respiratory ,Reason for continuing current ventilatory support:
+25081,Respiratory ,Assessment of breathing comfort:
+24216,Respiratory ,Day of intubation:
+23199,Respiratory ,Route:
+22970,Respiratory ,Cuff pressure:
+22882,Respiratory ,Trigger work assessment:
+22789,Respiratory ,Position:
+22698,Respiratory ,Known difficult intubation:
+21661,Respiratory ,Invasive ventilation assessment:
+16423,Respiratory ,Cuff volume:
+16044,Respiratory ,Procedure location:
+15955,Respiratory ,Reason:
+13619,Respiratory ,Manufacturer:
+13522,Respiratory ,Tracheostomy tube:
+13246,Respiratory ,Dysynchrony assessment:
+13123,Respiratory ,Airway problems:
+12229,Respiratory ,Transports:
+242,Respiratory ,Duration:
+242,Respiratory ,Times per shift:
+209,Respiratory ,Press:
+1030,Social Work,Previous living situation:
+1028,Social Work,Previous level of functioning:
+1020,Social Work,Employment status:
+1019,Social Work,Past psychiatric history:
+1018,Social Work,Past addictions history:
+1007,Social Work,Communication or visitation restriction:
+996,Social Work,Legal involvement:
+347,Social Work,Assessment:
+206,Social Work,Plan:
+201,Social Work,Continuing issues to be addressed:
