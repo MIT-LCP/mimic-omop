@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="postgres" schema="omop" type="PostgreSQL - 9.6.3">
+   <tables>
+      <table name="attribute_definition" numRows="0" remarks="[VOCABULARY] The ATTRIBUTE_DEFINITION table contains records defining Attributes, or covariates, to members of a Cohort through an associated description and syntax and upon instantiation (execution of the algorithm) placed into the COHORT_ATTRIBUTE table. Attributes are derived elements that can be selected or calculated for a subject in a Cohort. The ATTRIBUTE_DEFINITION table provides a standardized structure for maintaining the rules governing the calculation of covariates for a subject in a Cohort, and can store operational programming code to instantiate the Attributes for a given Cohort within the OMOP Common Data Model." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="attribute_definition_id" nullable="false" remarks="A unique identifier for each Attribute." size="10" type="int4">
+            <child column="attribute_definition_id" foreignKey="fpk_ca_attribute_definition" implied="false" onDeleteCascade="false" table="cohort_attribute"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="attribute_name" nullable="false" remarks="A short description of the Attribute." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="attribute_description" nullable="true" remarks="A complete description of the Attribute definition" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="attribute_type_concept_id" nullable="false" remarks="Type defining what kind of Attribute Definition the record represents and how the syntax may be executed" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="attribute_syntax" nullable="true" remarks="Syntax or code to operationalize the Attribute definition" size="2147483647" type="text"/>
+         <primaryKey column="attribute_definition_id" sequenceNumberInPK="1"/>
+         <index name="xpk_attribute_definition" unique="true">
+            <column ascending="true" name="attribute_definition_id"/>
+         </index>
+         <index name="idx_attribute_definition_id" unique="false">
+            <column ascending="true" name="attribute_definition_id"/>
+         </index>
+      </table>
+      <table name="care_site" numRows="0" remarks="[SYSTEM] The CARE_SITE table contains a list of uniquely identified institutional (physical or organizational) units where healthcare delivery is practiced (offices, wards, hospitals, clinics, etc.)." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="care_site_id" nullable="false" remarks="A unique identifier for each Care Site." size="10" type="int4">
+            <child column="care_site_id" foreignKey="fpk_person_care_site" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="care_site_id" foreignKey="fpk_provider_care_site" implied="false" onDeleteCascade="false" table="provider"/>
+            <child column="care_site_id" foreignKey="fpk_visit_care_site" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="care_site_id" foreignKey="fpk_visit_care_site" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="care_site_name" nullable="true" remarks="The verbatim description or name of the Care Site as in data source" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="place_of_service_concept_id" nullable="true" remarks="A foreign key that refers to a Place of Service Concept ID in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_care_site_place" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="location_id" nullable="true" remarks="A foreign key to the geographic Location in the LOCATION table, where the detailed address information is stored." size="10" type="int4">
+            <parent column="location_id" foreignKey="fpk_care_site_location" implied="false" onDeleteCascade="false" table="location"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="care_site_source_value" nullable="true" remarks="The identifier for the Care Site in the source data, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="place_of_service_source_value" nullable="true" remarks="The source code for the Place of Service as it appears in the source data, stored here for reference." size="50" type="varchar"/>
+         <primaryKey column="care_site_id" sequenceNumberInPK="1"/>
+         <index name="xpk_care_site" unique="true">
+            <column ascending="true" name="care_site_id"/>
+         </index>
+      </table>
+      <table name="cdm_source" numRows="0" remarks="[METADATA] The CDM_SOURCE table contains detail about the source database and the process used to transform the data into the OMOP Common Data Model." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cdm_source_name" nullable="false" remarks="The full name of the source" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="cdm_source_abbreviation" nullable="true" remarks="An abbreviation of the name" size="25" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="cdm_holder" nullable="true" remarks="The name of the organization responsible for the development of the CDM instance" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="source_description" nullable="true" remarks="A description of the source data origin and purpose for collection. The description may contain a summary of the period of time that is expected to be covered by this dataset." size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="source_documentation_reference" nullable="true" remarks="URL or other external reference to location of source documentation" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="cdm_etl_reference" nullable="true" remarks="URL or other external reference to location of ETL specification documentation and ETL source code" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="source_release_date" nullable="true" remarks="The date for which the source data are most current, such as the last day of data capture" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="7" name="cdm_release_date" nullable="true" remarks="The date when the CDM was instantiated" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="cdm_version" nullable="true" remarks="The version of CDM used" size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="vocabulary_version" nullable="true" remarks="The version of the vocabulary used" size="20" type="varchar"/>
+      </table>
+      <table name="cohort" numRows="0" remarks="[DERIVED] The COHORT table contains records of subjects that satisfy a given set of criteria for a duration of time. The definition of the cohort is contained within the COHORT_DEFINITION table. Cohorts can be constructed of patients (Persons), Providers or Visits." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cohort_definition_id" nullable="false" remarks="A foreign key to a record in the COHORT_DEFINITION table containing relevant Cohort Definition information." size="10" type="int4">
+            <parent column="cohort_definition_id" foreignKey="fpk_cohort_definition" implied="false" onDeleteCascade="false" table="cohort_definition"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="A foreign key to the subject in the cohort. These could be referring to records in the PERSON, PROVIDER, VISIT_OCCURRENCE table." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="cohort_start_date" nullable="false" remarks="The date when the Cohort Definition criteria for the Person, Provider or Visit first match." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="cohort_end_date" nullable="false" remarks="The date when the Cohort Definition criteria for the Person, Provider or Visit no longer match or the Cohort membership was terminated." size="13" type="date"/>
+         <primaryKey column="cohort_definition_id" sequenceNumberInPK="1"/>
+         <primaryKey column="subject_id" sequenceNumberInPK="2"/>
+         <primaryKey column="cohort_start_date" sequenceNumberInPK="3"/>
+         <primaryKey column="cohort_end_date" sequenceNumberInPK="4"/>
+         <index name="xpk_cohort" unique="true">
+            <column ascending="true" name="cohort_definition_id"/>
+            <column ascending="true" name="subject_id"/>
+            <column ascending="true" name="cohort_start_date"/>
+            <column ascending="true" name="cohort_end_date"/>
+         </index>
+         <index name="idx_cohort_c_definition_id" unique="false">
+            <column ascending="true" name="cohort_definition_id"/>
+         </index>
+         <index name="idx_cohort_subject_id" unique="false">
+            <column ascending="true" name="subject_id"/>
+         </index>
+      </table>
+      <table name="cohort_attribute" numRows="0" remarks="[DERIVED] The COHORT_ATTRIBUTE table contains attributes associated with each subject within a cohort, as defined by a given set of criteria for a duration of time. The definition of the Cohort Attribute is contained in the ATTRIBUTE_DEFINITION table." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cohort_definition_id" nullable="false" remarks="A foreign key to a record in the [COHORT_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/COHORT_DEFINITION) table containing relevant Cohort Definition information." size="10" type="int4">
+            <parent column="cohort_definition_id" foreignKey="fpk_ca_cohort_definition" implied="false" onDeleteCascade="false" table="cohort_definition"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="cohort_start_date" nullable="false" remarks="The date when the Cohort Definition criteria for the Person, Provider or Visit first match." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="2" name="cohort_end_date" nullable="false" remarks="The date when the Cohort Definition criteria for the Person, Provider or Visit no longer match or the Cohort membership was terminated." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="subject_id" nullable="false" remarks="A foreign key to the subject in the Cohort. These could be referring to records in the PERSON, PROVIDER, VISIT_OCCURRENCE table." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="attribute_definition_id" nullable="false" remarks="A foreign key to a record in the [ATTRIBUTE_DEFINITION](https://github.com/OHDSI/CommonDataModel/wiki/ATTRIBUTE_DEFINITION) table containing relevant Attribute Definition information." size="10" type="int4">
+            <parent column="attribute_definition_id" foreignKey="fpk_ca_attribute_definition" implied="false" onDeleteCascade="false" table="attribute_definition"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="value_as_number" nullable="true" remarks="The attribute result stored as a number. This is applicable to attributes where the result is expressed as a numeric value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="value_as_concept_id" nullable="true" remarks="The attribute result stored as a Concept ID. This is applicable to attributes where the result is expressed as a categorical value." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_ca_value" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="cohort_definition_id" sequenceNumberInPK="1"/>
+         <primaryKey column="subject_id" sequenceNumberInPK="2"/>
+         <primaryKey column="cohort_start_date" sequenceNumberInPK="3"/>
+         <primaryKey column="cohort_end_date" sequenceNumberInPK="4"/>
+         <primaryKey column="attribute_definition_id" sequenceNumberInPK="5"/>
+         <index name="xpk_cohort_attribute" unique="true">
+            <column ascending="true" name="cohort_definition_id"/>
+            <column ascending="true" name="subject_id"/>
+            <column ascending="true" name="cohort_start_date"/>
+            <column ascending="true" name="cohort_end_date"/>
+            <column ascending="true" name="attribute_definition_id"/>
+         </index>
+         <index name="idx_ca_definition_id" unique="false">
+            <column ascending="true" name="cohort_definition_id"/>
+         </index>
+         <index name="idx_ca_subject_id" unique="false">
+            <column ascending="true" name="subject_id"/>
+         </index>
+      </table>
+      <table name="cohort_definition" numRows="0" remarks="[VOCABULARY] The COHORT_DEFINITION table contains records defining a Cohort derived from the data through the associated description and syntax and upon instantiation (execution of the algorithm) placed into the COHORT table. Cohorts are a set of subjects that satisfy a given combination of inclusion criteria for a duration of time. The COHORT_DEFINITION table provides a standardized structure for maintaining the rules governing the inclusion of a subject into a cohort, and can store operational programming code to instantiate the cohort within the OMOP Common Data Model." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cohort_definition_id" nullable="false" remarks="A unique identifier for each Cohort." size="10" type="int4">
+            <child column="cohort_definition_id" foreignKey="fpk_cohort_definition" implied="false" onDeleteCascade="false" table="cohort"/>
+            <child column="cohort_definition_id" foreignKey="fpk_ca_cohort_definition" implied="false" onDeleteCascade="false" table="cohort_attribute"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="cohort_definition_name" nullable="false" remarks="A short description of the Cohort." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="cohort_definition_description" nullable="true" remarks="A complete description of the Cohort definition" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="definition_type_concept_id" nullable="false" remarks="Type defining what kind of Cohort Definition the record represents and how the syntax may be executed" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_cohort_definition_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="cohort_definition_syntax" nullable="true" remarks="Syntax or code to operationalize the Cohort definition" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="subject_concept_id" nullable="false" remarks="A foreign key to the Concept to which defines the domain of subjects that are members of the cohort (e.g., Person, Provider, Visit)." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="cohort_initiation_date" nullable="true" remarks="A date to indicate when the Cohort was initiated in the COHORT table" size="13" type="date"/>
+         <primaryKey column="cohort_definition_id" sequenceNumberInPK="1"/>
+         <index name="xpk_cohort_definition" unique="true">
+            <column ascending="true" name="cohort_definition_id"/>
+         </index>
+         <index name="idx_cohort_definition_id" unique="false">
+            <column ascending="true" name="cohort_definition_id"/>
+         </index>
+      </table>
+      <table name="concept" numRows="0" remarks="[VOCABULARY] The Standardized Vocabularies contains records, or Concepts, that uniquely identify each fundamental unit of meaning used to express clinical information in all domain tables of the CDM. Concepts are derived from vocabularies, which represent clinical information across a domain (e.g. conditions, drugs, procedures) through the use of codes and associated descriptions. Some Concepts are designated Standard Concepts, meaning these Concepts can be used as normative expressions of a clinical entity within the OMOP Common Data Model and within standardized analytics. Each Standard Concept belongs to one domain, which defines the location where the Concept would be expected to occur within data tables of the CDM." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_id" nullable="false" remarks="A unique identifier for each Concept across all domains." size="10" type="int4">
+            <child column="place_of_service_concept_id" foreignKey="fpk_care_site_place" implied="false" onDeleteCascade="false" table="care_site"/>
+            <child column="value_as_concept_id" foreignKey="fpk_ca_value" implied="false" onDeleteCascade="false" table="cohort_attribute"/>
+            <child column="definition_type_concept_id" foreignKey="fpk_cohort_definition_concept" implied="false" onDeleteCascade="false" table="cohort_definition"/>
+            <child column="ancestor_concept_id" foreignKey="fpk_concept_ancestor_concept_1" implied="false" onDeleteCascade="false" table="concept_ancestor"/>
+            <child column="descendant_concept_id" foreignKey="fpk_concept_ancestor_concept_2" implied="false" onDeleteCascade="false" table="concept_ancestor"/>
+            <child column="concept_class_concept_id" foreignKey="fpk_concept_class_concept" implied="false" onDeleteCascade="false" table="concept_class"/>
+            <child column="concept_id_1" foreignKey="fpk_concept_relationship_c_1" implied="false" onDeleteCascade="false" table="concept_relationship"/>
+            <child column="concept_id_2" foreignKey="fpk_concept_relationship_c_2" implied="false" onDeleteCascade="false" table="concept_relationship"/>
+            <child column="concept_id" foreignKey="fpk_concept_synonym_concept" implied="false" onDeleteCascade="false" table="concept_synonym"/>
+            <child column="condition_concept_id" foreignKey="fpk_condition_era_concept" implied="false" onDeleteCascade="false" table="condition_era"/>
+            <child column="condition_concept_id" foreignKey="fpk_condition_concept" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="condition_source_concept_id" foreignKey="fpk_condition_concept_s" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="condition_status_concept_id" foreignKey="fpk_condition_status_concept" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="condition_type_concept_id" foreignKey="fpk_condition_type_concept" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="currency_concept_id" foreignKey="fpk_visit_cost_currency" implied="false" onDeleteCascade="false" table="cost"/>
+            <child column="drg_concept_id" foreignKey="fpk_drg_concept" implied="false" onDeleteCascade="false" table="cost"/>
+            <child column="cause_concept_id" foreignKey="fpk_death_cause_concept" implied="false" onDeleteCascade="false" table="death"/>
+            <child column="cause_source_concept_id" foreignKey="fpk_death_cause_concept_s" implied="false" onDeleteCascade="false" table="death"/>
+            <child column="death_type_concept_id" foreignKey="fpk_death_type_concept" implied="false" onDeleteCascade="false" table="death"/>
+            <child column="device_concept_id" foreignKey="fpk_device_concept" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="device_source_concept_id" foreignKey="fpk_device_concept_s" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="device_type_concept_id" foreignKey="fpk_device_type_concept" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="domain_concept_id" foreignKey="fpk_domain_concept" implied="false" onDeleteCascade="false" table="domain"/>
+            <child column="drug_concept_id" foreignKey="fpk_dose_era_concept" implied="false" onDeleteCascade="false" table="dose_era"/>
+            <child column="unit_concept_id" foreignKey="fpk_dose_era_unit_concept" implied="false" onDeleteCascade="false" table="dose_era"/>
+            <child column="drug_concept_id" foreignKey="fpk_drug_era_concept" implied="false" onDeleteCascade="false" table="drug_era"/>
+            <child column="drug_concept_id" foreignKey="fpk_drug_concept" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="drug_source_concept_id" foreignKey="fpk_drug_concept_s" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="drug_type_concept_id" foreignKey="fpk_drug_type_concept" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="route_concept_id" foreignKey="fpk_drug_route_concept" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="amount_unit_concept_id" foreignKey="fpk_drug_strength_unit_1" implied="false" onDeleteCascade="false" table="drug_strength"/>
+            <child column="denominator_unit_concept_id" foreignKey="fpk_drug_strength_unit_3" implied="false" onDeleteCascade="false" table="drug_strength"/>
+            <child column="drug_concept_id" foreignKey="fpk_drug_strength_concept_1" implied="false" onDeleteCascade="false" table="drug_strength"/>
+            <child column="ingredient_concept_id" foreignKey="fpk_drug_strength_concept_2" implied="false" onDeleteCascade="false" table="drug_strength"/>
+            <child column="numerator_unit_concept_id" foreignKey="fpk_drug_strength_unit_2" implied="false" onDeleteCascade="false" table="drug_strength"/>
+            <child column="domain_concept_id_1" foreignKey="fpk_fact_domain_1" implied="false" onDeleteCascade="false" table="fact_relationship"/>
+            <child column="domain_concept_id_2" foreignKey="fpk_fact_domain_2" implied="false" onDeleteCascade="false" table="fact_relationship"/>
+            <child column="relationship_concept_id" foreignKey="fpk_fact_relationship" implied="false" onDeleteCascade="false" table="fact_relationship"/>
+            <child column="measurement_concept_id" foreignKey="fpk_measurement_concept" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="measurement_source_concept_id" foreignKey="fpk_measurement_concept_s" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="measurement_type_concept_id" foreignKey="fpk_measurement_type_concept" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="operator_concept_id" foreignKey="fpk_measurement_operator" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="unit_concept_id" foreignKey="fpk_measurement_unit" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="value_as_concept_id" foreignKey="fpk_measurement_value" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="encoding_concept_id" foreignKey="fpk_note_encoding_concept" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="language_concept_id" foreignKey="fpk_language_concept" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="note_class_concept_id" foreignKey="fpk_note_class_concept" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="note_type_concept_id" foreignKey="fpk_note_type_concept" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="note_nlp_concept_id" foreignKey="fpk_note_nlp_concept" implied="false" onDeleteCascade="false" table="note_nlp"/>
+            <child column="section_concept_id" foreignKey="fpk_note_nlp_section_concept" implied="false" onDeleteCascade="false" table="note_nlp"/>
+            <child column="observation_concept_id" foreignKey="fpk_observation_concept" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="observation_source_concept_id" foreignKey="fpk_observation_concept_s" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="observation_type_concept_id" foreignKey="fpk_observation_type_concept" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="qualifier_concept_id" foreignKey="fpk_observation_qualifier" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="unit_concept_id" foreignKey="fpk_observation_unit" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="value_as_concept_id" foreignKey="fpk_observation_value" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="period_type_concept_id" foreignKey="fpk_observation_period_concept" implied="false" onDeleteCascade="false" table="observation_period"/>
+            <child column="ethnicity_concept_id" foreignKey="fpk_person_ethnicity_concept" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="ethnicity_source_concept_id" foreignKey="fpk_person_ethnicity_concept_s" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="gender_concept_id" foreignKey="fpk_person_gender_concept" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="gender_source_concept_id" foreignKey="fpk_person_gender_concept_s" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="race_concept_id" foreignKey="fpk_person_race_concept" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="race_source_concept_id" foreignKey="fpk_person_race_concept_s" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="modifier_concept_id" foreignKey="fpk_procedure_modifier" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="procedure_concept_id" foreignKey="fpk_procedure_concept" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="procedure_source_concept_id" foreignKey="fpk_procedure_concept_s" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="procedure_type_concept_id" foreignKey="fpk_procedure_type_concept" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="gender_concept_id" foreignKey="fpk_provider_gender" implied="false" onDeleteCascade="false" table="provider"/>
+            <child column="gender_source_concept_id" foreignKey="fpk_provider_gender_s" implied="false" onDeleteCascade="false" table="provider"/>
+            <child column="specialty_concept_id" foreignKey="fpk_provider_specialty" implied="false" onDeleteCascade="false" table="provider"/>
+            <child column="specialty_source_concept_id" foreignKey="fpk_provider_specialty_s" implied="false" onDeleteCascade="false" table="provider"/>
+            <child column="relationship_concept_id" foreignKey="fpk_relationship_concept" implied="false" onDeleteCascade="false" table="relationship"/>
+            <child column="target_concept_id" foreignKey="fpk_source_to_concept_map_c_1" implied="false" onDeleteCascade="false" table="source_to_concept_map"/>
+            <child column="anatomic_site_concept_id" foreignKey="fpk_specimen_site_concept" implied="false" onDeleteCascade="false" table="specimen"/>
+            <child column="disease_status_concept_id" foreignKey="fpk_specimen_status_concept" implied="false" onDeleteCascade="false" table="specimen"/>
+            <child column="specimen_concept_id" foreignKey="fpk_specimen_concept" implied="false" onDeleteCascade="false" table="specimen"/>
+            <child column="specimen_type_concept_id" foreignKey="fpk_specimen_type_concept" implied="false" onDeleteCascade="false" table="specimen"/>
+            <child column="unit_concept_id" foreignKey="fpk_specimen_unit_concept" implied="false" onDeleteCascade="false" table="specimen"/>
+            <child column="admitting_source_concept_id" foreignKey="fpk_visit_admitting_s" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="discharge_to_concept_id" foreignKey="fpk_visit_discharge" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="visit_detail_concept_id" foreignKey="fpk_visit_detail_concept" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="visit_source_concept_id" foreignKey="fpk_visit_concept_s" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="visit_type_concept_id" foreignKey="fpk_visit_type_concept" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="admitting_source_concept_id" foreignKey="fpk_visit_admitting_s" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+            <child column="discharge_to_concept_id" foreignKey="fpk_visit_discharge" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+            <child column="visit_concept_id" foreignKey="fpk_visit_concept" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+            <child column="visit_source_concept_id" foreignKey="fpk_visit_concept_s" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+            <child column="visit_type_concept_id" foreignKey="fpk_visit_type_concept" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+            <child column="vocabulary_concept_id" foreignKey="fpk_vocabulary_concept" implied="false" onDeleteCascade="false" table="vocabulary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_name" nullable="false" remarks="An unambiguous, meaningful and descriptive name for the Concept." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="domain_id" nullable="false" remarks="A foreign key to the [DOMAIN](https://github.com/OHDSI/CommonDataModel/wiki/DOMAIN) table the Concept belongs to." size="20" type="varchar">
+            <parent column="domain_id" foreignKey="fpk_concept_domain" implied="false" onDeleteCascade="false" table="domain"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="vocabulary_id" nullable="false" remarks="A foreign key to the [VOCABULARY](https://github.com/OHDSI/CommonDataModel/wiki/VOCABULARY) table indicating from which source the Concept has been adapted." size="20" type="varchar">
+            <parent column="vocabulary_id" foreignKey="fpk_concept_vocabulary" implied="false" onDeleteCascade="false" table="vocabulary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="concept_class_id" nullable="false" remarks="The attribute or concept class of the Concept. Examples are 'Clinical Drug', 'Ingredient', 'Clinical Finding'etc." size="20" type="varchar">
+            <parent column="concept_class_id" foreignKey="fpk_concept_class" implied="false" onDeleteCascade="false" table="concept_class"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="standard_concept" nullable="true" remarks="This flag determines where a Concept is a Standard Concept, i.e. is used in the data, a Classification Concept, or a non-standard Source Concept. The allowables values are 'S'(Standard Concept) and 'C'(Classification Concept), otherwise the content is NULL." size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="concept_code" nullable="false" remarks="The concept code represents the identifier of the Concept in the source vocabulary, such as SNOMED-CT concept IDs, RxNorm RXCUIs etc. Note that concept codes are not unique across vocabularies." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="valid_start_date" nullable="false" remarks="The date when the Concept was first recorded. The default value is 1-Jan-1970, meaning, the Concept has no (known) date of inception." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="valid_end_date" nullable="false" remarks="The date when the Concept became invalid because it was deleted or superseded (updated) by a new concept. The default value is 31-Dec-2099, meaning, the Concept is valid until it becomes deprecated." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="9" name="invalid_reason" nullable="true" remarks="Reason the Concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value." size="1" type="varchar"/>
+         <primaryKey column="concept_id" sequenceNumberInPK="1"/>
+         <index name="xpk_concept" unique="true">
+            <column ascending="true" name="concept_id"/>
+         </index>
+         <index name="idx_concept_class_id" unique="false">
+            <column ascending="true" name="concept_class_id"/>
+         </index>
+         <index name="idx_concept_code" unique="false">
+            <column ascending="true" name="concept_code"/>
+         </index>
+         <index name="idx_concept_concept_id" unique="true">
+            <column ascending="true" name="concept_id"/>
+         </index>
+         <index name="idx_concept_domain_id" unique="false">
+            <column ascending="true" name="domain_id"/>
+         </index>
+         <index name="idx_concept_vocabluary_id" unique="false">
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+      </table>
+      <table name="concept_ancestor" numRows="0" remarks="[VOCABULARY] The CONCEPT_ANCESTOR table is designed to simplify observational analysis by providing the complete hierarchical relationships between Concepts. Only direct parent-child relationships between Concepts are stored in the CONCEPT_RELATIONSHIP table. To determine higher level ancestry connections, all individual direct relationships would have to be navigated at analysis time. The  CONCEPT_ANCESTOR table includes records for all parent-child relationships, as well as grandparent-grandchild relationships and those of any other level of lineage. Using the CONCEPT_ANCESTOR table allows for querying for all descendants of a hierarchical concept. For example, drug ingredients and drug products are all descendants of a drug class ancestor." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="ancestor_concept_id" nullable="false" remarks="A foreign key to the concept in the concept table for the higher-level concept that forms the ancestor in the relationship." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_concept_ancestor_concept_1" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="descendant_concept_id" nullable="false" remarks="A foreign key to the concept in the concept table for the lower-level concept that forms the descendant in the relationship." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_concept_ancestor_concept_2" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="min_levels_of_separation" nullable="false" remarks="The minimum separation in number of levels of hierarchy between ancestor and descendant concepts. This is an attribute that is used to simplify hierarchic analysis." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="max_levels_of_separation" nullable="false" remarks="The maximum separation in number of levels of hierarchy between ancestor and descendant concepts. This is an attribute that is used to simplify hierarchic analysis." size="10" type="int4"/>
+         <primaryKey column="ancestor_concept_id" sequenceNumberInPK="1"/>
+         <primaryKey column="descendant_concept_id" sequenceNumberInPK="2"/>
+         <index name="xpk_concept_ancestor" unique="true">
+            <column ascending="true" name="ancestor_concept_id"/>
+            <column ascending="true" name="descendant_concept_id"/>
+         </index>
+         <index name="idx_concept_ancestor_id_1" unique="false">
+            <column ascending="true" name="ancestor_concept_id"/>
+         </index>
+         <index name="idx_concept_ancestor_id_2" unique="false">
+            <column ascending="true" name="descendant_concept_id"/>
+         </index>
+      </table>
+      <table name="concept_class" numRows="0" remarks="[VOCABULARY] The CONCEPT_CLASS table is a reference table, which includes a list of the classifications used to differentiate Concepts within a given Vocabulary. This reference table is populated with a single record for each Concept Class:" schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_class_id" nullable="false" remarks="A unique key for each class." size="20" type="varchar">
+            <child column="concept_class_id" foreignKey="fpk_concept_class" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_class_name" nullable="false" remarks="The name describing the Concept Class, e.g. &quot;Clinical Finding&quot;, &quot;Ingredient&quot;, etc." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="concept_class_concept_id" nullable="false" remarks="A foreign key that refers to an identifier in the [CONCEPT](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT) table for the unique Concept Class the record belongs to." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_concept_class_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="concept_class_id" sequenceNumberInPK="1"/>
+         <index name="xpk_concept_class" unique="true">
+            <column ascending="true" name="concept_class_id"/>
+         </index>
+         <index name="idx_concept_class_class_id" unique="true">
+            <column ascending="true" name="concept_class_id"/>
+         </index>
+      </table>
+      <table name="concept_relationship" numRows="0" remarks="[VOCABULARY] The CONCEPT_RELATIONSHIP table contains records that define direct relationships between any two Concepts and the nature or type of the relationship. Each type of a relationship is defined in the [RELATIONSHIP](https://github.com/OHDSI/CommonDataModel/wiki/RELATIONSHIP) table." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_id_1" nullable="false" remarks="A foreign key to a Concept in the [CONCEPT](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT) table associated with the relationship. Relationships are directional, and this field represents the source concept designation." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_concept_relationship_c_1" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_id_2" nullable="false" remarks="A foreign key to a Concept in the [CONCEPT](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT) table associated with the relationship. Relationships are directional, and this field represents the destination concept designation." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_concept_relationship_c_2" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="relationship_id" nullable="false" remarks="A unique identifier to the type or nature of the Relationship as defined in the [RELATIONSHIP](https://github.com/OHDSI/CommonDataModel/wiki/RELATIONSHIP) table." size="20" type="varchar">
+            <parent column="relationship_id" foreignKey="fpk_concept_relationship_id" implied="false" onDeleteCascade="false" table="relationship"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="valid_start_date" nullable="false" remarks="The date when the instance of the Concept Relationship is first recorded." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="valid_end_date" nullable="false" remarks="The date when the Concept Relationship became invalid because it was deleted or superseded (updated) by a new relationship. Default value is 31-Dec-2099." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="invalid_reason" nullable="true" remarks="Reason the relationship was invalidated. Possible values are 'D'(deleted), 'U'(replaced with an update) or NULL when valid_end_date has the default value." size="1" type="varchar"/>
+         <primaryKey column="concept_id_1" sequenceNumberInPK="1"/>
+         <primaryKey column="concept_id_2" sequenceNumberInPK="2"/>
+         <primaryKey column="relationship_id" sequenceNumberInPK="3"/>
+         <index name="xpk_concept_relationship" unique="true">
+            <column ascending="true" name="concept_id_1"/>
+            <column ascending="true" name="concept_id_2"/>
+            <column ascending="true" name="relationship_id"/>
+         </index>
+         <index name="idx_concept_relationship_id_1" unique="false">
+            <column ascending="true" name="concept_id_1"/>
+         </index>
+         <index name="idx_concept_relationship_id_2" unique="false">
+            <column ascending="true" name="concept_id_2"/>
+         </index>
+         <index name="idx_concept_relationship_id_3" unique="false">
+            <column ascending="true" name="relationship_id"/>
+         </index>
+      </table>
+      <table name="concept_synonym" numRows="0" remarks="[VOCABULARY] The CONCEPT_SYNONYM table is used to store alternate names and descriptions for Concepts." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="concept_id" nullable="false" remarks="A foreign key to the Concept in the CONCEPT table." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_concept_synonym_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="concept_synonym_name" nullable="false" remarks="The alternative name for the Concept." size="1000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="language_concept_id" nullable="false" remarks="A foreign key to a Concept representing the language." size="10" type="int4"/>
+         <index name="idx_concept_synonym_id" unique="false">
+            <column ascending="true" name="concept_id"/>
+         </index>
+      </table>
+      <table name="condition_era" numRows="0" remarks="[DERIVED] A Condition Era is defined as a span of time when the Person is assumed to have a given condition." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_era_id" nullable="false" remarks="A unique identifier for each Condition Era." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person who is experiencing the Condition during the Condition Era. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_condition_era_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="condition_concept_id" nullable="false" remarks="A foreign key that refers to a standard Condition Concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_condition_era_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="condition_era_start_date" nullable="false" remarks="The start date for the Condition Era constructed from the individual instances of Condition Occurrences. It is the start date of the very first chronologically recorded instance of the condition." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="condition_era_end_date" nullable="false" remarks="The end date for the Condition Era constructed from the individual instances of Condition Occurrences. It is the end date of the final continuously recorded instance of the Condition." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="condition_occurrence_count" nullable="true" remarks="The number of individual Condition Occurrences used to construct the condition era." size="10" type="int4"/>
+         <primaryKey column="condition_era_id" sequenceNumberInPK="1"/>
+         <index name="xpk_condition_era" unique="true">
+            <column ascending="true" name="condition_era_id"/>
+         </index>
+         <index name="idx_condition_era_concept_id" unique="false">
+            <column ascending="true" name="condition_concept_id"/>
+         </index>
+         <index name="idx_condition_era_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="condition_occurrence" numRows="0" remarks="[CLINICAL] Conditions are records of a Person suggesting the presence of a disease or medical condition stated as a diagnosis, a sign or a symptom, which is either observed by a Provider or reported by the patient. Conditions are recorded in different sources and levels of standardization, for example:" schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="condition_occurrence_id" nullable="false" remarks="A unique identifier for each Condition Occurrence event." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person who is experiencing the condition. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_condition_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="condition_concept_id" nullable="false" remarks="A foreign key that refers to a Standard Condition Concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_condition_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="condition_start_date" nullable="false" remarks="The date when the instance of the Condition is recorded." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="condition_start_datetime" nullable="false" remarks="The date and time when the instance of the Condition is recorded." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="condition_end_date" nullable="true" remarks="The date when the instance of the Condition is considered to have ended." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="6" name="condition_end_datetime" nullable="true" remarks="The date when the instance of the Condition is considered to have ended." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="condition_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the source data from which the condition was recorded, the level of standardization, and the type of occurrence." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_condition_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="stop_reason" nullable="true" remarks="The reason that the condition was no longer present, as indicated in the source data." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="provider_id" nullable="true" remarks="A foreign key to the Provider in the PROVIDER table who was responsible for capturing (diagnosing) the Condition." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_condition_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="visit_occurrence_id" nullable="true" remarks="A foreign key to the visit in the VISIT_OCCURRENCE table during which the Condition was determined (diagnosed)." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_condition_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="visit_detail_id" nullable="true" remarks="A foreign key to the visit in the VISIT_DETAIL table during which the Condition was determined (diagnosed)." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_condition_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="condition_source_value" nullable="true" remarks="The source code for the condition as it appears in the source data. This code is mapped to a standard condition concept in the Standardized Vocabularies and the original code is stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="condition_source_concept_id" nullable="true" remarks="A foreign key to a Condition Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_condition_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="14" name="condition_status_source_value" nullable="true" remarks="The source code for the condition status as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="condition_status_concept_id" nullable="true" remarks="A foreign key to the predefined concept in the standard vocabulary reflecting the condition status" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_condition_status_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="condition_occurrence_id" sequenceNumberInPK="1"/>
+         <index name="xpk_condition_occurrence" unique="true">
+            <column ascending="true" name="condition_occurrence_id"/>
+         </index>
+         <index name="idx_condition_concept_id" unique="false">
+            <column ascending="true" name="condition_concept_id"/>
+         </index>
+         <index name="idx_condition_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_condition_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_condition_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="cost" numRows="0" remarks="[ECONOMIC] The COST table captures records containing the cost of any medical entity recorded in one of the DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, VISIT_OCCURRENCE or DEVICE_OCCURRENCE tables. It replaces the corresponding DRUG_COST, PROCEDURE_COST, VISIT_COST or DEVICE_COST tables that were initially defined for the OMOP CDM V5. However, it also allows to capture cost information for records of the OBSERVATION and MEASUREMENT tables." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="cost_id" nullable="false" remarks="A unique identifier for each COST record." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="cost_event_id" nullable="false" remarks="A foreign key identifier to the event (e.g. Measurement, Procedure, Visit, Drug Exposure, etc) record for which cost data are recorded." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="cost_domain_id" nullable="false" remarks="The concept representing the domain of the cost event, from which the corresponding table can be inferred that contains the entity for which cost information is recorded." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="cost_type_concept_id" nullable="false" remarks="A foreign key identifier to a concept in the CONCEPT table for the provenance or the source of the COST data: Calculated from insurance claim information, provider revenue, calculated from cost-to-charge ratio, reported from accounting database, etc." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="currency_concept_id" nullable="true" remarks="A foreign key identifier to the concept representing the 3-letter code used to delineate international currencies, such as USD for US Dollar." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_cost_currency" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="total_charge" nullable="true" remarks="The total amount charged by some provider of goods or services (e.g. hospital, physician pharmacy, dme provider) to payers (insurance companies, the patient)." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="total_cost" nullable="true" remarks="The cost incurred by the provider of goods or services." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="total_paid" nullable="true" remarks="The total amount actually paid from all payers for goods or services of the provider." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="paid_by_payer" nullable="true" remarks="The amount paid by the Payer for the goods or services." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="9" name="paid_by_patient" nullable="true" remarks="The total amount paid by the Person as a share of the expenses." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="10" name="paid_patient_copay" nullable="true" remarks="The amount paid by the Person as a fixed contribution to the expenses." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="paid_patient_coinsurance" nullable="true" remarks="The amount paid by the Person as a joint assumption of risk. Typically, this is a percentage of the expenses defined by the Payer Plan after the Person's deductible is exceeded." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="paid_patient_deductible" nullable="true" remarks="The amount paid by the Person that is counted toward the deductible defined by the Payer Plan. paid_patient_deductible does contribute to the paid_by_patient variable." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="13" name="paid_by_primary" nullable="true" remarks="The amount paid by a primary Payer through the coordination of benefits." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="14" name="paid_ingredient_cost" nullable="true" remarks="The amount paid by the Payer to a pharmacy for the drug, excluding the amount paid for dispensing the drug.  paid_ingredient_cost contributes to the paid_by_payer field if this field is populated with a nonzero value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="15" name="paid_dispensing_fee" nullable="true" remarks="The amount paid by the Payer to a pharmacy for dispensing a drug, excluding the amount paid for the drug ingredient. paid_dispensing_fee contributes to the paid_by_payer field if this field is populated with a nonzero value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="16" name="payer_plan_period_id" nullable="true" remarks="A foreign key to the PAYER_PLAN_PERIOD table, where the details of the Payer, Plan and Family are stored.  Record the payer_plan_id that relates to the payer who contributed to the paid_by_payer field." size="10" type="int4">
+            <parent column="payer_plan_period_id" foreignKey="fpk_visit_cost_period" implied="false" onDeleteCascade="false" table="payer_plan_period"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="17" name="amount_allowed" nullable="true" remarks="The contracted amount agreed between the payer and provider." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="18" name="revenue_code_concept_id" nullable="true" remarks="A foreign key referring to a Standard Concept ID in the Standardized Vocabularies for Revenue codes." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="19" name="revenue_code_source_value" nullable="true" remarks="The source code for the Revenue code as it appears in the source data, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="20" name="drg_concept_id" nullable="true" remarks="A foreign key to the predefined concept in the DRG Vocabulary reflecting the DRG for a visit." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drg_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="21" name="drg_source_value" nullable="true" remarks="The 3-digit DRG source code as it appears in the source data." size="3" type="varchar"/>
+         <primaryKey column="cost_id" sequenceNumberInPK="1"/>
+         <index name="xpk_visit_cost" unique="true">
+            <column ascending="true" name="cost_id"/>
+         </index>
+      </table>
+      <table name="death" numRows="0" remarks="[CLINICAL] The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as:" schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="person_id" nullable="false" remarks="A foreign key identifier to the deceased person. The demographic details of that person are stored in the person table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_death_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="death_date" nullable="false" remarks="The date the person was deceased. If the precise date including day or month is not known or not allowed, December is used as the default month, and the last day of the month the default day." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="2" name="death_datetime" nullable="true" remarks="The date and time the person was deceased. If the precise date including day or month is not known or not allowed, December is used as the default month, and the last day of the month the default day." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="death_type_concept_id" nullable="false" remarks="A foreign key referring to the predefined concept identifier in the Standardized Vocabularies reflecting how the death was represented in the source data." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_death_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="cause_concept_id" nullable="true" remarks="A foreign key referring to a standard concept identifier in the Standardized Vocabularies for conditions." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_death_cause_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="cause_source_value" nullable="true" remarks="The source code for the cause of death as it appears in the source data. This code is mapped to a standard concept in the Standardized Vocabularies and the original code is, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="cause_source_concept_id" nullable="true" remarks="A foreign key to the concept that refers to the code used in the source. Note, this variable name is abbreviated to ensure it will be allowable across database platforms." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_death_cause_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="person_id" sequenceNumberInPK="1"/>
+         <index name="xpk_death" unique="true">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_death_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="device_exposure" numRows="0" remarks="[CLINICAL] The device exposure domain captures information about a person's exposure to a foreign physical object or instrument that which is used for diagnostic or therapeutic purposes through a mechanism beyond chemical action. Devices include implantable objects (e.g. pacemakers, stents, artificial joints), medical equipment and supplies (e.g. bandages, crutches, syringes), other instruments used in medical procedures (e.g. sutures, defibrillators) and material used in clinical care (e.g. adhesives, body material, dental material, surgical material)." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="device_exposure_id" nullable="false" remarks="A system-generated unique identifier for each Device Exposure." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person who is subjected to the Device. The demographic details of that person are stored in the Person table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_device_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="device_concept_id" nullable="false" remarks="A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies for the Device concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_device_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="device_exposure_start_date" nullable="false" remarks="The date the Device or supply was applied or used." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="device_exposure_start_datetime" nullable="false" remarks="The date and time the Device or supply was applied or used." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="device_exposure_end_date" nullable="true" remarks="The date the Device or supply was removed from use." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="6" name="device_exposure_end_datetime" nullable="true" remarks="The date and time the Device or supply was removed from use." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="device_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of Device Exposure recorded. It indicates how the Device Exposure was represented in the source data." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_device_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="unique_device_id" nullable="true" remarks="A UDI or equivalent identifying the instance of the Device used in the Person." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="quantity" nullable="true" remarks="The number of individual Devices used for the exposure." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="provider_id" nullable="true" remarks="A foreign key to the provider in the PROVIDER table who initiated of administered the Device." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_device_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="visit_occurrence_id" nullable="true" remarks="A foreign key to the visit in the VISIT table during which the device was used." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_device_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="visit_detail_id" nullable="true" remarks="A foreign key to the visit in the visit-detail table during which the Drug Exposure was initiated." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_device_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="device_source_value" nullable="true" remarks="The source code for the Device as it appears in the source data. This code is mapped to a standard Device Concept in the Standardized Vocabularies and the original code is stored here for reference." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="device_source_concept_id" nullable="true" remarks="A foreign key to a Device Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_device_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="device_exposure_id" sequenceNumberInPK="1"/>
+         <index name="xpk_device_exposure" unique="true">
+            <column ascending="true" name="device_exposure_id"/>
+         </index>
+         <index name="idx_device_concept_id" unique="false">
+            <column ascending="true" name="device_concept_id"/>
+         </index>
+         <index name="idx_device_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_device_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_device_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="domain" numRows="0" remarks="[VOCABULARY] The DOMAIN table includes a list of OMOP-defined Domains the Concepts of the Standardized Vocabularies can belong to. A Domain defines the set of allowable Concepts for the standardized fields in the CDM tables. For example, the &quot;Condition&quot; Domain contains Concepts that describe a condition of a patient, and these Concepts can only be stored in the condition_concept_id field of the [CONDITION_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE) and [CONDITION_ERA](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_ERA) tables. This reference table is populated with a single record for each Domain and includes a descriptive name for the Domain." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="domain_id" nullable="false" remarks="A unique key for each domain." size="20" type="varchar">
+            <child column="domain_id" foreignKey="fpk_concept_domain" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="domain_name" nullable="false" remarks="The name describing the Domain, e.g. &quot;Condition&quot;, &quot;Procedure&quot;, &quot;Measurement&quot; etc." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="domain_concept_id" nullable="false" remarks="A foreign key that refers to an identifier in the [CONCEPT](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT) table for the unique Domain Concept the Domain record belongs to." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_domain_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="domain_id" sequenceNumberInPK="1"/>
+         <index name="xpk_domain" unique="true">
+            <column ascending="true" name="domain_id"/>
+         </index>
+         <index name="idx_domain_domain_id" unique="true">
+            <column ascending="true" name="domain_id"/>
+         </index>
+      </table>
+      <table name="dose_era" numRows="0" remarks="[DERIVED] A Dose Era is defined as a span of time when the Person is assumed to be exposed to a constant dose of a specific active ingredient." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="dose_era_id" nullable="false" remarks="A unique identifier for each Dose Era." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person who is subjected to the drug during the drug era. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_dose_era_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="drug_concept_id" nullable="false" remarks="A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies for the active Ingredient Concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_dose_era_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="unit_concept_id" nullable="false" remarks="A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies for the unit concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_dose_era_unit_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="dose_value" nullable="false" remarks="The numeric value of the dose." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="dose_era_start_date" nullable="false" remarks="The start date for the drug era constructed from the individual instances of drug exposures. It is the start date of the very first chronologically recorded instance of utilization of a drug." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="6" name="dose_era_end_date" nullable="false" remarks="The end date for the drug era constructed from the individual instance of drug exposures. It is the end date of the final continuously recorded instance of utilization of a drug." size="13" type="date"/>
+         <primaryKey column="dose_era_id" sequenceNumberInPK="1"/>
+         <index name="xpk_dose_era" unique="true">
+            <column ascending="true" name="dose_era_id"/>
+         </index>
+         <index name="idx_dose_era_concept_id" unique="false">
+            <column ascending="true" name="drug_concept_id"/>
+         </index>
+         <index name="idx_dose_era_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="drug_era" numRows="0" remarks="[DERIVED] A Drug Era is defined as a span of time when the Person is assumed to be exposed to a particular active ingredient. A Drug Era is not the same as a Drug Exposure: Exposures are individual records corresponding to the source when Drug was delivered to the Person, while successive periods of Drug Exposures are combined under certain rules to produce continuous Drug Eras." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_era_id" nullable="false" remarks="A unique identifier for each Drug Era." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person who is subjected to the Drug during the fDrug Era. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_drug_era_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="drug_concept_id" nullable="false" remarks="A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies for the Ingredient Concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_era_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="drug_era_start_date" nullable="false" remarks="The start date for the Drug Era constructed from the individual instances of Drug Exposures. It is the start date of the very first chronologically recorded instance of conutilization of a Drug." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="drug_era_end_date" nullable="false" remarks="The end date for the drug era constructed from the individual instance of drug exposures. It is the end date of the final continuously recorded instance of utilization of a drug." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="5" name="drug_exposure_count" nullable="true" remarks="The number of individual Drug Exposure occurrences used to construct the Drug Era." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="gap_days" nullable="true" remarks="The number of days that are not covered by DRUG_EXPOSURE records that were used to make up the era record." size="10" type="int4"/>
+         <primaryKey column="drug_era_id" sequenceNumberInPK="1"/>
+         <index name="xpk_drug_era" unique="true">
+            <column ascending="true" name="drug_era_id"/>
+         </index>
+         <index name="idx_drug_era_concept_id" unique="false">
+            <column ascending="true" name="drug_concept_id"/>
+         </index>
+         <index name="idx_drug_era_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="drug_exposure" numRows="0" remarks="[CLINICAL] The drug exposure domain captures records about the utilization of a Drug when ingested or otherwise introduced into the body. A Drug is a biochemical substance formulated in such a way that when administered to a Person it will exert a certain physiological effect. Drugs include prescription and over-the-counter medicines, vaccines, and large-molecule biologic therapies. Radiological devices ingested or applied locally do not count as Drugs." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_exposure_id" nullable="false" remarks="A system-generated unique identifier for each Drug utilization event." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the person who is subjected to the Drug. The demographic details of that person are stored in the person table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_drug_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="drug_concept_id" nullable="false" remarks="A foreign key that refers to a Standard Concept identifier in the Standardized Vocabularies for the Drug concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="drug_exposure_start_date" nullable="false" remarks="The start date for the current instance of Drug utilization. Valid entries include a start date of a prescription, the date a prescription was filled, or the date on which a Drug administration procedure was recorded." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="drug_exposure_start_datetime" nullable="false" remarks="The start date and time for the current instance of Drug utilization. Valid entries include a start date of a prescription, the date a prescription was filled, or the date on which a Drug administration procedure was recorded." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="drug_exposure_end_date" nullable="false" remarks="The end date for the current instance of Drug utilization. It is not available from all sources." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="6" name="drug_exposure_end_datetime" nullable="true" remarks="The end date and time for the current instance of Drug utilization. It is not available from all sources." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="verbatim_end_date" nullable="true" remarks="The known end date of a drug_exposure as provided by the source" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="drug_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of Drug Exposure recorded. It indicates how the Drug Exposure was represented in the source data." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="stop_reason" nullable="true" remarks="The reason the Drug was stopped. Reasons include regimen completed, changed, removed, etc." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="refills" nullable="true" remarks="The number of refills after the initial prescription. The initial prescription is not counted, values start with 0." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="quantity" nullable="true" remarks="The quantity of drug as recorded in the original prescription or dispensing record." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="days_supply" nullable="true" remarks="The number of days of supply of the medication as recorded in the original prescription or dispensing record." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="sig" nullable="true" remarks="The directions (&quot;signetur&quot;) on the Drug prescription as recorded in the original prescription (and printed on the container) or dispensing record." size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="14" name="route_concept_id" nullable="true" remarks="A foreign key to a predefined concept in the Standardized Vocabularies reflecting the route of administration." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_route_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="15" name="lot_number" nullable="true" remarks="An identifier assigned to a particular quantity or lot of Drug product from the manufacturer." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="provider_id" nullable="true" remarks="A foreign key to the provider in the provider table who initiated (prescribed or administered) the Drug Exposure." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_drug_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="17" name="visit_occurrence_id" nullable="true" remarks="A foreign key to the visit in the visit table during which the Drug Exposure was initiated." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_drug_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="18" name="visit_detail_id" nullable="true" remarks="A foreign key to the visit in the VISIT_DETAIL table during which the Drug Exposure was initiated." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_drug_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="19" name="drug_source_value" nullable="true" remarks="The source code for the Drug as it appears in the source data. This code is mapped to a Standard Drug concept in the Standardized Vocabularies and the original code is, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="20" name="drug_source_concept_id" nullable="true" remarks="A foreign key to a Drug Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="21" name="route_source_value" nullable="true" remarks="The information about the route of administration as detailed in the source." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="22" name="dose_unit_source_value" nullable="true" remarks="The information about the dose unit as detailed in the source." size="50" type="varchar"/>
+         <primaryKey column="drug_exposure_id" sequenceNumberInPK="1"/>
+         <index name="xpk_drug_exposure" unique="true">
+            <column ascending="true" name="drug_exposure_id"/>
+         </index>
+         <index name="idx_drug_concept_id" unique="false">
+            <column ascending="true" name="drug_concept_id"/>
+         </index>
+         <index name="idx_drug_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_drug_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_drug_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="drug_strength" numRows="0" remarks="[VOCABULARY] The DRUG_STRENGTH table contains structured content about the amount or concentration and associated units of a specific ingredient contained within a particular drug product. This table is supplemental information to support standardized analysis of drug utilization." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="drug_concept_id" nullable="false" remarks="A foreign key to the Concept in the CONCEPT table representing the identifier for Branded Drug or Clinical Drug Concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_strength_concept_1" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="ingredient_concept_id" nullable="false" remarks="A foreign key to the Concept in the CONCEPT table, representing the identifier for drug Ingredient Concept contained within the drug product." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_strength_concept_2" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="amount_value" nullable="true" remarks="The numeric value associated with the amount of active ingredient contained within the product." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="amount_unit_concept_id" nullable="true" remarks="A foreign key to the Concept in the CONCEPT table representing the identifier for the Unit for the absolute amount of active ingredient." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_strength_unit_1" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="numerator_value" nullable="true" remarks="The numeric value associated with the concentration of the active ingredient contained in the product" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="numerator_unit_concept_id" nullable="true" remarks="A foreign key to the Concept in the CONCEPT table representing the identifier for the numerator Unit for the concentration of active ingredient." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_strength_unit_2" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="denominator_value" nullable="true" remarks="The amount of total liquid (or other divisible product, such as ointment, gel, spray, etc.)." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="denominator_unit_concept_id" nullable="true" remarks="A foreign key to the Concept in the CONCEPT table representing the identifier for the denominator Unit for the concentration of active ingredient." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_drug_strength_unit_3" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="box_size" nullable="true" remarks="The number of units of Clinical of Branded Drug, or Quantified Clinical or Branded Drug contained in a box as dispensed to the patient" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="valid_start_date" nullable="false" remarks="The date when the Concept was first recorded. The default value is 1-Jan-1970." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="10" name="valid_end_date" nullable="false" remarks="The date when the concept became invalid because it was deleted or superseded (updated) by a new Concept. The default value is 31-Dec-2099." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="11" name="invalid_reason" nullable="true" remarks="Reason the concept was invalidated. Possible values are 'D'(deleted), 'U'(replaced with an update) or NULL when valid_end_date has the default value." size="1" type="varchar"/>
+         <primaryKey column="drug_concept_id" sequenceNumberInPK="1"/>
+         <primaryKey column="ingredient_concept_id" sequenceNumberInPK="2"/>
+         <index name="xpk_drug_strength" unique="true">
+            <column ascending="true" name="drug_concept_id"/>
+            <column ascending="true" name="ingredient_concept_id"/>
+         </index>
+         <index name="idx_drug_strength_id_1" unique="false">
+            <column ascending="true" name="drug_concept_id"/>
+         </index>
+         <index name="idx_drug_strength_id_2" unique="false">
+            <column ascending="true" name="ingredient_concept_id"/>
+         </index>
+      </table>
+      <table name="fact_relationship" numRows="0" remarks="[CLINICAL] The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain (table), or different domains. Examples of Fact Relationships include: Person relationships (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen)." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="domain_concept_id_1" nullable="false" remarks="The concept representing the domain of fact one, from which the corresponding table can be inferred." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_fact_domain_1" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="fact_id_1" nullable="false" remarks="The unique identifier in the table corresponding to the domain of fact one." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="domain_concept_id_2" nullable="false" remarks="The concept representing the domain of fact two, from which the corresponding table can be inferred." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_fact_domain_2" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="fact_id_2" nullable="false" remarks="The unique identifier in the table corresponding to the domain of fact two." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="relationship_concept_id" nullable="false" remarks="A foreign key to a Standard Concept ID of relationship in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_fact_relationship" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <index name="idx_fact_relationship_id_1" unique="false">
+            <column ascending="true" name="domain_concept_id_1"/>
+         </index>
+         <index name="idx_fact_relationship_id_2" unique="false">
+            <column ascending="true" name="domain_concept_id_2"/>
+         </index>
+         <index name="idx_fact_relationship_id_3" unique="false">
+            <column ascending="true" name="relationship_concept_id"/>
+         </index>
+      </table>
+      <table name="location" numRows="0" remarks="[SYSTEM] The LOCATION table represents a generic way to capture physical location or address information of Persons and Care Sites." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="location_id" nullable="false" remarks="A unique identifier for each geographic location." size="10" type="int4">
+            <child column="location_id" foreignKey="fpk_care_site_location" implied="false" onDeleteCascade="false" table="care_site"/>
+            <child column="location_id" foreignKey="fpk_person_location" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="address_1" nullable="true" remarks="The address field 1, typically used for the street address, as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="address_2" nullable="true" remarks="The address field 2, typically used for additional detail such as buildings, suites, floors, as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="city" nullable="true" remarks="The city field as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="state" nullable="true" remarks="The state field as it appears in the source data." size="2" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="zip" nullable="true" remarks="The zip or postal code." size="9" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="county" nullable="true" remarks="The county." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="location_source_value" nullable="true" remarks="The verbatim information that is used to uniquely identify the location as it appears in the source data." size="50" type="varchar"/>
+         <primaryKey column="location_id" sequenceNumberInPK="1"/>
+         <index name="xpk_location" unique="true">
+            <column ascending="true" name="location_id"/>
+         </index>
+      </table>
+      <table name="measurement" numRows="0" remarks="[CLINICAL] The MEASUREMENT table contains records of Measurement, i.e. structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person's sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="measurement_id" nullable="false" remarks="A unique identifier for each Measurement." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person about whom the measurement was recorded. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_measurement_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="measurement_concept_id" nullable="false" remarks="A foreign key to the standard measurement concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_measurement_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="measurement_date" nullable="false" remarks="The date of the Measurement." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="measurement_datetime" nullable="true" remarks="The date and time of the Measurement. Some database systems don't have a datatype of time. To accomodate all temporal analyses, datatype datetime can be used (combining measurement_date and measurement_time [forum discussion](http://forums.ohdsi.org/t/date-time-and-datetime-problem-and-the-world-of-hours-and-1day/314))" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="measurement_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the provenance from where the Measurement record was recorded." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_measurement_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="operator_concept_id" nullable="true" remarks="A foreign key identifier to the predefined Concept in the Standardized Vocabularies reflecting the mathematical operator that is applied to the value_as_number. Operators are &lt;, &lt;=, =, &gt;=, &gt;." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_measurement_operator" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="value_as_number" nullable="true" remarks="A Measurement result where the result is expressed as a numeric value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="value_as_concept_id" nullable="true" remarks="A foreign key to a Measurement result represented as a Concept from the Standardized Vocabularies (e.g., positive/negative, present/absent, low/high, etc.)." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_measurement_value" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="unit_concept_id" nullable="true" remarks="A foreign key to a Standard Concept ID of Measurement Units in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_measurement_unit" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="range_low" nullable="true" remarks="The lower limit of the normal range of the Measurement result. The lower range is assumed to be of the same unit of measure as the Measurement value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="11" name="range_high" nullable="true" remarks="The upper limit of the normal range of the Measurement. The upper range is assumed to be of the same unit of measure as the Measurement value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="12" name="provider_id" nullable="true" remarks="A foreign key to the provider in the PROVIDER table who was responsible for initiating or obtaining the measurement." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_measurement_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="visit_occurrence_id" nullable="true" remarks="A foreign key to the Visit in the VISIT_OCCURRENCE table during which the Measurement was recorded." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_measurement_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="14" name="visit_detail_id" nullable="true" remarks="A foreign key to the Visit in the VISIT_DETAIL table during which the Measurement was recorded." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_measurement_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="15" name="measurement_source_value" nullable="true" remarks="The Measurement name as it appears in the source data. This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="measurement_source_concept_id" nullable="true" remarks="A foreign key to a Concept in the Standard Vocabularies that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_measurement_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="17" name="unit_source_value" nullable="true" remarks="The source code for the unit as it appears in the source data. This code is mapped to a standard unit concept in the Standardized Vocabularies and the original code is stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="value_source_value" nullable="true" remarks="The source value associated with the content of the value_as_number or value_as_concept_id as stored in the source data." size="50" type="varchar"/>
+         <primaryKey column="measurement_id" sequenceNumberInPK="1"/>
+         <index name="xpk_measurement" unique="true">
+            <column ascending="true" name="measurement_id"/>
+         </index>
+         <index name="idx_measurement_concept_id" unique="false">
+            <column ascending="true" name="measurement_concept_id"/>
+         </index>
+         <index name="idx_measurement_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_measurement_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_measurement_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="note" numRows="0" remarks="[CLINICAL] The NOTE table captures unstructured information that was recorded by a provider about a patient in free text notes on a given date." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="note_id" nullable="false" remarks="A unique identifier for each note." size="10" type="int4">
+            <child column="note_id" foreignKey="fpk_note_nlp_note" implied="false" onDeleteCascade="false" table="note_nlp"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person about whom the Note was recorded. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_note_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="note_date" nullable="false" remarks="The date the note was recorded." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="3" name="note_datetime" nullable="true" remarks="The date and time the note was recorded." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="note_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the type, origin or provenance of the Note." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_note_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="note_class_concept_id" nullable="false" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the HL7 LOINC Document Type Vocabulary classification of the note." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_note_class_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="note_title" nullable="true" remarks="The title of the Note as it appears in the source." size="250" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="note_text" nullable="false" remarks="The content of the Note." size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="encoding_concept_id" nullable="false" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the note character encoding type" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_note_encoding_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="language_concept_id" nullable="false" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the language of the note" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_language_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="provider_id" nullable="true" remarks="A foreign key to the Provider in the PROVIDER table who took the Note." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_note_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="visit_occurrence_id" nullable="true" remarks="Foreign key to the Visit in the VISIT_OCCURRENCE table when the Note was taken." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_note_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="note_source_value" nullable="true" remarks="The source value associated with the origin of the note" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="visit_detail_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_note_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <primaryKey column="note_id" sequenceNumberInPK="1"/>
+         <index name="xpk_note" unique="true">
+            <column ascending="true" name="note_id"/>
+         </index>
+         <index name="idx_note_concept_id" unique="false">
+            <column ascending="true" name="note_type_concept_id"/>
+         </index>
+         <index name="idx_note_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_note_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_note_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="note_nlp" numRows="0" remarks="[CLINICAL] The NOTE_NLP table will encode all output of NLP on clinical notes. Each row represents a single extracted term from a note." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="note_nlp_id" nullable="false" remarks="A unique identifier for each term extracted from a note." size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="1" name="note_id" nullable="false" remarks="A foreign key to the Note table note the term was extracted from." size="10" type="int4">
+            <parent column="note_id" foreignKey="fpk_note_nlp_note" implied="false" onDeleteCascade="false" table="note"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="section_concept_id" nullable="true" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies representing the section of the extracted term." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_note_nlp_section_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="snippet" nullable="true" remarks="A small window of text surrounding the term." size="250" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="offset" nullable="true" remarks="Character offset of the extracted term in the input note." size="250" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="lexical_variant" nullable="false" remarks="Raw text extracted from the NLP tool." size="250" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="note_nlp_concept_id" nullable="true" remarks="A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the normalized concept for the extracted term. Domain of the term is represented as part of the Concept table." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_note_nlp_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="note_nlp_source_concept_id" nullable="true" remarks="A foreign key to a Concept that refers to the code in the source vocabulary used by the NLP system" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="nlp_system" nullable="true" remarks="Name and version of the NLP system that extracted the term.Useful for data provenance." size="250" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="nlp_date" nullable="false" remarks="The date of the note processing.Useful for data provenance." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="10" name="nlp_datetime" nullable="true" remarks="The date and time of the note processing. Useful for data provenance." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="term_exists" nullable="true" remarks="A summary modifier that signifies presence or absence of the term for a given patient. Useful for quick querying. *" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="term_temporal" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="term_modifiers" nullable="true" remarks="" size="2000" type="varchar"/>
+         <primaryKey column="note_nlp_id" sequenceNumberInPK="1"/>
+         <index name="xpk_note_nlp" unique="true">
+            <column ascending="true" name="note_nlp_id"/>
+         </index>
+         <index name="idx_note_nlp_concept_id" unique="false">
+            <column ascending="true" name="note_nlp_concept_id"/>
+         </index>
+         <index name="idx_note_nlp_note_id" unique="false">
+            <column ascending="true" name="note_id"/>
+         </index>
+      </table>
+      <table name="observation" numRows="0" remarks="[CLINICAL] The OBSERVATION table captures clinical facts about a Person obtained in the context of examination, questioning or a procedure. Any data that cannot be represented by any other domains, such as social and lifestyle facts, medical history, family history, etc. are recorded here." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="observation_id" nullable="false" remarks="A unique identifier for each observation." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person about whom the observation was recorded. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_observation_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="observation_concept_id" nullable="false" remarks="A foreign key to the standard observation concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="observation_date" nullable="false" remarks="The date of the observation." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="observation_datetime" nullable="true" remarks="The date and time of the observation." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="observation_type_concept_id" nullable="false" remarks="A foreign key to the predefined concept identifier in the Standardized Vocabularies reflecting the type of the observation." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="value_as_number" nullable="true" remarks="The observation result stored as a number. This is applicable to observations where the result is expressed as a numeric value." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="value_as_string" nullable="true" remarks="The observation result stored as a string. This is applicable to observations where the result is expressed as verbatim text." size="60" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="value_as_concept_id" nullable="true" remarks="A foreign key to an observation result stored as a Concept ID. This is applicable to observations where the result can be expressed as a Standard Concept from the Standardized Vocabularies (e.g., positive/negative, present/absent, low/high, etc.)." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_value" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="qualifier_concept_id" nullable="true" remarks="A foreign key to a Standard Concept ID for a qualifier (e.g., severity of drug-drug interaction alert)" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_qualifier" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="unit_concept_id" nullable="true" remarks="A foreign key to a Standard Concept ID of measurement units in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_unit" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="provider_id" nullable="true" remarks="A foreign key to the provider in the PROVIDER table who was responsible for making the observation." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_observation_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="visit_occurrence_id" nullable="true" remarks="A foreign key to the visit in the VISIT_OCCURRENCE table during which the observation was recorded." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_observation_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="visit_detail_id" nullable="true" remarks="A foreign key to the visit in the VISIT_DETAIL table during which the observation was recorded." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_observation_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="14" name="observation_source_value" nullable="true" remarks="The observation code as it appears in the source data. This code is mapped to a Standard Concept in the Standardized Vocabularies and the original code is, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="observation_source_concept_id" nullable="true" remarks="A foreign key to a Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="16" name="unit_source_value" nullable="true" remarks="The source code for the unit as it appears in the source data. This code is mapped to a standard unit concept in the Standardized Vocabularies and the original code is, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="qualifier_source_value" nullable="true" remarks="The source value associated with a qualifier to characterize the observation" size="50" type="varchar"/>
+         <primaryKey column="observation_id" sequenceNumberInPK="1"/>
+         <index name="xpk_observation" unique="true">
+            <column ascending="true" name="observation_id"/>
+         </index>
+         <index name="idx_observation_concept_id" unique="false">
+            <column ascending="true" name="observation_concept_id"/>
+         </index>
+         <index name="idx_observation_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_observation_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_observation_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="observation_period" numRows="0" remarks="[CLINICAL] The OBSERVATION_PERIOD table contains records which uniquely define the spans of time for which a Person is at-risk to have clinical events recorded within the source systems, even if no events in fact are recorded (healthy patient with no healthcare interactions)." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="observation_period_id" nullable="false" remarks="A unique identifier for each observation period." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the person for whom the observation period is defined. The demographic details of that person are stored in the person table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_observation_period_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="observation_period_start_date" nullable="false" remarks="The start date of the observation period for which data are available from the data source." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="3" name="observation_period_start_datetime" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="observation_period_end_date" nullable="false" remarks="The end date of the observation period for which data are available from the data source." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="observation_period_end_datetime" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="period_type_concept_id" nullable="false" remarks="A foreign key identifier to the predefined concept in the Standardized Vocabularies reflecting the source of the observation period information" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_observation_period_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="observation_period_id" sequenceNumberInPK="1"/>
+         <index name="xpk_observation_period" unique="true">
+            <column ascending="true" name="observation_period_id"/>
+         </index>
+         <index name="idx_observation_period_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="payer_plan_period" numRows="0" remarks="[ECONOMIC] The PAYER_PLAN_PERIOD table captures details of the period of time that a Person is continuously enrolled under a specific health Plan benefit structure from a given Payer. Each Person receiving healthcare is typically covered by a health benefit plan, which pays for (fully or partially), or directly provides, the care. These benefit plans are provided by payers, such as health insurances or state or government agencies. In each plan the details of the health benefits are defined for the Person or her family, and the health benefit Plan might change over time typically with increasing utilization (reaching certain cost thresholds such as deductibles), plan availability and purchasing choices of the Person. The unique combinations of Payer organizations, health benefit Plans and time periods in which they are valid for a Person are recorded in this table." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="payer_plan_period_id" nullable="false" remarks="A identifier for each unique combination of payer, plan, family code and time span." size="10" type="int4">
+            <child column="payer_plan_period_id" foreignKey="fpk_visit_cost_period" implied="false" onDeleteCascade="false" table="cost"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person covered by the payer. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_payer_plan_period" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="payer_plan_period_start_date" nullable="false" remarks="The start date of the payer plan period." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="3" name="payer_plan_period_end_date" nullable="false" remarks="The end date of the payer plan period." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="payer_source_value" nullable="true" remarks="The source code for the payer as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="plan_source_value" nullable="true" remarks="The source code for the Person's health benefit plan as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="family_source_value" nullable="true" remarks="The source code for the Person's family as it appears in the source data." size="50" type="varchar"/>
+         <primaryKey column="payer_plan_period_id" sequenceNumberInPK="1"/>
+         <index name="xpk_payer_plan_period" unique="true">
+            <column ascending="true" name="payer_plan_period_id"/>
+         </index>
+         <index name="idx_period_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="person" numRows="0" remarks="[CLINICAL] The Person Domain contains records that uniquely identify each patient in the source data who is time at-risk to have clinical observations recorded within the source systems." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="person_id" nullable="false" remarks="A unique identifier for each person." size="10" type="int4">
+            <child column="person_id" foreignKey="fpk_condition_era_person" implied="false" onDeleteCascade="false" table="condition_era"/>
+            <child column="person_id" foreignKey="fpk_condition_person" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="person_id" foreignKey="fpk_death_person" implied="false" onDeleteCascade="false" table="death"/>
+            <child column="person_id" foreignKey="fpk_device_person" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="person_id" foreignKey="fpk_dose_era_person" implied="false" onDeleteCascade="false" table="dose_era"/>
+            <child column="person_id" foreignKey="fpk_drug_era_person" implied="false" onDeleteCascade="false" table="drug_era"/>
+            <child column="person_id" foreignKey="fpk_drug_person" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="person_id" foreignKey="fpk_measurement_person" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="person_id" foreignKey="fpk_note_person" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="person_id" foreignKey="fpk_observation_person" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="person_id" foreignKey="fpk_observation_period_person" implied="false" onDeleteCascade="false" table="observation_period"/>
+            <child column="person_id" foreignKey="fpk_payer_plan_period" implied="false" onDeleteCascade="false" table="payer_plan_period"/>
+            <child column="person_id" foreignKey="fpk_procedure_person" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="person_id" foreignKey="fpk_specimen_person" implied="false" onDeleteCascade="false" table="specimen"/>
+            <child column="person_id" foreignKey="fpk_visit_detail_person" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="person_id" foreignKey="fpk_visit_person" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="gender_concept_id" nullable="false" remarks="A foreign key that refers to an identifier in the CONCEPT table for the unique gender of the person." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_person_gender_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="year_of_birth" nullable="false" remarks="The year of birth of the person. For data sources with date of birth, the year is extracted. For data sources where the year of birth is not available, the approximate year of birth is derived based on any age group categorization available." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="month_of_birth" nullable="true" remarks="The month of birth of the person. For data sources that provide the precise date of birth, the month is extracted and stored in this field." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="day_of_birth" nullable="true" remarks="The day of the month of birth of the person. For data sources that provide the precise date of birth, the day is extracted and stored in this field." size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="5" name="birth_datetime" nullable="true" remarks="The date and time of birth of the person." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="race_concept_id" nullable="false" remarks="A foreign key that refers to an identifier in the CONCEPT table for the unique race of the person." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_person_race_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="ethnicity_concept_id" nullable="false" remarks="A foreign key that refers to the standard concept identifier in the Standardized Vocabularies for the ethnicity of the person." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_person_ethnicity_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="location_id" nullable="true" remarks="A foreign key to the place of residency for the person in the location table, where the detailed address information is stored." size="10" type="int4">
+            <parent column="location_id" foreignKey="fpk_person_location" implied="false" onDeleteCascade="false" table="location"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="provider_id" nullable="true" remarks="A foreign key to the primary care provider the person is seeing in the provider table." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_person_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="care_site_id" nullable="true" remarks="A foreign key to the site of primary care in the care_site table, where the details of the care site are stored." size="10" type="int4">
+            <parent column="care_site_id" foreignKey="fpk_person_care_site" implied="false" onDeleteCascade="false" table="care_site"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="person_source_value" nullable="true" remarks="An (encrypted) key derived from the person identifier in the source data. This is necessary when a use case requires a link back to the person data at the source dataset." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="gender_source_value" nullable="true" remarks="The source code for the gender of the person as it appears in the source data. The person’s gender is mapped to a standard gender concept in the Standardized Vocabularies; the original value is stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="gender_source_concept_id" nullable="true" remarks="A foreign key to the gender concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_person_gender_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="14" name="race_source_value" nullable="true" remarks="The source code for the race of the person as it appears in the source data. The person race is mapped to a standard race concept in the Standardized Vocabularies and the original value is stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="race_source_concept_id" nullable="true" remarks="A foreign key to the race concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_person_race_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="16" name="ethnicity_source_value" nullable="true" remarks="The source code for the ethnicity of the person as it appears in the source data. The person ethnicity is mapped to a standard ethnicity concept in the Standardized Vocabularies and the original code is, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="ethnicity_source_concept_id" nullable="true" remarks="A foreign key to the ethnicity concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_person_ethnicity_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="person_id" sequenceNumberInPK="1"/>
+         <index name="xpk_person" unique="true">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_person_id" unique="true">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="procedure_occurrence" numRows="0" remarks="[CLINICAL] The PROCEDURE_OCCURRENCE table contains records of activities or processes ordered by, or carried out by, a healthcare provider on the patient to have a diagnostic or therapeutic purpose. Procedures are present in various data sources in different forms with varying levels of standardization. For example:" schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="procedure_occurrence_id" nullable="false" remarks="A system-generated unique identifier for each Procedure Occurrence." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person who is subjected to the Procedure. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_procedure_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="procedure_concept_id" nullable="false" remarks="A foreign key that refers to a standard procedure Concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_procedure_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="procedure_date" nullable="false" remarks="The date on which the Procedure was performed." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="procedure_datetime" nullable="false" remarks="The date and time on which the Procedure was performed." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="procedure_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the procedure record is derived." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_procedure_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="modifier_concept_id" nullable="true" remarks="A foreign key to a Standard Concept identifier for a modifier to the Procedure (e.g. bilateral)" size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_procedure_modifier" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="quantity" nullable="true" remarks="The quantity of procedures ordered or administered." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="provider_id" nullable="true" remarks="A foreign key to the provider in the provider table who was responsible for carrying out the procedure." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_procedure_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="visit_occurrence_id" nullable="true" remarks="A foreign key to the visit in the visit table during which the Procedure was carried out." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_procedure_visit" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="visit_detail_id" nullable="true" remarks="A foreign key to the visit in the visit table during which the Procedure was carried out." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_procedure_visit_detail" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="procedure_source_value" nullable="true" remarks="The source code for the Procedure as it appears in the source data. This code is mapped to a standard procedure Concept in the Standardized Vocabularies and the original code is, stored here for reference. Procedure source codes are typically ICD-9-Proc, CPT-4, HCPCS or OPCS-4 codes." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="procedure_source_concept_id" nullable="true" remarks="A foreign key to a Procedure Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_procedure_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="qualifier_source_value" nullable="true" remarks="The source code for the qualifier as it appears in the source data." size="50" type="varchar"/>
+         <primaryKey column="procedure_occurrence_id" sequenceNumberInPK="1"/>
+         <index name="xpk_procedure_occurrence" unique="true">
+            <column ascending="true" name="procedure_occurrence_id"/>
+         </index>
+         <index name="idx_procedure_concept_id" unique="false">
+            <column ascending="true" name="procedure_concept_id"/>
+         </index>
+         <index name="idx_procedure_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_procedure_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_procedure_visit_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="provider" numRows="0" remarks="[SYSTEM] The PROVIDER table contains a list of uniquely identified healthcare providers. These are individuals providing hands-on healthcare to patients, such as physicians, nurses, midwives, physical therapists etc." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="provider_id" nullable="false" remarks="A unique identifier for each Provider." size="10" type="int4">
+            <child column="provider_id" foreignKey="fpk_condition_provider" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="provider_id" foreignKey="fpk_device_provider" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="provider_id" foreignKey="fpk_drug_provider" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="provider_id" foreignKey="fpk_measurement_provider" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="provider_id" foreignKey="fpk_note_provider" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="provider_id" foreignKey="fpk_observation_provider" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="provider_id" foreignKey="fpk_person_provider" implied="false" onDeleteCascade="false" table="person"/>
+            <child column="provider_id" foreignKey="fpk_procedure_provider" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="provider_id" foreignKey="fpk_visit_provider" implied="false" onDeleteCascade="false" table="visit_detail"/>
+            <child column="provider_id" foreignKey="fpk_visit_provider" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="provider_name" nullable="true" remarks="A description of the Provider." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="npi" nullable="true" remarks="The National Provider Identifier (NPI) of the provider." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="dea" nullable="true" remarks="The Drug Enforcement Administration (DEA) number of the provider." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="specialty_concept_id" nullable="true" remarks="A foreign key to a Standard Specialty Concept ID in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_provider_specialty" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="care_site_id" nullable="true" remarks="A foreign key to the main Care Site where the provider is practicing." size="10" type="int4">
+            <parent column="care_site_id" foreignKey="fpk_provider_care_site" implied="false" onDeleteCascade="false" table="care_site"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="year_of_birth" nullable="true" remarks="The year of birth of the Provider." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="gender_concept_id" nullable="true" remarks="The gender of the Provider." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_provider_gender" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="provider_source_value" nullable="true" remarks="The identifier used for the Provider in the source data, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="specialty_source_value" nullable="true" remarks="The source code for the Provider specialty as it appears in the source data, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="specialty_source_concept_id" nullable="true" remarks="A foreign key to a Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_provider_specialty_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="gender_source_value" nullable="true" remarks="The gender code for the Provider as it appears in the source data, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="gender_source_concept_id" nullable="true" remarks="A foreign key to a Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_provider_gender_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="provider_id" sequenceNumberInPK="1"/>
+         <index name="xpk_provider" unique="true">
+            <column ascending="true" name="provider_id"/>
+         </index>
+      </table>
+      <table name="relationship" numRows="0" remarks="[VOCABULARY] The RELATIONSHIP table provides a reference list of all types of relationships that can be used to associate any two concepts in the CONCEPT_RELATIONSHP table." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="relationship_id" nullable="false" remarks="The type of relationship captured by the relationship record." size="20" type="varchar">
+            <child column="relationship_id" foreignKey="fpk_concept_relationship_id" implied="false" onDeleteCascade="false" table="concept_relationship"/>
+            <child column="reverse_relationship_id" foreignKey="fpk_relationship_reverse" implied="false" onDeleteCascade="false" table="relationship"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="relationship_name" nullable="false" remarks="The text that describes the relationship type." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="is_hierarchical" nullable="false" remarks="Defines whether a relationship defines concepts into classes or hierarchies. Values are 1 for hierarchical relationship or 0 if not." size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="defines_ancestry" nullable="false" remarks="Defines whether a hierarchical relationship contributes to the concept_ancestor table. These are subsets of the hierarchical relationships. Valid values are 1 or 0." size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="reverse_relationship_id" nullable="false" remarks="The identifier for the relationship used to define the reverse relationship between two concepts." size="20" type="varchar">
+            <parent column="relationship_id" foreignKey="fpk_relationship_reverse" implied="false" onDeleteCascade="false" table="relationship"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="relationship_concept_id" nullable="false" remarks="A foreign key that refers to an identifier in the CONCEPT table for the unique relationship concept." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_relationship_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="relationship_id" sequenceNumberInPK="1"/>
+         <index name="xpk_relationship" unique="true">
+            <column ascending="true" name="relationship_id"/>
+         </index>
+         <index name="idx_relationship_rel_id" unique="true">
+            <column ascending="true" name="relationship_id"/>
+         </index>
+      </table>
+      <table name="source_to_concept_map" numRows="0" remarks="[VOCABULARY] The source to concept map table is a legacy data structure within the OMOP Common Data Model, recommended for use in ETL processes to maintain local source codes which are not available as Concepts in the Standardized Vocabularies, and to establish mappings for each source code into a Standard Concept as target_concept_ids that can be used to populate the Common Data Model tables. The SOURCE_TO_CONCEPT_MAP table is no longer populated with content within the Standardized Vocabularies published to the OMOP community." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="source_code" nullable="false" remarks="The source code being translated into a Standard Concept." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="source_concept_id" nullable="false" remarks="A foreign key to the Source Concept that is being translated into a Standard Concept." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="source_vocabulary_id" nullable="false" remarks="A foreign key to the VOCABULARY table defining the vocabulary of the source code that is being translated to a Standard Concept." size="20" type="varchar">
+            <parent column="vocabulary_id" foreignKey="fpk_source_to_concept_map_v_1" implied="false" onDeleteCascade="false" table="vocabulary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="source_code_description" nullable="true" remarks="An optional description for the source code. This is included as a convenience to compare the description of the source code to the name of the concept." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="target_concept_id" nullable="false" remarks="A foreign key to the target Concept to which the source code is being mapped." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_source_to_concept_map_c_1" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="target_vocabulary_id" nullable="false" remarks="A foreign key to the VOCABULARY table defining the vocabulary of the target Concept." size="20" type="varchar">
+            <parent column="vocabulary_id" foreignKey="fpk_source_to_concept_map_v_2" implied="false" onDeleteCascade="false" table="vocabulary"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="valid_start_date" nullable="false" remarks="The date when the mapping instance was first recorded." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="7" name="valid_end_date" nullable="false" remarks="The date when the mapping instance became invalid because it was deleted or superseded (updated) by a new relationship. Default value is 31-Dec-2099." size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="invalid_reason" nullable="true" remarks="Reason the mapping instance was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value." size="1" type="varchar"/>
+         <primaryKey column="source_vocabulary_id" sequenceNumberInPK="1"/>
+         <primaryKey column="target_concept_id" sequenceNumberInPK="2"/>
+         <primaryKey column="source_code" sequenceNumberInPK="3"/>
+         <primaryKey column="valid_end_date" sequenceNumberInPK="4"/>
+         <index name="xpk_source_to_concept_map" unique="true">
+            <column ascending="true" name="source_vocabulary_id"/>
+            <column ascending="true" name="target_concept_id"/>
+            <column ascending="true" name="source_code"/>
+            <column ascending="true" name="valid_end_date"/>
+         </index>
+         <index name="idx_source_to_concept_map_code" unique="false">
+            <column ascending="true" name="source_code"/>
+         </index>
+         <index name="idx_source_to_concept_map_id_1" unique="false">
+            <column ascending="true" name="source_vocabulary_id"/>
+         </index>
+         <index name="idx_source_to_concept_map_id_2" unique="false">
+            <column ascending="true" name="target_vocabulary_id"/>
+         </index>
+         <index name="idx_source_to_concept_map_id_3" unique="false">
+            <column ascending="true" name="target_concept_id"/>
+         </index>
+      </table>
+      <table name="specimen" numRows="0" remarks="[CLINICAL] The specimen domain contains the records identifying biological samples from a person." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="specimen_id" nullable="false" remarks="A unique identifier for each specimen." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person for whom the Specimen is recorded." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_specimen_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="specimen_concept_id" nullable="false" remarks="A foreign key referring to a Standard Concept identifier in the Standardized Vocabularies for the Specimen." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_specimen_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="specimen_type_concept_id" nullable="false" remarks="A foreign key referring to the Concept identifier in the Standardized Vocabularies reflecting the system of record from which the Specimen was represented in the source data." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_specimen_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="specimen_date" nullable="false" remarks="The date the specimen was obtained from the Person." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="specimen_datetime" nullable="true" remarks="The date and time on the date when the Specimen was obtained from the person." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="quantity" nullable="true" remarks="The amount of specimen collection from the person during the sampling procedure." size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="7" name="unit_concept_id" nullable="true" remarks="A foreign key to a Standard Concept identifier for the Unit associated with the numeric quantity of the Specimen collection." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_specimen_unit_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="anatomic_site_concept_id" nullable="true" remarks="A foreign key to a Standard Concept identifier for the anatomic location of specimen collection." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_specimen_site_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="disease_status_concept_id" nullable="true" remarks="A foreign key to a Standard Concept identifier for the Disease Status of specimen collection." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_specimen_status_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="specimen_source_id" nullable="true" remarks="The Specimen identifier as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="specimen_source_value" nullable="true" remarks="The Specimen value as it appears in the source data. This value is mapped to a Standard Concept in the Standardized Vocabularies and the original code is, stored here for reference." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="unit_source_value" nullable="true" remarks="The information about the Unit as detailed in the source." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="anatomic_site_source_value" nullable="true" remarks="The information about the anatomic site as detailed in the source." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="disease_status_source_value" nullable="true" remarks="The information about the disease status as detailed in the source." size="50" type="varchar"/>
+         <primaryKey column="specimen_id" sequenceNumberInPK="1"/>
+         <index name="xpk_specimen" unique="true">
+            <column ascending="true" name="specimen_id"/>
+         </index>
+         <index name="idx_specimen_concept_id" unique="false">
+            <column ascending="true" name="specimen_concept_id"/>
+         </index>
+         <index name="idx_specimen_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="visit_detail" numRows="0" remarks="[CLINICAL] The VISIT_DETAIL table is an optional table used to represents details of each record in the parent visit_occurrence table. For every record in visit_occurrence table there may be 0 or more records in the visit_detail table with a 1:n relationship where n may be 0. The visit_detail table is structurally very similar to visit_occurrence table and belongs to the similar domain as the visit." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="visit_detail_id" nullable="false" remarks="A unique identifier for each Person's visit or encounter at a healthcare provider." size="10" type="int4">
+            <child column="visit_detail_id" foreignKey="fpk_condition_visit_detail" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="visit_detail_id" foreignKey="fpk_device_visit_detail" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="visit_detail_id" foreignKey="fpk_drug_visit_detail" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="visit_detail_id" foreignKey="fpk_measurement_visit_detail" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="visit_detail_id" foreignKey="fpk_note_visit_detail" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="visit_detail_id" foreignKey="fpk_observation_visit_detail" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="visit_detail_id" foreignKey="fpk_procedure_visit_detail" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="visit_detail_parent_id" foreignKey="fpk_visit_detail_parent" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person for whom the visit is recorded. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_visit_detail_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="visit_detail_concept_id" nullable="false" remarks="A foreign key that refers to a visit Concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_detail_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="visit_start_date" nullable="false" remarks="The start date of the visit." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="visit_start_datetime" nullable="true" remarks="The date and time of the visit started." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="visit_end_date" nullable="false" remarks="The end date of the visit. If this is a one-day visit the end date should match the start date." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="6" name="visit_end_datetime" nullable="true" remarks="The date and time of the visit end." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="visit_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the visit record is derived." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="provider_id" nullable="true" remarks="A foreign key to the provider in the provider table who was associated with the visit." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_visit_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="care_site_id" nullable="true" remarks="A foreign key to the care site in the care site table that was visited." size="10" type="int4">
+            <parent column="care_site_id" foreignKey="fpk_visit_care_site" implied="false" onDeleteCascade="false" table="care_site"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="visit_source_value" nullable="true" remarks="The source code for the visit as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="visit_source_concept_id" nullable="true" remarks="A foreign key to a Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="admitting_source_concept_id" nullable="true" remarks="A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_admitting_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="admitting_source_value" nullable="true" remarks="The source code for the admitting source as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="discharge_to_concept_id" nullable="true" remarks="A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_discharge" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="15" name="discharge_to_source_value" nullable="true" remarks="The source code for the discharge disposition as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="preceding_visit_detail_id" nullable="true" remarks="A foreign key to the VISIT_DETAIL table of the visit immediately preceding this visit" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="visit_detail_parent_id" nullable="true" remarks="A foreign key to the VISIT_DETAIL table record to represent the immediate parent visit-detail record." size="10" type="int4">
+            <parent column="visit_detail_id" foreignKey="fpk_visit_detail_parent" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="18" name="visit_occurrence_id" nullable="true" remarks="A foreign key that refers to the record in the VISIT_OCCURRENCE table. This is a required field, because for every visit_detail is a child of visit_occurrence and cannot exist without a corresponding parent record in visit_occurrence." size="10" type="int4">
+            <parent column="visit_occurrence_id" foreignKey="fpk_visit_occurrence" implied="false" onDeleteCascade="false" table="visit_occurrence"/>
+         </column>
+         <primaryKey column="visit_detail_id" sequenceNumberInPK="1"/>
+         <index name="xpk_visit_detail" unique="true">
+            <column ascending="true" name="visit_detail_id"/>
+         </index>
+         <index name="idx_visit_detail_concept_id" unique="false">
+            <column ascending="true" name="visit_detail_concept_id"/>
+         </index>
+         <index name="idx_visit_detail_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+         <index name="idx_visit_detail_visit_detail_id" unique="false">
+            <column ascending="true" name="visit_detail_parent_id"/>
+         </index>
+         <index name="idx_visit_detail_visit_occurrence_id" unique="false">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+      </table>
+      <table name="visit_occurrence" numRows="0" remarks="[CLINICAL] The VISIT_OCCURRENCE table contains the spans of time a Person continuously receives medical services from one or more providers at a Care Site in a given setting within the health care system. Visits are classified into 4 settings: outpatient care, inpatient confinement, emergency room, and long-term care. Persons may transition between these settings over the course of an episode of care (for example, treatment of a disease onset)." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="visit_occurrence_id" nullable="false" remarks="A unique identifier for each Person's visit or encounter at a healthcare provider." size="10" type="int4">
+            <child column="visit_occurrence_id" foreignKey="fpk_condition_visit" implied="false" onDeleteCascade="false" table="condition_occurrence"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_device_visit" implied="false" onDeleteCascade="false" table="device_exposure"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_drug_visit" implied="false" onDeleteCascade="false" table="drug_exposure"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_measurement_visit" implied="false" onDeleteCascade="false" table="measurement"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_note_visit" implied="false" onDeleteCascade="false" table="note"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_observation_visit" implied="false" onDeleteCascade="false" table="observation"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_procedure_visit" implied="false" onDeleteCascade="false" table="procedure_occurrence"/>
+            <child column="visit_occurrence_id" foreignKey="fpk_visit_occurrence" implied="false" onDeleteCascade="false" table="visit_detail"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="person_id" nullable="false" remarks="A foreign key identifier to the Person for whom the visit is recorded. The demographic details of that Person are stored in the PERSON table." size="10" type="int4">
+            <parent column="person_id" foreignKey="fpk_visit_person" implied="false" onDeleteCascade="false" table="person"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="visit_concept_id" nullable="false" remarks="A foreign key that refers to a visit Concept identifier in the Standardized Vocabularies." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="visit_start_date" nullable="false" remarks="The start date of the visit." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="4" name="visit_start_datetime" nullable="true" remarks="The date and time of the visit started." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="visit_end_date" nullable="false" remarks="The end date of the visit. If this is a one-day visit the end date should match the start date." size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="6" name="visit_end_datetime" nullable="true" remarks="The date and time of the visit end." size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="visit_type_concept_id" nullable="false" remarks="A foreign key to the predefined Concept identifier in the Standardized Vocabularies reflecting the type of source data from which the visit record is derived." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_type_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="provider_id" nullable="true" remarks="A foreign key to the provider in the provider table who was associated with the visit." size="10" type="int4">
+            <parent column="provider_id" foreignKey="fpk_visit_provider" implied="false" onDeleteCascade="false" table="provider"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="care_site_id" nullable="true" remarks="A foreign key to the care site in the care site table that was visited." size="10" type="int4">
+            <parent column="care_site_id" foreignKey="fpk_visit_care_site" implied="false" onDeleteCascade="false" table="care_site"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="visit_source_value" nullable="true" remarks="The source code for the visit as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="visit_source_concept_id" nullable="true" remarks="A foreign key to a Concept that refers to the code used in the source." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_concept_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="admitting_source_concept_id" nullable="true" remarks="A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_admitting_s" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="admitting_source_value" nullable="true" remarks="The source code for the admitting source as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="discharge_to_concept_id" nullable="true" remarks="A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_visit_discharge" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="15" name="discharge_to_source_value" nullable="true" remarks="The source code for the discharge disposition as it appears in the source data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="preceding_visit_occurrence_id" nullable="true" remarks="A foreign key to the VISIT_OCCURRENCE table of the visit immediately preceding this visit" size="10" type="int4"/>
+         <primaryKey column="visit_occurrence_id" sequenceNumberInPK="1"/>
+         <index name="xpk_visit_occurrence" unique="true">
+            <column ascending="true" name="visit_occurrence_id"/>
+         </index>
+         <index name="idx_visit_concept_id" unique="false">
+            <column ascending="true" name="visit_concept_id"/>
+         </index>
+         <index name="idx_visit_person_id" unique="false">
+            <column ascending="true" name="person_id"/>
+         </index>
+      </table>
+      <table name="vocabulary" numRows="0" remarks="[VOCABULARY] The VOCABULARY table includes a list of the Vocabularies collected from various sources or created de novo by the OMOP community. This reference table is populated with a single record for each Vocabulary source and includes a descriptive name and other associated attributes for the Vocabulary." schema="omop" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="vocabulary_id" nullable="false" remarks="A unique identifier for each Vocabulary, such as ICD9CM, SNOMED, Visit." size="20" type="varchar">
+            <child column="vocabulary_id" foreignKey="fpk_concept_vocabulary" implied="false" onDeleteCascade="false" table="concept"/>
+            <child column="source_vocabulary_id" foreignKey="fpk_source_to_concept_map_v_1" implied="false" onDeleteCascade="false" table="source_to_concept_map"/>
+            <child column="target_vocabulary_id" foreignKey="fpk_source_to_concept_map_v_2" implied="false" onDeleteCascade="false" table="source_to_concept_map"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="vocabulary_name" nullable="false" remarks="The name describing the vocabulary, for example &quot;International Classification of Diseases, Ninth Revision, Clinical Modification, Volume 1 and 2 (NCHS)&quot; etc." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="vocabulary_reference" nullable="true" remarks="External reference to documentation or available download of the about the vocabulary." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="vocabulary_version" nullable="true" remarks="Version of the Vocabulary as indicated in the source." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="vocabulary_concept_id" nullable="false" remarks="A foreign key that refers to a standard concept identifier in the CONCEPT table for the Vocabulary the VOCABULARY record belongs to." size="10" type="int4">
+            <parent column="concept_id" foreignKey="fpk_vocabulary_concept" implied="false" onDeleteCascade="false" table="concept"/>
+         </column>
+         <primaryKey column="vocabulary_id" sequenceNumberInPK="1"/>
+         <index name="xpk_vocabulary" unique="true">
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+         <index name="idx_vocabulary_vocabulary_id" unique="true">
+            <column ascending="true" name="vocabulary_id"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="postgres" schema="mimic" type="PostgreSQL - 9.6.3">
+   <tables>
+      <table name="admissions" numRows="0" remarks="Hospital admissions associated with an ICU stay." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="admissions_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Primary key. Identifies the hospital stay." size="10" type="int4">
+            <child column="hadm_id" foreignKey="callout_fk_hadm_id" implied="false" onDeleteCascade="false" table="callout"/>
+            <child column="hadm_id" foreignKey="chartevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="chartevents"/>
+            <child column="hadm_id" foreignKey="cptevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="cptevents"/>
+            <child column="hadm_id" foreignKey="datetimeevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="datetimeevents"/>
+            <child column="hadm_id" foreignKey="diagnoses_icd_fk_hadm_id" implied="false" onDeleteCascade="false" table="diagnoses_icd"/>
+            <child column="hadm_id" foreignKey="drgcodes_fk_hadm_id" implied="false" onDeleteCascade="false" table="drgcodes"/>
+            <child column="hadm_id" foreignKey="icustays_fk_hadm_id" implied="false" onDeleteCascade="false" table="icustays"/>
+            <child column="hadm_id" foreignKey="inputevents_cv_fk_hadm_id" implied="false" onDeleteCascade="false" table="inputevents_cv"/>
+            <child column="hadm_id" foreignKey="inputevents_mv_fk_hadm_id" implied="false" onDeleteCascade="false" table="inputevents_mv"/>
+            <child column="hadm_id" foreignKey="labevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="labevents"/>
+            <child column="hadm_id" foreignKey="microbiologyevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="microbiologyevents"/>
+            <child column="hadm_id" foreignKey="noteevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="noteevents"/>
+            <child column="hadm_id" foreignKey="outputevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="outputevents"/>
+            <child column="hadm_id" foreignKey="prescriptions_fk_hadm_id" implied="false" onDeleteCascade="false" table="prescriptions"/>
+            <child column="hadm_id" foreignKey="procedureevents_mv_fk_hadm_id" implied="false" onDeleteCascade="false" table="procedureevents_mv"/>
+            <child column="hadm_id" foreignKey="procedures_icd_fk_hadm_id" implied="false" onDeleteCascade="false" table="procedures_icd"/>
+            <child column="hadm_id" foreignKey="services_fk_hadm_id" implied="false" onDeleteCascade="false" table="services"/>
+            <child column="hadm_id" foreignKey="transfers_fk_hadm_id" implied="false" onDeleteCascade="false" table="transfers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="admittime" nullable="false" remarks="Time of admission to the hospital." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="dischtime" nullable="false" remarks="Time of discharge from the hospital." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="deathtime" nullable="true" remarks="Time of death." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="admission_type" nullable="false" remarks="Type of admission, for example emergency or elective." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="admission_location" nullable="false" remarks="Admission location." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="discharge_location" nullable="false" remarks="Discharge location" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="insurance" nullable="false" remarks="Insurance type." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="language" nullable="true" remarks="Language." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="religion" nullable="true" remarks="Religon." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="marital_status" nullable="true" remarks="Marital status." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="ethnicity" nullable="false" remarks="Ethnicity." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="edregtime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="15" name="edouttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="16" name="diagnosis" nullable="true" remarks="Diagnosis." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="hospital_expire_flag" nullable="true" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="18" name="has_chartevents_data" nullable="false" remarks="Hospital admission has at least one observation in the CHARTEVENTS table." size="5" type="int2"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="adm_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="adm_hadm_unique" unique="true">
+            <column ascending="true" name="hadm_id"/>
+         </index>
+      </table>
+      <table name="callout" numRows="0" remarks="Record of when patients were ready for discharge (called out), and the actual time of their discharge (or more generally, their outcome)." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="callout_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="callout_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="submit_wardid" nullable="true" remarks="Identifies the ward where the call out request was submitted." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="submit_careunit" nullable="true" remarks="If the ward where the call was submitted was an ICU, the ICU type is listed here." size="15" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="curr_wardid" nullable="true" remarks="Identifies the ward where the patient is currently residing." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="curr_careunit" nullable="true" remarks="If the ward where the patient is currently residing is an ICU, the ICU type is listed here." size="15" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="callout_wardid" nullable="true" remarks="Identifies the ward where the patient is to be discharged to. A value of 1 indicates the first available ward. A value of 0 indicates home." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="callout_service" nullable="false" remarks="Identifies the service that the patient is called out to." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="request_tele" nullable="false" remarks="Indicates if special precautions are required." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="10" name="request_resp" nullable="false" remarks="Indicates if special precautions are required." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="11" name="request_cdiff" nullable="false" remarks="Indicates if special precautions are required." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="12" name="request_mrsa" nullable="false" remarks="Indicates if special precautions are required." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="13" name="request_vre" nullable="false" remarks="Indicates if special precautions are required." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="14" name="callout_status" nullable="false" remarks="Current status of the call out request." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="callout_outcome" nullable="false" remarks="The result of the call out request; either a cancellation or a discharge." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="discharge_wardid" nullable="true" remarks="The ward to which the patient was discharged." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="acknowledge_status" nullable="false" remarks="The status of the response to the call out request." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="createtime" nullable="false" remarks="Time at which the call out request was created." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="19" name="updatetime" nullable="false" remarks="Last time at which the call out request was updated." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="20" name="acknowledgetime" nullable="true" remarks="Time at which the call out request was acknowledged." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="21" name="outcometime" nullable="false" remarks="Time at which the outcome (cancelled or discharged) occurred." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="22" name="firstreservationtime" nullable="true" remarks="First time at which a ward was reserved for the call out request." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="23" name="currentreservationtime" nullable="true" remarks="Latest time at which a ward was reserved for the call out request." size="22" type="timestamp"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="callout_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="caregivers" numRows="0" remarks="List of caregivers associated with an ICU stay." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="cgid" nullable="false" remarks="Unique caregiver identifier." size="10" type="int4">
+            <child column="cgid" foreignKey="chartevents_fk_cgid" implied="false" onDeleteCascade="false" table="chartevents"/>
+            <child column="cgid" foreignKey="datetimeevents_fk_cgid" implied="false" onDeleteCascade="false" table="datetimeevents"/>
+            <child column="cgid" foreignKey="inputevents_cv_fk_cgid" implied="false" onDeleteCascade="false" table="inputevents_cv"/>
+            <child column="cgid" foreignKey="inputevents_mv_fk_cgid" implied="false" onDeleteCascade="false" table="inputevents_mv"/>
+            <child column="cgid" foreignKey="noteevents_fk_cgid" implied="false" onDeleteCascade="false" table="noteevents"/>
+            <child column="cgid" foreignKey="outputevents_fk_cgid" implied="false" onDeleteCascade="false" table="outputevents"/>
+            <child column="cgid" foreignKey="procedureevents_mv_fk_cgid" implied="false" onDeleteCascade="false" table="procedureevents_mv"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="label" nullable="true" remarks="Title of the caregiver, for example MD or RN." size="15" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="true" remarks="More detailed description of the caregiver, if available." size="30" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="cg_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="cg_cgid_unique" unique="true">
+            <column ascending="true" name="cgid"/>
+         </index>
+      </table>
+      <table name="chartevents" numRows="0" remarks="Events occuring on a patient chart." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="chartevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="chartevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="Foreign key. Identifies the ICU stay." size="10" type="int4">
+            <parent column="icustay_id" foreignKey="chartevents_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="Foreign key. Identifies the charted item." size="10" type="int4">
+            <parent column="itemid" foreignKey="chartevents_fk_itemid" implied="false" onDeleteCascade="false" table="d_items"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="Time when the event occured." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="Time when the event was recorded in the system." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="Foreign key. Identifies the caregiver." size="10" type="int4">
+            <parent column="cgid" foreignKey="chartevents_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="Value of the event as a text string." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="Value of the event as a number." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="Unit of measurement." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="Flag to highlight that the value has triggered a warning." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="Flag to highlight an error with the event." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="Result status of lab data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="Text string indicating the stopped status of an event (i.e. stopped, not stopped)." size="50" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="chartevents_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="chartevents_1" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_10" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_11" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_12" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_13" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_14" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_2" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_3" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_4" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_5" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_6" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_7" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_8" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="chartevents_9" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="valuenum" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="valueuom" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="warning" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="12" name="error" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="resultstatus" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="" size="50" type="varchar"/>
+      </table>
+      <table name="cptevents" numRows="0" remarks="Events recorded in Current Procedural Terminology." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="cptevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="cptevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="costcenter" nullable="false" remarks="Center recording the code, for example the ICU or the respiratory unit." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="chartdate" nullable="true" remarks="Date when the event occured, if available." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="cpt_cd" nullable="false" remarks="Current Procedural Terminology code." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="cpt_number" nullable="true" remarks="Numerical element of the Current Procedural Terminology code." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="cpt_suffix" nullable="true" remarks="Text element of the Current Procedural Terminology, if any. Indicates code category." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="ticket_id_seq" nullable="true" remarks="Sequence number of the event, derived from the ticket ID." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="sectionheader" nullable="true" remarks="High-level section of the Current Procedural Terminology code." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="subsectionheader" nullable="true" remarks="Subsection of the Current Procedural Terminology code." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="description" nullable="true" remarks="Description of the Current Procedural Terminology, if available." size="200" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="cpt_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="d_cpt" numRows="0" remarks="High-level dictionary of the Current Procedural Terminology." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="category" nullable="false" remarks="Code category." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="2" name="sectionrange" nullable="false" remarks="Range of codes within the high-level section." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="sectionheader" nullable="false" remarks="Section header." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="subsectionrange" nullable="false" remarks="Range of codes within the subsection." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="subsectionheader" nullable="false" remarks="Subsection header." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="codesuffix" nullable="true" remarks="Text element of the Current Procedural Terminology, if any." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="mincodeinsubsection" nullable="false" remarks="Minimum code within the subsection." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="maxcodeinsubsection" nullable="false" remarks="Maximum code within the subsection." size="10" type="int4"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="dcpt_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="dcpt_ssrange_unique" unique="true">
+            <column ascending="true" name="subsectionrange"/>
+         </index>
+      </table>
+      <table name="d_icd_diagnoses" numRows="0" remarks="Dictionary of the International Classification of Diseases, 9th Revision (Diagnoses)." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="icd9_code" nullable="false" remarks="ICD9 code - note that this is a fixed length character field, as whitespaces are important in uniquely identifying ICD-9 codes." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="short_title" nullable="false" remarks="Short title associated with the code." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="long_title" nullable="false" remarks="Long title associated with the code." size="255" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="d_icd_diag_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="d_icd_diag_code_unique" unique="true">
+            <column ascending="true" name="icd9_code"/>
+         </index>
+      </table>
+      <table name="d_icd_procedures" numRows="0" remarks="Dictionary of the International Classification of Diseases, 9th Revision (Procedures)." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="icd9_code" nullable="false" remarks="ICD9 code - note that this is a fixed length character field, as whitespaces are important in uniquely identifying ICD-9 codes." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="short_title" nullable="false" remarks="Short title associated with the code." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="long_title" nullable="false" remarks="Long title associated with the code." size="255" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="d_icd_proc_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="d_icd_proc_code_unique" unique="true">
+            <column ascending="true" name="icd9_code"/>
+         </index>
+      </table>
+      <table name="d_items" numRows="0" remarks="Dictionary of non-laboratory-related charted items." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="itemid" nullable="false" remarks="Primary key. Identifies the charted item." size="10" type="int4">
+            <child column="itemid" foreignKey="chartevents_fk_itemid" implied="false" onDeleteCascade="false" table="chartevents"/>
+            <child column="itemid" foreignKey="datetimeevents_fk_itemid" implied="false" onDeleteCascade="false" table="datetimeevents"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="label" nullable="true" remarks="Label identifying the item." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="abbreviation" nullable="true" remarks="Abbreviation associated with the item." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="dbsource" nullable="true" remarks="Source database of the item." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="linksto" nullable="true" remarks="Table which contains data for the given ITEMID." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="category" nullable="true" remarks="Category of data which the concept falls under." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="unitname" nullable="true" remarks="Unit associated with the item." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="param_type" nullable="true" remarks="Type of item, for example solution or ingredient." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="conceptid" nullable="true" remarks="Identifier used to harmonize concepts identified by multiple ITEMIDs. CONCEPTIDs are planned but not yet implemented (all values are NULL)." size="10" type="int4"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="ditems_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="ditems_itemid_unique" unique="true">
+            <column ascending="true" name="itemid"/>
+         </index>
+      </table>
+      <table name="d_labitems" numRows="0" remarks="Dictionary of laboratory-related items." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="itemid" nullable="false" remarks="Foreign key. Identifies the charted item." size="10" type="int4">
+            <child column="itemid" foreignKey="labevents_fk_itemid" implied="false" onDeleteCascade="false" table="labevents"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="label" nullable="false" remarks="Label identifying the item." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="fluid" nullable="false" remarks="Fluid associated with the item, for example blood or urine." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="category" nullable="false" remarks="Category of item, for example chemistry or hematology." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="loinc_code" nullable="true" remarks="Logical Observation Identifiers Names and Codes (LOINC) mapped to the item, if available." size="100" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="dlabitems_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="dlabitems_itemid_unique" unique="true">
+            <column ascending="true" name="itemid"/>
+         </index>
+      </table>
+      <table name="datetimeevents" numRows="0" remarks="Events relating to a datetime." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="datetimeevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="datetimeevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="Foreign key. Identifies the ICU stay." size="10" type="int4">
+            <parent column="icustay_id" foreignKey="datetimeevents_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="itemid" nullable="false" remarks="Foreign key. Identifies the charted item." size="10" type="int4">
+            <parent column="itemid" foreignKey="datetimeevents_fk_itemid" implied="false" onDeleteCascade="false" table="d_items"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="charttime" nullable="false" remarks="Time when the event occured." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="storetime" nullable="false" remarks="Time when the event was recorded in the system." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="cgid" nullable="false" remarks="Foreign key. Identifies the caregiver." size="10" type="int4">
+            <parent column="cgid" foreignKey="datetimeevents_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="value" nullable="true" remarks="Value of the event as a text string." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="valueuom" nullable="false" remarks="Unit of measurement." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="warning" nullable="true" remarks="Flag to highlight that the value has triggered a warning." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="11" name="error" nullable="true" remarks="Flag to highlight an error with the event." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="12" name="resultstatus" nullable="true" remarks="Result status of lab data." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="stopped" nullable="true" remarks="Event was explicitly marked as stopped. Infrequently used by caregivers." size="50" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="datetime_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="diagnoses_icd" numRows="0" remarks="Diagnoses relating to a hospital admission coded using the ICD9 system." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="diagnoses_icd_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="diagnoses_icd_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="seq_num" nullable="true" remarks="Priority of the code. Sequence 1 is the primary code." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="icd9_code" nullable="true" remarks="ICD9 code for the diagnosis." size="10" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="diagnosesicd_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="drgcodes" numRows="0" remarks="Hospital stays classified using the Diagnosis-Related Group system." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="drgcodes_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="drgcodes_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="drg_type" nullable="false" remarks="Type of Diagnosis-Related Group, for example APR is All Patient Refined" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="drg_code" nullable="false" remarks="Diagnosis-Related Group code" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="description" nullable="true" remarks="Description of the Diagnosis-Related Group" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="drg_severity" nullable="true" remarks="Relative severity, available for type APR only." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="7" name="drg_mortality" nullable="true" remarks="Relative mortality, available for type APR only." size="5" type="int2"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="drg_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="icustays" numRows="0" remarks="List of ICU admissions." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="icustays_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="icustays_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="false" remarks="Primary key. Identifies the ICU stay." size="10" type="int4">
+            <child column="icustay_id" foreignKey="chartevents_fk_icustay_id" implied="false" onDeleteCascade="false" table="chartevents"/>
+            <child column="icustay_id" foreignKey="datetimeevents_fk_icustay_id" implied="false" onDeleteCascade="false" table="datetimeevents"/>
+            <child column="icustay_id" foreignKey="inputevents_cv_fk_icustay_id" implied="false" onDeleteCascade="false" table="inputevents_cv"/>
+            <child column="icustay_id" foreignKey="inputevents_mv_fk_icustay_id" implied="false" onDeleteCascade="false" table="inputevents_mv"/>
+            <child column="icustay_id" foreignKey="outputevents_fk_icustay_id" implied="false" onDeleteCascade="false" table="outputevents"/>
+            <child column="icustay_id" foreignKey="prescriptions_fk_icustay_id" implied="false" onDeleteCascade="false" table="prescriptions"/>
+            <child column="icustay_id" foreignKey="procedureevents_mv_fk_icustay_id" implied="false" onDeleteCascade="false" table="procedureevents_mv"/>
+            <child column="icustay_id" foreignKey="transfers_fk_icustay_id" implied="false" onDeleteCascade="false" table="transfers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="dbsource" nullable="false" remarks="Source database of the item." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="first_careunit" nullable="false" remarks="First careunit associated with the ICU stay." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="last_careunit" nullable="false" remarks="Last careunit associated with the ICU stay." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="first_wardid" nullable="false" remarks="Identifier for the first ward the patient was located in." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="8" name="last_wardid" nullable="false" remarks="Identifier for the last ward the patient is located in." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="9" name="intime" nullable="false" remarks="Time of admission to the ICU." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="10" name="outtime" nullable="true" remarks="Time of discharge from the ICU." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="17" id="11" name="los" nullable="true" remarks="Length of stay in the ICU in minutes." size="17" type="float8"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="icustay_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="icustay_icustayid_unique" unique="true">
+            <column ascending="true" name="icustay_id"/>
+         </index>
+      </table>
+      <table name="inputevents_cv" numRows="0" remarks="Events relating to fluid input for patients whose data was originally stored in the CareVue database." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="inputevents_cv_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="inputevents_cv_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="Foreign key. Identifies the ICU stay." size="10" type="int4">
+            <parent column="icustay_id" foreignKey="inputevents_cv_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="charttime" nullable="true" remarks="Time of that the input was started or received." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="itemid" nullable="true" remarks="Foreign key. Identifies the charted item." size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="6" name="amount" nullable="true" remarks="Amount of the item administered to the patient." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="7" name="amountuom" nullable="true" remarks="Unit of measurement for the amount." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="8" name="rate" nullable="true" remarks="Rate at which the item is being administered to the patient." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="9" name="rateuom" nullable="true" remarks="Unit of measurement for the rate." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="storetime" nullable="true" remarks="Time when the event was recorded in the system." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="cgid" nullable="true" remarks="Foreign key. Identifies the caregiver." size="10" type="int4">
+            <parent column="cgid" foreignKey="inputevents_cv_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="orderid" nullable="true" remarks="Identifier linking items which are grouped in a solution." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="linkorderid" nullable="true" remarks="Identifier linking orders across multiple administrations. LINKORDERID is always equal to the first occuring ORDERID of the series." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="stopped" nullable="true" remarks="Event was explicitly marked as stopped. Infrequently used by caregivers." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="newbottle" nullable="true" remarks="Indicates when a new bottle of the solution was hung at the bedside." size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="16" name="originalamount" nullable="true" remarks="Amount of the item which was originally charted." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="17" name="originalamountuom" nullable="true" remarks="Unit of measurement for the original amount." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="originalroute" nullable="true" remarks="Route of administration originally chosen for the item." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="19" name="originalrate" nullable="true" remarks="Rate of administration originally chosen for the item." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="20" name="originalrateuom" nullable="true" remarks="Unit of measurement for the rate originally chosen." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="21" name="originalsite" nullable="true" remarks="Anatomical site for the original administration of the item." size="30" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="inputevents_cv_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="inputevents_mv" numRows="0" remarks="Events relating to fluid input for patients whose data was originally stored in the MetaVision database." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="inputevents_mv_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="inputevents_mv_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="Foreign key. Identifies the ICU stay." size="10" type="int4">
+            <parent column="icustay_id" foreignKey="inputevents_mv_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="starttime" nullable="true" remarks="Time when the event started." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="endtime" nullable="true" remarks="Time when the event ended." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="itemid" nullable="true" remarks="Foreign key. Identifies the charted item." size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="7" name="amount" nullable="true" remarks="Amount of the item administered to the patient." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="8" name="amountuom" nullable="true" remarks="Unit of measurement for the amount." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="9" name="rate" nullable="true" remarks="Rate at which the item is being administered to the patient." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="10" name="rateuom" nullable="true" remarks="Unit of measurement for the rate." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="storetime" nullable="true" remarks="Time when the event was recorded in the system." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="12" name="cgid" nullable="true" remarks="Foreign key. Identifies the caregiver." size="10" type="int4">
+            <parent column="cgid" foreignKey="inputevents_mv_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="orderid" nullable="true" remarks="Identifier linking items which are grouped in a solution." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="linkorderid" nullable="true" remarks="Identifier linking orders across multiple administrations. LINKORDERID is always equal to the first occuring ORDERID of the series." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="15" name="ordercategoryname" nullable="true" remarks="A group which the item corresponds to." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="secondaryordercategoryname" nullable="true" remarks="A secondary group for those items with more than one grouping possible." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="ordercomponenttypedescription" nullable="true" remarks="The role of the item administered in the order." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="ordercategorydescription" nullable="true" remarks="The type of item administered." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="19" name="patientweight" nullable="true" remarks="For drugs dosed by weight, the value of the weight used in the calculation." size="17" type="float8"/>
+         <column autoUpdated="false" digits="17" id="20" name="totalamount" nullable="true" remarks="The total amount in the solution for the given item." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="21" name="totalamountuom" nullable="true" remarks="Unit of measurement for the total amount in the solution." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="22" name="isopenbag" nullable="true" remarks="Indicates whether the bag containing the solution is open." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="23" name="continueinnextdept" nullable="true" remarks="Indicates whether the item will be continued in the next department where the patient is transferred to." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="24" name="cancelreason" nullable="true" remarks="Reason for cancellation, if cancelled." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="25" name="statusdescription" nullable="true" remarks="The current status of the order: stopped, rewritten, running or cancelled." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="26" name="comments_editedby" nullable="true" remarks="The title of the caregiver who edited the order." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="27" name="comments_canceledby" nullable="true" remarks="The title of the caregiver who canceled the order." size="40" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="28" name="comments_date" nullable="true" remarks="Time at which the caregiver edited or cancelled the order." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="17" id="29" name="originalamount" nullable="true" remarks="Amount of the item which was originally charted." size="17" type="float8"/>
+         <column autoUpdated="false" digits="17" id="30" name="originalrate" nullable="true" remarks="Rate of administration originally chosen for the item." size="17" type="float8"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="inputevents_mv_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="labevents" numRows="0" remarks="Events relating to laboratory tests." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="labevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="labevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="itemid" nullable="false" remarks="Foreign key. Identifies the charted item." size="10" type="int4">
+            <parent column="itemid" foreignKey="labevents_fk_itemid" implied="false" onDeleteCascade="false" table="d_labitems"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="charttime" nullable="true" remarks="Time when the event occured." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="value" nullable="true" remarks="Value of the event as a text string." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="6" name="valuenum" nullable="true" remarks="Value of the event as a number." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="7" name="valueuom" nullable="true" remarks="Unit of measurement." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="flag" nullable="true" remarks="Flag indicating whether the lab test value is considered abnormal (null if the test was normal)." size="20" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="labevents_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="microbiologyevents" numRows="0" remarks="Events relating to microbiology tests." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="microbiologyevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="microbiologyevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="chartdate" nullable="true" remarks="Date when the event occured." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="charttime" nullable="true" remarks="Time when the event occured, if available." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="spec_itemid" nullable="true" remarks="Foreign key. Identifies the specimen." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="spec_type_desc" nullable="true" remarks="Description of the specimen." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="org_itemid" nullable="true" remarks="Foreign key. Identifies the organism." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="org_name" nullable="true" remarks="Name of the organism." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="isolate_num" nullable="true" remarks="Isolate number associated with the test." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="10" name="ab_itemid" nullable="true" remarks="Foreign key. Identifies the antibody." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="ab_name" nullable="true" remarks="Name of the antibody used." size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="dilution_text" nullable="true" remarks="The dilution amount tested for and the comparison which was made against it (e.g. &lt;=4)." size="10" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="dilution_comparison" nullable="true" remarks="The comparison component of DILUTION_TEXT: either &lt;= (less than or equal), = (equal), or &gt;= (greater than or equal), or null when not available." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="17" id="14" name="dilution_value" nullable="true" remarks="The value component of DILUTION_TEXT: must be a floating point number." size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="15" name="interpretation" nullable="true" remarks="Interpretation of the test." size="5" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="micro_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="noteevents" numRows="0" remarks="Notes associated with hospital stays." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="noteevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="noteevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="chartdate" nullable="true" remarks="Date when the note was charted." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="charttime" nullable="true" remarks="Date and time when the note was charted. Note that some notes (e.g. discharge summaries) do not have a time associated with them: these notes have NULL in this column." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="category" nullable="true" remarks="Category of the note, e.g. Discharge summary." size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="description" nullable="true" remarks="A more detailed categorization for the note, sometimes entered by free-text." size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="cgid" nullable="true" remarks="Foreign key. Identifies the caregiver." size="10" type="int4">
+            <parent column="cgid" foreignKey="noteevents_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="iserror" nullable="true" remarks="Flag to highlight an error with the note." size="1" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="text" nullable="true" remarks="Content of the note." size="2147483647" type="text"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="noteevents_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="outputevents" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="subject_id" foreignKey="outputevents_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="hadm_id" foreignKey="outputevents_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="icustay_id" foreignKey="outputevents_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="charttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="6" name="value" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="7" name="valueuom" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="cgid" nullable="true" remarks="" size="10" type="int4">
+            <parent column="cgid" foreignKey="outputevents_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="stopped" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="newbottle" nullable="true" remarks="" size="1" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="iserror" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="outputevents_cv_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="patients" numRows="0" remarks="Patients associated with an admission to the ICU." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Primary key. Identifies the patient." size="10" type="int4">
+            <child column="subject_id" foreignKey="admissions_fk_subject_id" implied="false" onDeleteCascade="false" table="admissions"/>
+            <child column="subject_id" foreignKey="callout_fk_subject_id" implied="false" onDeleteCascade="false" table="callout"/>
+            <child column="subject_id" foreignKey="chartevents_fk_subject_id" implied="false" onDeleteCascade="false" table="chartevents"/>
+            <child column="subject_id" foreignKey="cptevents_fk_subject_id" implied="false" onDeleteCascade="false" table="cptevents"/>
+            <child column="subject_id" foreignKey="datetimeevents_fk_subject_id" implied="false" onDeleteCascade="false" table="datetimeevents"/>
+            <child column="subject_id" foreignKey="diagnoses_icd_fk_subject_id" implied="false" onDeleteCascade="false" table="diagnoses_icd"/>
+            <child column="subject_id" foreignKey="drgcodes_fk_subject_id" implied="false" onDeleteCascade="false" table="drgcodes"/>
+            <child column="subject_id" foreignKey="icustays_fk_subject_id" implied="false" onDeleteCascade="false" table="icustays"/>
+            <child column="subject_id" foreignKey="inputevents_cv_fk_subject_id" implied="false" onDeleteCascade="false" table="inputevents_cv"/>
+            <child column="subject_id" foreignKey="inputevents_mv_fk_subject_id" implied="false" onDeleteCascade="false" table="inputevents_mv"/>
+            <child column="subject_id" foreignKey="labevents_fk_subject_id" implied="false" onDeleteCascade="false" table="labevents"/>
+            <child column="subject_id" foreignKey="microbiologyevents_fk_subject_id" implied="false" onDeleteCascade="false" table="microbiologyevents"/>
+            <child column="subject_id" foreignKey="noteevents_fk_subject_id" implied="false" onDeleteCascade="false" table="noteevents"/>
+            <child column="subject_id" foreignKey="outputevents_fk_subject_id" implied="false" onDeleteCascade="false" table="outputevents"/>
+            <child column="subject_id" foreignKey="prescriptions_fk_subject_id" implied="false" onDeleteCascade="false" table="prescriptions"/>
+            <child column="subject_id" foreignKey="procedureevents_mv_fk_subject_id" implied="false" onDeleteCascade="false" table="procedureevents_mv"/>
+            <child column="subject_id" foreignKey="procedures_icd_fk_subject_id" implied="false" onDeleteCascade="false" table="procedures_icd"/>
+            <child column="subject_id" foreignKey="services_fk_subject_id" implied="false" onDeleteCascade="false" table="services"/>
+            <child column="subject_id" foreignKey="transfers_fk_subject_id" implied="false" onDeleteCascade="false" table="transfers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="gender" nullable="false" remarks="Gender." size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="dob" nullable="false" remarks="Date of birth." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="dod" nullable="true" remarks="Date of death. Null if the patient was alive at least 90 days post hospital discharge." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="dod_hosp" nullable="true" remarks="Date of death recorded in the hospital records." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="dod_ssn" nullable="true" remarks="Date of death recorded in the social security records." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="expire_flag" nullable="false" remarks="Flag indicating that the patient has died." size="10" type="int4"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="pat_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+         <index name="pat_subid_unique" unique="true">
+            <column ascending="true" name="subject_id"/>
+         </index>
+      </table>
+      <table name="prescriptions" numRows="0" remarks="Medicines prescribed." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="prescriptions_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="prescriptions_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="Foreign key. Identifies the ICU stay." size="10" type="int4">
+            <parent column="icustay_id" foreignKey="prescriptions_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="startdate" nullable="true" remarks="Date when the prescription started." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="enddate" nullable="true" remarks="Date when the prescription ended." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="drug_type" nullable="false" remarks="Type of drug." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="drug" nullable="false" remarks="Name of the drug." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="drug_name_poe" nullable="true" remarks="Name of the drug on the Provider Order Entry interface." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="drug_name_generic" nullable="true" remarks="Generic drug name." size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="formulary_drug_cd" nullable="true" remarks="Formulary drug code." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="gsn" nullable="true" remarks="Generic Sequence Number." size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="ndc" nullable="true" remarks="National Drug Code." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="prod_strength" nullable="true" remarks="Strength of the drug (product)." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="dose_val_rx" nullable="true" remarks="Dose of the drug prescribed." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="15" name="dose_unit_rx" nullable="true" remarks="Unit of measurement associated with the dose." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="form_val_disp" nullable="true" remarks="Amount of the formulation dispensed." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="form_unit_disp" nullable="true" remarks="Unit of measurement associated with the formulation." size="120" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="route" nullable="true" remarks="Route of administration, for example intravenous or oral." size="120" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="prescription_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="procedureevents_mv" numRows="0" remarks="" schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="subject_id" foreignKey="procedureevents_mv_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="" size="10" type="int4">
+            <parent column="hadm_id" foreignKey="procedureevents_mv_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="icustay_id" foreignKey="procedureevents_mv_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="starttime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="endtime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="itemid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="7" name="value" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="8" name="valueuom" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="location" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="locationcategory" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="storetime" nullable="true" remarks="" size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="12" name="cgid" nullable="true" remarks="" size="10" type="int4">
+            <parent column="cgid" foreignKey="procedureevents_mv_fk_cgid" implied="false" onDeleteCascade="false" table="caregivers"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="13" name="orderid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="linkorderid" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="15" name="ordercategoryname" nullable="true" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="16" name="secondaryordercategoryname" nullable="true" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="17" name="ordercategorydescription" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="18" name="isopenbag" nullable="true" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="19" name="continueinnextdept" nullable="true" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="20" name="cancelreason" nullable="true" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="21" name="statusdescription" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="22" name="comments_editedby" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="23" name="comments_canceledby" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="24" name="comments_date" nullable="true" remarks="" size="22" type="timestamp"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="procedureevents_mv_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="procedures_icd" numRows="0" remarks="Procedures relating to a hospital admission coded using the ICD9 system." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="procedures_icd_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="procedures_icd_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="seq_num" nullable="false" remarks="Lower procedure numbers occurred earlier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="icd9_code" nullable="false" remarks="ICD9 code associated with the procedure." size="10" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="proceduresicd_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="services" numRows="0" remarks="Hospital services that patients were under during their hospital stay." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="services_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="services_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="transfertime" nullable="false" remarks="Time when the transfer occured." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="prev_service" nullable="true" remarks="Previous service type." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="curr_service" nullable="true" remarks="Current service type." size="20" type="varchar"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="services_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+      <table name="transfers" numRows="0" remarks="Location of patients during their hospital stay." schema="mimic" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="row_id" nullable="false" remarks="Unique row identifier." size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="subject_id" nullable="false" remarks="Foreign key. Identifies the patient." size="10" type="int4">
+            <parent column="subject_id" foreignKey="transfers_fk_subject_id" implied="false" onDeleteCascade="false" table="patients"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="hadm_id" nullable="false" remarks="Foreign key. Identifies the hospital stay." size="10" type="int4">
+            <parent column="hadm_id" foreignKey="transfers_fk_hadm_id" implied="false" onDeleteCascade="false" table="admissions"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="icustay_id" nullable="true" remarks="Foreign key. Identifies the ICU stay." size="10" type="int4">
+            <parent column="icustay_id" foreignKey="transfers_fk_icustay_id" implied="false" onDeleteCascade="false" table="icustays"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="dbsource" nullable="true" remarks="Source database of the item." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="eventtype" nullable="true" remarks="Type of event, for example admission or transfer." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="prev_careunit" nullable="true" remarks="Previous careunit." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="curr_careunit" nullable="true" remarks="Current careunit." size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="prev_wardid" nullable="true" remarks="Identifier for the previous ward the patient was located in." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="9" name="curr_wardid" nullable="true" remarks="Identifier for the current ward the patient is located in." size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="10" name="intime" nullable="true" remarks="Time when the patient was transferred into the unit." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="outtime" nullable="true" remarks="Time when the patient was transferred out of the unit." size="22" type="timestamp"/>
+         <column autoUpdated="false" digits="17" id="12" name="los" nullable="true" remarks="Length of stay in the unit in minutes." size="17" type="float8"/>
+         <primaryKey column="row_id" sequenceNumberInPK="1"/>
+         <index name="transfers_rowid_pk" unique="true">
+            <column ascending="true" name="row_id"/>
+         </index>
+      </table>
+   </tables>
+</database>

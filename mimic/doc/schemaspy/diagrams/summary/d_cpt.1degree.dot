@@ -1,0 +1,38 @@
+// dot 2.38.0 on Linux 4.10.0-32-generic
+// SchemaSpy rev 590
+digraph "d_cpt" {
+  graph [
+    rankdir="RL"
+    bgcolor="#f7f7f7"
+    nodesep="0.18"
+    ranksep="0.46"
+    fontname="Helvetica"
+    fontsize="11"
+  ];
+  node [
+    fontname="Helvetica"
+    fontsize="11"
+    shape="plaintext"
+  ];
+  edge [
+    arrowsize="0.8"
+  ];
+  "d_cpt" [
+    label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">d_cpt</TD></TR>
+      <TR><TD PORT="row_id" COLSPAN="3" BGCOLOR="#bed1b8" ALIGN="LEFT">row_id</TD></TR>
+      <TR><TD PORT="category" COLSPAN="3" ALIGN="LEFT">category</TD></TR>
+      <TR><TD PORT="sectionrange" COLSPAN="3" ALIGN="LEFT">sectionrange</TD></TR>
+      <TR><TD PORT="sectionheader" COLSPAN="3" ALIGN="LEFT">sectionheader</TD></TR>
+      <TR><TD PORT="subsectionrange" COLSPAN="3" BGCOLOR="#f4f7da" ALIGN="LEFT">subsectionrange</TD></TR>
+      <TR><TD PORT="subsectionheader" COLSPAN="3" ALIGN="LEFT">subsectionheader</TD></TR>
+      <TR><TD PORT="codesuffix" COLSPAN="3" ALIGN="LEFT">codesuffix</TD></TR>
+      <TR><TD PORT="mincodeinsubsection" COLSPAN="3" ALIGN="LEFT">mincodeinsubsection</TD></TR>
+      <TR><TD PORT="maxcodeinsubsection" COLSPAN="3" ALIGN="LEFT">maxcodeinsubsection</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f7f7f7">  </TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#f7f7f7">  </TD></TR>
+    </TABLE>>
+    URL="tables/d_cpt.html"
+    tooltip="d_cpt"
+  ];
+}
