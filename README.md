@@ -14,13 +14,13 @@ REMARKS
 ROADMAP
 =======
 
-[x] create a postgresql OMOP5.3 empty instance
-[x] create a postgresql MIMIC3  subset instance (1000 patients)
-[ ] give JDBC access to collaborators with DUA, to the two above schema
-[ ] describe all MIMIC3->OMOP5.3 mapping into a spreadsheet file
-[ ] choose the ETL technology [SQL, TALEND, R, Python, other] based on mapping description experience and time remaining
-[ ] load the OMOP5.3 tables with existing data (standard concepts...)
-[ ] implement the MIMIC3->OMOP5.3 ETL and test it on the MIMIC3 subset
-[ ] ?use existing ATHENA concept-mapping to map MIMIC3 terminologies to OMOP5.3 standard concepts?
-[ ] test USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
-[ ] extend USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
+- [x] create a postgresql OMOP5.3 empty instance
+- [x] create a postgresql MIMIC3  subset instance (1000 patients)
+- [ ] give JDBC access to collaborators with DUA, to the two above schema
+- [ ] describe all MIMIC3->OMOP5.3 mapping into a spreadsheet file
+- [ ] choose the ETL technology [SQL, TALEND, R, Python, other] based on mapping description experience and time remaining
+- [ ] load the OMOP5.3 tables with existing data (standard concepts...)
+- [ ] implement the MIMIC3->OMOP5.3 ETL and test it on the MIMIC3 subset
+- [ ] ?use existing ATHENA concept-mapping to map MIMIC3 terminologies to OMOP5.3 standard concepts?
+- [ ] test USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
+- [ ] extend USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
