@@ -1,0 +1,6 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+ATTRIBUTE_DEFINITION,attribute_definition_id,,,
+ATTRIBUTE_DEFINITION,attribute_name,,,
+ATTRIBUTE_DEFINITION,attribute_description,,,
+ATTRIBUTE_DEFINITION,attribute_type_concept_id,,,
+ATTRIBUTE_DEFINITION,attribute_syntax,,,

@@ -1,0 +1,7 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+CONCEPT_RELATIONSHIP,concept_id_,,,
+CONCEPT_RELATIONSHIP,concept_id_,,,
+CONCEPT_RELATIONSHIP,relationship_id,,,
+CONCEPT_RELATIONSHIP,valid_start_date,,,
+CONCEPT_RELATIONSHIP,valid_end_date,,,
+CONCEPT_RELATIONSHIP,invalid_reason,,,

@@ -1,0 +1,8 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+COHORT_DEFINITION,cohort_definition_id,,,
+COHORT_DEFINITION,cohort_definition_name,,,
+COHORT_DEFINITION,cohort_definition_description,,,
+COHORT_DEFINITION,definition_type_concept_id,,,
+COHORT_DEFINITION,cohort_definition_syntax,,,
+COHORT_DEFINITION,subject_concept_id,,,
+COHORT_DEFINITION,cohort_initiation_date,,,

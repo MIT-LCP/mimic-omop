@@ -1,41 +1,20 @@
-#ls -1 ~/git/CommonDataModel/Documentation/CommonDataModel_Wiki_Files/StandardizedVocabularies/|grep -e "^[A-Z_]\+.md$"|sed "s/.md$//g" >> folder.sh
+#!/bin/bash
+# goal: initiate the mapping files, from omop documentation
 
+find ~/git/CommonDataModel/Documentation/CommonDataModel_Wiki_Files/ -type d -name "Standard*" -exec cp -a {} . \;
 
-mkdir CLINICAL-CONDITION_OCCURRENCE
-mkdir CLINICAL-DEATH
-mkdir CLINICAL-DEVICE_EXPOSURE
-mkdir CLINICAL-DRUG_EXPOSURE
-mkdir CLINICAL-FACT_RELATIONSHIP
-mkdir CLINICAL-MEASUREMENT
-mkdir CLINICAL-NOTE
-mkdir CLINICAL-NOTE_NLP
-mkdir CLINICAL-OBSERVATION
-mkdir CLINICAL-OBSERVATION_PERIOD
-mkdir CLINICAL-PERSON
-mkdir CLINICAL-PROCEDURE_OCCURRENCE
-mkdir CLINICAL-SPECIMEN
-mkdir CLINICAL-VISIT_DETAIL
-mkdir CLINICAL-VISIT_OCCURRENCE
-mkdir ECONOMIC-COST
-mkdir ECONOMIC-PAYER_PLAN_PERIOD
-mkdir METADATA-CDM_SOURCE
-mkdir DERIVED-COHORT_ATTRIBUTE
-mkdir DERIVED-COHORT
-mkdir DERIVED-CONDITION_ERA
-mkdir DERIVED-DOSE_ERA
-mkdir DERIVED-DRUG_ERA
-mkdir SYSTEM-CARE_SITE
-mkdir SYSTEM-LOCATION
-mkdir SYSTEM-PROVIDER
-mkdir VOCABULARY-ATTRIBUTE_DEFINITION
-mkdir VOCABULARY-COHORT_DEFINITION
-mkdir VOCABULARY-CONCEPT_ANCESTOR
-mkdir VOCABULARY-CONCEPT_CLASS
-mkdir VOCABULARY-CONCEPT
-mkdir VOCABULARY-CONCEPT_RELATIONSHIP
-mkdir VOCABULARY-CONCEPT_SYNONYM
-mkdir VOCABULARY-DOMAIN
-mkdir VOCABULARY-DRUG_STRENGTH
-mkdir VOCABULARY-RELATIONSHIP
-mkdir VOCABULARY-SOURCE_TO_CONCEPT_MAP
-mkdir VOCABULARY-VOCABULARY
+regex="^(.*)/([A-Z_]+).md"
+for f in Standardized*/*.md
+do # Whitespace-safe but not recursive.
+    if [[ $f =~ $regex ]]
+    then
+	folder="${BASH_REMATCH[1]}"
+	file="${BASH_REMATCH[2]}"
+	mkdir -p "$folder/$file/"
+	echo 'omop_table,omop_column,mimic_table,mimic_column,comments' > "$folder/$file/mapping.csv"
+	grep -e "^|" "$f" |sed '/^Field/ d'|sed '/^:--/ d'|sed "s/'/''/g" |sed "s/|\([a-z_]*\).*|.*|.*|.*|/$file,\1,,,/g" >> "$folder/$file/mapping.csv"
+	rm "$f"
+    else
+        echo "$f doesn't match" >&2 # this could get noisy if there are a lot of non-matching files
+    fi
+done

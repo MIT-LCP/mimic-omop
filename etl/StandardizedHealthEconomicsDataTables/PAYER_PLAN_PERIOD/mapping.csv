@@ -1,0 +1,8 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+PAYER_PLAN_PERIOD,payer_plan_period_id,,,
+PAYER_PLAN_PERIOD,person_id,,,
+PAYER_PLAN_PERIOD,payer_plan_period_start_date,,,
+PAYER_PLAN_PERIOD,payer_plan_period_end_date,,,
+PAYER_PLAN_PERIOD,payer_source_value,,,
+PAYER_PLAN_PERIOD,plan_source_value,,,
+PAYER_PLAN_PERIOD,family_source_value,,,

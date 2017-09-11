@@ -1,0 +1,7 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+CARE_SITE,care_site_id,,,
+CARE_SITE,care_site_name,,,
+CARE_SITE,place_of_service_concept_id,,,
+CARE_SITE,location_id,,,
+CARE_SITE,care_site_source_value,,,
+CARE_SITE,place_of_service_source_value,,,

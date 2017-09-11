@@ -1,0 +1,10 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+SOURCE_TO_CONCEPT_MAP,source_code,,,
+SOURCE_TO_CONCEPT_MAP,source_concept_id,,,
+SOURCE_TO_CONCEPT_MAP,source_vocabulary_id,,,
+SOURCE_TO_CONCEPT_MAP,source_code_description,,,
+SOURCE_TO_CONCEPT_MAP,target_concept_id,,,
+SOURCE_TO_CONCEPT_MAP,target_vocabulary_id,,,
+SOURCE_TO_CONCEPT_MAP,valid_start_date,,,
+SOURCE_TO_CONCEPT_MAP,valid_end_date,,,
+SOURCE_TO_CONCEPT_MAP,invalid_reason,,,

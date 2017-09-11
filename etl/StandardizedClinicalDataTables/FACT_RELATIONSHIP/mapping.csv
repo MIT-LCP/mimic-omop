@@ -1,0 +1,6 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+FACT_RELATIONSHIP,domain_concept_id_,,,
+FACT_RELATIONSHIP,fact_id_,,,
+FACT_RELATIONSHIP,domain_concept_id_,,,
+FACT_RELATIONSHIP,fact_id_,,,
+FACT_RELATIONSHIP,relationship_concept_id,,,

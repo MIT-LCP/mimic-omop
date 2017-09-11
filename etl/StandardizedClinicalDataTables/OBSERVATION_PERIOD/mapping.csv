@@ -1,0 +1,6 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+OBSERVATION_PERIOD,observation_period_id,,,
+OBSERVATION_PERIOD,person_id,,,
+OBSERVATION_PERIOD,observation_period_start_date,,,
+OBSERVATION_PERIOD,observation_period_end_date,,,
+OBSERVATION_PERIOD,period_type_concept_id,,,

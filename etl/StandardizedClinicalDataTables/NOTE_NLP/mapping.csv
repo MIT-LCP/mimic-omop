@@ -1,0 +1,13 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+NOTE_NLP,note_nlp_id,,,
+NOTE_NLP,note_id,,,
+NOTE_NLP,section_concept_id,,,
+NOTE_NLP,snippet,,,
+NOTE_NLP,offset,,,
+NOTE_NLP,lexical_variant,,,
+NOTE_NLP,note_nlp_concept_id,,,
+NOTE_NLP,note_nlp_source_concept_id,,,
+NOTE_NLP,nlp_system,,,
+NOTE_NLP,nlp_date,,,
+NOTE_NLP,nlp_datetime,,,
+NOTE_NLP,term_exists,,,

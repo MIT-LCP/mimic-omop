@@ -1,0 +1,5 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+COHORT,cohort_definition_id,,,
+COHORT,subject_id,,,
+COHORT,cohort_start_date,,,
+COHORT,cohort_end_date,,,

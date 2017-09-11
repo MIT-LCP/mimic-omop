@@ -1,0 +1,11 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+CONCEPT,concept_id,,,
+CONCEPT,concept_name,,,
+CONCEPT,domain_id,,,
+CONCEPT,vocabulary_id,,,
+CONCEPT,concept_class_id,,,
+CONCEPT,standard_concept,,,
+CONCEPT,concept_code,,,
+CONCEPT,valid_start_date,,,
+CONCEPT,valid_end_date,,,
+CONCEPT,invalid_reason,,,

@@ -1,0 +1,9 @@
+omop_table,omop_column,mimic_table,mimic_column,comments
+LOCATION,location_id,,,
+LOCATION,address_,,,
+LOCATION,address_,,,
+LOCATION,city,,,
+LOCATION,state,,,
+LOCATION,zip,,,
+LOCATION,county,,,
+LOCATION,location_source_value,,,
