@@ -24,3 +24,10 @@ ROADMAP
 - [ ] ?use existing ATHENA concept-mapping to map MIMIC3 terminologies to OMOP5.3 standard concepts?
 - [ ] test USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
 - [ ] extend USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
+
+
+DEADLINE
+========
+
+- January, 15th 2018
+
