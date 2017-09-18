@@ -1,20 +1,20 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-VISIT_DETAIL,visit_detail_id,,,
-VISIT_DETAIL,person_id,,,
-VISIT_DETAIL,visit_detail_concept_id,,,
-VISIT_DETAIL,visit_start_date,,,
-VISIT_DETAIL,visit_start_datetime,,,
-VISIT_DETAIL,visit_end_date,,,
-VISIT_DETAIL,visit_end_datetime,,,
-VISIT_DETAIL,visit_type_concept_id,,,
-VISIT_DETAIL,provider_id,,,
-VISIT_DETAIL,care_site_id,,,
-VISIT_DETAIL,visit_source_value,,,
-VISIT_DETAIL,visit_source_concept_id,,,
-VISIT_DETAIL,admitting_source_value,,,
-VISIT_DETAIL,admitting_source_concept_id,,,
-VISIT_DETAIL,discharge_to_source_value,,,
-VISIT_DETAIL,discharge_to_concept_id,,,
-VISIT_DETAIL,preceding_visit_detail_id,,,
-VISIT_DETAIL,visit_detail_parent_id,,,
-VISIT_DETAIL,visit_occurrence_id,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+VISIT_DETAIL,visit_detail_id,Yes,,,
+VISIT_DETAIL,person_id,Yes,,,
+VISIT_DETAIL,visit_detail_concept_id,Yes,,,
+VISIT_DETAIL,visit_start_date,Yes,,,
+VISIT_DETAIL,visit_start_datetime,No,,,
+VISIT_DETAIL,visit_end_date,Yes,,,
+VISIT_DETAIL,visit_end_datetime,No,,,
+VISIT_DETAIL,visit_type_concept_id,Yes,,,
+VISIT_DETAIL,provider_id,No,,,
+VISIT_DETAIL,care_site_id,No,,,
+VISIT_DETAIL,visit_source_value,No,,,
+VISIT_DETAIL,visit_source_concept_id,No,,,
+|admitting_source_value	|Varchar(50)|	No|	The source code for the admitting source as it appears in the source data.|
+|admitting_source_concept_id	|Integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.|
+|discharge_to_source_value|	Varchar(50)|	No|	The source code for the discharge disposition as it appears in the source data.|
+|discharge_to_concept_id|	Integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
+|preceding_visit_detail_id	|Integer|	No	|A foreign key to the VISIT_DETAIL table of the visit immediately preceding this visit|
+|visit_detail_parent_id	|Integer|	No	|A foreign key to the VISIT_DETAIL table record to represent the immediate parent visit-detail record.|
+|visit_occurrence_id	|Integer|	Yes	|A foreign key that refers to the record in the VISIT_OCCURRENCE table. This is a required field, because for every visit_detail is a child of visit_occurrence and cannot exist without a corresponding parent record in visit_occurrence.|

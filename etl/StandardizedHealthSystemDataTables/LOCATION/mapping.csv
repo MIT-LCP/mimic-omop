@@ -1,9 +1,9 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-LOCATION,location_id,,,
-LOCATION,address_,,,
-LOCATION,address_,,,
-LOCATION,city,,,
-LOCATION,state,,,
-LOCATION,zip,,,
-LOCATION,county,,,
-LOCATION,location_source_value,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+LOCATION,location_id,Yes,,,
+|address_1|No|varchar(50)|The address field 1, typically used for the street address, as it appears in the source data.|
+|address_2|No|varchar(50)|The address field 2, typically used for additional detail such as buildings, suites, floors, as it appears in the source data.|
+LOCATION,city,No,,,
+LOCATION,state,No,,,
+LOCATION,zip,No,,,
+LOCATION,county,No,,,
+LOCATION,location_source_value,No,,,

@@ -1,7 +1,7 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-CONCEPT_CLASS,concept_class_id,,,
-CONCEPT_CLASS,concept_class_name,,,
-CONCEPT_CLASS,concept_class_concept_id,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+CONCEPT_CLASS,concept_class_id,Yes,,,
+CONCEPT_CLASS,concept_class_name,Yes,,,
+CONCEPT_CLASS,concept_class_concept_id,Yes,,,
 |Administrative concept|Admin Concept|
 |Admitting Source|Admitting Source|
 |Anatomical Therapeutic Chemical Classification|ATC|

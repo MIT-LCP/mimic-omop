@@ -1,4 +1,4 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-DOMAIN,domain_id,,,
-DOMAIN,domain_name,,,
-DOMAIN,domain_concept_id,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+DOMAIN,domain_id,Yes,,,
+DOMAIN,domain_name,Yes,,,
+DOMAIN,domain_concept_id,Yes,,,

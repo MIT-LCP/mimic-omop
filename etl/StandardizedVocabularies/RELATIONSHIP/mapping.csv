@@ -1,10 +1,10 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-RELATIONSHIP,relationship_id,,,
-RELATIONSHIP,relationship_name,,,
-RELATIONSHIP,is_hierarchical,,,
-RELATIONSHIP,defines_ancestry,,,
-RELATIONSHIP,reverse_relationship_id,,,
-RELATIONSHIP,relationship_concept_id,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+RELATIONSHIP,relationship_id,Yes,,,
+RELATIONSHIP,relationship_name,Yes,,,
+RELATIONSHIP,is_hierarchical,Yes,,,
+RELATIONSHIP,defines_ancestry,Yes,,,
+RELATIONSHIP,reverse_relationship_id,Yes,,,
+RELATIONSHIP,relationship_concept_id,Yes,,,
 |1|LOINC replaced by|
 |2|Has precise ing|
 |3|Has tradename|

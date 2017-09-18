@@ -1,14 +1,14 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-NOTE,note_id,,,
-NOTE,person_id,,,
-NOTE,note_date,,,
-NOTE,note_datetime,,,
-NOTE,note_type_concept_id,,,
-NOTE,note_class_concept_id,,,
-NOTE,note_title,,,
-NOTE,note_text,,,
-NOTE,encoding_concept_id,,,
-NOTE,language_concept_id,,,
-NOTE,provider_id,,,
-NOTE,note_source_value,,,
-NOTE,visit_occurrence_id,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+NOTE,note_id,Yes,,,
+NOTE,person_id,Yes,,,
+NOTE,note_date,Yes,,,
+NOTE,note_datetime,No,,,
+NOTE,note_type_concept_id,Yes,,,
+|note_class_concept_id|	Yes|	integer|	A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the HL7 LOINC Document Type Vocabulary classification of the note.|
+|note_title	|No|	varchar(250)|	The title of the Note as it appears in the source.|
+NOTE,note_text,Yes,,,
+|encoding_concept_id	|Yes	|integer|	A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the note character encoding type|
+|language_concept_id	|Yes	|integer	|A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the language of the note|
+NOTE,provider_id,No,,,
+NOTE,note_source_value,No,,,
+NOTE,visit_occurrence_id,No,,,

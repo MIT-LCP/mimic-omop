@@ -1,7 +1,7 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-CONDITION_ERA,condition_era_id,,,
-CONDITION_ERA,person_id,,,
-CONDITION_ERA,condition_concept_id,,,
-CONDITION_ERA,condition_era_start_date,,,
-CONDITION_ERA,condition_era_end_date,,,
-CONDITION_ERA,condition_occurrence_count,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+CONDITION_ERA,condition_era_id,Yes,,,
+CONDITION_ERA,person_id,Yes,,,
+CONDITION_ERA,condition_concept_id,Yes,,,
+CONDITION_ERA,condition_era_start_date,Yes,,,
+CONDITION_ERA,condition_era_end_date,Yes,,,
+CONDITION_ERA,condition_occurrence_count,No,,,

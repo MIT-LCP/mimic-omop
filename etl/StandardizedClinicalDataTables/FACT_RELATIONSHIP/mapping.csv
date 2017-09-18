@@ -1,6 +1,6 @@
-omop_table,omop_column,mimic_table,mimic_column,comments
-FACT_RELATIONSHIP,domain_concept_id_,,,
-FACT_RELATIONSHIP,fact_id_,,,
-FACT_RELATIONSHIP,domain_concept_id_,,,
-FACT_RELATIONSHIP,fact_id_,,,
-FACT_RELATIONSHIP,relationship_concept_id,,,
+omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
+|domain_concept_id_1|Yes|integer|The concept representing the domain of fact one, from which the corresponding table can be inferred.|
+|fact_id_1|Yes|integer|The unique identifier in the table corresponding to the domain of fact one.|
+|domain_concept_id_2|Yes|integer|The concept representing the domain of fact two, from which the corresponding table can be inferred.|
+|fact_id_2|Yes|integer|The unique identifier in the table corresponding to the domain of fact two.|
+FACT_RELATIONSHIP,relationship_concept_id,Yes,,,
