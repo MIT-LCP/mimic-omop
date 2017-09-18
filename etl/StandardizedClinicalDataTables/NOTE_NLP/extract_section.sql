@@ -37,4 +37,12 @@ SELECT count(1), category, label
 FROM all_label
 GROUP BY category, label
 ORDER BY category, count DESC;
-\copy (SELECT * FROM mimiciii.noteevents_section_count WHERE count > 200 ORDER BY category, count DESC) TO 'section_list.csv' CSV HEADER;
+\copy (WITH tot AS (SELECT count(1) as nb, category FROM noteevents GROUP BY category),
+tmp AS (
+SELECT * FROM mimiciii.noteevents_section_count
+LEFT JOIN tot USING (category)
+WHERE count > 200
+)
+SELECT * , ( count::float / nb::float * 100::float ) as percent_avec_section FROM tmp
+GROUP BY tmp.category, label, count, nb
+ORDER BY tmp.category, percent_avec_section DESC) TO '/tmp/section_list.csv' CSV HEADER;

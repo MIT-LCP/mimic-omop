@@ -1,971 +1,971 @@
-count,category,label
-297,Case Management ,Current plan:
-297,Case Management ,Patient discussed with multidisciplinary team:
-296,Case Management ,Dialysis:
-296,Case Management ,Primary insurance:
-296,Case Management ,Secondary insurance:
-296,Case Management ,Medicaid application:
-296,Case Management ,Status:
-296,Case Management ,Insurance reviewer:
-245,Case Management ,Phone:
-13612,Discharge summary,IMPRESSION:
-6662,Discharge summary,DISCHARGE DIAGNOSES:
-5545,Discharge summary,PAST MEDICAL HISTORY:
-4914,Discharge summary,DISCHARGE MEDICATIONS:
-3738,Discharge summary,REASON FOR THIS EXAMINATION:
-2461,Discharge summary,DISCHARGE DIAGNOSIS:
-1852,Discharge summary,MEDICATIONS ON DISCHARGE:
-1850,Discharge summary,MEDICATIONS ON ADMISSION:
-1837,Discharge summary,ADMISSION LABS:
-1735,Discharge summary,IMAGING:
-1727,Discharge summary,FINAL DIAGNOSIS:
-1581,Discharge summary,MEDICATIONS:
-1497,Discharge summary,HOSPITAL COURSE:
-1418,Discharge summary,PULSES:
-1264,Discharge summary,DISCHARGE LABS:
-1165,Discharge summary,PMH:
-1101,Discharge summary,FINDINGS:
-919,Discharge summary,MICRO:
-859,Discharge summary,PAST SURGICAL HISTORY:
-848,Discharge summary,COMMENTS:
-811,Discharge summary,MICROBIOLOGY:
-805,Discharge summary,CARE RECOMMENDATIONS:
-799,Discharge summary,PHYSICAL EXAM:
-792,Discharge summary,STUDIES:
-767,Discharge summary,DISCHARGE INSTRUCTIONS:
-755,Discharge summary,TRANSITIONAL ISSUES:
-693,Discharge summary,CXR:
-618,Discharge summary,DIAGNOSIS:
-573,Discharge summary,INTERPRETATION:
-572,Discharge summary,PSH:
-571,Discharge summary,ADMISSION PHYSICAL EXAM:
-565,Discharge summary,ADMISSION EXAM:
-493,Discharge summary,DISCHARGE EXAM:
-426,Discharge summary,FOLLOWING:
-425,Discharge summary,ADMISSION MEDICATIONS:
-419,Discharge summary,MEDICATIONS ON TRANSFER:
-413,Discharge summary,LABS:
-412,Discharge summary,MEASUREMENTS:
-392,Discharge summary,ADDENDUM:
-391,Discharge summary,CARE AND RECOMMENDATIONS:
-382,Discharge summary,PE:
-372,Discharge summary,ACTIVE ISSUES:
-367,Discharge summary,MEDICATIONS AT HOME:
-353,Discharge summary,DISCHARGE PHYSICAL EXAM:
-352,Discharge summary,ALLERGIES:
-347,Discharge summary,ROS:
-336,Discharge summary,PRIMARY:
-332,Discharge summary,ON ADMISSION:
-330,Discharge summary,HOSPITAL COURSE BY SYSTEM:
-325,Discharge summary,HOSPITAL COURSE BY SYSTEMS:
-310,Discharge summary,REGIONAL LEFT VENTRICULAR WALL MOTION:
-309,Discharge summary,SUMMARY OF HOSPITAL COURSE BY SYSTEMS:
-285,Discharge summary,ECHO:
-283,Discharge summary,HOME MEDICATIONS:
-281,Discharge summary,PHYSICAL EXAMINATION:
-273,Discharge summary,CBC:
-269,Discharge summary,CONTRAINDICATIONS FOR IV CONTRAST:
-268,Discharge summary,SECONDARY:
-253,Discharge summary,IMMUNIZATIONS RECOMMENDED:
-249,Discharge summary,CONCLUSION:
-241,Discharge summary,LABS ON ADMISSION:
-228,Discharge summary,REVIEW OF SYSTEMS:
-228,Discharge summary,EKG:
-224,Discharge summary,CHRONIC ISSUES:
-222,Discharge summary,SECONDARY DIAGNOSES:
-215,Discharge summary,NEURO:
-202,Discharge summary,PROCEDURE:
-202,Discharge summary,ON DISCHARGE:
-44467291,ECG,""
-45794,Echo,TEST INFORMATION:
-45794,Echo,INTERPRETATION:
-42996,Echo,LEFT VENTRICLE:
-41747,Echo,MITRAL VALVE:
-41228,Echo,AORTIC VALVE:
-41203,Echo,RIGHT VENTRICLE:
-40534,Echo,PERICARDIUM:
-39280,Echo,TRICUSPID VALVE:
-37112,Echo,LEFT ATRIUM:
-36295,Echo,AORTA:
-36123,Echo,INTERATRIAL SEPTUM:
-29386,Echo,PULMONARY ARTERY:
-27137,Echo,GENERAL COMMENTS:
-15739,Echo,IMPRESSION:
-8686,Echo,LV WALL MOTION:
-3303,Echo,CLINICAL IMPLICATIONS:
-2356,Echo,BYPASS:
-1684,Echo,CPB:
-206,Echo,POST CPB:
-2182,General,Total time spent:
-861,General,Plan:
-858,General,Nutrition:
-754,General,Assessment:
-751,General,Neurologic:
-711,General,Allergies:
-675,General,Cardiovascular:
-654,General,Action:
-653,General,Response:
-647,General,Urine:
-646,General,Balance:
-644,General,Heart rhythm:
-643,General,Drains:
-643,General,Total out:
-643,General,Stool:
-642,General,Blood products:
-641,General,Communication:
-636,General,Prophylaxis:
-632,General,Other labs:
-622,General,Code status:
-617,General,Infusions:
-610,General,Stress ulcer:
-606,General,Tmax:
-606,General,Comments:
-604,General,Lines:
-602,General,Disposition:
-558,General,Other medications:
-492,General,Imaging:
-468,General,Height:
-418,General,Skin:
-364,General,Total time:
-363,General,Tcurrent:
-360,General,Abdominal:
-340,General,Review of systems:
-316,General,Ventilator mode:
-309,General,Ve:
-308,General,Endocrine:
-297,General,Changes to medical and family history:
-293,General,Renal:
-284,General,Pulmonary:
-282,General,Tube feeding:
-282,General,Current medications:
-281,General,Ext:
-270,General,Consults:
-269,General,Wounds:
-269,General,Hematology:
-243,General,T current:
-234,General,Abd:
-226,General,Gen:
-216,General,Labs:
-505489,Nursing,Assessment:
-504375,Nursing,Plan:
-504254,Nursing,Response:
-502544,Nursing,Action:
-31354,Nursing,PMH:
-24079,Nursing,BP:
-22526,Nursing,S:
-22497,Nursing,weight:
-22459,Nursing,D:
-22149,Nursing,valuables:
-19433,Nursing,with:
-19430,Nursing,Glucose:
-18287,Nursing,]:
-12268,Nursing,rate:
-12031,Nursing,status:
-11802,Nursing,history:
-11672,Nursing,Precautions:
-11362,Nursing,HPI:
-11337,Nursing,from:
-11284,Nursing,to:
-11257,Nursing,diagnosis:
-11255,Nursing,Temperature:
-11251,Nursing,out:
-11250,Nursing,MD:
-11249,Nursing,Height:
-11246,Nursing,rhythm:
-11246,Nursing,in:
-11245,Nursing,Reactions:
-11242,Nursing,Rate:
-11241,Nursing,Transfer:
-11238,Nursing,device:
-11236,Nursing,date:
-11236,Nursing,saturation:
-11232,Nursing,flow:
-11231,Nursing,set:
-11203,Nursing,Creatinine:
-11194,Nursing,Results:
-11155,Nursing,BUN:
-11064,Nursing,Clothes:
-11016,Nursing,Jewelry:
-10924,Nursing,Potassium:
-10911,Nursing,Sodium:
-10909,Nursing,Hematocrit:
-10898,Nursing,Chloride:
-10652,Nursing,Money:
-8131,Nursing,Events:
-5748,Nursing,Neuro:
-5438,Nursing,PMHx:
-5194,Nursing,GI:
-4772,Nursing,re:
-4694,Nursing,on:
-4685,Nursing,By:
-4361,Nursing,Resp:
-4125,Nursing,complaint:
-4119,Nursing,GU:
-3898,Nursing,TITLE:
-3669,Nursing,CV:
-3430,Nursing,Social:
-2610,Nursing,PSH:
-2063,Nursing,HR:
-2043,Nursing,were:
-2024,Nursing,Skin:
-1922,Nursing,Allergies:
-1900,Nursing,EVENTS:
-1833,Nursing,Endo:
-1789,Nursing,labs:
-1766,Nursing,Access:
-1602,Nursing,Pain:
-1574,Nursing,Complaint:
-1518,Nursing,Drains:
-1498,Nursing,setting:
-1390,Nursing,note:
-1360,Nursing,ABG:
-1296,Nursing,sensitivity:
-1223,Nursing,mode:
-1182,Nursing,Injuries:
-1170,Nursing,access:
-1168,Nursing,RR:
-1167,Nursing,VS:
-1147,Nursing,threshold:
-1045,Nursing,History:
-1028,Nursing,include:
-1012,Nursing,type:
-1005,Nursing,ID:
-998,Nursing,s:
-986,Nursing,condition:
-986,Nursing,Cardiac:
-977,Nursing,LS:
-934,Nursing,ventricular:
-916,Nursing,atrial:
-900,Nursing,Cardio:
-858,Nursing,sats:
-842,Nursing,medications:
-783,Nursing,Status:
-765,Nursing,SOCIAL:
-753,Nursing,ROS:
-736,Nursing,events:
-674,Nursing,Lungs:
-669,Nursing,ISSUES:
-663,Nursing,including:
-647,Nursing,Renal:
-639,Nursing,ED:
-634,Nursing,RESP:
-613,Nursing,settings:
-575,Nursing,course:
-573,Nursing,ACCESS:
-570,Nursing,Gi:
-524,Nursing,abg:
-498,Nursing,Family:
-481,Nursing,Cv:
-469,Nursing,CC:
-467,Nursing,NOTE:
-463,Nursing,PLAN:
-450,Nursing,Hx:
-441,Nursing,Addendum:
-435,Nursing,SKIN:
-421,Nursing,INFORMATION:
-410,Nursing,Dentures:
-399,Nursing,Note:
-395,Nursing,Cr:
-394,Nursing,P:
-383,Nursing,ALLERGIES:
-380,Nursing,EF:
-379,Nursing,NEURO:
-370,Nursing,admission:
-370,Nursing,vitals:
-369,Nursing,CODE:
-364,Nursing,Amount:
-362,Nursing,Tele:
-355,Nursing,RENAL:
-352,Nursing,All:
-342,Nursing,Endoc:
-336,Nursing,Cards:
-334,Nursing,Id:
-332,Nursing,MS:
-329,Nursing,CT:
-328,Nursing,overnight:
-321,Nursing,Goal:
-317,Nursing,c:
-313,Nursing,HISTORY:
-311,Nursing,UPDATE:
-309,Nursing,WBC:
-308,Nursing,ENDO:
-298,Nursing,includes:
-296,Nursing,Fraction:
-293,Nursing,showed:
-289,Nursing,Weight:
-286,Nursing,Code:
-283,Nursing,Dispo:
-281,Nursing,Pulm:
-276,Nursing,pmh:
-273,Nursing,ALL:
-265,Nursing,CXR:
-262,Nursing,failure:
-258,Nursing,POX:
-257,Nursing,Allergy:
-257,Nursing,ADMISSION:
-256,Nursing,CVS:
-255,Nursing,Antibiotics:
-255,Nursing,T:
-245,Nursing,Illness:
-239,Nursing,cc:
-236,Nursing,Meds:
-229,Nursing,Abg:
-226,Nursing,today:
-225,Nursing,transfer:
-224,Nursing,am:
-224,Nursing,Soc:
-223,Nursing,vent:
-221,Nursing,MAP:
-219,Nursing,Infusions:
-213,Nursing,Gu:
-213,Nursing,Others:
-208,Nursing,follows:
-206,Nursing,ILLNESS:
-201,Nursing,Wt:
-658094330,Nursing/other,""
-7987,Nutrition,Labs:
-7644,Nutrition,Pertinent medications:
-6364,Nutrition,Specifics:
-3405,Nutrition,Calories:
-3401,Nutrition,Protein:
-3394,Nutrition,Diagnosis:
-3331,Nutrition,Estimation of current intake:
-3323,Nutrition,Fluid:
-3109,Nutrition,Food allergies and intolerances:
-2390,Nutrition,Estimation of previous intake:
-2112,Nutrition,Pt at risk due to:
-1367,Nutrition,Calculations based on:
-1308,Nutrition,Patient at risk due to:
-1304,Nutrition,Comments:
-1180,Nutrition,Tube feeding recommendations:
-847,Nutrition,Other:
-551,Nutrition,Wt:
-522,Nutrition,Starting rate:
-440,Nutrition,Tube feed:
-368,Nutrition,Diet:
-287,Nutrition,Ht:
-277,Nutrition,Skin:
-258,Nutrition,Oral supplements:
-241,Nutrition,Tube feeding:
-138781,Physician ,BP:
-137760,Physician ,HR:
-137310,Physician ,RR:
-137085,Physician ,PO:
-136910,Physician ,NG:
-133767,Physician ,DVT:
-130732,Physician ,ABG:
-117803,Physician ,INR:
-108960,Physician ,IVF:
-105887,Physician ,TF:
-98746,Physician ,VAP:
-80017,Physician ,AST:
-73119,Physician ,HPI:
-68238,Physician ,LDH:
-64751,Physician ,PEEP:
-62565,Physician ,PIP:
-58220,Physician ,HEENT:
-40653,Physician ,PS :
-37820,Physician ,FEN:
-35783,Physician ,CVP:
-27964,Physician ,TITLE:
-26051,Physician ,RSBI:
-24169,Physician ,CV:
-14772,Physician ,CXR:
-11824,Physician ,PMH:
-11461,Physician ,ACCESS:
-10538,Physician ,NEURO:
-10477,Physician ,CODE:
-9798,Physician ,ID:
-9159,Physician ,PSH:
-8806,Physician ,HTN:
-8795,Physician ,ABD:
-8190,Physician ,ECG:
-8073,Physician ,DISPO:
-8004,Physician ,LUNGS:
-7837,Physician ,PULM:
-7816,Physician ,PPX:
-7713,Physician ,PROPHYLAXIS:
-7503,Physician ,ABDOMEN:
-7496,Physician ,SKIN:
-7361,Physician ,GI:
-7319,Physician ,CARDIAC:
-7279,Physician ,GEN:
-7165,Physician ,GENERAL:
-6928,Physician ,IMPRESSION:
-6885,Physician ,EXT:
-6758,Physician ,NECK:
-6687,Physician ,EXTREMITIES:
-6257,Physician ,ARF:
-5767,Physician ,CVS:
-5681,Physician ,CAD:
-5559,Physician ,TLD:
-5194,Physician ,PAP:
-5052,Physician ,RHYTHM:
-5025,Physician ,CODE STATUS:
-4879,Physician ,DISPOSITION:
-4709,Physician ,DM:
-4449,Physician ,PUMP:
-4439,Physician ,CORONARIES:
-4031,Physician ,RENAL:
-3813,Physician ,CHF:
-3720,Physician ,GU:
-3707,Physician ,CONSULTS:
-3647,Physician ,COPD:
-3588,Physician ,CONTACT:
-3327,Physician ,HEME:
-3302,Physician ,ENDO:
-3248,Physician ,COMM:
-3168,Physician ,EKG:
-3037,Physician ,UTI:
-3025,Physician ,PULSES:
-2994,Physician ,BILLING DIAGNOSIS:
-2854,Physician ,ASSESSMENT AND PLAN:
-2657,Physician ,PLAN:
-2633,Physician ,GLYCEMIC CONTROL:
-2590,Physician ,COMMUNICATIONS:
-2567,Physician ,GERD:
-2358,Physician ,VS:
-2347,Physician ,ICU CARE:
-2345,Physician ,ICP:
-2322,Physician ,ESRD:
-2210,Physician ,CT:
-2075,Physician ,MICRO:
-1931,Physician ,ICU:
-1926,Physician ,IMAGING:
-1833,Physician ,LUE:
-1830,Physician ,SVR:
-1830,Physician ,EMERGENCY CONTACT:
-1810,Physician ,SV:
-1782,Physician ,NOS:
-1752,Physician ,SVI:
-1730,Physician ,LLE:
-1725,Physician ,RVR:
-1719,Physician ,RUE:
-1712,Physician ,PNA:
-1684,Physician ,CK:
-1684,Physician ,EF:
-1661,Physician ,RLE:
-1640,Physician ,PE:
-1640,Physician ,PTT:
-1573,Physician ,TTE:
-1543,Physician ,MIN:
-1518,Physician ,FINDINGS:
-1500,Physician ,PT:
-1402,Physician ,NSTEMI:
-1398,Physician ,HD:
-1383,Physician ,AMS:
-1381,Physician ,PR DAILY:
-1309,Physician ,CABG:
-1285,Physician ,ALLERGIES:
-1281,Physician ,CHEST:
-1273,Physician ,CHIEF COMPLAINT:
-1244,Physician ,ISSUES:
-1238,Physician ,BAL:
-1231,Physician ,RESP:
-1185,Physician ,OSA:
-1176,Physician ,HOUR EVENTS:
-1168,Physician ,CVA:
-1157,Physician ,GIB:
-1130,Physician ,PSYCH:
-1112,Physician ,EVENTS:
-1101,Physician ,BPH:
-1087,Physician ,CKD:
-1076,Physician ,ALT:
-1075,Physician ,MB:
-1065,Physician ,COR:
-1036,Physician ,AP:
-1027,Physician ,ECHO:
-1013,Physician ,UA:
-1002,Physician ,TAB PO BID:
-1001,Physician ,NEUROLOGIC:
-972,Physician ,ROS:
-947,Physician ,CC:
-930,Physician ,NUTRITION:
-904,Physician ,ASSESSMENT:
-865,Physician ,CA:
-864,Physician ,LUNG:
-863,Physician ,NIF:
-837,Physician ,EXTR:
-835,Physician ,CARD:
-823,Physician ,CARDIAC RISK FACTORS:
-816,Physician ,HIV:
-803,Physician ,OSH:
-801,Physician ,CARDIAC HISTORY:
-787,Physician ,PULMONARY:
-772,Physician ,CTA:
-767,Physician ,PVD:
-763,Physician ,MS:
-760,Physician ,CARDIOVASCULAR:
-752,Physician ,DRAINS:
-746,Physician ,ESLD:
-740,Physician ,ANEMIA:
-739,Physician ,ENDOCRINE:
-735,Physician ,OTHER PAST MEDICAL HISTORY:
-735,Physician ,HEMATOLOGY:
-727,Physician ,FLUIDS:
-726,Physician ,ABX:
-722,Physician ,DMII:
-718,Physician ,WOUNDS:
-717,Physician ,ICD:
-708,Physician ,CURRENT MEDICATIONS:
-684,Physician ,ED:
-620,Physician ,HEART:
-617,Physician ,ARDS:
-594,Physician ,HCP:
-592,Physician ,SENSITIVITIES:
-588,Physician ,PAST MEDICAL HISTORY:
-585,Physician ,AS:
-584,Physician ,PERCUTANEOUS CORONARY INTERVENTIONS:
-583,Physician ,ETOH:
-583,Physician ,COMMUNICATION:
-582,Physician ,MEDICAL:
-578,Physician ,II:
-578,Physician ,PO BID:
-573,Physician ,DISP:
-572,Physician ,CSF:
-569,Physician ,PCP:
-567,Physician ,UGIB:
-558,Physician ,SOB:
-550,Physician ,AM:
-543,Physician ,DKA:
-518,Physician ,DERM:
-511,Physician ,MRI:
-501,Physician ,STEMI:
-500,Physician ,PCWP:
-499,Physician ,GVHD:
-498,Physician ,EXTREM:
-491,Physician ,CRI:
-489,Physician ,WBC:
-480,Physician ,KUB:
-479,Physician ,PC :
-475,Physician ,HOME MEDICATIONS:
-460,Physician ,PM:
-445,Physician ,DIC:
-433,Physician ,OH:
-431,Physician ,SBP:
-412,Physician ,US:
-406,Physician ,HYPOTENSION:
-403,Physician ,FINAL DIAGNOSIS:
-399,Physician ,L PO QID:
-391,Physician ,EEG:
-388,Physician ,HL:
-383,Physician ,MSK:
-379,Physician ,SBO:
-377,Physician ,RESPIRATORY FAILURE:
-371,Physician ,HAP:
-370,Physician ,AF:
-366,Physician ,AC:
-366,Physician ,ALL:
-361,Physician ,HCT:
-357,Physician ,UOP:
-355,Physician ,AML:
-351,Physician ,DIABETES:
-339,Physician ,SVT:
-335,Physician ,FAMILY HISTORY:
-332,Physician ,ECHOCARDIOGRAM:
-324,Physician ,PMI:
-322,Physician ,GFR:
-320,Physician ,CARDIAC CATH:
-317,Physician ,MEDICATIONS:
-315,Physician ,BNP:
-311,Physician ,MI:
-311,Physician ,STUDIES:
-304,Physician ,TP QID:
-298,Physician ,EGD:
-295,Physician ,AVR:
-294,Physician ,SLE:
-293,Physician ,OTHER:
-292,Physician ,MR:
-288,Physician ,PO HS:
-287,Physician ,ICU CONSENT:
-284,Physician ,HYPERTENSION:
-280,Physician ,DM II:
-278,Physician ,SOCIAL HISTORY:
-269,Physician ,ACUTE RENAL FAILURE:
-263,Physician ,TELEMETRY:
-263,Physician ,ENT:
-253,Physician ,LEUKOCYTOSIS:
-253,Physician ,AIDS:
-252,Physician ,PO DAILY:
-252,Physician ,ACUTE:
-249,Physician ,SDH:
-247,Physician ,TP TID:
-245,Physician ,REVIEW OF SYSTEMS:
-241,Physician ,PO QID:
-240,Physician ,TSH:
-229,Physician ,MEDICATIONS ON TRANSFER:
-225,Physician ,MBI:
-223,Physician ,MRSA:
-220,Physician ,LABORATORY DATA:
-220,Physician ,VBG:
-218,Physician ,RUQ US:
-218,Physician ,BRBPR:
-218,Physician ,ERCP:
-217,Physician ,HF:
-215,Physician ,HYPOTHYROIDISM:
-214,Physician ,RUE DVT:
-213,Physician ,TEE:
-212,Physician ,HLD:
-212,Physician ,BACK:
-211,Physician ,IDDM:
-209,Physician ,HIT:
-205,Physician ,CLL:
-205,Physician ,LAD:
-204,Physician ,ACS:
-204,Physician ,HYPERLIPIDEMIA:
-203,Physician ,FEVER:
-203,Physician ,BUN:
-203,Physician ,PR HS:
-202,Physician ,SH:
-495287,Radiology,MEDICAL CONDITION:
-495000,Radiology,REASON FOR THIS EXAMINATION:
-379094,Radiology,IMPRESSION:
-242832,Radiology,INDICATION:
-229337,Radiology,FINDINGS:
-182618,Radiology,COMPARISON:
-149505,Radiology,HISTORY:
-125994,Radiology,TECHNIQUE:
-56997,Radiology,WET READ:
-21554,Radiology,CLINICAL HISTORY:
-21010,Radiology,COMPARISONS:
-15473,Radiology,STUDY:
-13655,Radiology,PFI:
-13191,Radiology,BONE WINDOWS:
-12772,Radiology,REASON FOR EXAMINATION:
-12762,Radiology,REASON FOR EXAM:
-12273,Radiology,CLINICAL INDICATION:
-11546,Radiology,IV CONTRAST:
-11339,Radiology,PROCEDURE:
-10507,Radiology,CLINICAL INFORMATION:
-9728,Radiology,INDICATIONS:
-8813,Radiology,CONCLUSION:
-6807,Radiology,CHEST:
-6260,Radiology,EXAMINATION:
-6065,Radiology,INTERPRETATION:
-5594,Radiology,RADIOLOGISTS:
-5419,Radiology,OSSEOUS STRUCTURES:
-4764,Radiology,EXAM:
-4397,Radiology,CONTRAST:
-4121,Radiology,ANESTHESIA:
-4039,Radiology,PROCEDURE AND FINDINGS:
-3882,Radiology,PORTABLE CHEST:
-3662,Radiology,CT OF THE PELVIS WITH IV CONTRAST:
-3643,Radiology,PELVIS:
-3370,Radiology,TYPE OF EXAMINATION:
-3213,Radiology,PORTABLE AP CHEST:
-3074,Radiology,ABDOMEN:
-3045,Radiology,CT PELVIS:
-2962,Radiology,CT OF THE ABDOMEN WITH IV CONTRAST:
-2931,Radiology,B:
-2805,Radiology,CT ABDOMEN:
-2637,Radiology,PA AND LATERAL CHEST:
-2542,Radiology,COMMENT:
-2464,Radiology,RADIOPHARMACEUTICAL DATA:
-2419,Radiology,ADDENDUM:
-2381,Radiology,TWO VIEWS:
-2370,Radiology,CONTRAST HEAD CT:
-2345,Radiology,OPERATORS:
-2311,Radiology,REASON:
-2273,Radiology,COMPLICATIONS:
-2267,Radiology,VIEWS:
-2113,Radiology,COMMENTS:
-2061,Radiology,CT PELVIS WITH IV CONTRAST:
-2029,Radiology,RADIOLOGIST:
-2028,Radiology,CT OF THE CHEST WITH IV CONTRAST:
-2014,Radiology,PA AND LATERAL:
-1884,Radiology,MEDICATIONS:
-1860,Radiology,A:
-1754,Radiology,RAY:
-1728,Radiology,CT OF THE PELVIS:
-1713,Radiology,CT ABDOMEN WITH IV CONTRAST:
-1674,Radiology,AP CHEST:
-1669,Radiology,COMPARISON STUDY:
-1657,Radiology,AP:
-1647,Radiology,REFERENCE EXAM:
-1645,Radiology,TECHNIQUE AND FINDINGS:
-1645,Radiology,CT RECONSTRUCTIONS:
-1638,Radiology,CT PELVIS WITH CONTRAST:
-1607,Radiology,ONE VIEW:
-1576,Radiology,PHYSICIANS:
-1538,Radiology,CT OF THE ABDOMEN:
-1538,Radiology,EG:
-1521,Radiology,CT CHEST:
-1506,Radiology,PA AND LATERAL VIEWS OF THE CHEST:
-1501,Radiology,THREE VIEWS:
-1500,Radiology,CHEST AP:
-1483,Radiology,CT ABDOMEN WITH CONTRAST:
-1470,Radiology,RADIOPHARMECEUTICAL DATA:
-1463,Radiology,PORTABLE AP CHEST RADIOGRAPH:
-1419,Radiology,CT OF THE PELVIS WITH INTRAVENOUS CONTRAST:
-1410,Radiology,CT OF THE PELVIS WITH CONTRAST:
-1269,Radiology,BONES:
-1214,Radiology,CTA:
-1207,Radiology,MUSCULOSKELETAL:
-1189,Radiology,RENAL ULTRASOUND:
-1160,Radiology,METHODS:
-1159,Radiology,IMPRESSIONS:
-1159,Radiology,CT CHEST WITH IV CONTRAST:
-1153,Radiology,RIGHT UPPER QUADRANT ULTRASOUND:
-1123,Radiology,PREOPERATIVE DIAGNOSIS:
-1117,Radiology,CT OF THE ABDOMEN WITHOUT IV CONTRAST:
-1109,Radiology,CT OF THE ABDOMEN WITH INTRAVENOUS CONTRAST:
-1090,Radiology,SINGLE VIEW:
-1082,Radiology,CT OF THE PELVIS WITHOUT IV CONTRAST:
-1072,Radiology,CT OF THE ABDOMEN WITH CONTRAST:
-1055,Radiology,UPRIGHT AP VIEW OF THE CHEST:
-1025,Radiology,CONSENT:
-1023,Radiology,O CONTRAST:
-1014,Radiology,DLP:
-1005,Radiology,CT CHEST WITH CONTRAST:
-989,Radiology,FRONTAL CHEST RADIOGRAPH:
-972,Radiology,COMPARISON STUDIES:
-970,Radiology,PA AND LATERAL CHEST RADIOGRAPHS:
-926,Radiology,PROCEDURE IN DETAIL:
-924,Radiology,POSTOPERATIVE DIAGNOSIS:
-905,Radiology,AP UPRIGHT CHEST:
-849,Radiology,ABDOMINAL ULTRASOUND:
-845,Radiology,REPORT:
-838,Radiology,CT OF THE CHEST:
-827,Radiology,PA AND LATERAL CHEST RADIOGRAPH:
-823,Radiology,CT HEAD:
-792,Radiology,AP PORTABLE CHEST:
-752,Radiology,SUMMARY OF EXERCISE DATA FROM THE REPORT OF THE EXERCISE LAB:
-733,Radiology,MEDICAL HISTORY:
-732,Radiology,CT OF THE CHEST WITH INTRAVENOUS CONTRAST:
-727,Radiology,RESULTS:
-722,Radiology,DOPPLER EXAMINATION:
-714,Radiology,CT HEAD WITHOUT CONTRAST:
-713,Radiology,HEAD CT:
-696,Radiology,BONE WINDOW:
-693,Radiology,CHEST SINGLE AP FILM:
-683,Radiology,NOTE:
-682,Radiology,CT OF THE CHEST WITH CONTRAST:
-681,Radiology,CT ABDOMEN WITHOUT IV CONTRAST:
-674,Radiology,QUESTIONS TO BE ANSWERED:
-641,Radiology,CT HEAD WITHOUT IV CONTRAST:
-641,Radiology,PORTABLE AP:
-636,Radiology,CTA CHEST:
-627,Radiology,PORTABLE CHEST RADIOGRAPH:
-627,Radiology,SPINE:
-625,Radiology,SEDATION:
-623,Radiology,CLINICIANS:
-618,Radiology,NECK:
-608,Radiology,CT PELVIS WITHOUT IV CONTRAST:
-590,Radiology,NOTE ADDED AT ATTENDING REVIEW:
-579,Radiology,O IV CONTRAST:
-570,Radiology,AP CHEST RADIOGRAPH:
-564,Radiology,MRA OF THE HEAD:
-563,Radiology,EXAM ORDER:
-547,Radiology,METHOD:
-540,Radiology,THORACIC SPINE:
-537,Radiology,SUMMARY OF DATA FROM THE EXERCISE LAB:
-527,Radiology,BILATERAL LOWER EXTREMITY ULTRASOUND:
-522,Radiology,HEAD CT WITHOUT IV CONTRAST:
-518,Radiology,CT OF THE CHEST WITHOUT IV CONTRAST:
-517,Radiology,CT ABDOMEN WITHOUT CONTRAST:
-516,Radiology,LUMBAR SPINE:
-515,Radiology,CT PELVIS WITH INTRAVENOUS CONTRAST:
-512,Radiology,BRAIN MRI:
-508,Radiology,SUPINE AP VIEW OF THE CHEST:
-505,Radiology,HOURS:
-502,Radiology,SINGLE VIEW CHEST:
-501,Radiology,PORTABLE:
-499,Radiology,UPRIGHT AP CHEST:
-493,Radiology,CT OF THE ABDOMEN WITHOUT CONTRAST:
-487,Radiology,CT ANGIOGRAM:
-486,Radiology,AP SUPINE CHEST:
-478,Radiology,AP PELVIS:
-471,Radiology,VIDEO OROPHARYNGEAL SWALLOW:
-466,Radiology,CHEST RADIOGRAPH:
-464,Radiology,CT CHEST WITHOUT CONTRAST:
-463,Radiology,CTA HEAD:
-461,Radiology,CLINICAL DETAILS:
-458,Radiology,CT ABDOMEN WITH INTRAVENOUS CONTRAST:
-457,Radiology,TWO VIEWS OF THE CHEST:
-457,Radiology,CT PELVIS WITHOUT CONTRAST:
-448,Radiology,RIGHT:
-448,Radiology,INDICATION FOR EXAM:
-446,Radiology,PROCEDURE PERFORMED:
-445,Radiology,CT OF THE PELVIS WITHOUT CONTRAST:
-442,Radiology,CHEST PA AND LATERAL:
-439,Radiology,SUMMARY OF THE PRELIMINARY REPORT FROM THE EXERCISE LAB:
-438,Radiology,SINGLE AP PORTABLE VIEW OF THE CHEST:
-436,Radiology,AP PORTABLE:
-434,Radiology,UPRIGHT CHEST:
-431,Radiology,ASSISTANT:
-427,Radiology,ONE VIEW OF THE CHEST:
-426,Radiology,LEFT:
-424,Radiology,CHEST PORTABLE:
-418,Radiology,CT OF THE ABDOMEN WITH AND WITHOUT IV CONTRAST:
-418,Radiology,SUPINE AP CHEST:
-418,Radiology,PROCEDURES:
-413,Radiology,CT OF THE PELVIS WITHOUT INTRAVENOUS CONTRAST:
-413,Radiology,MRA:
-412,Radiology,SINGLE FRONTAL VIEW OF THE CHEST:
-412,Radiology,CTA OF THE CHEST:
-404,Radiology,UPRIGHT CHEST RADIOGRAPH:
-399,Radiology,IMAGING METHOD:
-393,Radiology,BILATERAL LOWER EXTREMITY VENOUS ULTRASOUND:
-392,Radiology,LATERAL:
-391,Radiology,CT OF THE ABDOMEN WITHOUT INTRAVENOUS CONTRAST:
-391,Radiology,CERVICAL SPINE:
-389,Radiology,CT OF THE ABDOMEN WITHOUT AND WITH IV CONTRAST:
-389,Radiology,SINGLE AP VIEW:
-386,Radiology,HEAD CT WITHOUT CONTRAST:
-383,Radiology,NONCONTRAST HEAD CT:
-379,Radiology,ERCP:
-374,Radiology,SUMMARY FROM THE EXERCISE LAB:
-370,Radiology,CT CHEST WITHOUT IV CONTRAST:
-369,Radiology,LUNG BASES:
-362,Radiology,CT CHEST WITH INTRAVENOUS CONTRAST:
-349,Radiology,DX:
-338,Radiology,PA AND LATERAL VIEWS:
-330,Radiology,DECISION:
-327,Radiology,ICA:
-324,Radiology,CT OF THE CHEST WITHOUT CONTRAST:
-323,Radiology,ABDOMEN SINGLE FILM:
-323,Radiology,AP UPRIGHT CHEST RADIOGRAPH:
-322,Radiology,MRA HEAD:
-316,Radiology,DATE:
-312,Radiology,NOTE ADDED IN ATTENDING REVIEW:
-312,Radiology,PORTABLE SUPINE CHEST:
-311,Radiology,CT PERFUSION:
-310,Radiology,ATTENDING:
-310,Radiology,LATERAL CHEST:
-308,Radiology,OSSEOUS FINDINGS:
-307,Radiology,COMPARISON EXAM:
-301,Radiology,CT OF THE HEAD WITHOUT CONTRAST:
-296,Radiology,CT:
-293,Radiology,PROCEDURE DETAILS:
-290,Radiology,INDICATION FOR STUDY:
-290,Radiology,BONES AND SOFT TISSUES:
-289,Radiology,CT ABDOMEN AND PELVIS:
-288,Radiology,CHEST CT WITH IV CONTRAST:
-287,Radiology,MEDIASTINUM:
-287,Radiology,MRI OF THE BRAIN:
-283,Radiology,FRONTAL AND LATERAL CHEST RADIOGRAPHS:
-283,Radiology,LEFT SIDE:
-280,Radiology,MULTIPLANAR REFORMATS:
-276,Radiology,AP UPRIGHT VIEW OF THE CHEST:
-274,Radiology,SINGLE AP FILM:
-273,Radiology,CT ABDOMEN WITHOUT AND WITH IV CONTRAST:
-269,Radiology,RIGHT SIDE:
-268,Radiology,TIME:
-262,Radiology,SINGLE AP PORTABLE VIEW:
-261,Radiology,VIEW:
-261,Radiology,DATE OF EXAM:
-261,Radiology,DETAILS OF PROCEDURE:
-261,Radiology,MRI BRAIN:
-260,Radiology,WITH INTRAVENOUS CONTRAST:
-260,Radiology,CT OF THE CHEST WITHOUT AND WITH IV CONTRAST:
-260,Radiology,CHEST AP PORTABLE:
-259,Radiology,DATE OF SERVICE:
-258,Radiology,DATE OF EXAMINATION:
-257,Radiology,SINGLE AP VIEW OF THE CHEST:
-256,Radiology,LIMITED ABDOMINAL ULTRASOUND:
-251,Radiology,CT OF THE CHEST WITH AND WITHOUT IV CONTRAST:
-248,Radiology, :
-247,Radiology,GFR:
-247,Radiology,DIAGNOSIS:
-246,Radiology,CT OF THE CHEST WITHOUT INTRAVENOUS CONTRAST:
-245,Radiology,SINGLE PORTABLE CHEST RADIOGRAPH:
-243,Radiology,PELVIS WITH CONTRAST:
-243,Radiology,FOUR VIEWS:
-240,Radiology,PORTABLE UPRIGHT CHEST RADIOGRAPH:
-237,Radiology,CONTRAST CT HEAD:
-237,Radiology,TIME OF EXAM:
-235,Radiology,REASON FOR THE EXAMINATION:
-234,Radiology,REFORMATTED IMAGES:
-233,Radiology,PA AND LATERAL RADIOGRAPHS OF THE CHEST:
-232,Radiology,AP AND LATERAL:
-227,Radiology,CT OF THE ABDOMEN WITHOUT AND WITH INTRAVENOUS CONTRAST:
-225,Radiology,CONTRAST HEAD CT SCAN:
-221,Radiology,SINGLE FRONTAL CHEST RADIOGRAPH:
-218,Radiology,AP SUPINE CHEST RADIOGRAPH:
-218,Radiology,HEAD ULTRASOUND:
-216,Radiology,RENAL TRANSPLANT ULTRASOUND:
-215,Radiology,PORTABLE ABDOMEN:
-214,Radiology,DESCRIPTION OF PROCEDURE:
-213,Radiology,RIGHT KNEE:
-212,Radiology,HEAD CTA:
-212,Radiology,AM:
-210,Radiology,PROC:
-209,Radiology,FINDINGS AND IMPRESSION:
-207,Radiology,PORTABLE UPRIGHT CHEST:
-207,Radiology,CT THORAX:
-206,Radiology,DOB:
-206,Radiology,LEFT KNEE:
-205,Radiology,PORTABLE SUPINE CHEST RADIOGRAPH:
-205,Radiology,FRONTAL AND LATERAL VIEWS OF THE CHEST:
-205,Radiology,AP UPRIGHT PORTABLE CHEST:
-204,Radiology,ATTENDING NOTE:
-204,Radiology,SUPINE ABDOMEN:
-204,Radiology,ABDOMEN WITH CONTRAST:
-203,Radiology,HR:
-3424,Rehab Services,Transfer:
-3418,Rehab Services,Rolling:
-3295,Rehab Services,Balance:
-3259,Rehab Services,Total distance walked:
-3256,Rehab Services,Minutes:
-3196,Rehab Services,Ambulation:
-3138,Rehab Services,Stairs:
-2687,Rehab Services,Other:
-2267,Rehab Services,Medications:
-2252,Rehab Services,Radiology:
-2165,Rehab Services,Time frame:
-2164,Rehab Services,Diagnosis:
-2157,Rehab Services,Labs:
-2121,Rehab Services,Posture:
-2068,Rehab Services,Other labs:
-1971,Rehab Services,Intervention:
-1933,Rehab Services,Referral date:
-1932,Rehab Services,Reason of referral:
-1172,Rehab Services,Assessment:
-1149,Rehab Services,Objective:
-1147,Rehab Services,Updated medical status:
-1077,Rehab Services,Gait:
-1066,Rehab Services,Face time:
-1023,Rehab Services,Plan:
-885,Rehab Services,Total time:
-669,Rehab Services,Secretions:
-662,Rehab Services,Teeth:
-280,Rehab Services,Time:
-207,Rehab Services,Date:
-83723,Respiratory ,Comments:
-37281,Respiratory ,Type:
-37259,Respiratory ,Size:
-28128,Respiratory ,Day of mechanical ventilation:
-27777,Respiratory ,Ideal body weight:
-27760,Respiratory ,Ideal tidal volume:
-26821,Respiratory ,Level of breathing assistance:
-26715,Respiratory ,Visual assessment of breathing pattern:
-25657,Respiratory ,Reason for continuing current ventilatory support:
-25081,Respiratory ,Assessment of breathing comfort:
-24216,Respiratory ,Day of intubation:
-23199,Respiratory ,Route:
-22970,Respiratory ,Cuff pressure:
-22882,Respiratory ,Trigger work assessment:
-22789,Respiratory ,Position:
-22698,Respiratory ,Known difficult intubation:
-21661,Respiratory ,Invasive ventilation assessment:
-16423,Respiratory ,Cuff volume:
-16044,Respiratory ,Procedure location:
-15955,Respiratory ,Reason:
-13619,Respiratory ,Manufacturer:
-13522,Respiratory ,Tracheostomy tube:
-13246,Respiratory ,Dysynchrony assessment:
-13123,Respiratory ,Airway problems:
-12229,Respiratory ,Transports:
-242,Respiratory ,Duration:
-242,Respiratory ,Times per shift:
-209,Respiratory ,Press:
-1030,Social Work,Previous living situation:
-1028,Social Work,Previous level of functioning:
-1020,Social Work,Employment status:
-1019,Social Work,Past psychiatric history:
-1018,Social Work,Past addictions history:
-1007,Social Work,Communication or visitation restriction:
-996,Social Work,Legal involvement:
-347,Social Work,Assessment:
-206,Social Work,Plan:
-201,Social Work,Continuing issues to be addressed:
+category,count,label,nb,percent_avec_section
+Case Management ,297,Current plan:,967,30.7135470527404
+Case Management ,297,Patient discussed with multidisciplinary team:,967,30.7135470527404
+Case Management ,296,Primary insurance:,967,30.6101344364012
+Case Management ,296,Dialysis:,967,30.6101344364012
+Case Management ,296,Medicaid application:,967,30.6101344364012
+Case Management ,296,Secondary insurance:,967,30.6101344364012
+Case Management ,296,Status:,967,30.6101344364012
+Case Management ,296,Insurance reviewer:,967,30.6101344364012
+Case Management ,245,Phone:,967,25.3360910031024
+Discharge summary,13612,IMPRESSION:,59652,22.819016965064
+Discharge summary,6662,DISCHARGE DIAGNOSES:,59652,11.168108361832
+Discharge summary,5545,PAST MEDICAL HISTORY:,59652,9.29558103667941
+Discharge summary,4914,DISCHARGE MEDICATIONS:,59652,8.23777911888956
+Discharge summary,3738,REASON FOR THIS EXAMINATION:,59652,6.26634479983907
+Discharge summary,2461,DISCHARGE DIAGNOSIS:,59652,4.12559511835311
+Discharge summary,1852,MEDICATIONS ON DISCHARGE:,59652,3.10467377455911
+Discharge summary,1850,MEDICATIONS ON ADMISSION:,59652,3.10132099510494
+Discharge summary,1837,ADMISSION LABS:,59652,3.07952792865285
+Discharge summary,1735,IMAGING:,59652,2.90853617649031
+Discharge summary,1727,FINAL DIAGNOSIS:,59652,2.89512505867364
+Discharge summary,1581,MEDICATIONS:,59652,2.65037215851941
+Discharge summary,1497,HOSPITAL COURSE:,59652,2.50955542144438
+Discharge summary,1418,PULSES:,59652,2.37712063300476
+Discharge summary,1264,DISCHARGE LABS:,59652,2.11895661503386
+Discharge summary,1165,PMH:,59652,1.95299403205257
+Discharge summary,1101,FINDINGS:,59652,1.84570508951921
+Discharge summary,919,MICRO:,59652,1.54060215918997
+Discharge summary,859,PAST SURGICAL HISTORY:,59652,1.44001877556494
+Discharge summary,848,COMMENTS:,59652,1.42157848856702
+Discharge summary,811,MICROBIOLOGY:,59652,1.35955206866492
+Discharge summary,805,CARE RECOMMENDATIONS:,59652,1.34949373030242
+Discharge summary,799,PHYSICAL EXAM:,59652,1.33943539193992
+Discharge summary,792,STUDIES:,59652,1.32770066385033
+Discharge summary,767,DISCHARGE INSTRUCTIONS:,59652,1.28579092067324
+Discharge summary,755,TRANSITIONAL ISSUES:,59652,1.26567424394823
+Discharge summary,693,CXR:,59652,1.16173808086904
+Discharge summary,618,DIAGNOSIS:,59652,1.03600885133776
+Discharge summary,573,INTERPRETATION:,59652,0.96057131361899
+Discharge summary,572,PSH:,59652,0.958894923891906
+Discharge summary,571,ADMISSION PHYSICAL EXAM:,59652,0.957218534164823
+Discharge summary,565,ADMISSION EXAM:,59652,0.94716019580232
+Discharge summary,493,DISCHARGE EXAM:,59652,0.82646013545229
+Discharge summary,426,FOLLOWING:,59652,0.714142023737679
+Discharge summary,425,ADMISSION MEDICATIONS:,59652,0.712465634010595
+Discharge summary,419,MEDICATIONS ON TRANSFER:,59652,0.702407295648092
+Discharge summary,413,LABS:,59652,0.69234895728559
+Discharge summary,412,MEASUREMENTS:,59652,0.690672567558506
+Discharge summary,392,ADDENDUM:,59652,0.657144773016831
+Discharge summary,391,CARE AND RECOMMENDATIONS:,59652,0.655468383289747
+Discharge summary,382,PE:,59652,0.640380875745993
+Discharge summary,372,ACTIVE ISSUES:,59652,0.623616978475156
+Discharge summary,367,MEDICATIONS AT HOME:,59652,0.615235029839737
+Discharge summary,353,DISCHARGE PHYSICAL EXAM:,59652,0.591765573660565
+Discharge summary,352,ALLERGIES:,59652,0.590089183933481
+Discharge summary,347,ROS:,59652,0.581707235298062
+Discharge summary,336,PRIMARY:,59652,0.563266948300141
+Discharge summary,332,ON ADMISSION:,59652,0.556561389391806
+Discharge summary,330,HOSPITAL COURSE BY SYSTEM:,59652,0.553208609937638
+Discharge summary,325,HOSPITAL COURSE BY SYSTEMS:,59652,0.54482666130222
+Discharge summary,310,REGIONAL LEFT VENTRICULAR WALL MOTION:,59652,0.519680815395963
+Discharge summary,309,SUMMARY OF HOSPITAL COURSE BY SYSTEMS:,59652,0.518004425668879
+Discharge summary,285,ECHO:,59652,0.477771072218869
+Discharge summary,283,HOME MEDICATIONS:,59652,0.474418292764702
+Discharge summary,281,PHYSICAL EXAMINATION:,59652,0.471065513310534
+Discharge summary,273,CBC:,59652,0.457654395493864
+Discharge summary,269,CONTRAINDICATIONS FOR IV CONTRAST:,59652,0.450948836585529
+Discharge summary,268,SECONDARY:,59652,0.449272446858446
+Discharge summary,253,IMMUNIZATIONS RECOMMENDED:,59652,0.424126600952189
+Discharge summary,249,CONCLUSION:,59652,0.417421042043854
+Discharge summary,241,LABS ON ADMISSION:,59652,0.404009924227184
+Discharge summary,228,EKG:,59652,0.382216857775096
+Discharge summary,228,REVIEW OF SYSTEMS:,59652,0.382216857775096
+Discharge summary,224,CHRONIC ISSUES:,59652,0.375511298866761
+Discharge summary,222,SECONDARY DIAGNOSES:,59652,0.372158519412593
+Discharge summary,215,NEURO:,59652,0.360423791323007
+Discharge summary,202,ON DISCHARGE:,59652,0.338630724870918
+Discharge summary,202,PROCEDURE:,59652,0.338630724870918
+ECG,44467291,"",209051,21271.0252522112
+Echo,45794,TEST INFORMATION:,45794,100
+Echo,45794,INTERPRETATION:,45794,100
+Echo,42996,LEFT VENTRICLE:,45794,93.8900292614753
+Echo,41747,MITRAL VALVE:,45794,91.1625977202254
+Echo,41228,AORTIC VALVE:,45794,90.0292614753024
+Echo,41203,RIGHT VENTRICLE:,45794,89.9746691706337
+Echo,40534,PERICARDIUM:,45794,88.5137790976984
+Echo,39280,TRICUSPID VALVE:,45794,85.7754290955147
+Echo,37112,LEFT ATRIUM:,45794,81.0411844346421
+Echo,36295,AORTA:,45794,79.2571079180679
+Echo,36123,INTERATRIAL SEPTUM:,45794,78.881512861947
+Echo,29386,PULMONARY ARTERY:,45794,64.1699785998166
+Echo,27137,GENERAL COMMENTS:,45794,59.2588548718173
+Echo,15739,IMPRESSION:,45794,34.3691313272481
+Echo,8686,LV WALL MOTION:,45794,18.9675503341049
+Echo,3303,CLINICAL IMPLICATIONS:,45794,7.21273529283312
+Echo,2356,BYPASS:,45794,5.14477879198148
+Echo,1684,CPB:,45794,3.67733764248592
+Echo,206,POST CPB:,45794,0.449840590470367
+General,2182,Total time spent:,8301,26.2859896398024
+General,861,Plan:,8301,10.3722443079147
+General,858,Nutrition:,8301,10.3361040838453
+General,754,Assessment:,8301,9.08324298277316
+General,751,Neurologic:,8301,9.04710275870377
+General,711,Allergies:,8301,8.56523310444525
+General,675,Cardiovascular:,8301,8.13155041561258
+General,654,Action:,8301,7.87856884712685
+General,653,Response:,8301,7.86652210577039
+General,647,Urine:,8301,7.79424165763161
+General,646,Balance:,8301,7.78219491627515
+General,644,Heart rhythm:,8301,7.75810143356222
+General,643,Total out:,8301,7.74605469220576
+General,643,Drains:,8301,7.74605469220576
+General,643,Stool:,8301,7.74605469220576
+General,642,Blood products:,8301,7.73400795084929
+General,641,Communication:,8301,7.72196120949283
+General,636,Prophylaxis:,8301,7.66172750271052
+General,632,Other labs:,8301,7.61354053728466
+General,622,Code status:,8301,7.49307312372003
+General,617,Infusions:,8301,7.43283941693772
+General,610,Stress ulcer:,8301,7.34851222744248
+General,606,Tmax:,8301,7.30032526201662
+General,606,Comments:,8301,7.30032526201662
+General,604,Lines:,8301,7.2762317793037
+General,602,Disposition:,8301,7.25213829659077
+General,558,Other medications:,8301,6.7220816769064
+General,492,Imaging:,8301,5.92699674737983
+General,468,Height:,8301,5.63787495482472
+General,418,Skin:,8301,5.03553788700157
+General,364,Total time:,8301,4.38501385375256
+General,363,Tcurrent:,8301,4.3729671123961
+General,360,Abdominal:,8301,4.33682688832671
+General,340,Review of systems:,8301,4.09589206119745
+General,316,Ventilator mode:,8301,3.80677026864233
+General,309,Ve:,8301,3.72244307914709
+General,308,Endocrine:,8301,3.71039633779063
+General,297,Changes to medical and family history:,8301,3.57788218286953
+General,293,Renal:,8301,3.52969521744368
+General,284,Pulmonary:,8301,3.42127454523551
+General,282,Tube feeding:,8301,3.39718106252259
+General,282,Current medications:,8301,3.39718106252259
+General,281,Ext:,8301,3.38513432116612
+General,270,Consults:,8301,3.25262016624503
+General,269,Wounds:,8301,3.24057342488857
+General,269,Hematology:,8301,3.24057342488857
+General,243,T current:,8301,2.92735814962053
+General,234,Abd:,8301,2.81893747741236
+General,226,Gen:,8301,2.72256354656066
+General,216,Labs:,8301,2.60209613299602
+Nursing,505489,Assessment:,223556,226.112920252644
+Nursing,504375,Plan:,223556,225.614611104153
+Nursing,504254,Response:,223556,225.560485963249
+Nursing,502544,Action:,223556,224.795576947163
+Nursing,31354,PMH:,223556,14.025121222423
+Nursing,24079,BP:,223556,10.7709030399542
+Nursing,22526,S:,223556,10.0762225124801
+Nursing,22497,weight:,223556,10.0632503712716
+Nursing,22459,D:,223556,10.0462523931364
+Nursing,22149,valuables:,223556,9.90758467677003
+Nursing,19433,with:,223556,8.692676555315
+Nursing,19430,Glucose:,223556,8.69133460967275
+Nursing,18287,]:,223556,8.18005331997352
+Nursing,12268,rate:,223556,5.48766304639553
+Nursing,12031,status:,223556,5.38164934065737
+Nursing,11802,history:,223556,5.27921415663189
+Nursing,11672,Precautions:,223556,5.22106317880084
+Nursing,11362,HPI:,223556,5.08239546243447
+Nursing,11337,from:,223556,5.07121258208234
+Nursing,11284,to:,223556,5.04750487573583
+Nursing,11257,diagnosis:,223556,5.03542736495554
+Nursing,11255,Temperature:,223556,5.03453273452737
+Nursing,11251,out:,223556,5.03274347367103
+Nursing,11250,MD:,223556,5.03229615845694
+Nursing,11249,Height:,223556,5.03184884324286
+Nursing,11246,rhythm:,223556,5.0305068976006
+Nursing,11246,in:,223556,5.0305068976006
+Nursing,11245,Reactions:,223556,5.03005958238652
+Nursing,11242,Rate:,223556,5.02871763674426
+Nursing,11241,Transfer:,223556,5.02827032153018
+Nursing,11238,device:,223556,5.02692837588792
+Nursing,11236,saturation:,223556,5.02603374545975
+Nursing,11236,date:,223556,5.02603374545975
+Nursing,11232,flow:,223556,5.02424448460341
+Nursing,11231,set:,223556,5.02379716938933
+Nursing,11203,Creatinine:,223556,5.01127234339494
+Nursing,11194,Results:,223556,5.00724650646818
+Nursing,11155,BUN:,223556,4.98980121311886
+Nursing,11064,Clothes:,223556,4.94909552863712
+Nursing,11016,Jewelry:,223556,4.92762439836104
+Nursing,10924,Potassium:,223556,4.88647139866521
+Nursing,10911,Sodium:,223556,4.88065630088211
+Nursing,10909,Hematocrit:,223556,4.87976167045394
+Nursing,10898,Chloride:,223556,4.874841203099
+Nursing,10652,Money:,223556,4.76480166043407
+Nursing,8131,Events:,223556,3.63712000572563
+Nursing,5748,Neuro:,223556,2.57116785056093
+Nursing,5438,PMHx:,223556,2.43250013419456
+Nursing,5194,GI:,223556,2.32335522195781
+Nursing,4772,re:,223556,2.13458820161391
+Nursing,4694,on:,223556,2.09969761491528
+Nursing,4685,By:,223556,2.09567177798851
+Nursing,4361,Resp:,223556,1.95074164862495
+Nursing,4125,complaint:,223556,1.84517525810088
+Nursing,4119,GU:,223556,1.84249136681637
+Nursing,3898,TITLE:,223556,1.74363470450357
+Nursing,3669,CV:,223556,1.64119952047809
+Nursing,3430,Social:,223556,1.53429118431176
+Nursing,2610,PSH:,223556,1.16749270876201
+Nursing,2063,HR:,223556,0.922811286657482
+Nursing,2043,were:,223556,0.913864982375781
+Nursing,2024,Skin:,223556,0.905365993308164
+Nursing,1922,Allergies:,223556,0.859739841471488
+Nursing,1900,EVENTS:,223556,0.849898906761617
+Nursing,1833,Endo:,223556,0.819928787417918
+Nursing,1789,labs:,223556,0.800246917998175
+Nursing,1766,Access:,223556,0.789958668074219
+Nursing,1602,Pain:,223556,0.716598972964269
+Nursing,1574,Complaint:,223556,0.704074146969887
+Nursing,1518,Drains:,223556,0.679024494981123
+Nursing,1498,setting:,223556,0.670078190699422
+Nursing,1390,note:,223556,0.621768147578236
+Nursing,1360,ABG:,223556,0.608348691155684
+Nursing,1296,sensitivity:,223556,0.57972051745424
+Nursing,1223,mode:,223556,0.54706650682603
+Nursing,1182,Injuries:,223556,0.528726583048543
+Nursing,1170,access:,223556,0.523358800479522
+Nursing,1168,RR:,223556,0.522464170051352
+Nursing,1167,VS:,223556,0.522016854837267
+Nursing,1147,threshold:,223556,0.513070550555565
+Nursing,1045,History:,223556,0.467444398718889
+Nursing,1028,include:,223556,0.459840040079443
+Nursing,1012,type:,223556,0.452682996654082
+Nursing,1005,ID:,223556,0.449551790155487
+Nursing,998,s:,223556,0.446420583656891
+Nursing,986,condition:,223556,0.441052801087871
+Nursing,986,Cardiac:,223556,0.441052801087871
+Nursing,977,LS:,223556,0.437026964161105
+Nursing,934,ventricular:,223556,0.417792409955447
+Nursing,916,atrial:,223556,0.409740736101916
+Nursing,900,Cardio:,223556,0.402583692676555
+Nursing,858,sats:,223556,0.383796453684983
+Nursing,842,medications:,223556,0.376639410259622
+Nursing,783,Status:,223556,0.350247812628603
+Nursing,765,SOCIAL:,223556,0.342196138775072
+Nursing,753,ROS:,223556,0.336828356206051
+Nursing,736,events:,223556,0.329223997566605
+Nursing,674,Lungs:,223556,0.301490454293331
+Nursing,669,ISSUES:,223556,0.299253878222906
+Nursing,663,including:,223556,0.296569986938396
+Nursing,647,Renal:,223556,0.289412943513035
+Nursing,639,ED:,223556,0.285834421800354
+Nursing,634,RESP:,223556,0.283597845729929
+Nursing,613,settings:,223556,0.274204226234143
+Nursing,575,course:,223556,0.25720624809891
+Nursing,573,ACCESS:,223556,0.25631161767074
+Nursing,570,Gi:,223556,0.254969672028485
+Nursing,524,abg:,223556,0.234393172180572
+Nursing,498,Family:,223556,0.222762976614361
+Nursing,481,Cv:,223556,0.215158617974915
+Nursing,469,CC:,223556,0.209790835405894
+Nursing,467,NOTE:,223556,0.208896204977724
+Nursing,463,PLAN:,223556,0.207106944121383
+Nursing,450,Hx:,223556,0.201291846338278
+Nursing,441,Addendum:,223556,0.197266009411512
+Nursing,435,SKIN:,223556,0.194582118127002
+Nursing,421,INFORMATION:,223556,0.188319705129811
+Nursing,410,Dentures:,223556,0.183399237774875
+Nursing,399,Note:,223556,0.17847877041994
+Nursing,395,Cr:,223556,0.176689509563599
+Nursing,394,P:,223556,0.176242194349514
+Nursing,383,ALLERGIES:,223556,0.171321726994579
+Nursing,380,EF:,223556,0.169979781352323
+Nursing,379,NEURO:,223556,0.169532466138238
+Nursing,370,vitals:,223556,0.165506629211473
+Nursing,370,admission:,223556,0.165506629211473
+Nursing,369,CODE:,223556,0.165059313997388
+Nursing,364,Amount:,223556,0.162822737926962
+Nursing,362,Tele:,223556,0.161928107498792
+Nursing,355,RENAL:,223556,0.158796901000197
+Nursing,352,All:,223556,0.157454955357942
+Nursing,342,Endoc:,223556,0.152981803217091
+Nursing,336,Cards:,223556,0.150297911932581
+Nursing,334,Id:,223556,0.149403281504411
+Nursing,332,MS:,223556,0.14850865107624
+Nursing,329,CT:,223556,0.147166705433985
+Nursing,328,overnight:,223556,0.1467193902199
+Nursing,321,Goal:,223556,0.143588183721305
+Nursing,317,c:,223556,0.141798922864964
+Nursing,313,HISTORY:,223556,0.140009662008624
+Nursing,311,UPDATE:,223556,0.139115031580454
+Nursing,309,WBC:,223556,0.138220401152284
+Nursing,308,ENDO:,223556,0.137773085938199
+Nursing,298,includes:,223556,0.133299933797348
+Nursing,296,Fraction:,223556,0.132405303369178
+Nursing,293,showed:,223556,0.131063357726923
+Nursing,289,Weight:,223556,0.129274096870583
+Nursing,286,Code:,223556,0.127932151228328
+Nursing,283,Dispo:,223556,0.126590205586072
+Nursing,281,Pulm:,223556,0.125695575157902
+Nursing,276,pmh:,223556,0.123458999087477
+Nursing,273,ALL:,223556,0.122117053445222
+Nursing,265,CXR:,223556,0.118538531732541
+Nursing,262,failure:,223556,0.117196586090286
+Nursing,258,POX:,223556,0.115407325233946
+Nursing,257,Allergy:,223556,0.114960010019861
+Nursing,257,ADMISSION:,223556,0.114960010019861
+Nursing,256,CVS:,223556,0.114512694805776
+Nursing,255,T:,223556,0.114065379591691
+Nursing,255,Antibiotics:,223556,0.114065379591691
+Nursing,245,Illness:,223556,0.10959222745084
+Nursing,239,cc:,223556,0.10690833616633
+Nursing,236,Meds:,223556,0.105566390524075
+Nursing,229,Abg:,223556,0.102435184025479
+Nursing,226,today:,223556,0.101093238383224
+Nursing,225,transfer:,223556,0.100645923169139
+Nursing,224,am:,223556,0.100198607955054
+Nursing,224,Soc:,223556,0.100198607955054
+Nursing,223,vent:,223556,0.0997512927409687
+Nursing,221,MAP:,223556,0.0988566623127986
+Nursing,219,Infusions:,223556,0.0979620318846284
+Nursing,213,Gu:,223556,0.0952781406001181
+Nursing,213,Others:,223556,0.0952781406001181
+Nursing,208,follows:,223556,0.0930415645296928
+Nursing,206,ILLNESS:,223556,0.0921469341015227
+Nursing,201,Wt:,223556,0.0899103580310973
+Nursing/other,658094330,"",822497,80011.7605292177
+Nutrition,7987,Labs:,9418,84.8056912295604
+Nutrition,7644,Pertinent medications:,9418,81.1637290295179
+Nutrition,6364,Specifics:,9418,67.5727330643449
+Nutrition,3405,Calories:,9418,36.1541728604799
+Nutrition,3401,Protein:,9418,36.1117009980888
+Nutrition,3394,Diagnosis:,9418,36.0373752389042
+Nutrition,3331,Estimation of current intake:,9418,35.3684434062434
+Nutrition,3323,Fluid:,9418,35.283499681461
+Nutrition,3109,Food allergies and intolerances:,9418,33.0112550435337
+Nutrition,2390,Estimation of previous intake:,9418,25.3769377787216
+Nutrition,2112,Pt at risk due to:,9418,22.4251433425356
+Nutrition,1367,Calculations based on:,9418,14.5147589721809
+Nutrition,1308,Patient at risk due to:,9418,13.8882990019112
+Nutrition,1304,Comments:,9418,13.8458271395201
+Nutrition,1180,Tube feeding recommendations:,9418,12.5291994053939
+Nutrition,847,Other:,9418,8.99341686132937
+Nutrition,551,Wt:,9418,5.8504990443831
+Nutrition,522,Starting rate:,9418,5.54257804204714
+Nutrition,440,Tube feed:,9418,4.67190486302824
+Nutrition,368,Diet:,9418,3.90741133998726
+Nutrition,287,Ht:,9418,3.04735612656615
+Nutrition,277,Skin:,9418,2.94117647058824
+Nutrition,258,Oral supplements:,9418,2.7394351242302
+Nutrition,241,Tube feeding:,9418,2.55892970906774
+Physician ,138781,BP:,141624,97.9925718804722
+Physician ,137760,HR:,141624,97.2716488730724
+Physician ,137310,RR:,141624,96.9539061176072
+Physician ,137085,PO:,141624,96.7950347398746
+Physician ,136910,NG:,141624,96.6714681127493
+Physician ,133767,DVT:,141624,94.452211489578
+Physician ,130732,ABG:,141624,92.3092131277185
+Physician ,117803,INR:,141624,83.1801107156979
+Physician ,108960,IVF:,141624,76.9361125233011
+Physician ,105887,TF:,141624,74.7662825509801
+Physician ,98746,VAP:,141624,69.7240580692538
+Physician ,80017,AST:,141624,56.4996045867932
+Physician ,73119,HPI:,141624,51.6289611930181
+Physician ,68238,LDH:,141624,48.1825114387392
+Physician ,64751,PEEP:,141624,45.7203581313902
+Physician ,62565,PIP:,141624,44.1768344348416
+Physician ,58220,HEENT:,141624,41.1088516070723
+Physician ,40653,PS :,141624,28.7048805287239
+Physician ,37820,FEN:,141624,26.7045133593176
+Physician ,35783,CVP:,141624,25.2661978195786
+Physician ,27964,TITLE:,141624,19.7452409196181
+Physician ,26051,RSBI:,141624,18.3944811613851
+Physician ,24169,CV:,141624,17.0656103485285
+Physician ,14772,CXR:,141624,10.4304355194035
+Physician ,11824,PMH:,141624,8.34886742360052
+Physician ,11461,ACCESS:,141624,8.09255493419194
+Physician ,10538,NEURO:,141624,7.44082923798226
+Physician ,10477,CODE:,141624,7.39775744224143
+Physician ,9798,ID:,141624,6.91831892899509
+Physician ,9159,PSH:,141624,6.46712421623454
+Physician ,8806,HTN:,141624,6.21787267694741
+Physician ,8795,ABD:,141624,6.21010563181382
+Physician ,8190,ECG:,141624,5.78291814946619
+Physician ,8073,DISPO:,141624,5.70030503304525
+Physician ,8004,LUNGS:,141624,5.65158447720725
+Physician ,7837,PULM:,141624,5.53366661017907
+Physician ,7816,PPX:,141624,5.51883861492402
+Physician ,7713,PROPHYLAXIS:,141624,5.44611082867311
+Physician ,7503,ABDOMEN:,141624,5.29783087612269
+Physician ,7496,SKIN:,141624,5.29288821103768
+Physician ,7361,GI:,141624,5.19756538439812
+Physician ,7319,CARDIAC:,141624,5.16790939388804
+Physician ,7279,GEN:,141624,5.13966559340225
+Physician ,7165,GENERAL:,141624,5.05917076201774
+Physician ,6928,IMPRESSION:,141624,4.89182624413941
+Physician ,6885,EXT:,141624,4.86146415861718
+Physician ,6758,NECK:,141624,4.77179009207479
+Physician ,6687,EXTREMITIES:,141624,4.72165734621251
+Physician ,6257,ARF:,141624,4.41803649099023
+Physician ,5767,CVS:,141624,4.07204993503926
+Physician ,5681,CAD:,141624,4.0113257639948
+Physician ,5559,TLD:,141624,3.92518217251313
+Physician ,5194,PAP:,141624,3.66745749308027
+Physician ,5052,RHYTHM:,141624,3.5671920013557
+Physician ,5025,CODE STATUS:,141624,3.54812743602779
+Physician ,4879,DISPOSITION:,141624,3.44503756425465
+Physician ,4709,DM:,141624,3.32500141219002
+Physician ,4449,PUMP:,141624,3.14141670903237
+Physician ,4439,CORONARIES:,141624,3.13435575891092
+Physician ,4031,RENAL:,141624,2.84626899395583
+Physician ,3813,CHF:,141624,2.69234028130825
+Physician ,3720,GU:,141624,2.62667344517878
+Physician ,3707,CONSULTS:,141624,2.6174942100209
+Physician ,3647,COPD:,141624,2.57512850929221
+Physician ,3588,CONTACT:,141624,2.53346890357567
+Physician ,3327,HEME:,141624,2.34917810540586
+Physician ,3302,ENDO:,141624,2.33152573010224
+Physician ,3248,COMM:,141624,2.29339659944642
+Physician ,3168,EKG:,141624,2.23690899847483
+Physician ,3037,UTI:,141624,2.14441055188386
+Physician ,3025,PULSES:,141624,2.13593741173812
+Physician ,2994,BILLING DIAGNOSIS:,141624,2.11404846636163
+Physician ,2854,ASSESSMENT AND PLAN:,141624,2.01519516466136
+Physician ,2657,PLAN:,141624,1.87609444726882
+Physician ,2633,GLYCEMIC CONTROL:,141624,1.85914816697735
+Physician ,2590,COMMUNICATIONS:,141624,1.82878608145512
+Physician ,2567,GERD:,141624,1.81254589617579
+Physician ,2358,VS:,141624,1.66497203863752
+Physician ,2347,ICU CARE:,141624,1.65720499350393
+Physician ,2345,ICP:,141624,1.65579280347964
+Physician ,2322,ESRD:,141624,1.63955261820031
+Physician ,2210,CT:,141624,1.56046997684008
+Physician ,2075,MICRO:,141624,1.46514715020053
+Physician ,1931,ICU:,141624,1.36346946845167
+Physician ,1926,IMAGING:,141624,1.35993899339095
+Physician ,1833,LUE:,141624,1.29427215726148
+Physician ,1830,EMERGENCY CONTACT:,141624,1.29215387222505
+Physician ,1830,SVR:,141624,1.29215387222505
+Physician ,1810,SV:,141624,1.27803197198215
+Physician ,1782,NOS:,141624,1.25826131164209
+Physician ,1752,SVI:,141624,1.23707846127775
+Physician ,1730,LLE:,141624,1.22154437101056
+Physician ,1725,RVR:,141624,1.21801389594984
+Physician ,1719,RUE:,141624,1.21377732587697
+Physician ,1712,PNA:,141624,1.20883466079196
+Physician ,1684,EF:,141624,1.1890640004519
+Physician ,1684,CK:,141624,1.1890640004519
+Physician ,1661,RLE:,141624,1.17282381517257
+Physician ,1640,PE:,141624,1.15799581991753
+Physician ,1640,PTT:,141624,1.15799581991753
+Physician ,1573,TTE:,141624,1.11068745410382
+Physician ,1543,MIN:,141624,1.08950460373948
+Physician ,1518,FINDINGS:,141624,1.07185222843586
+Physician ,1500,PT:,141624,1.05914251821725
+Physician ,1402,NSTEMI:,141624,0.989945207027058
+Physician ,1398,HD:,141624,0.987120826978478
+Physician ,1383,AMS:,141624,0.976529401796306
+Physician ,1381,PR DAILY:,141624,0.975117211772016
+Physician ,1309,CABG:,141624,0.924278370897588
+Physician ,1285,ALLERGIES:,141624,0.907332090606112
+Physician ,1281,CHEST:,141624,0.904507710557533
+Physician ,1273,CHIEF COMPLAINT:,141624,0.898858950460374
+Physician ,1244,ISSUES:,141624,0.878382195108174
+Physician ,1238,BAL:,141624,0.874145625035305
+Physician ,1231,RESP:,141624,0.869202959950291
+Physician ,1185,OSA:,141624,0.836722589391629
+Physician ,1176,HOUR EVENTS:,141624,0.830367734282325
+Physician ,1168,CVA:,141624,0.824718974185166
+Physician ,1157,GIB:,141624,0.816951929051573
+Physician ,1130,PSYCH:,141624,0.797887363723663
+Physician ,1112,EVENTS:,141624,0.785177653505056
+Physician ,1101,BPH:,141624,0.777410608371462
+Physician ,1087,CKD:,141624,0.767525278201435
+Physician ,1076,ALT:,141624,0.759758233067842
+Physician ,1075,MB:,141624,0.759052138055697
+Physician ,1065,COR:,141624,0.751991187934248
+Physician ,1036,AP:,141624,0.731514432582048
+Physician ,1027,ECHO:,141624,0.725159577472745
+Physician ,1013,UA:,141624,0.715274247302717
+Physician ,1002,TAB PO BID:,141624,0.707507202169124
+Physician ,1001,NEUROLOGIC:,141624,0.706801107156979
+Physician ,972,ROS:,141624,0.686324351804779
+Physician ,947,CC:,141624,0.668671976501158
+Physician ,930,NUTRITION:,141624,0.656668361294696
+Physician ,904,ASSESSMENT:,141624,0.63830989097893
+Physician ,865,CA:,141624,0.610772185505282
+Physician ,864,LUNG:,141624,0.610066090493137
+Physician ,863,NIF:,141624,0.609359995480992
+Physician ,837,EXTR:,141624,0.591001525165226
+Physician ,835,CARD:,141624,0.589589335140936
+Physician ,823,CARDIAC RISK FACTORS:,141624,0.581116194995199
+Physician ,816,HIV:,141624,0.576173529910185
+Physician ,803,OSH:,141624,0.566994294752302
+Physician ,801,CARDIAC HISTORY:,141624,0.565582104728012
+Physician ,787,PULMONARY:,141624,0.555696774557985
+Physician ,772,CTA:,141624,0.545105349375812
+Physician ,767,PVD:,141624,0.541574874315088
+Physician ,763,MS:,141624,0.538750494266509
+Physician ,760,CARDIOVASCULAR:,141624,0.536632209230074
+Physician ,752,DRAINS:,141624,0.530983449132915
+Physician ,746,ESLD:,141624,0.526746879060046
+Physician ,740,ANEMIA:,141624,0.522510308987177
+Physician ,739,ENDOCRINE:,141624,0.521804213975033
+Physician ,735,HEMATOLOGY:,141624,0.518979833926453
+Physician ,735,OTHER PAST MEDICAL HISTORY:,141624,0.518979833926453
+Physician ,727,FLUIDS:,141624,0.513331073829294
+Physician ,726,ABX:,141624,0.51262497881715
+Physician ,722,DMII:,141624,0.50980059876857
+Physician ,718,WOUNDS:,141624,0.506976218719991
+Physician ,717,ICD:,141624,0.506270123707846
+Physician ,708,CURRENT MEDICATIONS:,141624,0.499915268598543
+Physician ,684,ED:,141624,0.482968988307067
+Physician ,620,HEART:,141624,0.437778907529797
+Physician ,617,ARDS:,141624,0.435660622493363
+Physician ,594,HCP:,141624,0.419420437214031
+Physician ,592,SENSITIVITIES:,141624,0.418008247189742
+Physician ,588,PAST MEDICAL HISTORY:,141624,0.415183867141162
+Physician ,585,AS:,141624,0.413065582104728
+Physician ,584,PERCUTANEOUS CORONARY INTERVENTIONS:,141624,0.412359487092583
+Physician ,583,ETOH:,141624,0.411653392080438
+Physician ,583,COMMUNICATION:,141624,0.411653392080438
+Physician ,582,MEDICAL:,141624,0.410947297068294
+Physician ,578,PO BID:,141624,0.408122917019714
+Physician ,578,II:,141624,0.408122917019714
+Physician ,573,DISP:,141624,0.40459244195899
+Physician ,572,CSF:,141624,0.403886346946845
+Physician ,569,PCP:,141624,0.401768061910411
+Physician ,567,UGIB:,141624,0.400355871886121
+Physician ,558,SOB:,141624,0.394001016776818
+Physician ,550,AM:,141624,0.388352256679659
+Physician ,543,DKA:,141624,0.383409591594645
+Physician ,518,DERM:,141624,0.365757216291024
+Physician ,511,MRI:,141624,0.36081455120601
+Physician ,501,STEMI:,141624,0.353753601084562
+Physician ,500,PCWP:,141624,0.353047506072417
+Physician ,499,GVHD:,141624,0.352341411060272
+Physician ,498,EXTREM:,141624,0.351635316048127
+Physician ,491,CRI:,141624,0.346692650963114
+Physician ,489,WBC:,141624,0.345280460938824
+Physician ,480,KUB:,141624,0.33892560582952
+Physician ,479,PC :,141624,0.338219510817376
+Physician ,475,HOME MEDICATIONS:,141624,0.335395130768796
+Physician ,460,PM:,141624,0.324803705586624
+Physician ,445,DIC:,141624,0.314212280404451
+Physician ,433,OH:,141624,0.305739140258713
+Physician ,431,SBP:,141624,0.304326950234424
+Physician ,412,US:,141624,0.290911145003672
+Physician ,406,HYPOTENSION:,141624,0.286674574930803
+Physician ,403,FINAL DIAGNOSIS:,141624,0.284556289894368
+Physician ,399,L PO QID:,141624,0.281731909845789
+Physician ,391,EEG:,141624,0.27608314974863
+Physician ,388,HL:,141624,0.273964864712196
+Physician ,383,MSK:,141624,0.270434389651471
+Physician ,379,SBO:,141624,0.267610009602892
+Physician ,377,RESPIRATORY FAILURE:,141624,0.266197819578603
+Physician ,371,HAP:,141624,0.261961249505733
+Physician ,370,AF:,141624,0.261255154493589
+Physician ,366,AC:,141624,0.258430774445009
+Physician ,366,ALL:,141624,0.258430774445009
+Physician ,361,HCT:,141624,0.254900299384285
+Physician ,357,UOP:,141624,0.252075919335706
+Physician ,355,AML:,141624,0.250663729311416
+Physician ,351,DIABETES:,141624,0.247839349262837
+Physician ,339,SVT:,141624,0.239366209117099
+Physician ,335,FAMILY HISTORY:,141624,0.236541829068519
+Physician ,332,ECHOCARDIOGRAM:,141624,0.234423544032085
+Physician ,324,PMI:,141624,0.228774783934926
+Physician ,322,GFR:,141624,0.227362593910637
+Physician ,320,CARDIAC CATH:,141624,0.225950403886347
+Physician ,317,MEDICATIONS:,141624,0.223832118849912
+Physician ,315,BNP:,141624,0.222419928825623
+Physician ,311,MI:,141624,0.219595548777043
+Physician ,311,STUDIES:,141624,0.219595548777043
+Physician ,304,TP QID:,141624,0.21465288369203
+Physician ,298,EGD:,141624,0.210416313619161
+Physician ,295,AVR:,141624,0.208298028582726
+Physician ,294,SLE:,141624,0.207591933570581
+Physician ,293,OTHER:,141624,0.206885838558436
+Physician ,292,MR:,141624,0.206179743546292
+Physician ,288,PO HS:,141624,0.203355363497712
+Physician ,287,ICU CONSENT:,141624,0.202649268485567
+Physician ,284,HYPERTENSION:,141624,0.200530983449133
+Physician ,280,DM II:,141624,0.197706603400554
+Physician ,278,SOCIAL HISTORY:,141624,0.196294413376264
+Physician ,269,ACUTE RENAL FAILURE:,141624,0.18993955826696
+Physician ,263,ENT:,141624,0.185702988194091
+Physician ,263,TELEMETRY:,141624,0.185702988194091
+Physician ,253,LEUKOCYTOSIS:,141624,0.178642038072643
+Physician ,253,AIDS:,141624,0.178642038072643
+Physician ,252,PO DAILY:,141624,0.177935943060498
+Physician ,252,ACUTE:,141624,0.177935943060498
+Physician ,249,SDH:,141624,0.175817658024064
+Physician ,247,TP TID:,141624,0.174405467999774
+Physician ,245,REVIEW OF SYSTEMS:,141624,0.172993277975484
+Physician ,241,PO QID:,141624,0.170168897926905
+Physician ,240,TSH:,141624,0.16946280291476
+Physician ,229,MEDICATIONS ON TRANSFER:,141624,0.161695757781167
+Physician ,225,MBI:,141624,0.158871377732588
+Physician ,223,MRSA:,141624,0.157459187708298
+Physician ,220,VBG:,141624,0.155340902671864
+Physician ,220,LABORATORY DATA:,141624,0.155340902671864
+Physician ,218,RUQ US:,141624,0.153928712647574
+Physician ,218,BRBPR:,141624,0.153928712647574
+Physician ,218,ERCP:,141624,0.153928712647574
+Physician ,217,HF:,141624,0.153222617635429
+Physician ,215,HYPOTHYROIDISM:,141624,0.151810427611139
+Physician ,214,RUE DVT:,141624,0.151104332598995
+Physician ,213,TEE:,141624,0.15039823758685
+Physician ,212,BACK:,141624,0.149692142574705
+Physician ,212,HLD:,141624,0.149692142574705
+Physician ,211,IDDM:,141624,0.14898604756256
+Physician ,209,HIT:,141624,0.14757385753827
+Physician ,205,LAD:,141624,0.144749477489691
+Physician ,205,CLL:,141624,0.144749477489691
+Physician ,204,ACS:,141624,0.144043382477546
+Physician ,204,HYPERLIPIDEMIA:,141624,0.144043382477546
+Physician ,203,PR HS:,141624,0.143337287465401
+Physician ,203,BUN:,141624,0.143337287465401
+Physician ,203,FEVER:,141624,0.143337287465401
+Physician ,202,SH:,141624,0.142631192453257
+Radiology,495287,MEDICAL CONDITION:,522279,94.8318810444226
+Radiology,495000,REASON FOR THIS EXAMINATION:,522279,94.7769295721252
+Radiology,379094,IMPRESSION:,522279,72.5845764428591
+Radiology,242832,INDICATION:,522279,46.4946896199158
+Radiology,229337,FINDINGS:,522279,43.9108216106717
+Radiology,182618,COMPARISON:,522279,34.9656026759644
+Radiology,149505,HISTORY:,522279,28.6255047589507
+Radiology,125994,TECHNIQUE:,522279,24.1238878070916
+Radiology,56997,WET READ:,522279,10.9131326360049
+Radiology,21554,CLINICAL HISTORY:,522279,4.12691301009614
+Radiology,21010,COMPARISONS:,522279,4.02275412183909
+Radiology,15473,STUDY:,522279,2.96259279044342
+Radiology,13655,PFI:,522279,2.61450297637853
+Radiology,13191,BONE WINDOWS:,522279,2.5256615716887
+Radiology,12772,REASON FOR EXAMINATION:,522279,2.44543625150542
+Radiology,12762,REASON FOR EXAM:,522279,2.44352156605952
+Radiology,12273,CLINICAL INDICATION:,522279,2.34989344775494
+Radiology,11546,IV CONTRAST:,522279,2.2106958158379
+Radiology,11339,PROCEDURE:,522279,2.17106182710773
+Radiology,10507,CLINICAL INFORMATION:,522279,2.01175999800873
+Radiology,9728,INDICATIONS:,522279,1.862606001773
+Radiology,8813,CONCLUSION:,522279,1.68741228347301
+Radiology,6807,CHEST:,522279,1.30332638302516
+Radiology,6260,EXAMINATION:,522279,1.19859308913435
+Radiology,6065,INTERPRETATION:,522279,1.16125672293927
+Radiology,5594,RADIOLOGISTS:,522279,1.07107503843731
+Radiology,5419,OSSEOUS STRUCTURES:,522279,1.03756804313403
+Radiology,4764,EXAM:,522279,0.912156146427484
+Radiology,4397,CONTRAST:,522279,0.841887190562898
+Radiology,4121,ANESTHESIA:,522279,0.789041872256016
+Radiology,4039,PROCEDURE AND FINDINGS:,522279,0.773341451599624
+Radiology,3882,PORTABLE CHEST:,522279,0.74328089009897
+Radiology,3662,CT OF THE PELVIS WITH IV CONTRAST:,522279,0.701157810289137
+Radiology,3643,PELVIS:,522279,0.697519907941924
+Radiology,3370,TYPE OF EXAMINATION:,522279,0.645248995268812
+Radiology,3213,PORTABLE AP CHEST:,522279,0.615188433768158
+Radiology,3074,ABDOMEN:,522279,0.588574306070127
+Radiology,3045,CT PELVIS:,522279,0.583021718277013
+Radiology,2962,CT OF THE ABDOMEN WITH IV CONTRAST:,522279,0.56712982907603
+Radiology,2931,B:,522279,0.561194304193736
+Radiology,2805,CT ABDOMEN:,522279,0.537069267575376
+Radiology,2637,PA AND LATERAL CHEST:,522279,0.504902552084231
+Radiology,2542,COMMENT:,522279,0.486713040348166
+Radiology,2464,RADIOPHARMACEUTICAL DATA:,522279,0.471778493870135
+Radiology,2419,ADDENDUM:,522279,0.463162409363578
+Radiology,2381,TWO VIEWS:,522279,0.455886604669152
+Radiology,2370,CONTRAST HEAD CT:,522279,0.45378045067866
+Radiology,2345,OPERATORS:,522279,0.448993737063906
+Radiology,2311,REASON:,522279,0.442483806547841
+Radiology,2273,COMPLICATIONS:,522279,0.435208001853416
+Radiology,2267,VIEWS:,522279,0.434059190585875
+Radiology,2113,COMMENTS:,522279,0.404573034718991
+Radiology,2061,CT PELVIS WITH IV CONTRAST:,522279,0.394616670400303
+Radiology,2029,RADIOLOGIST:,522279,0.388489676973418
+Radiology,2028,CT OF THE CHEST WITH IV CONTRAST:,522279,0.388298208428828
+Radiology,2014,PA AND LATERAL:,522279,0.385617648804566
+Radiology,1884,MEDICATIONS:,522279,0.360726738007846
+Radiology,1860,A:,522279,0.356131492937683
+Radiology,1754,RAY:,522279,0.335835827211127
+Radiology,1728,CT OF THE PELVIS:,522279,0.330857645051783
+Radiology,1713,CT ABDOMEN WITH IV CONTRAST:,522279,0.32798561688293
+Radiology,1674,AP CHEST:,522279,0.320518343643914
+Radiology,1669,COMPARISON STUDY:,522279,0.319561000920964
+Radiology,1657,AP:,522279,0.317263378385882
+Radiology,1647,REFERENCE EXAM:,522279,0.31534869293998
+Radiology,1645,TECHNIQUE AND FINDINGS:,522279,0.3149657558508
+Radiology,1645,CT RECONSTRUCTIONS:,522279,0.3149657558508
+Radiology,1638,CT PELVIS WITH CONTRAST:,522279,0.313625476038669
+Radiology,1607,ONE VIEW:,522279,0.307689951156374
+Radiology,1576,PHYSICIANS:,522279,0.30175442627408
+Radiology,1538,EG:,522279,0.294478621579654
+Radiology,1538,CT OF THE ABDOMEN:,522279,0.294478621579654
+Radiology,1521,CT CHEST:,522279,0.291223656321621
+Radiology,1506,PA AND LATERAL VIEWS OF THE CHEST:,522279,0.288351628152769
+Radiology,1501,THREE VIEWS:,522279,0.287394285429818
+Radiology,1500,CHEST AP:,522279,0.287202816885228
+Radiology,1483,CT ABDOMEN WITH CONTRAST:,522279,0.283947851627195
+Radiology,1470,RADIOPHARMECEUTICAL DATA:,522279,0.281458760547523
+Radiology,1463,PORTABLE AP CHEST RADIOGRAPH:,522279,0.280118480735392
+Radiology,1419,CT OF THE PELVIS WITH INTRAVENOUS CONTRAST:,522279,0.271693864773426
+Radiology,1410,CT OF THE PELVIS WITH CONTRAST:,522279,0.269970647872114
+Radiology,1269,BONES:,522279,0.242973583084903
+Radiology,1214,CTA:,522279,0.232442813132445
+Radiology,1207,MUSCULOSKELETAL:,522279,0.231102533320313
+Radiology,1189,RENAL ULTRASOUND:,522279,0.227656099517691
+Radiology,1160,METHODS:,522279,0.222103511724576
+Radiology,1159,IMPRESSIONS:,522279,0.221912043179986
+Radiology,1159,CT CHEST WITH IV CONTRAST:,522279,0.221912043179986
+Radiology,1153,RIGHT UPPER QUADRANT ULTRASOUND:,522279,0.220763231912445
+Radiology,1123,PREOPERATIVE DIAGNOSIS:,522279,0.215019175574741
+Radiology,1117,CT OF THE ABDOMEN WITHOUT IV CONTRAST:,522279,0.2138703643072
+Radiology,1109,CT OF THE ABDOMEN WITH INTRAVENOUS CONTRAST:,522279,0.212338615950479
+Radiology,1090,SINGLE VIEW:,522279,0.208700713603266
+Radiology,1082,CT OF THE PELVIS WITHOUT IV CONTRAST:,522279,0.207168965246544
+Radiology,1072,CT OF THE ABDOMEN WITH CONTRAST:,522279,0.205254279800643
+Radiology,1055,UPRIGHT AP VIEW OF THE CHEST:,522279,0.20199931454261
+Radiology,1025,CONSENT:,522279,0.196255258204906
+Radiology,1023,O CONTRAST:,522279,0.195872321115726
+Radiology,1014,DLP:,522279,0.194149104214414
+Radiology,1005,CT CHEST WITH CONTRAST:,522279,0.192425887313103
+Radiology,989,FRONTAL CHEST RADIOGRAPH:,522279,0.18936239059966
+Radiology,972,COMPARISON STUDIES:,522279,0.186107425341628
+Radiology,970,PA AND LATERAL CHEST RADIOGRAPHS:,522279,0.185724488252447
+Radiology,926,PROCEDURE IN DETAIL:,522279,0.177299872290481
+Radiology,924,POSTOPERATIVE DIAGNOSIS:,522279,0.1769169352013
+Radiology,905,AP UPRIGHT CHEST:,522279,0.173279032854088
+Radiology,849,ABDOMINAL ULTRASOUND:,522279,0.162556794357039
+Radiology,845,REPORT:,522279,0.161790920178678
+Radiology,838,CT OF THE CHEST:,522279,0.160450640366547
+Radiology,827,PA AND LATERAL CHEST RADIOGRAPH:,522279,0.158344486376056
+Radiology,823,CT HEAD:,522279,0.157578612197695
+Radiology,792,AP PORTABLE CHEST:,522279,0.1516430873154
+Radiology,752,SUMMARY OF EXERCISE DATA FROM THE REPORT OF THE EXERCISE LAB:,522279,0.143984345531794
+Radiology,733,MEDICAL HISTORY:,522279,0.140346443184581
+Radiology,732,CT OF THE CHEST WITH INTRAVENOUS CONTRAST:,522279,0.140154974639991
+Radiology,727,RESULTS:,522279,0.13919763191704
+Radiology,722,DOPPLER EXAMINATION:,522279,0.13824028919409
+Radiology,714,CT HEAD WITHOUT CONTRAST:,522279,0.136708540837369
+Radiology,713,HEAD CT:,522279,0.136517072292778
+Radiology,696,BONE WINDOW:,522279,0.133262107034746
+Radiology,693,CHEST SINGLE AP FILM:,522279,0.132687701400975
+Radiology,683,NOTE:,522279,0.130773015955074
+Radiology,682,CT OF THE CHEST WITH CONTRAST:,522279,0.130581547410484
+Radiology,681,CT ABDOMEN WITHOUT IV CONTRAST:,522279,0.130390078865894
+Radiology,674,QUESTIONS TO BE ANSWERED:,522279,0.129049799053762
+Radiology,641,CT HEAD WITHOUT IV CONTRAST:,522279,0.122731337082287
+Radiology,641,PORTABLE AP:,522279,0.122731337082287
+Radiology,636,CTA CHEST:,522279,0.121773994359337
+Radiology,627,SPINE:,522279,0.120050777458025
+Radiology,627,PORTABLE CHEST RADIOGRAPH:,522279,0.120050777458025
+Radiology,625,SEDATION:,522279,0.119667840368845
+Radiology,623,CLINICIANS:,522279,0.119284903279665
+Radiology,618,NECK:,522279,0.118327560556714
+Radiology,608,CT PELVIS WITHOUT IV CONTRAST:,522279,0.116412875110812
+Radiology,590,NOTE ADDED AT ATTENDING REVIEW:,522279,0.11296644130819
+Radiology,579,O IV CONTRAST:,522279,0.110860287317698
+Radiology,570,AP CHEST RADIOGRAPH:,522279,0.109137070416387
+Radiology,564,MRA OF THE HEAD:,522279,0.107988259148846
+Radiology,563,EXAM ORDER:,522279,0.107796790604256
+Radiology,547,METHOD:,522279,0.104733293890813
+Radiology,540,THORACIC SPINE:,522279,0.103393014078682
+Radiology,537,SUMMARY OF DATA FROM THE EXERCISE LAB:,522279,0.102818608444912
+Radiology,527,BILATERAL LOWER EXTREMITY ULTRASOUND:,522279,0.10090392299901
+Radiology,522,HEAD CT WITHOUT IV CONTRAST:,522279,0.0999465802760593
+Radiology,518,CT OF THE CHEST WITHOUT IV CONTRAST:,522279,0.0991807060976987
+Radiology,517,CT ABDOMEN WITHOUT CONTRAST:,522279,0.0989892375531086
+Radiology,516,LUMBAR SPINE:,522279,0.0987977690085184
+Radiology,515,CT PELVIS WITH INTRAVENOUS CONTRAST:,522279,0.0986063004639283
+Radiology,512,BRAIN MRI:,522279,0.0980318948301578
+Radiology,508,SUPINE AP VIEW OF THE CHEST:,522279,0.0972660206517972
+Radiology,505,HOURS:,522279,0.0966916150180268
+Radiology,502,SINGLE VIEW CHEST:,522279,0.0961172093842563
+Radiology,501,PORTABLE:,522279,0.0959257408396662
+Radiology,499,UPRIGHT AP CHEST:,522279,0.0955428037504858
+Radiology,493,CT OF THE ABDOMEN WITHOUT CONTRAST:,522279,0.0943939924829449
+Radiology,487,CT ANGIOGRAM:,522279,0.093245181215404
+Radiology,486,AP SUPINE CHEST:,522279,0.0930537126708139
+Radiology,478,AP PELVIS:,522279,0.0915219643140927
+Radiology,471,VIDEO OROPHARYNGEAL SWALLOW:,522279,0.0901816845019616
+Radiology,466,CHEST RADIOGRAPH:,522279,0.0892243417790108
+Radiology,464,CT CHEST WITHOUT CONTRAST:,522279,0.0888414046898305
+Radiology,463,CTA HEAD:,522279,0.0886499361452404
+Radiology,461,CLINICAL DETAILS:,522279,0.0882669990560601
+Radiology,458,CT ABDOMEN WITH INTRAVENOUS CONTRAST:,522279,0.0876925934222896
+Radiology,457,TWO VIEWS OF THE CHEST:,522279,0.0875011248776995
+Radiology,457,CT PELVIS WITHOUT CONTRAST:,522279,0.0875011248776995
+Radiology,448,RIGHT:,522279,0.0857779079763881
+Radiology,448,INDICATION FOR EXAM:,522279,0.0857779079763881
+Radiology,446,PROCEDURE PERFORMED:,522279,0.0853949708872078
+Radiology,445,CT OF THE PELVIS WITHOUT CONTRAST:,522279,0.0852035023426176
+Radiology,442,CHEST PA AND LATERAL:,522279,0.0846290967088472
+Radiology,439,SUMMARY OF THE PRELIMINARY REPORT FROM THE EXERCISE LAB:,522279,0.0840546910750767
+Radiology,438,SINGLE AP PORTABLE VIEW OF THE CHEST:,522279,0.0838632225304866
+Radiology,436,AP PORTABLE:,522279,0.0834802854413063
+Radiology,434,UPRIGHT CHEST:,522279,0.083097348352126
+Radiology,431,ASSISTANT:,522279,0.0825229427183555
+Radiology,427,ONE VIEW OF THE CHEST:,522279,0.0817570685399949
+Radiology,426,LEFT:,522279,0.0815655999954047
+Radiology,424,CHEST PORTABLE:,522279,0.0811826629062245
+Radiology,418,CT OF THE ABDOMEN WITH AND WITHOUT IV CONTRAST:,522279,0.0800338516386835
+Radiology,418,PROCEDURES:,522279,0.0800338516386835
+Radiology,418,SUPINE AP CHEST:,522279,0.0800338516386835
+Radiology,413,MRA:,522279,0.0790765089157328
+Radiology,413,CT OF THE PELVIS WITHOUT INTRAVENOUS CONTRAST:,522279,0.0790765089157328
+Radiology,412,SINGLE FRONTAL VIEW OF THE CHEST:,522279,0.0788850403711426
+Radiology,412,CTA OF THE CHEST:,522279,0.0788850403711426
+Radiology,404,UPRIGHT CHEST RADIOGRAPH:,522279,0.0773532920144214
+Radiology,399,IMAGING METHOD:,522279,0.0763959492914706
+Radiology,393,BILATERAL LOWER EXTREMITY VENOUS ULTRASOUND:,522279,0.0752471380239297
+Radiology,392,LATERAL:,522279,0.0750556694793396
+Radiology,391,CERVICAL SPINE:,522279,0.0748642009347494
+Radiology,391,CT OF THE ABDOMEN WITHOUT INTRAVENOUS CONTRAST:,522279,0.0748642009347494
+Radiology,389,CT OF THE ABDOMEN WITHOUT AND WITH IV CONTRAST:,522279,0.0744812638455691
+Radiology,389,SINGLE AP VIEW:,522279,0.0744812638455691
+Radiology,386,HEAD CT WITHOUT CONTRAST:,522279,0.0739068582117987
+Radiology,383,NONCONTRAST HEAD CT:,522279,0.0733324525780282
+Radiology,379,ERCP:,522279,0.0725665783996676
+Radiology,374,SUMMARY FROM THE EXERCISE LAB:,522279,0.0716092356767169
+Radiology,370,CT CHEST WITHOUT IV CONTRAST:,522279,0.0708433614983562
+Radiology,369,LUNG BASES:,522279,0.0706518929537661
+Radiology,362,CT CHEST WITH INTRAVENOUS CONTRAST:,522279,0.069311613141635
+Radiology,349,DX:,522279,0.066822522061963
+Radiology,338,PA AND LATERAL VIEWS:,522279,0.0647163680714714
+Radiology,330,DECISION:,522279,0.0631846197147502
+Radiology,327,ICA:,522279,0.0626102140809797
+Radiology,324,CT OF THE CHEST WITHOUT CONTRAST:,522279,0.0620358084472093
+Radiology,323,AP UPRIGHT CHEST RADIOGRAPH:,522279,0.0618443399026191
+Radiology,323,ABDOMEN SINGLE FILM:,522279,0.0618443399026191
+Radiology,322,MRA HEAD:,522279,0.0616528713580289
+Radiology,316,DATE:,522279,0.060504060090488
+Radiology,312,PORTABLE SUPINE CHEST:,522279,0.0597381859121274
+Radiology,312,NOTE ADDED IN ATTENDING REVIEW:,522279,0.0597381859121274
+Radiology,311,CT PERFUSION:,522279,0.0595467173675373
+Radiology,310,ATTENDING:,522279,0.0593552488229471
+Radiology,310,LATERAL CHEST:,522279,0.0593552488229471
+Radiology,308,OSSEOUS FINDINGS:,522279,0.0589723117337668
+Radiology,307,COMPARISON EXAM:,522279,0.0587808431891767
+Radiology,301,CT OF THE HEAD WITHOUT CONTRAST:,522279,0.0576320319216358
+Radiology,296,CT:,522279,0.056674689198685
+Radiology,293,PROCEDURE DETAILS:,522279,0.0561002835649145
+Radiology,290,INDICATION FOR STUDY:,522279,0.0555258779311441
+Radiology,290,BONES AND SOFT TISSUES:,522279,0.0555258779311441
+Radiology,289,CT ABDOMEN AND PELVIS:,522279,0.0553344093865539
+Radiology,288,CHEST CT WITH IV CONTRAST:,522279,0.0551429408419638
+Radiology,287,MRI OF THE BRAIN:,522279,0.0549514722973736
+Radiology,287,MEDIASTINUM:,522279,0.0549514722973736
+Radiology,283,LEFT SIDE:,522279,0.054185598119013
+Radiology,283,FRONTAL AND LATERAL CHEST RADIOGRAPHS:,522279,0.054185598119013
+Radiology,280,MULTIPLANAR REFORMATS:,522279,0.0536111924852426
+Radiology,276,AP UPRIGHT VIEW OF THE CHEST:,522279,0.052845318306882
+Radiology,274,SINGLE AP FILM:,522279,0.0524623812177017
+Radiology,273,CT ABDOMEN WITHOUT AND WITH IV CONTRAST:,522279,0.0522709126731115
+Radiology,269,RIGHT SIDE:,522279,0.0515050384947509
+Radiology,268,TIME:,522279,0.0513135699501607
+Radiology,262,SINGLE AP PORTABLE VIEW:,522279,0.0501647586826198
+Radiology,261,DETAILS OF PROCEDURE:,522279,0.0499732901380297
+Radiology,261,DATE OF EXAM:,522279,0.0499732901380297
+Radiology,261,MRI BRAIN:,522279,0.0499732901380297
+Radiology,261,VIEW:,522279,0.0499732901380297
+Radiology,260,CHEST AP PORTABLE:,522279,0.0497818215934395
+Radiology,260,CT OF THE CHEST WITHOUT AND WITH IV CONTRAST:,522279,0.0497818215934395
+Radiology,260,WITH INTRAVENOUS CONTRAST:,522279,0.0497818215934395
+Radiology,259,DATE OF SERVICE:,522279,0.0495903530488494
+Radiology,258,DATE OF EXAMINATION:,522279,0.0493988845042592
+Radiology,257,SINGLE AP VIEW OF THE CHEST:,522279,0.0492074159596691
+Radiology,256,LIMITED ABDOMINAL ULTRASOUND:,522279,0.0490159474150789
+Radiology,251,CT OF THE CHEST WITH AND WITHOUT IV CONTRAST:,522279,0.0480586046921282
+Radiology,248, :,522279,0.0474841990583577
+Radiology,247,GFR:,522279,0.0472927305137675
+Radiology,247,DIAGNOSIS:,522279,0.0472927305137675
+Radiology,246,CT OF THE CHEST WITHOUT INTRAVENOUS CONTRAST:,522279,0.0471012619691774
+Radiology,245,SINGLE PORTABLE CHEST RADIOGRAPH:,522279,0.0469097934245872
+Radiology,243,FOUR VIEWS:,522279,0.0465268563354069
+Radiology,243,PELVIS WITH CONTRAST:,522279,0.0465268563354069
+Radiology,240,PORTABLE UPRIGHT CHEST RADIOGRAPH:,522279,0.0459524507016365
+Radiology,237,CONTRAST CT HEAD:,522279,0.045378045067866
+Radiology,237,TIME OF EXAM:,522279,0.045378045067866
+Radiology,235,REASON FOR THE EXAMINATION:,522279,0.0449951079786857
+Radiology,234,REFORMATTED IMAGES:,522279,0.0448036394340956
+Radiology,233,PA AND LATERAL RADIOGRAPHS OF THE CHEST:,522279,0.0446121708895054
+Radiology,232,AP AND LATERAL:,522279,0.0444207023449153
+Radiology,227,CT OF THE ABDOMEN WITHOUT AND WITH INTRAVENOUS CONTRAST:,522279,0.0434633596219645
+Radiology,225,CONTRAST HEAD CT SCAN:,522279,0.0430804225327842
+Radiology,221,SINGLE FRONTAL CHEST RADIOGRAPH:,522279,0.0423145483544236
+Radiology,218,HEAD ULTRASOUND:,522279,0.0417401427206531
+Radiology,218,AP SUPINE CHEST RADIOGRAPH:,522279,0.0417401427206531
+Radiology,216,RENAL TRANSPLANT ULTRASOUND:,522279,0.0413572056314728
+Radiology,215,PORTABLE ABDOMEN:,522279,0.0411657370868827
+Radiology,214,DESCRIPTION OF PROCEDURE:,522279,0.0409742685422925
+Radiology,213,RIGHT KNEE:,522279,0.0407827999977024
+Radiology,212,HEAD CTA:,522279,0.0405913314531122
+Radiology,212,AM:,522279,0.0405913314531122
+Radiology,210,PROC:,522279,0.0402083943639319
+Radiology,209,FINDINGS AND IMPRESSION:,522279,0.0400169258193418
+Radiology,207,PORTABLE UPRIGHT CHEST:,522279,0.0396339887301615
+Radiology,207,CT THORAX:,522279,0.0396339887301615
+Radiology,206,DOB:,522279,0.0394425201855713
+Radiology,206,LEFT KNEE:,522279,0.0394425201855713
+Radiology,205,FRONTAL AND LATERAL VIEWS OF THE CHEST:,522279,0.0392510516409812
+Radiology,205,AP UPRIGHT PORTABLE CHEST:,522279,0.0392510516409812
+Radiology,205,PORTABLE SUPINE CHEST RADIOGRAPH:,522279,0.0392510516409812
+Radiology,204,ATTENDING NOTE:,522279,0.039059583096391
+Radiology,204,SUPINE ABDOMEN:,522279,0.039059583096391
+Radiology,204,ABDOMEN WITH CONTRAST:,522279,0.039059583096391
+Radiology,203,HR:,522279,0.0388681145518009
+Rehab Services,3424,Transfer:,5431,63.0454796538391
+Rehab Services,3418,Rolling:,5431,62.9350027619223
+Rehab Services,3295,Balance:,5431,60.6702264776284
+Rehab Services,3259,Total distance walked:,5431,60.0073651261278
+Rehab Services,3256,Minutes:,5431,59.9521266801694
+Rehab Services,3196,Ambulation:,5431,58.8473577610017
+Rehab Services,3138,Stairs:,5431,57.7794144724728
+Rehab Services,2687,Other:,5431,49.4752347633953
+Rehab Services,2267,Medications:,5431,41.7418523292211
+Rehab Services,2252,Radiology:,5431,41.4656600994292
+Rehab Services,2165,Time frame:,5431,39.863745166636
+Rehab Services,2164,Diagnosis:,5431,39.8453323513165
+Rehab Services,2157,Labs:,5431,39.7164426440803
+Rehab Services,2121,Posture:,5431,39.0535812925796
+Rehab Services,2068,Other labs:,5431,38.0777020806481
+Rehab Services,1971,Intervention:,5431,36.2916589946603
+Rehab Services,1933,Referral date:,5431,35.5919720125207
+Rehab Services,1932,Reason of referral:,5431,35.5735591972013
+Rehab Services,1172,Assessment:,5431,21.5798195544099
+Rehab Services,1149,Objective:,5431,21.1563248020622
+Rehab Services,1147,Updated medical status:,5431,21.1194991714233
+Rehab Services,1077,Gait:,5431,19.8306020990609
+Rehab Services,1066,Face time:,5431,19.6280611305469
+Rehab Services,1023,Plan:,5431,18.83631007181
+Rehab Services,885,Total time:,5431,16.2953415577242
+Rehab Services,669,Secretions:,5431,12.3181734487203
+Rehab Services,662,Teeth:,5431,12.1892837414841
+Rehab Services,280,Time:,5431,5.15558828944946
+Rehab Services,207,Date:,5431,3.81145277112871
+Respiratory ,83723,Comments:,31739,263.785878572104
+Respiratory ,37281,Type:,31739,117.461167648634
+Respiratory ,37259,Size:,31739,117.391852295283
+Respiratory ,28128,Day of mechanical ventilation:,31739,88.6228299568354
+Respiratory ,27777,Ideal body weight:,31739,87.5169350011028
+Respiratory ,27760,Ideal tidal volume:,31739,87.4633731371499
+Respiratory ,26821,Level of breathing assistance:,31739,84.504867828224
+Respiratory ,26715,Visual assessment of breathing pattern:,31739,84.1708938529884
+Respiratory ,25657,Reason for continuing current ventilatory support:,31739,80.8374554963925
+Respiratory ,25081,Assessment of breathing comfort:,31739,79.0226535177542
+Respiratory ,24216,Day of intubation:,31739,76.2972998519172
+Respiratory ,23199,Route:,31739,73.093040108384
+Respiratory ,22970,Cuff pressure:,31739,72.3715302939601
+Respiratory ,22882,Trigger work assessment:,31739,72.094268880557
+Respiratory ,22789,Position:,31739,71.8012539777561
+Respiratory ,22698,Known difficult intubation:,31739,71.5145404707143
+Respiratory ,21661,Invasive ventilation assessment:,31739,68.2472667695895
+Respiratory ,16423,Cuff volume:,31739,51.7439112763477
+Respiratory ,16044,Procedure location:,31739,50.5497967799868
+Respiratory ,15955,Reason:,31739,50.2693846687041
+Respiratory ,13619,Manufacturer:,31739,42.9093544220045
+Respiratory ,13522,Tracheostomy tube:,31739,42.6037367276852
+Respiratory ,13246,Dysynchrony assessment:,31739,41.734144112921
+Respiratory ,13123,Airway problems:,31739,41.3466082737326
+Respiratory ,12229,Transports:,31739,38.5298843693878
+Respiratory ,242,Duration:,31739,0.762468886858439
+Respiratory ,242,Times per shift:,31739,0.762468886858439
+Respiratory ,209,Press:,31739,0.658495856832288
+Social Work,1030,Previous living situation:,2670,38.5767790262172
+Social Work,1028,Previous level of functioning:,2670,38.501872659176
+Social Work,1020,Employment status:,2670,38.2022471910112
+Social Work,1019,Past psychiatric history:,2670,38.1647940074906
+Social Work,1018,Past addictions history:,2670,38.12734082397
+Social Work,1007,Communication or visitation restriction:,2670,37.7153558052434
+Social Work,996,Legal involvement:,2670,37.3033707865169
+Social Work,347,Assessment:,2670,12.9962546816479
+Social Work,206,Plan:,2670,7.71535580524345
+Social Work,201,Continuing issues to be addressed:,2670,7.52808988764045
