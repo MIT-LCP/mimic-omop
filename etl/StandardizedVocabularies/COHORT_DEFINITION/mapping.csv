@@ -1,8 +1,8 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-COHORT_DEFINITION,cohort_definition_id,Yes,,,
-COHORT_DEFINITION,cohort_definition_name,Yes,,,
-COHORT_DEFINITION,cohort_definition_description,No,,,
-COHORT_DEFINITION,definition_type_concept_id,Yes,,,
-COHORT_DEFINITION,cohort_definition_syntax,No,,,
-COHORT_DEFINITION,subject_concept_id,Yes,,,
-COHORT_DEFINITION,cohort_initiation_date,No,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+COHORT_DEFINITION,cohort_definition_id,Yes,integer,,,,
+COHORT_DEFINITION,cohort_definition_name,Yes,varchar(255),,,,
+COHORT_DEFINITION,cohort_definition_description,No,CLOB,,,,
+COHORT_DEFINITION,definition_type_concept_id,Yes,integer,,,,
+COHORT_DEFINITION,cohort_definition_syntax,No,CLOB,,,,
+COHORT_DEFINITION,subject_concept_id,Yes,integer,,,,
+COHORT_DEFINITION,cohort_initiation_date,No,Date,,,,

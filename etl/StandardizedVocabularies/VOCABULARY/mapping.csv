@@ -1,9 +1,9 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-VOCABULARY,vocabulary_id,Yes,,,
-VOCABULARY,vocabulary_name,Yes,,,
-VOCABULARY,vocabulary_reference,Yes,,,
-VOCABULARY,vocabulary_version,Yes,,,
-VOCABULARY,vocabulary_concept_id,Yes,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+VOCABULARY,vocabulary_id,Yes,varchar(20),,,,
+VOCABULARY,vocabulary_name,Yes,varchar(255),,,,
+VOCABULARY,vocabulary_reference,Yes,varchar(255),,,,
+VOCABULARY,vocabulary_version,Yes,varchar(255),,,,
+VOCABULARY,vocabulary_concept_id,Yes,integer,,,,
 |0|None|
 |1|[SNOMED](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:vocabulary:snomed)|
 |2|[ICD9CM](http://www.ohdsi.org/web/wiki/doku.php?id=documentation:vocabulary:icd9cm)|

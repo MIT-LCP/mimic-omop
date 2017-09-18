@@ -1,17 +1,17 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-CONDITION_OCCURRENCE,condition_occurrence_id,Yes,,,
-| person_id                      | Yes       | integer      | A foreign key identifier to the Person who is experiencing the condition. The demographic details of that Person are stored in the PERSON table.                                                                 |
-| condition_concept_id           | Yes       | integer      | A foreign key that refers to a Standard Condition Concept identifier in the Standardized Vocabularies.                                                                                                           |
-| condition_start_date           | Yes       | date         | The date when the instance of the Condition is recorded.                                                                                                                                                         |
-CONDITION_OCCURRENCE,condition_start_datetime,No,,,
-| condition_end_date             | No        | date         | The date when the instance of the Condition is considered to have ended.                                                                                                                                         |
-CONDITION_OCCURRENCE,condition_end_datetime,No,,,
-CONDITION_OCCURRENCE,condition_type_concept_id,Yes,,,
-| stop_reason                    | No        | varchar(20)  | The reason that the condition was no longer present, as indicated in the source data.                                                                                                                            |
-| provider_id                    | No        | integer      | A foreign key to the Provider in the PROVIDER table who was responsible for capturing (diagnosing) the Condition.                                                                                                |
-| visit_occurrence_id            | No        | integer      | A foreign key to the visit in the VISIT_OCCURRENCE table during which the Condition was determined (diagnosed).                                                                                                             |
-| visit_detail_id            | No        | integer      | A foreign key to the visit in the VISIT_DETAIL table during which the Condition was determined (diagnosed).                                                                                                             |
-CONDITION_OCCURRENCE,condition_source_value,No,,,
-CONDITION_OCCURRENCE,condition_source_concept_id,No,,,
-CONDITION_OCCURRENCE,condition_status_source_value,No,,,
-CONDITION_OCCURRENCE,condition_status_concept_id,No,,,                                                                                                                               
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+CONDITION_OCCURRENCE,condition_occurrence_id,Yes,integer      ,,,,
+CONDITION_OCCURRENCE,person_id,Yes,integer      ,,,,
+CONDITION_OCCURRENCE,condition_concept_id,Yes,integer      ,,,,
+CONDITION_OCCURRENCE,condition_start_date,Yes,date         ,,,,
+CONDITION_OCCURRENCE,condition_start_datetime,No,datetime     ,,,,
+CONDITION_OCCURRENCE,condition_end_date,No,date         ,,,,
+CONDITION_OCCURRENCE,condition_end_datetime,No,date         ,,,,
+CONDITION_OCCURRENCE,condition_type_concept_id,Yes,integer      ,,,,
+CONDITION_OCCURRENCE,stop_reason,No,varchar(20)  ,,,,
+CONDITION_OCCURRENCE,provider_id,No,integer      ,,,,
+CONDITION_OCCURRENCE,visit_occurrence_id,No,integer      ,,,,
+CONDITION_OCCURRENCE,visit_detail_id,No,integer      ,,,,
+CONDITION_OCCURRENCE,condition_source_value,No,varchar(50)  ,,,,
+CONDITION_OCCURRENCE,condition_source_concept_id,No,integer      ,,,,
+CONDITION_OCCURRENCE,condition_status_source_value,No,varchar(50)  ,,,,
+CONDITION_OCCURRENCE,condition_status_concept_id,No,integer      ,,,,                                                                                                                               

@@ -1,11 +1,11 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-DOSE_ERA,dose_era_id,Yes,,,
-DOSE_ERA,person_id,Yes,,,
-DOSE_ERA,drug_concept_id,Yes,,,
-DOSE_ERA,unit_concept_id,Yes,,,
-DOSE_ERA,dose_value,Yes,,,
-DOSE_ERA,dose_era_start_date,Yes,,,
-DOSE_ERA,dose_era_end_date,Yes,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+DOSE_ERA,dose_era_id,Yes,integer,,,,
+DOSE_ERA,person_id,Yes,integer,,,,
+DOSE_ERA,drug_concept_id,Yes,integer,,,,
+DOSE_ERA,unit_concept_id,Yes,integer,,,,
+DOSE_ERA,dose_value,Yes,float,,,,
+DOSE_ERA,dose_era_start_date,Yes,date,,,,
+DOSE_ERA,dose_era_end_date,Yes,date,,,,
 |  1     | Tablets and other fixed amount formulations | 
 |:-----------------|:-----------------------------------------|
 ||*Example: Acetaminophen (Paracetamol) 500 mg, 20 tablets.*|

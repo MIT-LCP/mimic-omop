@@ -1,10 +1,10 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-RELATIONSHIP,relationship_id,Yes,,,
-RELATIONSHIP,relationship_name,Yes,,,
-RELATIONSHIP,is_hierarchical,Yes,,,
-RELATIONSHIP,defines_ancestry,Yes,,,
-RELATIONSHIP,reverse_relationship_id,Yes,,,
-RELATIONSHIP,relationship_concept_id,Yes,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+RELATIONSHIP,relationship_id,Yes,varchar(20),,,,
+RELATIONSHIP,relationship_name,Yes,varchar(255),,,,
+RELATIONSHIP,is_hierarchical,Yes,varchar(1),,,,
+RELATIONSHIP,defines_ancestry,Yes,varchar(1),,,,
+RELATIONSHIP,reverse_relationship_id,Yes,varchar(20),,,,
+RELATIONSHIP,relationship_concept_id,Yes,integer,,,,
 |1|LOINC replaced by|
 |2|Has precise ing|
 |3|Has tradename|

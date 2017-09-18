@@ -1,7 +1,7 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-|concept_id_1|Yes|integer|A foreign key to a Concept in the [CONCEPT](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT) table associated with the relationship. Relationships are directional, and this field represents the source concept designation.|
-|concept_id_2|Yes|integer|A foreign key to a Concept in the [CONCEPT](https://github.com/OHDSI/CommonDataModel/wiki/CONCEPT) table associated with the relationship. Relationships are directional, and this field represents the destination concept designation.|
-CONCEPT_RELATIONSHIP,relationship_id,Yes,,,
-CONCEPT_RELATIONSHIP,valid_start_date,Yes,,,
-CONCEPT_RELATIONSHIP,valid_end_date,Yes,,,
-CONCEPT_RELATIONSHIP,invalid_reason,No,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+CONCEPT_RELATIONSHIP,concept_id_,Yes,integer,,,,
+CONCEPT_RELATIONSHIP,concept_id_,Yes,integer,,,,
+CONCEPT_RELATIONSHIP,relationship_id,Yes,varchar(20),,,,
+CONCEPT_RELATIONSHIP,valid_start_date,Yes,date,,,,
+CONCEPT_RELATIONSHIP,valid_end_date,Yes,date,,,,
+CONCEPT_RELATIONSHIP,invalid_reason,No,varchar(1),,,,

@@ -1,18 +1,18 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-VISIT_OCCURRENCE,visit_occurrence_id,Yes,,,
-VISIT_OCCURRENCE,person_id,Yes,,,
-VISIT_OCCURRENCE,visit_concept_id,Yes,,,
-VISIT_OCCURRENCE,visit_start_date,Yes,,,
-VISIT_OCCURRENCE,visit_start_datetime,No,,,
-VISIT_OCCURRENCE,visit_end_date,Yes,,,
-VISIT_OCCURRENCE,visit_end_datetime,No,,,
-VISIT_OCCURRENCE,visit_type_concept_id,Yes,,,
-VISIT_OCCURRENCE,provider_id,No,,,
-VISIT_OCCURRENCE,care_site_id,No,,,
-VISIT_OCCURRENCE,visit_source_value,No,,,
-VISIT_OCCURRENCE,visit_source_concept_id,No,,,
-|admitting_source_concept_id|	Integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.|
-|admitting_source_value	|Varchar(50)|	No|	The source code for the admitting source as it appears in the source data.|
-|discharge_to_concept_id|	Integer	|No	|A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.|
-|discharge_to_source_value|	Varchar(50)|	No|	The source code for the discharge disposition as it appears in the source data.|
-|preceding_visit_occurrence_id	|Integer|	No	|A foreign key to the VISIT_OCCURRENCE table of the visit immediately preceding this visit|
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+VISIT_OCCURRENCE,visit_occurrence_id,Yes,integer,,,,
+VISIT_OCCURRENCE,person_id,Yes,integer,,,,
+VISIT_OCCURRENCE,visit_concept_id,Yes,integer,,,,
+VISIT_OCCURRENCE,visit_start_date,Yes,date,,,,
+VISIT_OCCURRENCE,visit_start_datetime,No,datetime,,,,
+VISIT_OCCURRENCE,visit_end_date,Yes,date,,,,
+VISIT_OCCURRENCE,visit_end_datetime,No,datetime,,,,
+VISIT_OCCURRENCE,visit_type_concept_id,Yes,Integer,,,,
+VISIT_OCCURRENCE,provider_id,No,integer,,,,
+VISIT_OCCURRENCE,care_site_id,No,integer,,,,
+VISIT_OCCURRENCE,visit_source_value,No,string(50),,,,
+VISIT_OCCURRENCE,visit_source_concept_id,No,Integer,,,,
+VISIT_OCCURRENCE,admitting_source_concept_id,,No,,,,
+VISIT_OCCURRENCE,admitting_source_value,Varchar,,,,,
+VISIT_OCCURRENCE,discharge_to_concept_id,,No,,,,
+VISIT_OCCURRENCE,discharge_to_source_value,,,,,,
+VISIT_OCCURRENCE,preceding_visit_occurrence_id,Integer,,,,,

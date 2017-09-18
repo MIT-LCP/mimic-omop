@@ -1,4 +1,4 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-DOMAIN,domain_id,Yes,,,
-DOMAIN,domain_name,Yes,,,
-DOMAIN,domain_concept_id,Yes,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+DOMAIN,domain_id,Yes,varchar(20),,,,
+DOMAIN,domain_name,Yes,varchar(255),,,,
+DOMAIN,domain_concept_id,Yes,integer,,,,

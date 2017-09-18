@@ -1,8 +1,8 @@
-omop_table,omop_column,omop_required,mimic_table,mimic_column,comments
-DRUG_ERA,drug_era_id,Yes,,,
-DRUG_ERA,person_id,Yes,,,
-DRUG_ERA,drug_concept_id,Yes,,,
-DRUG_ERA,drug_era_start_date,Yes,,,
-DRUG_ERA,drug_era_end_date,Yes,,,
-DRUG_ERA,drug_exposure_count,No,,,
-DRUG_ERA,gap_days,No,,,
+omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
+DRUG_ERA,drug_era_id,Yes,integer,,,,
+DRUG_ERA,person_id,Yes,integer,,,,
+DRUG_ERA,drug_concept_id,Yes,integer,,,,
+DRUG_ERA,drug_era_start_date,Yes,date,,,,
+DRUG_ERA,drug_era_end_date,Yes,date,,,,
+DRUG_ERA,drug_exposure_count,No,integer,,,,
+DRUG_ERA,gap_days,No,integer,,,,
