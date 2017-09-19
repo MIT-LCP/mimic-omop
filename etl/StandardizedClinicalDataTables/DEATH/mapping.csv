@@ -1,8 +1,8 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-DEATH,person_id,Yes,integer,,,,
-DEATH,death_date,Yes,date,,,,
-DEATH,death_datetime,No,datetime,,,,
-DEATH,death_type_concept_id,Yes,integer,,,,
-DEATH,cause_concept_id,No,integer,,,,
-DEATH,cause_source_value,No,varchar(50),,,,
-DEATH,cause_source_concept_id,No,integer,,,,
+"omop_table","omop_column","omop_required","omop_type","mimic_table","mimic_column","mimic_type","comments"
+"DEATH","person_id","Yes","integer","patients","subject_id",,
+"DEATH","death_date","Yes","date","patients","dod",,
+"DEATH","death_datetime","No","datetime","patients","dod",,
+"DEATH","death_type_concept_id","Yes","integer","encounter","col1",,
+"DEATH","cause_concept_id","No","integer","encounter","col2",,
+"DEATH","cause_source_value","No","varchar(50)","encounter","col3",,
+"DEATH","cause_source_concept_id","No","integer","observation","col1",,
