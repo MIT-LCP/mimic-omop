@@ -10,6 +10,7 @@ id integer primary key,
   url varchar(255) default null
 ) ;
 
+
 DROP  TABLE IF EXISTS loinc;
 CREATE TABLE loinc (
   loinc_num varchar(10) PRIMARY KEY,
@@ -60,6 +61,13 @@ CREATE TABLE loinc (
   ValidHL7AttachmentRequest varchar(50) default null
 ) ;
 
+COMMENT ON COLUMN loinc.loinc_num IS 'The unique LOINC Code is a string in the format of nnnnnnnn-n';
+COMMENT ON COLUMN loinc.component IS 'First major axis-component or analyte';
+COMMENT ON COLUMN loinc.property IS 'Second major axis-property observed (e.g., mass vs. substance)';
+COMMENT ON COLUMN loinc.time_aspct IS 'Third major axis-timing of the measurement (e.g., point in time vs 24 hours)';
+COMMENT ON COLUMN loinc.system IS 'Fourth major axis-type of specimen or system (e.g., serum vs urine)';
+COMMENT ON COLUMN loinc.scale_typ IS 'Fifth major axis-scale of measurement (e.g., qualitative vs. quantitative)';
+COMMENT ON COLUMN loinc.method_typ IS 'Sixth major axis-method of measurement';
 DROP TABLE IF EXISTS map_to;
 CREATE TABLE map_to (
   loinc varchar(10) NOT NULL,
@@ -68,3 +76,8 @@ CREATE TABLE map_to (
   primary key (loinc, map_to)
 
 );
+
+
+COMMENT ON COLUMN map_to.loinc IS 'The deprecated term to which the replacement term(s) apply.';
+COMMENT ON COLUMN map_to.map_to IS 'A replacement term that is to be used in place of the deprecated or discouraged';
+

@@ -1,0 +1,5 @@
+1. LOINC,Text,10,The deprecated term to which the replacement term(s) apply.
+2. MAP_TO,Text,10,"A replacement term that is to be used in place of the deprecated or discouraged
+term."
+3. COMMENT,Memo,-,"Narrative text that explains the rational for using the recommended replacement
+term."

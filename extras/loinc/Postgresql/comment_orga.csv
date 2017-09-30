@@ -1,0 +1,6 @@
+ID,,
+COPYRIGHT_ID,Text,255,Used in the LOINC table as a foreign key.
+NAME,Text,255,Name of the organization or institution.
+COPYRIGHT,Memo,-,Copyright notice to be displayed for the organization or institution.
+TERMS_OF_USE,Memo,-,Terms of use text for an external source.
+URL,Text,255,
