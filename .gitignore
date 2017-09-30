@@ -1,0 +1,6 @@
+extras/loinc/loinc.csv
+extras/loinc/map_to.csv
+extras/loinc/source_organization.csv
+extras/loinc/Oracle/*
+extras/loinc/MySql/*
+extras/loinc/LOINC_2.61_Text.zip

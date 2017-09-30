@@ -1,0 +1,1399 @@
+LOINC Release Notes
+
+                       +---------------------------+
+                       |       Version 2.61        |
+                       |  Released June 2017       |
+                       +-------------------------- +
+
+LOINC version 2.61 contains 84868 terms, an increase of 1491 since version 2.59. About 7000 terms have been edited (see "Other edits contained in this release" section below). This release contains a total of 2814 deprecated terms. Twelve terms have been undeprecated since the last release. 
+
+New release artifacts and documentation:
+                       
+This release includes several new artifacts, each of which includes its own Release notes and Readme documentation.
+LOINC_2.61_LoincTableCore.zip
+LOINC_2.61_PartFile_Alpha_1.zip
+LOINC_2.61_AnswerFile_Alpha_1.zip
+LOINC_2.61_GroupFile_Alpha_1.zip
+
+In addition, we have new Release notes and Readme documentation for all of the following files:
+LOINC_2.61_DocumentOntology.zip
+LOINC_2.61_ImagingDocumentCodes.zip
+LOINC_2.61_LinguisticVariants.zip
+LOINC_2.61_LoincIeeeMedicalDeviceCodeMappingTable.zip
+LOINC_2.61_LoincRsnaRadiologyPlaybook.zip
+LOINC_2.61_LoincUniversalLabOrdersValueSet.zip
+LOINC_2.61_MULTI-AXIAL_HIERARCHY.zip
+LOINC_2.61_PanelsAndForms.zip
+LOINC_2.59_2.61_Updates.zip
+
+This release includes 772 new laboratory, 369 new clinical, 5 new attachment, and 345 new survey terms. 
+
+Some highlights of the new content in this version include:
+
+1)	Approximately 400 new microbiology terms, including more than 200 new terms for Streptococcus pneumoniae to replace existing ambiguous terms that were deprecated (see more details in the "Edits to existing terms" section below).
+
+2)	Over 70 cancer pathology terms
+
+3)	More than 30 new antimicrobial resistance gene terms
+
+4)	New panels for laboratory terms, including:
+
+	- CAP Colorectal cancer pathology panel (85905-8)
+	- CAP Breast cancer pathology panel (85904-1)
+	- Neisseria meningitidis serogroup DNA panel (85797-9)
+	- Kidney failure 2Y & 5Y risk panel (85626-0)
+
+5)	Over 100 new radiology terms, including mammography and fluoroscopy terms to complete RSNA Playbook mappings for these modalities.
+
+6)	Approximately 100 Document Ontology terms
+
+7)	About 50 new terms for CDC case reporting clinical history concepts
+
+8)	New clinical and survey panels, including:
+
+	- Inpatient Rehabilitation Facility - Patient Assessment Instrument - version 1.4 (83265-9)
+		- This panel contains more than 30 panels nested underneath
+	- Long-Term Care Hospital (LTCH) Continuity Assessment Record and Evaluation (CARE) Data Set (LCDS) - version 3.00 (85654-2)
+		- This panel contains more than 45 panels nested underneath
+	- Renal replacement therapy goals panel NKDEP (85597-3)
+	- Retinal nerve fiber layer panel Retina by OCT (86291-2)
+	- Rubella surveillance panel (85701-1)
+	- Congenital rubella case report panel (85735-9)
+	- Kansas City cardiomyopathy questionnaire (71941-9) - added all of the individual survey questions to the existing panel term
+	- Minnesota Living with Heart Failure Questionnaire (71939-3) - added all of the individual survey questions to the existing panel term
+
+9)	Version 1.6 of the Top2000+ Common Lab Results
+
+Overview of edits to existing terms contained in this release:
+
+1)	Updated the nomenclature for Streptococcus pneumoniae from the U.S. serotype numbering system to the widely accepted Danish system. This work included the following:
+
+	- Updated approximately 80 terms in which the number specified in the Component was unambiguous to include "Danish serotype" with the corresponding Danish serotype number
+	- Deprecated approximately 200 terms in which the number specified in the Component was ambiguous as to whether it represented the serogroup, U.S. serotype or Danish serotype and mapped to new, unambiguous terms
+	- Replaced deprecated terms included in the Top 2000 Common Lab Results US & SI files with the corresponding map to term
+	- Added the U.S. serotype numbers as related names to the corresponding Danish serotype Components
+	- Added "PCV7", "PCV13" and "PPSV23" as related names to the Components for the serotypes included in the Pneumococcal 7-valent, 13-valent and 23-valent vaccines, respectively.
+	- Wrote a new Technical brief about Streptococcus pneumoniae serotype nomenclature in the LOINC Users' Guide
+
+2)	Undeprecated 12 California encephalitis virus terms based on reviewing the latest literature and confirming that California encephalitis virus is a distinct member of the CAL serogroup in addition to LaCrosse virus (LACV), Jamestown Canyon virus (JCV), Snowshoe Hare virus, and Trivitattus virus.
+
+3)	Updated approximately 75 cancer pathology terms for one or more reasons, including the following:
+	- Removed Method of "CAP cancer protocols" for concepts that are not specific to CAP
+	- Changed System from "Cancer.XXX" to "Cancer specimen" for pathology terms to clarify that the observation is specific to a cancer specimen, not the cancer as present in the patient
+	- Added answer lists to Ordinal and Nominal terms
+
+4)	Updated the Short Names to say "Plts" (platelets) instead of "Thrb" (thrombocytes) for consistency in terms with "Platelets" as the System.
+
+5)	Updated the Long common Name and Short Name for all radiology terms so that they begin with the modality in order to match the RSNA naming model. This change accounts for nearly 5000 of the 7000 term edits in this release.
+
+6)	Removed the parentheses that were around the gene name in the Component for several terms in the ABXBACT class. This is a work in progress and more terms will be updated for the next release.
+
+7)	In an effort to shorten some of the LOINC Long Common Names, several changes were implemented including:
+	- Removed the word "Bacterial" from the Long Common Name for bacterial resistance gene concepts (affected ~20 terms)
+	- Changed "Fluorescent in situ Hybridization" to "FISH" (affected ~150 terms)
+	- Changed "Dried blood spot" to "DBS" (affected ~380 terms)
+
+Source Organization updates:
+LOINC version 2.61 contains copyrighted content that is used with permission from the 74 organizations that are listed in the SOURCE_ORGANIZATION table. Six new Source Organizations are included in version 2.61: College of American Pathologists, Dr. Navdeep Tangri, PeraHealth Inc., Research Foundation for State University of New York, Hospital for Special Surgery for HOOS JR, and Hospital for Special Surgery for KOOS JR.
+
+Notice of changes to the public LOINC data files for the June 2018 Release:
+
+As described above, this release contains several new release artifacts available as .csv files. These new artifacts are named using the “pascal case” naming convention (https://en.wikipedia.org/wiki/PascalCase).
+
+Our existing legacy files and table artifacts do no follow the “pascal case” naming convention, so to provide consistency and uniformity across the release we will updating these names in the June 2018 release. 
+
+The list of changes that you will see include:
+
+    The loinc.csv file will be renamed to Loinc.csv
+    The map_to.csv file will be renamed to MapTo.csv
+    The source_organization.csv file will be renamed to SourceOrganization.csv
+    The loinc.mdb file will be renamed to Loinc.mdb
+
+Within the Loinc.mdb Access database, the legacy tables will be renamed as follows:
+
+    The LOINC table will be renamed to Loinc
+    The MAP_TO table will be renamed to MapTo
+    The SOURCE_ORGANIZATION table will be renamed to SourceOrganization
+
+                       +---------------------------+
+                       |       Version 2.60        |
+                       |  Released June 2017       |
+                       +-------------------------- +
+                       
+LOINC version 2.60 was a limited release.
+
+
+                       +---------------------------+
+                       |       Version 2.59        |
+                       |  Released February 2017   |
+                       +-------------------------- +
+
+LOINC version 2.59 was a limited release with content updates restricted to the following:
+
+
+1)	Populated the EXTERNAL_COPYRIGHT_NOTICE field (and updated the CHANGE_REASON_PUBLIC field) in the main LOINC table for 390 NIH Toolbox-related terms.
+
+
+2)	Fixed truncated text in the description and copyright notice fields on the ANSWERS tab in the LOINC panels and forms file.
+
+3)	Fixed LOINC Document Ontology part mappings for 359 LOINC terms in the LOINC document ontology file. Out of the 359, 358 corrections were for terms with both Subject Matter Domain and Role values, and 1 correction for a term with multiple Settings.
+
+
+                       +---------------------------+
+                       |       Version 2.58        |
+                       |  Released December 2016   |
+                       +-------------------------- +
+
+
+LOINC version 2.58 contains 83377 terms, an increase of 2509 since the June 2016 version. A total of 31 terms were undeprecated. About 11000 terms have been edited (see "Other edits contained in this release" section below). A total of 2539 terms have been deprecated. 
+
+This release includes 652 new laboratory, 1791 new clinical and 66 new survey terms. 
+
+Some highlights of the new content in this version include:
+
+1)	Approximately 140 chemistry terms
+
+2)	Over 100 serology terms, including new terms for rheumatologic and neurologic autoimmune diseases
+
+3)	Approximately 75 molecular pathology terms
+
+4)	Over 45 microbiology terms, including new terms for Zika and other arboviruses and emerging Borrelia species
+
+5)	Nearly 40 pathology terms, including for colorectal and prostate cancer
+
+6)	New panels for laboratory terms, including:
+
+	- Cancer pathology panel - Colorectal cancer (84907-5)
+	- Cancer pathology panel - Prostate cancer (84908-3)
+	- Gastrointestinal pathogens panel (82305-4)
+	- Spatial clot growth analysis panel (82799-8)
+	- Natural killer cell cytotoxicity panel (82720-4)
+
+7)	Over 100 new Radiology terms, including XR terms to complete RadLex mappings
+
+8)	Over 1000 new document ontology codes
+
+9)	Nearly 50 new codes for cardiac angiography and quantitative nuclear medicine results (82654-5 Nuclear cardiac imaging panel)
+          
+10)	Over 40 terms for CDC case reporting
+
+11)	New clinical and survey panels, including:
+
+	- Asthma Control Test (ACT) (82674-3)
+	- Adverse Childhood Experiences (ACE) (82813-7)
+	- Drug Abuse Screening Test (DAST) (82664-4)
+	- Drug Abuse Screening Test-10 (DAST-10) (82666-9)
+	- Amyotrophic lateral sclerosis functional rating scale - revised (ALSFRS-R) (82954-9)
+	- Patient Centered Assessment Method (PCAM) (83331-9)
+	- PCORnet common data model set - version 3.0 (PCORnet) (85057-8)
+	- Mood Disorder Questionnaire (MDQ) (85102-2)
+	- Bipolar Spectrum Diagnostic Scale (BSDS) (85103-0)
+
+12)	HEDIS 2017 Value Sets (82955-6)
+
+13)	Version 1.5 of the Top2000+ Common Lab Results
+
+
+Other edits contained in this release:
+
+1)	Thirty-one XR calcaneus terms were deprecated in error when we deprecated CT calcaneus terms during previous the LOINC/RadLex CT unification work. All of the calcaneus XR terms were changed back to active status and further updated to include the Region imaged.
+
+2) 	LOINC 23925-1 Penicillin [Susceptibility] by Gradient strip, is now deprecated and mapped to both 7041-7 Penicillin G [Susceptibility] by Gradient strip, and 7042-5 Penicillin V [Susceptibility] by Gradient strip. LOINC 23925-1 was previously in the Top 2000 file and has been replaced by 7041-7 and 7042-5 in version 1.5. 
+
+3)	About 90 terms in the COAG class with the Method of Imm were updated to have Method of IA to maintain consistency across classes, a change approved by the Laboratory LOINC Committee in December 2016.
+
+4)	The word 'toxin' in the Component for terms that included 'Clostridium tetani toxin Ab' was updated to 'toxoid' to more accurately represent the antibody target.
+
+5)	Components for terms related to Escherichia coli Shiga-like toxin were updated so that they all include the words 'Shiga-like toxin'.
+ 
+6)	Terms that represent antibiotic susceptibilities with different "breakpoints" depending on the type of infection were updated so that the breakpoint information was moved from the Component to the System (see the LOINC Users' Guide for more details).
+
+7)	Ongoing work with RSNA to establish a unified model for naming radiology terms resulted in changes for more than 5000 terms. These changes related to the System across modalities, and to the Component modeling for XR. As part of this work, 31 XR terms with the System Calcaneus that were incorrectly deprecated when the corresponding Calcaneus CT terms were deprecated were undeprecated (CHNG_TYPE 'UND') and returned to 'ACTIVE' Status.
+
+8)	Updated more than 1000 terms that previously had a Method of 'PhenX' to reflect the original source of the content.
+
+9)	The values in the HL7_ATTACHMENT_STRUCTURE changed from STRUCTURED/UNSTRUCTURED to IG exists/No IG exists, respectively, to more accurately convey the concept that "Structured" was meant to represent - that a CDA implementation guide (IG) exists for reporting data in a structured format with the corresponding document code, but not necessarily that such a structure will always be used.
+
+10)	Updated the presentation of the LOINC Users' Guide
+
+11)	Unified the list of fields in the LOINC table whose contents are compared when populating the CHNG_TYPE and VersionLastChanged field. These fields are updated when a change is made in any of the released fields except for: 
+	- LOINC_NUM
+	- CHNG_TYP
+	- VersionLastChanged
+	- VersionFirstReleased
+	- RelatedNames2
+	We exclude the RelatedNames2 field for two reasons: a) it is not one of the primary fields that defines a LOINC concept and b) it changes frequently.
+
+
+This release contains the following changes to the structure of the LOINC Table:
+
+Field Name: VersionFirstReleased
+Formal Definition: The LOINC version number in which the record was first released. For oldest records where the version released number is not known, this field will be null.
+Action: Added
+
+Field Name: ValidHL7AttachmentRequest
+Formal Definition: A value of 'Y' in this field indicates that this LOINC code can be sent by a payer as part of an HL7 attachment request for additional information.
+Action: Added
+
+
+Notice of changes to the public LOINC data files for the December 2017 Release:
+
+All of the following proposed changes flow from the same rationale: The performance improvements for keeping a smaller field size are minor compared with the hassle of changing field size definitions over time. The Laboratory LOINC Committee recommended a one-time increase in field size to accommodate long term content development and evolution needs.
+
+Field Name: PROPERTY
+Formal Definition: Second major axis-property observed (e.g., mass vs. substance)
+Action: EXPAND field size from 30 to 255
+
+Field Name: TIME_ASPCT
+Formal Definition: Third major axis-timing of the measurement (e.g., point in time vs 24 hours)
+Action: EXPAND field size from 15 to 255
+
+Field Name: SYSTEM
+Formal Definition: Fourth major axis-type of specimen or system (e.g., serum vs urine)
+Action: EXPAND field size from 100 to 255
+
+Field Name: SCALE_TYP
+Formal Definition: Fifth major axis-scale of measurement (e.g., qualitative vs. quantitative)
+Action: EXPAND field size from 30 to 255
+
+Field Name: METHOD_TYP
+Formal Definition: Sixth major axis-method of measurement
+Action: EXPAND field size from 50 to 255
+
+Field Name: CLASS
+Formal Definition: An arbitrary classification of the terms for grouping related observations together.
+Action: EXPAND field size from 20 to 255
+
+Field Name: VersionLastChanged
+Formal Definition: The LOINC version number in which the record has last changed. For records that have never been updated after their release, this field will contain the same value as the loinc.VersionFirstReleased field.
+Action: EXPAND field size from 10 to 255
+
+Field Name: CHNG_TYPE
+Formal Definition: Change Type Code: DEL = delete (deprecate); ADD = add; NAM = change to Analyte/Component (field #2); MAJ = change to name field other than #2 (#3 - #7); MIN = change to field other than name; UND = undelete.
+Action: EXPAND field size from 3 to 255
+
+Field Names: STATUS
+Formal Definition: ACTIVE = Concept is active. Use at will. TRIAL = Concept is experimental in nature. Use with caution as the concept and associated attributes may change. DISCOURAGED = Concept is not recommended for current use. New mappings to this concept are discouraged; although existing may mappings may continue to be valid in context. Wherever possible, the superseding concept is indicated in the MAP_TO field in the MAP_TO table and should be used instead. DEPRECATED = Concept is deprecated. Concept should not be used, but it is retained in LOINC for historical purposes. Wherever possible, the superseding concept is indicated in the MAP_TO field and should be used both for new mappings and updating existing implementations.
+Action: EXPAND field size from 11 to 255
+
+Field Name: SHORTNAME
+Formal Definition: Introduced in version 2.07, this field contains the short form of the LOINC name and is created via a table-driven algorithmic process. The short name often includes abbreviations and acronyms.
+Action: EXPAND field size from 40 to 255
+
+Field Name: VersionFirstReleased
+Formal Definition: The LOINC version number in which the record was first released. For oldest records where the version released number is known, this field will be null.
+Action: EXPAND field size from 10 to 255
+
+
+                       +---------------------------+
+                       |       Version 2.57        |
+                       |  Released December 2016   |
+                       +-------------------------- +
+
+LOINC version 2.57 was a limited release.
+
+
+                       +---------------------------+
+                       |       Version 2.56        |
+                       |    Released June 2016     |
+                       +-------------------------- +
+
+
+LOINC version 2.56 contains 80868 terms, an increase of 1909 since the December 2015 version. Over 20700 terms have been edited (see "Other edits contained in this release" section below). A total of 2464 terms have been deprecated. 
+
+This release includes 875 laboratory, 852 clinical, 176 new survey terms and 6 new attachment terms. 
+
+Some highlights of the new content in this version include:
+
+1)	172 microbiology terms including 16 new Zika virus terms for various specimens and laboratory methods
+
+2)	159 molecular pathology terms
+
+3)	95 drug/toxicology terms
+
+4)	71 chemistry terms 
+
+5)	166 allergy terms
+
+6)	40 pathology terms
+
+7)	New panels for laboratory terms, including:
+
+	- Dengue and Chikungunya and Zika virus panel by Probe and target amplification method (81154-7)
+	- Urine supersaturation panel (81232-1)
+	- Five cell marker panels
+	- Meningitis+Encephalitis pathogens DNA & RNA panel (82180-1)
+	- Microsatellite instability marker panel (81711-4)
+	- Cancer pathology panel (81186-9)
+
+8)	Nearly 200 new Radiology terms, including MR, US, NM and PT terms to complete RadLex mappings for those modalities
+
+9)	Over 150 new nutrition and dietetics terms that were added to the existing Nutrition assessment panel (75282-4)
+
+10)	Over 130 document-related codes
+
+11)	Document template attachment request modifier codes for C-CDA R1.1, R2.0 and R2.1, and CDP Set 1 R1.0 and R1.1
+
+12)	84 codes for cardiac echo and angiography measurements, as well as catheterization and angioplasty procedures
+
+13)	Metabolic equivalent of task & Resting metabolic rate panel (82259-3), which includes about 30 individual terms for reporting physical activity and metabolic equivalents of task
+
+14)	Personal advance care plan panel (81334-5) and about 40 new terms to represent concepts within that panel
+
+15)	Preoperative measures for patient safety panel (81679-3)
+
+16)	Terms to represent concepts in the American Urological Association Symptom Index (AUASI) and International Prostate Symptom Score (IPSS)
+
+17)	Terms to represent concepts in the Neck Disability Index (82226-2)
+          
+18)	Terms for the CDC's Behavior Risk Factor Surveillance System (BRFSS) Adverse Childhood Experience (ACE) questionnaire (82152-0)
+
+19)	Over 75 terms for PROMIS short forms and item banks
+
+20)	20 new terms added to the Nursing physiologic assessment panel (80346-0)
+
+21)	Version 1.4 of the Top2000+ Common Lab Results
+
+
+Other edits contained in this release:
+
+1)	About 12000 terms with Property of ACnc, Pr or Threshold and Scale of Ord updated to have new Property PrThr, a change approved by the LOINC Lab Committee in June 2016. The Long Common Names for these terms continue to include the word "Presence" as they always did.
+
+2) 	About 1700 terms with the Method of EIA or EIA.rapid (where EIA was always meant to represent immunoassay) updated to have Method of IA or IA.rapid, a change approved by the LOINC Lab Committee in June 2016. The Long Common Name for these terms continues to include the word "Immunoassay", as they always did.
+
+3)	650 genetics terms updated to include the word "targeted" in the Component, a change approved by the LOINC Lab Committee in June 2016. These terms were always meant to represent targeted mutation analysis.
+
+4)	66 genetics terms updated to include 3-letter amino acid abbreviations in the Component rather than 1-letter abbreviations, a change consistent with the recommendations of the HGVS nomenclature committee
+
+5)	Removed Property of SCnc or MCnc from several panels to further encourage international use, as specified in the LOINC User Guide "Recommendations for Best Practices in Using and Mapping to LOINC" chapter
+ 
+6)	Ongoing work with RSNA to establish a unified model for naming radiology terms with changes related to the MR, US, NM and PT domains that affected more than 1500 terms
+
+7)	Updated more than 100 terms related to patient or family history to have the Property Hx
+
+
+This release contains one change to the structure of the LOINC Table:
+
+Field Name: SOURCE
+Formal Definition: This is for our internal use and should be ignored by database users.
+Action: Deleted
+
+
+
+                       +---------------------------+
+                       |       Version 2.55        |
+                       |  Released June 2016       |
+                       +-------------------------- +
+
+LOINC version 2.55 was a limited release.
+
+
+                       +---------------------------+
+                       |       Version 2.54        |
+                       |    Released December 2015 |
+                       +-------------------------- +
+
+LOINC version 2.54 contains 78959 terms, an increase of 2693 since the June 2015 version. Approximately 4860 terms have been edited. A total of 2406 terms have been deprecated. 
+
+This release includes 998 laboratory, 1457 clinical, and 238 new survey terms. Some highlights of the new content in this version include:
+
+1)	Over 300 drug/toxicology terms
+
+2)	Over 430 chemistry terms 
+
+3)	71 microbiology terms including a new term for Zika virus RNA (79190-5)  
+
+4)	More than 80 molecular pathology terms, plus 12 pharmacogenomics terms created for the Clinical Pharmacogenetics Implementation Consortium (CPIC)
+
+5)	New panels for laboratory terms, including:
+
+        - Mucopolysaccharidosis type I (MPS I) newborn screening panel (79563-3)
+        - Purine & Pyrimidine panels for urine (79673-0), ser/plas (79665-6) and CSF (79668-0)
+        - Amino acid panels for urine, ser/plas and CSF
+        - Peritoneal equilibration test panel (78747-3)
+        - Prolactin isoforms panel (78993-3)
+        - Enteric pathogens panel - Stool (79381-0)
+        - Parent drug and trough panels for anti-epileptic drugs and others
+        - Cold agglutinin panel (79160-8)
+        - Serial sputum smears for diagnosing pulmonary tuberculosis panel (79424-8)
+        - Respiratory bacteria and viruses DNA and RNA panel (78922-2)
+        - HEDIS 2016 Value sets
+   
+6)	Panel for the 2015 Edition Health IT Certification Criteria set of terms related to Social, psychological and behavioral observations (80216-5)
+ 
+7)	Over 340 document-related codes
+
+8)	189 new terms for NIH/NEI's National Ophthalmic Disease Genotyping and Phenotyping Network (eyeGENE) (can be found by searching for "NEI")
+
+9)	190 new terms for DICOM Supplement 169 ("Simplified Adult Echocardiography Report"), which is based on American Society of Echocardiography guidelines for adult echocardiography, plus more than 80 terms for the Japanese Circulation Society, primarily for angiography, echo, and other concepts related to reporting cardiac procedure results using HL7 CDA (class = CARD.US.DICOM)
+
+10)	310 terms for IEEE Rosetta 11073 10101, including concepts related to EKG, invasive blood pressure monitoring, anesthesia gas delivery and respiratory monitoring, and infant microenvironment. All of the concepts available as IEEE 11073 Rosetta panel (75885-4), new concepts will be added to panel as they are created
+
+11)	65 new terms for Radiology, including CT terms to complete RadLex CT mappings
+
+12)	Terms to represent concepts in the Boston University Activity Measure for Post-Acute Care (AM-PAC)
+
+13)	Terms to represent concepts in the Care Connections Neuromuscular and Orthopedic functional indices
+          
+14)	Score change terms for HOOS, KOOS and Veteran's Rand (VR) instruments
+
+15)	Terms for the General Practitioner Assessment of Cognition (GPCOG) (79115-2)
+
+16)	Over 190 terms created for PROMIS short forms and item banks 
+
+17)	Terms for Vanderbilt ADHD Diagnostic Rating Scale
+
+18)	54 new terms for nutrition assessment
+
+
+Other edits contained in this release:
+
+1)	Added '3000' rank to the COMMON_TEST_RANK field for 240 existing terms in anticipation of a new release (version 1.4) of the Top 2000 file in early 2016  
+
+2)	LOINC 6556-5 Streptococcus pyogenes Ag [Presence] in Throat by Immunoassay, is now deprecated and mapped to 78012-2 Streptococcus pyogenes Ag [Presence] in Throat by Rapid immunoassay. LOINC 6556-5 is in the Top 2000 file and will be replaced by 78012-2 in version 1.4. 
+
+3)	Updated the Component for 12 HLA allele and 219 HLA antigen terms per current HLA nomenclature guidelines 
+
+4)	Ongoing work with RSNA to establish a unified model for naming radiology terms, including several more changes related to the CT domain plus Long Common Name and Short name updates for 428 concepts for better readability
+
+5)	Changed the Time value for over 2100 terms that specify a look-back period in the Component from 'Pt' to the specific time stated by the question. For example, timing changed from 'Pt' to '7D' for terms that specify a look-back period of 7 days
+
+6)	Added 'Dwell' to Peritoneal dialysis test terms to clarify that the testing is performed during the dialysis procedure
+
+7)	Updated several newborn screening (NBS) answer lists, including those related to NICU factors that affect NBS interpretation, infant feeding types, conditions screened for, and interpretation
+
+8)	Finalized American Physical Therapy Association's Outcomes Registry panel, changed terms from Trial to Active to coincide with the Registry go-live in January 2016
+
+9)	Ongoing changes for Arb/Ord or ACnc/Ord terms to Pr/Ord or Threshold/Ord
+
+10)	Method of {Author Type} was changed to {Role}, a more inclusive name for any author of a clinical document, not just clinical care providers
+
+
+This release contains two changes to the structure of the LOINC Table:
+
+Field Name: DATE_LAST_CHANGED
+Formal Definition: Date the LOINC term was last changed.
+Action: Deleted
+
+Field Name: VersionLastChanged
+Formal Definition: The LOINC version number in which the record has last changed. For new records, this field contains the same value as the loinc.FirstPublishedRelease field. 
+Action: Added
+
+
+                       +---------------------------+
+                       |       Version 2.53        |
+                       |  Released December 2015   |
+                       +-------------------------- +
+
+LOINC version 2.53 was a limited release.
+
+
+                       +---------------------------+
+                       |       Version 2.52        |
+                       |    Released June 2015     |
+                       +-------------------------- +
+
+LOINC version 2.52 contains 76,266 terms, an increase of 1,666 since the December 2014 version. Approximately 7688 terms have been edited. A total of 2308 terms have been deprecated. 
+
+This release includes 681 laboratory, 640 clinical, and 345 new survey terms. Some highlights of the new content in this version include:
+
+1)      Over 160 new molecular pathology terms, including more than 120 gene mutation analysis terms
+
+2)      140 microbiology terms, including 40 new terms for microbial gene testing in ENT and wound specimens, approximately 10 new terms for viral RNA/DNA testing, and a term for Influenza virus A H5 icA RNA (77605-4)
+
+3)      116 new chemistry terms
+
+4)      Over 70 new clinical document-related codes, including over 50 terms added to the Document Ontology
+
+5)      New panels for laboratory tests, including:
+        - Mitochondrial respiratory chain enzyme analysis panel (77381-2)
+        - Salivary gland protein 1 & Carbonic anhydrase 6 & Parotid secretory protein Ab.IgA & IgG & IgM panel (77217-8)
+        - HTLV I and II Ab Panel (77742-5)
+        - Wound microorganism gene identification panel (76585-9)
+        - Respiratory DNA and RNA virus panels (76091-8, 76771-5, 77029-7)
+        - ENT microorganism gene identification panel (76586-7)
+        - Antipsychotics drug panel - Urine by Screen method (75815-1)
+        - 10-year breast cancer distant recurrence risk panel (76546-1)
+
+6)      APTA Physical Therapy Outcomes Registry panel (76464-7), which includes about 70 new terms and 25 existing terms. The registry is currently in beta, set to go live in January 2016.
+
+7)      52 new radiology terms, most related to our collaboration  with the RSNA (See Section "Edits contained in this release", Item 10)
+
+8)      Over 65 new cardiology terms
+
+9)      Terms in support of the Meaningful Use program, including sexual orientation (76690-7), gender identity (76691-5), sex assigned at birth (76689-9), and weight-for-length per age and gender (77606-2)
+
+10)     Nearly 400 terms created for PROMIS, including item banks, short forms, and questions
+
+11)     Over 100 terms created for NMMDS, including nursing demographics panel, clinical knowledge, decision making & mental workload panel, nursing staff job positions, quantity, turnover, and retention panel, and client accessibility panel
+
+12)     185 terms created for the following survey/assessments: ADVAULT, AmNART, BPI, HARK, HWS, NHCS, NHANES, and OPTIMAL
+
+
+Other edits contained in this release:
+
+1)      LOINC 49543-2, Calcidiol+Calciferol [Mass/volume] in Serum or Plasma, is now deprecated and mapped to 62292-8, 25-Hydroxyvitamin D2+25-Hydroxyvitamin D3 [Mass/volume] in Serum or Plasma. LOINC 49543-2 was previously in the Top 2000 file and has been replaced by 62292-8 in the current version. 
+
+2)      For CSF specimen collection, changed the Challenge part description of "<number> specimen" to "<number> tube" (e.g. see 46087-3)
+
+3)      For Urine tests with Time XXX, changed the Long Common Name from "...in unspecified time Urine..." to "...in Urine collected for unspecified duration"
+
+4)      Ongoing changes for ACnc/Ord terms to Pr/Ord or Threshold/Ord, including molecular pathology terms for identifying specific variants
+
+5)      Updated the values in the UnitsAndRange field to be consistent with UCUM, and standardized the formatting of the ranges
+
+6)      Updated the ORDER_OBS field from "Observation" to "Both" for several terms based on recommended content changes included in the S&I Framework's aLOINC Order Code Scope Statement (Appendix B, Item 3)
+
+7)      For ultrasound (US) Methods, separated the US imaging modality from the calculation method. For example, US.2D.Teichholz changed to US.2D+Calculated by Teichholz method
+
+8)      Based on Clinical LOINC Committee approval at the February 2015 meeting, terms that specify a look-back period will have timing changed from 'Pt' to the specific time stated by the question. For example, timing changed from 'Pt' to ‘1W’ for terms that specify a look-back period of 7 days. The component did not change and continues to specify the look-back period as well. This work is in progress.
+
+9)      Corrected the Method of several terms that were labeled as "PhenX" but whose provenance was really another source (as stated in the PhenX Toolkit). The Method of these terms was changed to the source name (e.g. NHANES) to clarify the origin of the concept.
+
+10)     Through our ongoing collaboration with RSNA (https://loinc.org/collaboration/rsna), we are establishing a unified model for radiology procedure names. Based on this model, we have implemented several changes to the names of CT terms. A detailed description of the unified naming model will appear in a future version of the LOINC Users' Guide. Over 700 existing radiology terms were edited. Examples of the edits include:
+
+        - Changed route of administration to use abbreviations from the HL7 routes of administration. For example: "inhaled" became "IH", "intrasynovial" became "IS", and "intracervical (uterus)" became "ICV".
+        - Revised all uses of "W & WO" to "WO & W" to better reflect the sequence in which they are performed (first without contrast, then with).
+        - The specification of anatomic sites in the System now reflects a model that can identify both the body region imaged and the imaging focus. (For example: Abdomen+Pelvis>Urinary bladder)
+       
+
+This release includes several changes to the structure of the LOINC Table:
+
+Field Name: MOLAR_MASS
+Formal Definition: Not actively maintained. Molecular weights: This field contains the molecular weights of some chemical moieties
+Action: Deleted
+
+Field Name: ACSSYM
+Formal Definition: Chemical name synonyms, alternative name synonyms, and chemical formulae supplied with permission from the Chemical Abstract Society. 
+Action: Deleted
+
+Field Name: BASE_NAME
+Formal Definition: Chemical base name from CAS
+Action: Deleted
+
+Field Name: NAACCR_ID
+Formal Definition: Maps to North American Association of Central Cancer Registries Identification Number.
+Action: Deleted, moved data to SURVEY_QUEST_SRC
+
+Field Name: CODE_TABLE
+Formal Definition: Examples on CR0050 Cancer Registry.
+Action: Deleted
+
+Field Name: HL7_V2_DATATYPE     
+Formal Definition: HL7 version 2.x data type that is compatible with this LOINC code
+Action: Deleted
+
+Field Name: HL7_V3_DATATYPE     
+Formal Definition: HL7 version 3.0 data type that is compatible with this LOINC code
+Action: Deleted
+
+Field Name: CURATED_RANGE_AND_UNITS     
+Formal Definition: Units of measure (expressed using UCUM units) and normal ranges for physical quantities and survey scores. Intended as tailorable starter sets for applications that use LOINC forms as a way to capture data. Units are separated from normal ranges by a colon (:) and sets of unit:normal range pairs are separated by a semi-colon (;). Syntax for the normal range includes square brackets, which mean that the number adjacent to the bracket is included, and parentheses, which means that the number itself is not included. For example, [2,4] means "two to four", while [2,4) means "two to less than four" and (2,4) means "between two and four but does not include two and four".
+Action: Renamed to UnitsAndRange
+
+Field Name: COMMENTS    
+Formal Definition: Narrative text that describes the LOINC term taken as a whole (i.e., taking all of the parts of the term together) or relays information specific to the term, such as the context in which the term was requested or its clinical utility.
+Action: Renamed to DefinitionDescription
+
+Field Name: PanelType
+Formal Definition: Describes a panel as a "Convenience group", "Organizer", or "Panel".  A "Panel" is an enumerated set of terms that are used together in direct clinical care. The package would typically be thought of as a single orderable item that contains a set of reported observations. A "Convenience group" is an enumerated set of terms used for a common purpose, but not typically orderable as a single unit. An "Organizer" is a subpanel (i.e. a child) within another panel that is only used to group together a set of terms, but is not an independently used entity. They often represent a header in a form, or serve as a navigation concept.
+Action: Added
+
+Field Name: AskAtOrderEntry     
+Formal Definition: A multivalued field, semicolon delimited list of LOINC codes that represent optional Ask at Order Entry (AOE) observations for a clinical observation or laboratory test. A LOINC term in this field may represent a single AOE observation or a panel containing several AOE observations.
+Action: Added
+
+Field Name: AssociatedObservations      
+Formal Definition: A multi-valued field, semicolon delimited list of LOINC codes that represent optional associated observation(s) for a clinical observation or laboratory test. A LOINC term in this field may represent a single associated observation or panel containing several associated observations.
+Action: Added
+
+
+This release includes several changes to the structure of the FORMS tab of the LOINC panels and forms file:
+
+Field Name: SkipLogicTarget
+Formal Definition: 
+Action: Deleted
+
+Field Name: SkipLogicTargetAnswer
+Formal Definition: 
+Action: Deleted
+
+Field Name: AnswerRequired
+Formal Definition: 
+Action: Deleted, replaced by AnswerCardinality
+
+Field Name: MaxNumberOfAnswers
+Formal Definition: 
+Action: Deleted, replaced by AnswerCardinality
+
+
+Notice of changes to the public LOINC data files for the June 2016 Release:
+
+Field Name: LOINC.SOURCE
+Formal Definition: This is for our internal use and should be ignored by database users.
+Action: Remove
+Discussion: This field was always intended for internal use per the field definition and is an unnecessary complexity with our new internal processes.
+
+
+                       +---------------------------+
+                       |       Version 2.51        |
+                       |  Released June 2015       |
+                       +-------------------------- +
+
+LOINC version 2.51 was a limited release.
+
+                       +---------------------------+
+                       |       Version 2.50        |
+                       |  Released December 2014   |
+                       +-------------------------- +
+
+LOINC version 2.50 contains 74,600 terms, an increase of 711 since the June 2014 version. Approximately 4640 terms have been edited, excluding edits to the LOINC.RELATEDNAMES2 field (see item #12 below). A total of 2216 terms have been deprecated. 
+
+This release includes over 350 laboratory, 170 survey, and 170 clinical new terms. Some highlights of the new content in this version include:
+
+1)	Over 130 new molecular pathology terms, including terms for non-invasive prenatal testing
+
+2)	43 new terms for microbiology testing, including Ebola Zaire PCR (75411-9), HIV 1+2 Ab & HIV1 p24 Ag rapid EIA (75666-8), and Enterovirus D68 RNA (76072-8)
+
+3)	Over 80 new clinical document codes added to the Document Ontology
+
+4)	New panels/sets for laboratory tests, including:
+	- Gram negative blood culture panel (75673-4)
+	- Electrolytes 3 panels for 24 urine (75667-6) and CSF (75641-1)
+	- Hepatitis A virus RNA & Parvovirus B19 DNA panel (75860-7)
+	- Two Lupus anticoagulant screening panels, one with dRVVT and aPTT as the screening tests (75515-7) and the other with dRVVT, aPTT, and PT (75881-3)
+	- Noninvasive fetal testing panels for aneuploidies and microdeletions based on analysis on cell-free DNA and maternal WBC DNA (75547-0)
+	- Sterols panel (MCnc) (75858-1)
+	- Rheumatoid arthritis disease activity panel (75635-3)
+
+5)	Over 150 terms created for the following survey/assessments: ADVault, AIS, COOP, HAQ, HAQ-II, HAQ-DI, NMMDS, PAS, PAS-II, and PROMIS
+
+6)	Terms created for Patient-Centered Outcomes Research Institute (PCORI) and the PCORnet Common Data Model (CDM)
+
+7)	Terms created for HL7 CDA implementation guides, including Consolidated CDA and National Ambulatory Medical Care Survey (NAMCS)
+
+8)	HEDIS 2015 Value Sets (75868-0)
+
+9)	Meaningful Use sets for HIV and HCV (75622-1, 75888-8, 75887-0, and 75886-2)
+
+
+Other edits contained in this release:
+
+1)	Updated Apolipoprotein E chemistry and genetics terms to clarify their meaning
+
+2)	For terms with a property of 'TmStp' that report the date only, the Property has been changed from 'TmStp' to 'Date'
+
+3)	For terms reporting a risk (e.g. Trisomy 21 risk), the property is now 'Likelihood'
+
+4)	For terms reporting a score (either based on a scale or total score), the property is now 'Score'
+
+5)	Class DOC.CLINRPT changed to DOC.ONTOLOGY, a more representative name for all clinical documents, not just clinical reports
+
+6)	Method of {Provider} changed to {Author Type}, a more inclusive name for any author of a clinical document, not just clinical care providers
+
+7)	Many example and UCUM units added to non-lab quantitative terms (in clinical and survey classes)
+
+8)	We are in the process of updating answer list names and descriptions to better reflect their content. 
+
+9)	New conditionality options, such as "Required with alternative" and "Reflex", for the individual terms in panels that represent complex testing algorithms.
+
+10)	New answer list type of "PREFERRED". Preferred lists contain a set of answers that users are strongly encouraged to use. They represent a recommended set, however alternate result values may be used if necessary.
+
+11)	For terms with an additional third party copyright, we have aligned the content in the EXTERNAL_COPYRIGHT_NOTICE field of the LOINC table with the COPYRIGHT and TERMS_OF_USE fields in the Source Organization table.
+
+12)	As part of internal database improvements, we cleaned up some content in the RELATEDNAMES2 field of the LOINC table and reordered the related names into alphabetical order. As a result, nearly every record in the LOINC table was updated. Since the content is essentially the same, we did not flag these edits with a change type of 'MIN'.
+
+
+This release includes one change to the structure of the LOINC Table:
+
+Field Name: LOINC.EXTERNAL_COPYRIGHT_LINK
+Formal Definition: For terms with an additional third party copyright, this field is populated with the COPYRIGHT_ID from the Source Organization table (see Table 28c in the LOINC Manual).
+Action: Add
+
+
+This release includes several changes to the structure of the LOINC panels and forms file. We have added the following fields for more complete representation of survey instruments and forms:
+
+Field Name: FORMS.QuestionCardinality
+Formal Definition: Controls the cardinality of a question on a form. The lower range will be 0 for optional questions or 1 for mandatory questions. The upper range is a number > 0. This value indicates number of times that this question can be asked. "*" is used as a special flag to indicate that there is no upper bound.
+Action: Add
+
+Field Name: FORMS.AnswerCardinality
+Formal Definition: Controls the cardinality of the answers on a form. The lower range will be 0, indicating that the user is not required to answer the question, or 1, indicating that the user is required to answer the question. The upper range is a number > 0. This value indicates number of answers is allowed. "*" is used as a special flag to indicate that there is no upper bound.
+Action: Add
+
+Field Name: LOINCS.EXTERNAL_COPYRIGHT_LINK
+Formal Definition: For terms with an additional third party copyright, this field is populated with the COPYRIGHT_ID from the Source Organization table (see Table 28c in the LOINC Manual).
+Action: Add
+
+Field Name: ANSWERS.Description
+Formal Definition: Detailed description for an answer
+Action: Add
+
+Field Name: ANSWERS.Score
+Formal Definition: Score value for the answer. Used in instruments where response values are used to calculate one or more scores.
+Action: Add
+
+Field Name: ANSWERS.SubsequentTextPrompt
+Formal Definition: Text that should be displayed when a user chooses this answer. A value in this field indicates that choosing this answer should result in the user being prompted to provide an additional free text input, e.g. "Other, please specify".
+Action: Add
+
+Field Name: ANSWERS.AnswerListId
+Formal Definition: The LOINC answer list ID. Answer list IDs begin with ‘LL’ followed by a numeric identifier, e.g. LL512-5.
+Action: Add
+
+Field Name: ANSWERS.AnswerListName
+Formal Definition: The descriptive name for an answer list. (As mentioned above, we are in the process of updating answer list names to better reflect their content).
+Action: Add
+
+
+Notice of changes to the public LOINC data files for the December 2015 Release:
+
+Field Name: ANSWERS.CODE_SYSTEM_OID
+Formal Definition: The Object Identifier (OID) for the answer list. This OID may be assigned by Regenstrief or another Registration Authority.
+Action:	Rename to ANSWER_LIST.OID
+Discussion: The current name implies that the OID for the value set is tied to a specific code system. In fact, the OID identifies the value set (answer list), not the code system from which individual answer codes in the list is drawn. An answer list can be comprised of codes from a single code system or, in some cases, it can include codes from multiple code systems. (This structure of codes from multiple code systems in a single list is supported by FHIR.) Changing the name will help to disambiguate the purpose of the field. This field is contained in the LOINC panels and forms file.
+
+Field Name: LOINC.FORMULA
+Formal Definition: Contains the formula in human readable form, for calculating the value of any measure that is based on an algebraic or other formula except those for which the component expresses the formula. So Sodium/creatinine does not need a formula, but Free T3 index does.
+Action: EXPAND from text (255) to memo
+Discussion: The LOINC content developers have been jumping through hoops to make some formulas fit the field limit (255 characters). Truncating or unnecessarily fiddling with formulas to fit the field limit makes things harder than it needs to be for both LOINC staff and LOINC users. Expanding the size of this field will give us the space needed to properly document the formula.
+As an example, here is a formula that currently is 472 characters long:
+
+"GT = BetaT * (DT + [TSH]) * (1 + K41 [TBG] + K42 [TBPA]) * [FT4] / (AlphaT * [TSH]) or GT = BetaT * (DT + [TSH]) * [TT4] / (AlphaT * [TSH]) from serum or plasma concentrations of thyrotropin (TSH) and free (FT4) or total (TT4) thyroxine and some constants (AlphaT = Dilution factor for T4: 0.1 l 1; BetaT = Clearance exponent for T4: 1.1e-6 sec-1; K41 = Dissociation constant T4-TBG: 2e10 l/mol; K42 = Dissociation constant T4-TBPA: 2e8 l/mol, DT = EC50 for TSH: 2.75 mU/l)"
+
+Field Name: LOINC.DATE_LAST_CHANGED
+Formal Definition: Date last changed.
+Action: DELETE and add a "VersionLastChanged" field.
+Discussion: The exact date a LOINC term was edited by Regenstrief staff is unnecessary for LOINC users and actually difficult for us to maintain accurately. We know that the dates there now are not 100% accurate. We believe the most helpful thing for users would be a "LOINC Version Number When Last Changed" field. We plan remove the DATE_LAST_CHANGED field and insert a "VersionLastChanged" field.
+
+
+                       +---------------------------+
+                       |   Version 2.49            |
+                       |  Released December 2014   |
+                       +-------------------------- +
+
+LOINC version 2.49 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.48            |
+                       |  Released June 2014       |
+                       +-------------------------- +
+
+LOINC version 2.48 contains 73,889 terms, an increase of 774 since the December 2013 version. Approximately 1300 terms have been edited. A total of 2201 terms have been deprecated. 
+
+This release includes over 600 laboratory, 137 survey, and 16 clinical-related new terms. Some highlights of the new content in this version include:
+
+1)	Over 300 chemistry-related codes for observations such as quantitative analysis of immunoglobulin light and heavy chains, porphyrin fractions in stool (SFr, SCnt), dimethyl acetals (DMAs) in fibroblasts and RBCs, and detection of soluble fms-like tyrosine kinase-1 and placental growth factor in serum.
+
+2)	Approximately 100 drug/toxicology codes
+
+3)	Over 60 microbiology codes for tests detecting Influenza virus B lineage RNA, Neisseria meningitidis DNA, HPV DNA, West Nile Virus RNA, Hepatitis E virus RNA, and HIV 1+Hepatitis C virus RNA+Hepatitis B virus DNA, Chikungunya virus antibodies, Dengue virus IgG and IgM antibodies to Dengue virus, and gram positive bacteria, and more.
+
+4)	New laboratory panels, including:
+	- HER2 panel (LOINC 74885-5)
+	- Immunoglobulin light and heavy chains panel (LOINC 74773-3)
+	- Chloride and sodium panel (LOINC 74993-7)
+	- Metanephrine and normetanephrine panel (LOINC 74831-9)
+	- Additional hydrogen breath test panels (LOINCs 74790-7, 74788-1,74789-9)
+	- Metabolic disorder therapy monitoring panel for newborn screening (LOINC 74874-9)
+	- Amino acids (SCnc, SRto) in urine panel (LOINC 74514-1)
+	- Dimethyl acetal in Fibroblasts and RBCs panels (LOINCs 74633-9, 74634-7)
+	- Chloride and sodium panel (LOINC 74993-7)
+	- Bacterial vaginosis DNA panel (LOINC 74635-4)
+	- Olanzapine panel (LOINC 75021-6)
+	- Gram positive blood culture panel (LOINC 74749-3)
+
+5)	New veterinary codes related to testing for porcine epidemic diarrhea virus RNA as well as a body condition score for veterinary EHRs.
+
+6)	Over 100 terms created for the following survey/assessments:
+	- AHRQ's Healthcare Event Reporting Form (HERF), Patient Information Form (PIF), Summary of Initial Report (SIR), and Device or Medical/Surgical Supply forms (LOINCs 74725-3, 74502-6, 74501-8, 74495-3)
+	- CDC's Congenital Syphilis Case Investigation and Report form (LOINC 75199-0)
+	- Norton Scale (LOINC 75243-6)
+
+7)	Two new progress notes for specialties urology and neurology for clinical documents
+
+8)	Additional clinical document type codes were reviewed and moved into the DOC.CLINRPT Class in order to be included in the LOINC Document Ontology File that is a separate download in the LOINC distribution.
+ 
+
+Other edits contained in this release:
+
+1) 	Truncation of some Long Common Names from the Eating Disorder Diagnostic Scale (EDDS) have been fixed.
+
+2) 	Continuing work to change property for ACnc/Ord terms from ACnc to Pr or Threshold
+
+3) 	Added Example and UCUM units to over 2,000 quantitative terms in the Clinical domain
+
+
+Notice of changes to the public LOINC data files for the June 2015 Release:
+
+TABLE: LOINC
+
+Field Name: MOLAR_MASS
+Formal Definition: Not actively maintained. Molecular weights: This field contains the molecular weights of some chemical moieties
+Action:	DELETE
+Discussion: 1881 records have a value in this field. This field is sparsely populated and has not been actively maintained.  For example, of 16 LOINCs with a component of Cortisol only 3 have this field populated.  
+
+
+Field Name: ACSSYM
+Formal Definition: Chemical name synonyms, alternative name synonyms, and chemical formulae supplied with permission from the Chemical Abstract Society. 
+Action:	DELETE
+Discussion: 4054 records have a value in this field. This field is sparsely populated and has not been actively maintained.  For example, only about half of the LOINCs with a component of 'Lead' have this field populated. 
+
+
+Field Name: BASE_NAME
+Formal Definition: Chemical base name from CAS
+Action:	DELETE
+Discussion: 31 records have value in this field. This field is sparsely populated and has not been actively maintained.
+
+
+Field Name: NAACCR_ID	
+Formal Definition: Maps to North American Association of Central Cancer Registries Identification Number.
+Action:	Move data to SURVEY_QUEST_SRC and delete this field.
+Discussion: 449 records have value in this field. We have alternate structures for storing other associated codes. 
+
+
+Field Name: CODE_TABLE	
+Formal Definition: Examples on CR0050 Cancer Registry.
+Action:	DELETE
+Discussion: 79 records have value in this field. This appears to be redundant data.  In all but 1 case, these are the same NAACCR item codes that are in the NAACCR_ID field but with 'CR' prepended.
+
+
+Field Name: HL7_V2_DATATYPE	
+Formal Definition: HL7 version 2.x data type that is compatible with this LOINC code
+Action:	DELETE
+Discussion: Data type information will now be stored in the LOINC.DataType field. The data currently in this field will be used to populate the new field. 
+
+
+Field Name: HL7_V3_DATATYPE	
+Formal Definition: HL7 version 3.0 data type that is compatible with this LOINC code
+Action:	DELETE
+Discussion: Data type information will now be stored in the LOINC.DataType field. The data currently in this field will be used to populate the new field.
+
+
+Field Name: CURATED_RANGE_AND_UNITS	
+Formal Definition: 
+Action:	Rename to UnitsAndRange
+Discussion: Removes redundancy in the field name.
+
+
+Field Name: COMMENTS	
+Formal Definition: 
+Action:	Rename to DefinitionDescription
+Discussion: This field has long been our place for storing term definitions and descriptions. The label of "Comments" suggests an informal dialogue about the term, when in fact the contents are a curated narrative description.
+
+
+FORMS TAB of panel spreadsheet:
+
+Field Name: SkipLogicTarget
+Formal Definition: 
+Action: DELETE
+Discussion: The LForms project has clarified our thinking on skip logic. These fields are no longer appropriate for the data that we need to store.
+
+Field Name: SkipLogicTargetAnswer
+Formal Definition: 
+Action: DELETE
+Discussion: The LForms project has clarified our thinking on skip logic. These fields are no longer appropriate for the data that we need to store.
+
+Field Name: AnswerRequired
+Formal Definition: 
+Action: DELETE
+Discussion: To be replaced by AnswerCardinality.
+
+Field Name: MaxNumberOfAnswers
+Formal Definition: 
+Action: DELETE
+Discussion: To be replaced by AnswerCardinality.
+
+
+                       +---------------------------+
+                       |   Version 2.47            |
+                       |  Released June 2014       |
+                       +-------------------------- +
+
+LOINC version 2.47 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.46            |
+                       |  Released December 2013   |
+                       +-------------------------- +
+
+LOINC version 2.46 contains 73,115 terms, an increase of 490 since the June 2013 version. Approximately 300 terms have been edited. A total of 2191 terms have been deprecated. 
+
+This release includes over 300 laboratory, 110 clinical or attachment, and 47 survey-related terms.  Some highlights of the new content in this version include: 
+
+1)	Approximately 75 drug/toxicology tests, including confirmation tests for specific Polychlorobiphenyl (PCB) congeners and the NBOMe series of hallucinogenic chemicals as well as analysis on unknown substances (e.g. unknown powders, liquids, capsules, tablets, syringe contents, etc.).  
+
+2)	Over sixty hematology/blood count related tests on various specimens, including cord blood (post-delivery), fetal blood (in utero), and bone marrow.  
+
+3)	Over 40 chemistry tests, including observation for newborn screening.
+
+4)	Approximately 80 new codes in microbiology and serology, including codes for Middle East respiratory syndrome (MERS) coronavirus and Major histocompatibility complex class I chain-related antigen A (MICA) antigens.  A few codes are veterinary-specific, including tests for Porcine reproductive and respiratory syndrome virus (PRRSV) and prion protein analysis.
+
+5)	New laboratory panels, including the new 2014 HEDIS Value Sets, CBC with Differential panel for Cord blood , MICA (Major histocompatibility complex class I chain-related antigen A ) IgG antibodies, MERS (Middle East respiratory syndrome) coronavirus RNA panel, and a Mycobacterium tuberculosis stimulated gamma interferon & spot count panel.
+
+6)	Several new terms for action plans (submitted by SE Minnesota Beacon program), including anaphylaxis, autism, ADHD, cystic fibrosis, inflammatory bowel disease, muscular dystrophy, and diabetes type I and II action plans.
+
+7)	Codes representing interRAI© clinical assessments for home health care, palliative care, acute care, long term care facility, emergency screener for psychiatry, contact and  community health assessments.
+
+8)	Codes for several forms or survey instruments, including:
+	- Nursing Management Minimum Data Set (NMMDS), questions on nurse job satisfaction: LOINC 74182-7, NMMDS job satisfaction panel
+	- AHRQ Patient safety event report - hospital: medication or other substance - version 1.2: LOINC 74080-3
+
+9)	Codes created for (but not limited in use to) several HL7 Implementation Guides and registry reports, including:
+	- HL7 IG for CDAR2: Clinical Oncology Patient Transfer Summary, Release 1: see LOINC 74156-1, Oncology treatment plan and summary Document
+	- HL7 Implementation Guide for CDA® Release 2.0: Form Definition and Questionnaire response documents, Release 1: see LOINCs 74468-0, 74465-6, 74467-2 and 74466-4.
+	- HL7 Version 3 Implementation Guide: Virtual Medical Record for Clinical Decision Support (vMR-CDS), Release 1: see LOINC 74028-2, Virtual Medical Record for Clinical Decision Support panel HL7-VMR-CDS
+	- HL7 CDA HIV/AIDS Services Report Implementation Guide: see LOINC 74264-3, HIV summary registry report
+	- American College of Surgeons, National Trauma Databank (NTDB): see LOINC 74198-3, Trauma summary registry report
+
+This release also includes significant updates to LOINC Document Ontology: 
+
+1) 	With the guidance of the Clinical LOINC Committee, we extensively reviewed existing clinical document type codes and compared them to the set of Document Ontology axis values that the Committee had approved for new terms. This review has been in process for several years, but we have now completed it for all terms in the DOC.CLINRPT class. As a result of this review, several clinical document terms were either revised or deprecated.
+
+2)	Based on decisions from this review, we have updated the LOINC Document Ontology hierarchies and axis values in the LOINC database, on the LOINC website (http://loinc.org/discussion-documents/document-ontology), and in the Users Guide. The LOINC Users Guide serves as the official version of the LOINC Document Ontology (see Section 7).
+
+3) 	Beginning with this release (v2.46), we provide the part numbers for clinical document axis values in the LOINC Users Guide. In addition, the Clinical document parts, part number, and part type (e.g. Subject matter domain, Type of service, etc.) can be viewed in RELMA under the parts search tab (see page 53 of the RELMA manual). The linkage between LOINC codes in the DOC.CLINRPT class and the set of document ontology axis values they contain are provided in the LOINC Document Ontology File that is a separate download in the LOINC distribution. 
+
+4) 	New terms are available to report a LOINC Document Ontology axis value (Kind of document, Type of service, Setting, Subject matter domain, and Role). See LOINCs 74477-1, 74478-9, 74476-3, 74480-5, and 74479-7 or search on "LOINC Document Ontology". For example, you could send 11506-3 'Provider-unspecified Progress note', and then report the Role as a separate accompanying segment using 74479-7 'Clinical document Role from LOINC Document Ontology'.
+
+5) 	This work was performed in synchrony with work in HL7 to develop the "HL7 Implementation Guide: LOINC Clinical Document Ontology", which can serve as a helpful resource for LOINC Document Ontology Users.
+
+Other edits contained in this release:
+Where present, we removed tab and line feed characters within the Long Common Name field (primarily PhenX terms). We also continue the clean-up effort started in version 2.44  for replacing extended ASCII and UNICODE characters above code point 127 with more common ASCII characters, where appropriate. We expect this effort to take several more cycles to complete.  
+
+Notice of upcoming file name changes:
+In our ongoing effort to provide consistency and uniformity in the LOINC release artifacts, we are updating our file naming conventions. Beginning with the June 2014 release most, if not all, not all file names will use the following naming convention: LOINC_<version#>_<ArtifactLabel>.<Extension>. 
+For example, we expect to rename the file LOINC_242_NEWBORN_SCREENING_PANELS.zip that was included in the 2.42 release to LOINC_246_NewbornScreeningPanels.zip in the June 2014 release.
+
+Notice of discontinuation of tab-delimited file format:
+As we announced previously, this release discontinues publication of the tab-delimited format of the LOINC Table (may it rest in peace). The CSV format is now the sole text format distribution.
+
+
+                       +---------------------------+
+                       |   Version 2.45            |
+                       |  Released December 2013   |
+                       +-------------------------- +
+
+LOINC version 2.45 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.44            |
+                       |  Released June 2013       |
+                       +-------------------------- +
+
+LOINC version 2.44 contains 72,625 terms, an increase of 1,161 since the December 2012 version. Approximately 2,408 terms have been edited. A total of 2,168 terms have been deprecated.Some highlights of the new content in this version include:1)	Over 600 drug induced platelet and neutrophil antibody terms.  2)	More than 100 terms for antibiotic susceptibility testing.3)	Over 80 terms in toxicology, primarily related to synthetic cannabinoid testing.4)	New codes for the 2003 version of US Standard Birth Certificate and Fetal Death Report panels, LOINCs 68988-4 and 69045-3.   5)	New codes for newborn hearing and critical congenital heart disease (CCHD) screening, added to the American Health Information Community (AHIC) newborn screening panel, LOINC 54089-8.  6)	Terms for the Neonatal Skin Risk Assessment Scale (NSRAS), LOINC 73790-8.This release also two major types of edits to LOINC content:
+1)	We have made many edits as part of our ongoing effort to replace our temporary, "placeholder" use of ACnc for ordinal terms with more appropriate properties of Pr or Threshold (as described in the LOINC Users' Guide). Approximately 560 blood bank terms were changed from ACnc to Pr to reflect the new model for ordinal terms where results are reported as present or absent. Over 965 Drug/Tox terms were changed from ACnc to Threshold since the reported results are based on an internal cutoff or threshold value. 
+2)	For consistency and uniformity, we are replacing some extended ASCII and UNICODE characters above code point 127 with more common ASCII characters, where appropriate. Many edits are simple substitutions, such as replacing left and right specific quotation marks with the equivalent ASCII quotation mark. Others involve a multi-character string replacement, like changing the ellipsis character to the "..." string or replacing the trademark symbol with "(tm)". Our new delimited text format of the LOINC table is UTF-8 CSV, and there are fields where we will specifically allow Unicode characters. For example, in the FORMULA field we us Greek alpha and beta characters to accurately represent the mathematical formula. Likewise, the EXTERNAL_COPYRIGHT_NOTICE field will contain copyright symbols (naturally). We expect to make the replacements in several iterations.
+
+NOTICE OF UPCOMING FILE NAME CHANGES
+In our ongoing effort to provide consistency and uniformity in the LOINC release artifacts, we are updating our file naming conventions. Beginning with the June 2014 release most, if not all, not all file names will use the following naming convention: LOINC_<version#>_<ArtifactLabel>.<Extension>. 
+
+For example, we expect to rename the file LOINC_242_NEWBORN_SCREENING_PANELS.zip that was included in the 2.42 release to LOINC_246_NewbornScreeningPanels.zip in the June 2014 release.
+  		       +---------------------------+
+                       |   Version 2.43            |
+                       |  Released June 2013       |
+                       +-------------------------- +
+
+LOINC version 2.43 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.42            |
+                       |  Released December 2012   |
+                       +-------------------------- +
+
+LOINC version 2.42 is the 50th release of the LOINC database. This version contains 71,464 terms, an increase of 775 since the June 2012 version. Approximately 7,563 terms have been edited. A total of 1,844 terms have been deprecated.The majority of edits for this release are in Radiology where terms with a scale of "Nar" are changed to "Doc" to fit with the Clinical Document Architecture (CDA) model. This release also includes edits made to several concentration ratio properties. CCrto, MCrto, and SCrto are changed to CRto, MRto, and SRto, respectively, since the volume cancels out when the ratio of measurements is calculated. Additionally, the property for ordinal terms with a method of screen or confirm in the Drug/Tox Class are changed from "ACnc" to "Threshold" since the results (e.g. present/absent) are based on a cutoff or threshold value. This release includes terms requested by several organizations and instrument vendors across many classes. We added more than 100 terms in the toxicology, chemistry, and hematology classes and more than 40 molecular pathology terms. We've also added more than 50 new radiology terms and several new survey instruments. This release also includes two changes to the fields in the LOINC Table:1)	The MAP_TO field is no longer be distributed with the LOINC Table. It was originally created to store a single replacement LOINC term number for when a LOINC was deprecated. We later learned that there were times when there was more than one possible replacement term, depending on certain conditions. To address this problem we created a new MAP_TO table (initially released with version 2.34) obviated the need for this field. 2)	We have added the HL7_ATTACHMENT_STRUCTURE field to the LONIC Table. We've continued to work closely with the HL7 Attachments Work Group to support their mission of developing electronic healthcare claims standards. In the context of attachments covered under HIPAA, the current proposals use LOINC codes in a couple of ways. One way is to identify the attachment type (e.g. a Discharge Summary or Radiology Report) when creating and sending attachments. This new field will help identify which LOINC codes that are approved by the HL7 AWG to be used in this manner and what format they should be sent in: whether as Structured content using the C-CDA or with the Unstructured template of C-CDA. More detail about how this field will be used will be published in an upcoming HL7 supplement document.
+
+  		       +---------------------------+
+                       |   Version 2.41            |
+                       |  Released December 2012   |
+                       +-------------------------- +
+
+LOINC version 2.41 was a limited release
+
+                       +---------------------------+
+                       |  Version 2.40             |
+                       |  Released June 2012	   |
+                       +-------------------------- +
+
+LOINC version 2.40 contains 70,689 terms, an increase of 2,339 since the December 2011 version. Approximately 1,055 terms have been edited. A total of 1,813 terms have been deprecated. This release includes terms requested by a number of laboratory instrument and kit manufacturers (Sysmex, Ortho, Gen-Probe, etc.) and we anticipate more requests in the next release. Also included are numerous terms for survey instruments and questionnaires, including FACIT (Functional Assessment of Chronic Illness Therapy), FACT (Functional Assessment of Cancer Therapy), Veterans Rand Study (VR-12 and VR-36) and CMS panels for physical assessment.We are in the process of editing existing molecular genetics terms to harmonize with HUGO, HGVS and ISCN recommended nomenclature.
+
+  		       +---------------------------+
+                       |   Version 2.39            |
+                       |  Released June 2012       |
+                       +-------------------------- +
+
+LOINC version 2.39 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.38            |
+                       |  Released December 2011   |
+                       +-------------------------- +
+
+LOINC version 2.38 contains 68,350 terms, an increase of 3,346 since the June 2011 version. Approximately 490 terms have been edited. A total of 1,698 terms have been deprecated. This release includes a large number of new RAD terms and we anticipate that more will be added in the upcoming months. Also included are terms for NeuroQOL, OPTIMAL survey(American Physical Therapy Association), NEMSIS, the CARE long term care hospital (LTCH) survey and core terms for behavior for SAMHSA (Substance Abuse and Mental Health Services Administration)As we announced in June 2011, we have made changes to the LOINC database field.
+
+   		       +---------------------------+
+                       |   Version 2.37            |
+                       |  Released December 2011   |
+                       +-------------------------- +
+
+LOINC version 2.37 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.36            |
+                       |  Released June 2011       |
+                       +-------------------------- +
+
+
+
+LOINC version 2.36 contains 65,004 terms, an increase of 3,749 since the December 2010 version. Approximately 1,920 terms have been edited. A total of 1,655 terms have been deprecated. Included in this release is a large bolus of new PhenX terms. We continue to work closely with the ACLA in the development of common tests and order sets.The following are changes for next public release (December 2011).If you have questions or concerns about these changes, please send your comments to loinc@loinc.orgFIELD				ACTION					REASONLOINC_NUM			Increase size to 10 characters		Enable support for many more LOINC numbersRELAT_NMS			Delete					This field is obsolete.The contents have moved to our part-based synonymy and stored in RELATEDNAMES2 field.DT_LAST_CH			Rename to DATE_LAST_CHANGED. 		Change datatype from string to date.	Name consistency and data integrity.ANSWERLIST			Delete					This field is obsolete. The contents have moved to a table-based answer list structure.SCOPE				Delete					This field is obsolete (and was not ever used).IPCC_UNITS			Delete					This field is obsolete.REFERENCE			Delete					This field is obsolete. The contents have moved to a table-based reference information structure.EXACT_CMP_SY			Delete					This field is obsolete. The contents have moved to the Parts table.FINAL				Delete					Internal use only field.SETROOT				Delete					This field is obsolete. Panel and hierarchical relationships are stored in a separate structure.PANELELEMENTS			Delete					This field is obsolete. Panel and hierarchical relationships are stored in a separate structure.INPC_PERCENTAGE			Delete					This field is obsolete. It has been superceded by the COMMON_TEST_RANK field that represents a more robust common test list described at http://loinc.org/usageDEFINITION_DESCRIPTION_HELP	Delete			This field is obsolete. The contents have moved to a table-based reference information structure.
+
+  		       +---------------------------+
+                       |   Version 2.35            |
+                       |  Released June 2011       |
+                       +-------------------------- +
+
+
+
+LOINC version 2.35 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.34            |
+                       |  Released December 2010   |
+                       +-------------------------- +
+
+LOINC version 2.34 contains 61,255 terms, an increase of 2288 since the June 2010 version. Approximately 695 terms have been edited. A total of 1,704 terms have been deprecated. Included in this release are the PROMIS survey, additional PHENx terms, Cephalometrics terms and detailed cytogenetics testing template. We continue to work with the ACLA in the development of order sets.
+
+  		       +---------------------------+
+                       |   Version 2.33            |
+                       |  Released December2010    |
+                       +-------------------------- +
+
+LOINC version 2.33 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.32            |
+                       |  Released June 2010       |
+                       +-------------------------- +
+
+LOINC version 2.32 contains 58,967 terms, an increase of 1,274 since the February 2010 version. Approximately 470 terms have been edited. A total of 1,612 terms have been deprecated. This release contains a major enhancement to the STATUS field. In the past, the field only had two concept values - null and DEL. With this release, there are four concept values - ACTIVE (previously null), DEPRECATED (previously DEL),DISCOURAGED (new) and TRIAL (new). These are defined as follows:	ACTIVE: Concept is active. Use at will.	TRIAL: Concept is experimental in nature. Use with caution as it may change.	DISCOURAGED: Concept is not recommended for current use. New mappings to this concept are discouraged, but existing mappings may still remain valid.	DEPRECATED: Concept is deprecated. Concept should not be used, but is retained in LOINC for historical purposes. The superseding concept is indicated wherever possible in the MAP_TO field.Included in this release is a large number of DRUG/TOX terms requested by a toxicology and forensic testing laboratory and a number of new CARD.US terms for pediatic ultrasound.
+
+                       +---------------------------+
+                       |   Version 2.31            |
+                       |  Released June 2010       |
+                       +-------------------------- +
+
+LOINC version 2.31 was a limited release
+
+                       +---------------------------+
+                       |   Version 2.30            |
+                       |  Released February 2010   |
+                       +-------------------------- +
+
+LOINC version 2.30 contains 57,693 terms, an increase of 210 since the December 2009 version. Approximately 89 terms have been edited. A total of 26 terms have been deprecated. This release includes further enhancements to newborn screening terms, updates to the OASIS-C and MDSv3 patient assessment instrument content, and refinement of common laboratory panels made in collaboration with the American Clinical Laboratory Association (ACLA) and in support of HITSP C80.
+		       +---------------------------+
+                       |   Version 2.29            |
+                       |  Released December 2009   |
+                       +-------------------------- +
+
+LOINC version 2.29 contains 57,475 terms, an increase of 2,417 since the June 2009 version. Approximately 830 terms have been edited. A total of 1,546 terms have been deprecated. New content in this release includes further enhancements to Minimum Data Set version 3 (MDSv3), Outcome and Assessment Information Set version C (OASIS-C) and  Newborn Screening terms.
+		       +---------------------------+
+                       |   Version 2.28            |
+                       |  Released December 2009   |
+                       +-------------------------- +
+
+ LOINC version 2.28 was a limited release containing 57,312 terms.
+
+		       +---------------------------+
+                       |   Version 2.27            |
+                       |  Released June 2009       |
+                       +-------------------------- +
+
+LOINC version 2.27 contains 55,058 terms, an increase of 1,714 since the January 2009 version. Approximately 685 terms have been edited. A total of 1,454 terms have been deprecated. In this release we have expanded the LONG_COMMON_NAME field,to include all LOINC terms. This process that populates this field as well as the SHORT_NAME field will continue to be modified over the next several releases. We welcome suggestions on how to improve to make more easily readable terms.New content in this release includes additional Continuity Assessment Record and Evaluation (CARE) terms, Minimum Data Set (MDS) version 3, Patient Health Record panels, Quality Health Reporting Document Architecture (QRDA), howRU survey, Public Health document, and addtional HL7 Clinical Genomics terms.
+		       +---------------------------+
+                       |   Version 2.26            |
+                       |  Released January 2009    |
+                       +-------------------------- +
+
+LOINC version 2.26 contains 53,344 terms, an increase of 932 since the July 2008 version. Approximately 1,100 terms have been edited. A total of 1,426 terms have been deprecated. This release includes a new field called LONG_COMMON_NAME, which is displays the LOINC term in readable English.New content in this release includes more Newborn Screening tests, sets of terms used in HEDIS, US Surgeon General's Family Health History tool, and Continuity Assessment Record and Evaluation (CARE) terms.
+
+  		       +---------------------------+
+                       |   Version 2.25            |
+                       |  Released December 2008   |
+                       +-------------------------- +
+
+LOINC version 2.25 was a limited release.
+  		       +---------------------------+
+                       |   Version 2.24            |
+                       |  Released July 2008   	   |
+                       +-------------------------- +
+
+LOINC version 2.24 contains 52,412 terms, an increase of 1,603 since the December 2007 version. Approximately 800 terms have been edited. A total of 1,379 terms have been deprecated. This release contains a few sets of terms, including automated urinalysis, newborn screening tests and detailed genetic testing template.
+
+ 		       +---------------------------+
+                       |   Version 2.23            |
+                       |  Released June 2008   	   |
+                       +-------------------------- +
+
+LOINC version 2.23 contains 52,400 terms. This was a limited release.
+
+ 		       +---------------------------+
+                       |   Version 2.22            |
+                       |  Released December 2007   |
+                       +-------------------------- +
+
+LOINC version 2.22 contains 50,809 terms, an increase of 2,209 since the June 2007 version. Approximately 500 terms have been edited. A total of 1,359 terms have been deprecated.Several unused or obsolete fields have been removed from this version of the database. The collection of fields that stored mappings to related codes, example units of measure, and our earliest foreign language translations have been migrated out of the main LOINC table and are now stored in a more structured format within the RELMA.mdb database. In summary, there are now 43 fields in LOINC.mdb, instead of 63. Please see Appendix A of the LOINC User's Guide (LOINCManual.doc) for more information on the structure of the database.
+  		       +---------------------------+
+                       |   Version 2.21            |
+                       |  Released June 2007       |
+                       +-------------------------- +
+
+LOINC version 2.21 contains 48,600 terms, an increase of 1,788 since the December 2007 version. Approximately 2,250 terms have been edited. A total of 1,325 terms have been deprecated.
+  		       +---------------------------+
+                       |   Version 2.20            |
+                       |  Released June 2007       |
+                       +-------------------------- +
+
+LOINC version 2.20 contains 48,045. This was a limited release.
+  		       +---------------------------+
+                       |   Version 2.19            |
+                       | Released December 2006    |
+                       +-------------------------- +
+LOINC version 2.19 contains 46,812, an increase of 1,270 since the June 2006 version. Approximately 12,750 terms have been edited. A total of 1,260 terms have been deprecated.There are a couple of major changes in this release.- The display of the major fields (component, property, system, scale & method) have been changed from upper case to mixed case for improved readability. The database is still case-insensitive.- The system for a number of laboratory terms are changed for easier reading. For instance, "UR" is now "urine", "FLU" is now "Body fld", "PCAR" is now "Pericard fld".
+
+ 		       +---------------------------+
+                       |   Version 2.18            |
+                       | Released December 2006    |
+                       +-------------------------- +
+
+LOINC version 2.18 contains 46,812 terms. This was a limited release.
+
+		       +---------------------------+
+                       |   Version 2.17            |
+                       | Released June 2006        |
+                       +-------------------------- +
+
+LOINC version 2.17 contains 45,542 terms, an increase of 3,043. Approximately 2,299 terms have been edited. A total of 1,220 terms have been deprecated.
+
+		       +---------------------------+
+                       |   Version 2.16            |
+                       | Released December 2005    |
+                       +-------------------------- +
+
+LOINC version 2.16 contains 42,499 terms, an increase of 1,776. Approximately 1,000 terms have been edited. A total of 1,095 terms have been deprecated.
+
+		       +---------------------------+
+                       |   Version 2.15            |
+                       | Released June 2005        |
+                       +-------------------------- +
+
+LOINC version 2.15 contains 40,723 terms, an increase of 2,415. Approximately 500 terms have been edited. A total of 1,076 terms have been deprecated.
+
+		       +---------------------------+
+                       |   Version 2.14            |
+                       | Released December 2004    |
+                       +-------------------------- +
+
+LOINC version 2.14 contains 38,308 terms, an increase of 2,640. New Radiology terms account for 2,226 of the new records. Approximately 1,800 terms have been edited. A total of 1,049 terms have been deprecated.
+		       +---------------------------+
+                       |   Version 2.13            |
+                       | Released August 2004      |
+                       +-------------------------- +
+
+LOINC version 2.13 contains 35,668 terms, an increase of 828. Approximately 1675 terms have been edited. A total of 1035 terms have been deprecated. This release does NOT include ~2200 radiology terms that have been created, but are still being developed.
+
+		       +---------------------------+
+                       |   Version 2.12            |
+                       | Released February 2004    |
+                       +-------------------------- +
+
+LOINC version 2.12 contains 34,840 terms. This is an increase of 1,146 since the October 2003 release. A total of 1012 terms have been deprecated (STATUS = DEL). Approximately 1300 terms have been edited.A few new panel classes have been added to the database.A new field, ORDER_OBS, has been added. This is used to define a term as order only, observation only, or both. A fourth category, Subset, is used for terms that are subsets of a panel but do not represent a package that is known to be orderable we have defined them only to make it easier to maintain panels or other sets within the LOINC construct.
+
+		       +---------------------------+
+                       |   Version 2.11            |
+                       | Released January 2004     |
+                       +-------------------------- +
+
+LOINC version 2.11 contains 33,694 terms. This was a limited release.
+
+		       +---------------------------+
+                       |   Version 2.10            |
+                       | Released October 2003     |
+                       +-------------------------- +
+
+
+LOINC version 2.10 contains 33,694 terms, an increase of 450. A total of 978 have been deprecated (STATUS = DEL). Approximately 600 terms have been edited.
+		       +---------------------------+
+                       |   Version 2.09            |
+                       | Released May 2003         |
+                       +-------------------------- +
+
+LOINC version 2.09 contains 33,694 terms, an increase of 1532. A total of 961 have been deprecated (STATUS = DEL).The following new classes have been added to the database:DENTALDOC.CLINRPTDOC.REFPATH.PROTOCOLSApproximately 1800 terms have been edited since the release of version 2.07.*********************** IMPORTANT IMPORTANT IMPORTANT ***********************Since version 2, the LOINC database has been distributed in a Microsoft Access97 database. Microsoft ended most support for Access97 on August 31, 2001 and is dropping all remaining support on January 16, 2004. Therefore, we are beginning the process of converting from Access97 to Access2002. Within the next year or two LOINC and RELMA will be distributed in the new format. If you just use the RELMA program, this change should be completely transparent. However, if you access the database directly or through some other program, this change may cause incompatibilities. We are hoping that by giving this advance notice, you will be able to avoid any problems. If you would like to discuss this issue with LOINC/RELMA developers, please e-mail LOINC@regenstrief.orgFor more information on Microsoft life cycle support, go to:http://support.microsoft.com/default.aspx?scid=fh;[ln];lifeOffice*********************** IMPORTANT IMPORTANT IMPORTANT ***********************
+		       +---------------------------+
+                       |   Version 2.08            |
+                       | Released September 2002   |
+                       +-------------------------- +
+
+An additional 116 records were added to the database since the creation of version 2.07.
+
+		       +---------------------------+
+                       |   Version 2.07            |
+
+
+                       | Released August 2002      |
+
+                       +-------------------------- +
+
+LOINC version 2.07 contains 32,046 records, an increase of 1457 terms since the release of version 2.04. Of these, 921 have been deprecated (STATUS = DEL). A new field called Shortname has been added. The fully specified LOINC name is long and sometimes awkward, so we don't envision it being used as the label for standard clinical reports and have rules for naming orderable results. Over the last 7 years we have had many requests for a universal "short name" that could be used in HL7 messages and, perhaps on delivered reports. In this release we include our first attempt at the developing of such short names. At this stage we have limited the scope of this effort to laboratory tests excluding challenge tests, which have particularly long names that can be difficult to squeeze into a specified limit. The LOINC committee recommended that the short name be no more than 30 characters in length. We have not quite made the limit in all cases and or still working to improve the meaningfulness and the fit of these LOINC short names. We recommend these names be sent along with the LOINC code and as the 2nd part of the HL7 CE data type in HL7 messages. These short names are unique, but they are subject to change as we develop better algorithms for generating short names. The terms in the classes of DRUG and TOX have been moved to a new class DRUG/TOX. Terms in the classes of BC and HEM have been moved to a new class HEM/BC.Approximately 6000 term have been edited since the release of version 2.04. This includes the terms that were moved to the new classes.
+
+		       +---------------------------+
+                       |   Version 2.06            |
+                       | Released February 2002    |
+                       +-------------------------- +
+
+This was a special release of the database. No significant changes were made.
+
+ 		       +---------------------------+
+                       |   Version 2.05            |
+                       | Released February 2002    |
+                       +-------------------------- +
+
+Since the release of LOINC version 2.04, 9 new terms have been added to the database and a few records have had minor edits.
+
+		       +---------------------------+
+                       |   Version 2.04            |
+                       | Released January 2002     |
+                       +-------------------------- +
+
+LOINC version 2.04 contains 30,589 records, an increase of 1267 terms. Of these 854 have been deprecated (STATUS = DEL). A new field, RelatedNames2 has been added to the database. It contains synonyms for all parts of the fully specified LOINC name (component, property, time, system, scale, method). It may eventually replace #8, Relat_NMS. This is the field that is being used by RELMA 3.5.A major revision of Allergy terms has been undertaken. In the past (prior to LOINC vs 2.04), we used the common name, rather than the scientific name to identify the allergen. However, this approach led to some duplicate term definitions, because two different companies would name the same allergen differently. It also led to ambiguity because two different species of animal or plant would some times have the same common name. This year we corrected these problems.One new class, VACCIN, has been added to the database.In addition to the creation of the RelatedNames2 field creation, more then 2800 records were edited since the release of version 2.03.
+
+		       +---------------------------+
+                       |   Version 2.03            |
+                       | Released July 2001        |
+                       +-------------------------- +
+
+LOINC:LOINC version 2.03 contains 29,322 records, an increase of 628 terms. Of these 758 have been deprecated (STATUS = DEL). A new field SUBMITTED_UNITS has been added to the database. It contains the units that submitters have sent to us when they request a new term. The terms in the existing EX_US_UNITS field has been standardized to more closely resemble those used in HL7 version 3.The following new classes have been added to the database:ATTACH.RESPPANEL.ABXBACTPANEL.TOXEYE.VISUAL_FIELDEYE.USEYE.TONOMETRYEYE.RETINAL_RXEYE.REFRACTIONEYE.PXEYE.GLASSESEYE.CONTACT_LENSEYE.HETEROPHORIAMore then 2500 records were edited since the release of version 2.00
+
+		       +---------------------------+
+                       |   Version 2.01            |
+                       | Released January 2001     |
+                       +-------------------------- +
+
+LOINC:Added missing fields to tab-delimited version; remove one field from the Access database version; removed a line break from one field in one record.
+
+		       +---------------------------+
+                       |   Version 2.00            |
+                       | Released January 2001     |
+                       +-------------------------- +
+
+LOINC:LOINC version 2.00 contains 28,694 records, an increase of 3902 terms. Of these 599 have been deprecated (STATUS = DEL). New fields added to the LOINC database:CSCQ_ITLN_NM	Italian translationCSCQ_GRMN_NM	German translationSPNSH_NM		Spanish translation (for future use)SURVEY_QUEST_TEXT	for use with Survey domainsSURVEY_QUEST_SRC	for use with Survey domains UnitsRequired		for use with Claims AttachmentsAdditions to the LOINC database:Class     			N     Comments-----     			-     -----------ABXBACT				72	AFB susceptibilityALLERGY				95ATTACH				3ATTACH.CARD			1ATTACH.CLINRPT			42ATTACH.ED			1ATTACH.GI			1ATTACH.LAB			6ATTACH.OBS			1ATTACH.REHAB.ABUS		44	new classATTACH.REHAB.CARDIAC		44	new classATTACH.REHAB.NURS		44	new classATTACH.REHAB.OT			44	new classATTACH.REHAB.PT			44	new classATTACH.REHAB.RT			44	new classATTACH.REHAB.SOCIAL		44 	new classATTACH.REHAB.RESP		1	new classBC				93	"methodless" countsCELLMARK			38CHAL				326CHEM				688COAG				22CYTO				1DRUG				48ENDO.GI				20	FERT				2HEM				13HLA				2MICRO				438MOLPATH.MUT			2MOLPATH.TRINUC			1OPTHO				466	new classRAD				348SERO				39SPEC				2SURVEY.NURSE.HCC		26	new classSURVEY.NURSE.HIV-SSC		26	new classSURVEY.NURSE.LIV-HIV		37	new classSURVEY.NURSE.OMAHA		40	new classSURVEY.NURSE.QAM		11	new classTOX				178UA				14New class type, 4, was added to represent SURVEY termsChanges to Existing LOINC terms:More then 1500 records were edited since the release of version 1.0O.* added or edited related names, example units and/or example answer fields* removed example units which do not correlate with the property (created new terms to correspond to the example units)* for some tests that could be performed on either serum or plasma, the property of SER or PLAS was changed system to SER/PLAS * standardized component names* since it is implied that the system is from the patient, we removed ^PATIENT from for a number of terms (e.g. PPP^PATIENT becomes PPP)* edited component format of challenge tests to ensure uniformity of the models* edited property of numerous COAG terms to reflect what is actually being reported* changed RUBEOLA VIRUS to MEASLES VIRUS to reflect official nomenclature* changed PAPILLOMA VIRUS to HUMAN PAPILLOMA VIRUS to reflect official nomenclature* changed SALMONELLA PARATYPHOID to SALMONELLA PARATYPHI to reflect official nomenclature* changed U to UG to correct an obvious typographic error in FOLLITROPIN^POST LUTENIZING RELEASING HORMONE series.* "polished-up" clinical and claims attachment terms* added value of "TITER" to the EX_US_UNITS field for terms with property = TITR* added value of "%" to the EX_US_UNITS field for terms with property = *FR (CFR, NFR, MFR, SFR, etc.) Retired terms:Fifty-nine(59)duplicate terms have been marked "DEL" in the STATUS field. DOCUMENTATION:The LOINC User's Guide has been updated to include the changes to the database. The RELMA Manual has been updated to reflect the current version of RELMA.RELMAMajor changes have been made to the RELMA program. There is a separate Release Notes document for RELMA.  		       		       +---------------------------+
+                       |   Version 1.0O            |
+                       | Released June 13, 2000    |
+                       +-------------------------- +
+
+LOINC:LOINC version 1.0O contains 24,730 records. Of these, 24,194 are active the other 536 have been deprecated (STATUS = DEL). This is an increase of 1034 new terms.This version introduces the concept of order sets. These have the class of PANEL.xx and the word "PANEL" is in the component field. A new field added to the database called PanelElements contains a list of the individual tests that are associated with the order set.Additions to the LOINC database:Class     	N     		Comments-----     	-        	-----------ALLERGY	111ATTACH	1	ATTACH.ED	2	BC		4BLDBK		1	CELLMARK	4	CHAL		8CHEM		101		including ~50 terms for lysosomal enzymesCOAG		10DRUG		2HEM		2MICRO		275		16 veterinary terms	MOLPATH.MUT	3PANEL.BC	6		Hematology blood count order setsPANEL.CHEM	34		Chemistry order setsPANEL.MICRO	5		Microbiology serology order setsPANEL.OBS	1		Order set for obstetrics (more than one lab)PANEL.SERO	1		Serology order setPANEL.UA	4		Urinalysis order setsRAD		512		this is a new class for radiological studiesSERO		20SPEC		1TOX		3TUMRRGT	3UA		1US.ECHO	10Changes to Existing LOINC terms:One thousand, four hundred and sixty-three (1463) records were edited since the release of version 1.0N.* Changed system "SER^PATIENT" was to "SER" for blood group antibodies to reflect the fact that the patient is the default.* The method "FLOW CYTOMETRY" was changed to "FC" to ensure consistency of methods.* Related names were added to numerous records.* For CD markers, "LYMPHOCYTES" was changed to "CELLS". This was done to reflect the fact that the markers are not always found on lymphocytes.* Corrected numerous spelling errors.* Standardized terminology for property, system, method.* Edited some terms that were actually synonyms of other components.* Minor name changes include removing spaces and adding dots (.).* System was changed for many clinical terms.Retired terms:Fifty-three (53) duplicate terms have been marked "DEL" in the STATUS field. DOCUMENTATION:The LOINC User's Guide has been updated to include the changes to the database. The RELMA Manual has been updated to reflect the current version of RELMA.RELMA:Version 2.1     Release date: June 13, 20001. The LOINC detail screen (available by right clicking in the mappinggrid) now uses a tabbed dialog format. 2. Corrected a problem that caused duplicate entries in the KEYWORDtable when a term had an ACS_synonym that was also a part of the LOINCname.3. The grid on mapping screen has been modified to display parts of theLOINC name in separate columns. Both the column width and row height areadjustable.4. The grid on the mapping screen can be sorted by "clicking" on theheader row of any column. The fist click will sort the data in ascendingorder, subsequent clicks will toggle the sorting between ascending anddescending order.5. The tab order of the fields on the MAP screen has been corrected tothe more standard left-to-right top-to-bottom order.6. The new "Size Grd" button on the mapping screen will automaticallysize the results grid so that all text will be displayed. Note - thisprocess can be time consuming if there are more than several hundredrows to size.7. The mapping function now has the optional capability of limitingsearch results to LOINC codes that are compatible with the units fieldof the LMOF. To utilize this function you must include UNITS whenimporting your local code set into the LMOF table. See the RELMA usermanual for addition details.
+
+                       +---------------------------+
+                       |   Version 1.0N            |
+                       | Released February 4, 2000 |
+                       +-------------------------- +
+
+LOINC:LOINC version 1.0N contains 23,614 records. Of these, 23,160 are active the other 454 have been deprecated (STATUS = DEL). This is an increase of 1863 new terms.Additions to the LOINC database:Class     N        Comments-----     -        -----------ABXBACT   46       includes 4 new antibiotics,  27 terms with method of AFB and      			 12 "methodless" codesALLERGY   25       BC        9CHAL      19       xylose challengeCHEM      133      Includes SCNC for existing components and veterinary termsCOAG      1DRUG      7        Includes SCNC for existing componentDRUGDOSE  3        2 codes added for ESRD; HEM       15HLA       1MICRO     1531     Includes 543 "methodless" antibody codes and 953 veterinary termsSERO      8     TOX       47TUMRRGT   5        PATH REPORT termsChanges to Existing LOINC terms:Nine hundred and fifty five (955) records were edited since the release of version 1.0M.* Class type was changed from "3" to "1" for 55 terms. * Related names were added to a number of terms. * The abbreviation "HR" was changed to "H" to represent "hours" in the component field to make all terms consistent. * The component name mammotropin was changed to prolactin to reflect the commonly used name. * Chlamydia pneumoniae and Chlamydia psittaci were changed to the Chlamydophila pneumoniae and Chlamydophila psittaci, respectively, to reflect the current official nomenclature. Chlamydia was added to the related names field.Retired terms:Twenty-three (23) duplicate terms have been marked "DEL" in the STATUS field. DOCUMENTATION:This release has documentation only in Microsoft Word and Adobe PDF formats. No significant changes have been made to either the LOINC User's Guide or the RELMA Manual. Updated documentation will be available in the next release.RELMA:	Version 2.0	Release date:  February 4, 20001. Problems corrected from version 1.211.1 Corrected a problem where certain combinations of CLASS and SUBCLASS restrictions erroneously returned "No Match" when there did exist records that met the search criteria.1.2 Corrected a problem that caused error messages when printing under certain conditions.2. Significant changes to program:2.1. The program was ported from 16-bit Visual Basic version 4 to 32 bit Visual basic 6.0. As a result RELMA will no longer install or run under Windows 3.1.2.2. The underlying MS Access databases used by RELMA have been converted from MS Access 2.0 to MSAccess97. You can no longer use Access 2.0 to view or modify the RELMA databases.2.3. The setup program now uses the Microsoft CAB style setup files. Additionally, the LOINC database, LOINCACS.MDB is no longer stored as a separate ZIP file within the setup files. Instead, it is compressed as part of the CAB file. Therefore, the PKUNZIP utility is no longer supplied with the distribution. As part of the installation process one or more VB 6 specific Dynamic Link Libraries (DLL) may need to be installed on your machine. Installing these DLLs will require a reboot of the machine and should be considered a normal part of the installation process.3. New features in the 32-bit version:3.1 The program has a new icon.3.2. The mapping screen is now scalable. 3.3. The "/" forward slash character is now treated a special delimiter and is replaced by a SPACE for indexing and keyword search operations. This corrects a problem in version 1.21 where the keyword SER would not return records with a system of SER/PLAS.3.4. After clicking the Clear All button the cursor is now automatically placed in the 1st keyword text box.3.5. The access key for the "Clear All" button on the "LOINC Input Form" form has been changed from ALT+C to ALT+A to remove the conflict with the access key for the "Find Local Code" button.4. Instructions to run on 16 bit version using database in Access 2.0:4.1. Find Database folder on CD and select the file LOINCV2 and copy.4.2. Locate directory where RELMA is installed and paste LOINCV2 into this folder.4.3. Rename LOINCV2 to LOINCACS.4.4. Run RELMA by double clicking on RELMA.EXE  Program will run, but warn user that "latest database version is not found."  Click "OK" on the dialog box and program should proceed to main menu form. The number of LOINC codes should appear at the top of the form in parenthesis.4.5. WARNING:  Do not use the 32-bit version of database with RELMA version 1.21 or less. The 16-bit version of Access is supplied as a bridge for Microsoft Windows 3.1 users. We advise loading the 32-bit version of RELMA.ADOBE ACROBAT:This CD contains the Adobe Acrobat4.0 reader. To install the reader, simply run the program ACRD4ENU.EXE (located in the Acrobat directory) and follow the instruction that appear on your screen. The reader is also available, free of charge, at www.adobe.com.
+
+                       +-------------------+
+                       |   Version 1.0Ma   |
+                       | Released 08/06/99 |
+                       +------------------ +
+
+LOINC:LOINC Version 1.0Ma contains 21,741 records. Of these, 452 are "retired" (STATUS=DEL) and 21,290 are active. This is an increase of 1,890 total terms and 1,866 active terms from LOINC 1.0L. As usual we have added new terms across a wide range of laboratory classes. This release includes our first batch of molecular genetic terms (more than 200), LOINC variables developed in collaboration with NAACCR for tumor registry, and terms developed in collaboration with HL7 Attachment SIG for electronic claims attachments.We apologize for a number of errors in the release of version M we sent you early in July and to anyone who received copies of this data. The Word version of the user's guide had formatting errors due to a last minute (and un-noticed) conversion from one version of Word to another. We have corrected this error. More than 20 records contained fields with embedded CR/LF characters. These would not be a problem to users of the ACCESS database, but would cause problems to most applications that import the ASCII tab delimited file into anotherdata base. We have removed the offending CR/LFs. A few records did not have the right class designators and a number of Attachment records did not get the new LOINC class type designator of 3 so you would not find them if you restricted your search to the Attachment class type. Finally, the word index for the release of RELMA was not sorted properly before it was installed. Hence the list of matching options would not appear in alpha order by component, property, timing, system, etc, as it had in the past. These are all corrected in this"re-release" which we are calling Version 1.0Ma. This version includes the first release of any terms dedicated solely to Claims attachments. There are a few known minor imperfections in the naming of some of these Attachment terms. Because documents containing these minor problems are already working their way through a release of proposed federal regulations, we thought it better to deal with these when we receive comments about the proposed regulations to avoid differences the LOINC data base and the documents that are undergoing review. DOCUMENTATION:This is the last release that will include documentation in Wordperfect format. In the future, documentation will be provided in Microsoft Word and Adobe PDF formats.RELMA:Some users complained that the local description text box did not enable to view a complete description when it was longer than would fit in the text box. The user can now move the cursor to this field, double-click it, and a popup window shows the full local code description.Known problems with RELMA1. Applying a  "Class Restriction" with no "Sub Restriction" will cause an erroneous "no Match" error. To avoid this behavior, always specify a "Sub Restriction" when using the "Class Restriction."   This problem will be corrected in the next release.2. In some situations, using a "Sub Restriction"  will not properly limit the search results to the specified class. This problem will be corrected in the next release.
+
+                       +-------------------+
+                       |   Version 1.0M    |
+                       | Released 07/23/99 |
+                       +------------------ +
+
+LOINC Version 1.0M contains 21,741 records. Of these, 452 are "retired" (STATUS=DEL) and 21,290 are active. This is an increase of 1,890 total terms and 1,866 active terms from LOINC 1.0L. As usual we have added new terms across a wide range of laboratory classes. This release includes our first batch of molecular genetic terms (more than 200), LOINC variables developed in collaboration with NAACCR for tumor registry, and terms developed in collaboration with HL7 Attachment SIG for electronic claims attachments.Some users complained that the local description text box did not enable to view a complete description when it was longer than would fit in the text box. The user can now move the cursor to this field, double-click it, and a popup window shows the full local code description.
+
+                       +-------------------+
+                       |   Version 1.0L    |
+                       | Released 02/12/99 |
+                       +------------------ +
+
+LOINC Version 1.0L contains 19,849 records. Of these, 424 are "retired" (STATUS=DEL) and 19,425 are active. This is an increase of 4,386 total terms and 4,214 active terms from LOINC 1.0K.Additions and Changes to DatabaseABXBACT For 146 existing antimicrobials, a methodless term has been added, of the form ANTIMICROBIAL "X":SUSC:PT:ISLT:ORDQN.19 terms added for acid fast and topical susceptibilities.ALLERGY665 added terms, of which 579 represent a new subset of terms to report "Rast Classes" (an ordinal measure of allergen IGe response ranging from zero to six). These are of the form "ALLERGEN" AB.IGE.RAST CLASS:ACNC:PT:SER:ORD.BC38 new terms, largely already-represented cell types and fractions on new systems (synovial fluid, amniotic fluid, CSF, unspecified fluid).BLDBK9 new terms.CELLMARK153 new terms of the type LYMPHOCYTES.CDn and LYMPHOCYTES.CDn/100 LYMPHOCYTES, either existing markers on FLU (instead of BLD) or newmarkers on BLD.144 terms specified as "CDn:ACNC:PT:WBC:QN" retired because they were incorrect. Most have direct replacements among terms with syntax"LYMPHOCYTES.CDn:NCNC" or "LYMPHOCYTES.CDn/100 LYMPHOCYTES:NFR".CHAL175 new terms; many of these enable the reporting of sequential specimens (e.g., "ANALYTE"^NTH SPECIMEN POST...) and unspecified challenges (e.g., "ANALYTE^POST XXX CHALLENGE").CHEM511 new terms. Additions include new specimens on existing analytes(mainly UR, both point and timed, FLU, PLR, and VITF (vitreous fluid)); SCNC versions of MCNC measures; enzymes on RBCs, the addition of BLDMV (mixed venous blood) in blood gas measures; tumor markers on PLR and AMN; proteins and protein fractions (albumin, globulins, etc.) on UR and FLU; MCNC electrolyte measures.COAG16 new terms, mostly method differentiations.CYTO19 new terms, including 11 terms to transmit Pap smear results according to the Bethesda system.DRUG300 new terms, largely existing analytes on new systems (UR and FLU).EKGThis is a new class, with 76 terms to represent standard measures from EKG carts.HEM31 new terms, including new hemoglobin subtypes and new systems for deoxyhemoglobin.MICRO559 new terms. Additions includes new systems (CSF, FLU) on existing microorganisms, new culture types for "MICROORGANISM IDENTIFIED" terms (e.g., catheter tip culture, blood aerobic culture, acute respiratory distress culture, new systems for MICROSCOPIC OBSERVATIONS, including various fine needle aspirates; method differentiations (CF, LA).PULMNew class, containing 338 terms describing ventilator management.SERO141 new terms. New methods on SER (IF, RODENT SUBSTRATE) ; new systems (FLU); ORD measures for which we previously had only QN. SPECThis is a new class to which we have moved the terms having to do with characteristics of specimens such as volume, mass, collection date/time, etc. 17 new terms.TOX628 new terms. This includes a systematically generated group of 340 new terms to flesh out drug-of-abuse screen and confirm reporting, including information on variable cutoff thresholds. This system is explained more completely in the LOINC Users' Guide. The other additions include new specimens (FLU, TISS, VITF, AMN, FOOD, MILK) and timed urine specimens for various occupational and environmental toxins such as acetone, mercury, manganese, etc.US.ECHONew class, containing 410 terms, for recording cardiac echo measurements.Four new fields have been added to the LOINC database, and some previously included fields have been removed or altered. A full list is provided below; those fields which have been changed are marked with an asterisk. For the first time in this release, some fields are defined as type "Memo" -- this is a Microsoft Database field type which allows variable length up to 32,000 characters.   1  LOINC_NUM  2  COMPONENT  3  PROPERTY  4  TIME_ASPCT  5  SYSTEM  6  SCALE_TYP  7  METHOD_TYP  8  RELAT_NMS  9  CLASS 10  SOURCE 11  EUCLIDE_CD 12  ASTM_CD 13  IUPAC_CD 14  DT_LAST_CH 15  CHNG_REAS 16  CHNG_TYPE 17  COMMENTS*18  ANSWERLIST      Memo   --  (was Char/254) 19  STATUS 20  MAP_TO*21  SCOPE           Char   20  (was length 254) 22  SNOWMED_CD 23  VA_CD 24  METPATH_CD 25  HCFA_CD 26  CDC_CD 27  NORM_RANGE 28  EX_US_UNITS 29  IPCC_UNITS*30  GPI_CD          Char  100  (was length 11 -- contents of GPI_CD                                TOT moved to this field and GPI_CD_TOT                                removed)*    GPI_CD_TOT      Removed*31  REFERENCE       Memo   --  (was Char/254)*32  EXACT_CMP_SY    Char   50  (was length 254) 33  MOLAR_MASS 34  IUPC_ANLT_CD*    ANSWERLST2      Removed*    ANSWERLST3      Removed 35  CLASSTYPE 36  FORMULA 37  MULTUM_CD 38  DEEDS_CD*39  CSCQ_FRNCH_NM   Char  100  (was length 255)  40  SPECIES 41(new fields)*42  ACSSYM        Memo   --   Chemical name synonyms, alternative                                  name synonyms, and chemical formulae                                  supplied by the Chemical Abstract                                  Society Synonyms derived from the                                  American Chemical Society database*43  MOLEID          Char   15   Molecular structure ID, usually CAS                                  number*44  BASE_NAME       Char   50   Chemical base name from CAS*45  FINAL           Char    1   Internal LOINC Use onlyRELMA UpdatesDespite the more than 4000 new records in the LOINC database and the even larger increase in the word index (which now contains almost 315,000 entries, one for each unique word and LOINC number), we have shrunk the size of the RELMA package (now 68 megabytes) and improved the lookup speed considerably. This is due in part to more specificity in the inclusion of index words in the word index file. We take pains to enter a word only once in the word index for a given record, no matter how many times it might be repeated in the indexable records. We have also used a special mechanism for indexing words found in the ACM synonym list, which is very extensive and includes a host of brand names, even for non-drug products that contain substances that are included in LOINC test names. For example, Warfarin is a component of a variety of rodent poisons, and brandnames for those poisons are included in the ACS synonym list. We have always translated special characters such as "^", "/" and "." that may be found in the LOINC names into blanks for the purpose of the indexing and searching within RELMA. The only exception is that we keep decimal points that are parts of a decimal number. E.g., we do not convert "5.6" into "5 6". We may have had an error in this process in past releases, such that some slashes were retained, with the effect that a few phrases may not have been separated into single words for indexing purposes. The downside of our removing these special characters is that they do not appear in the list of matched LOINC records. (They will appear when you do a look up on the specific terms because that goes directly to the original LOINC field.)Though we believe we do not now include the same word more than once in the index for a given LOINC record, you can do a search and find the same LOINC record represented more than once in the list of LOINC record matches. This should only occur with some wild card searches. For example, a searched for "AB*" would find a match with "Abalone" and "AB". So you may have duplicate records in the table of matches. You can eliminate such duplicates by pressing the dup button on the RELMA mapping screen.The items in the list of potential matches will now be sorted alphabetically by LOINC name, this will make it easier to visually find a particular term when the list of matches is long.LOINC User's GuideWe have made a number of changes to the LOINC manual explaining our approach to some naming more fully (especially to toxicology naming), adding terms to tables and correcting small errors. Katherine Mercer from Laboratory Services, Ontario Ministry of Health, has been especially helpful with her careful reading andsuggestions for edits. Also, she noted a number of examples that are not now reflective of real terms in the database.We appreciate everyone's patience on the slow gestation of this version. In the next release we hope to have a good starting set of terms for molecular pathology testing, a beginning on test order sets, terminology needed for tumor registry reporting, and an expanded set of terms required for testing in veterinary medicine.
+                       +-------------------+
+                       |   Version 1.0K    |
+                       | Released 05/01/98 |
+                       +------------------ +
+
+LOINC Version 1.0K contains 15,464 records. Of these, 253 are "retired" (STATUS=DEL) and 15,211 are active. This is an increase of 1,999 total terms and 1,881 active terms from LOINC 1.0J-aAdditions SummaryClass     N        Description-----     -        -----------ALLERGY   81      "Allerscan" multidisks and single terms for                    allergens included in multidisks that were not                    already represented in LOINCBC        53       Cell types per hundred leukocytesBLDBK     42       Terms added to correctly represent certain blood                    groups not characterized by presence of antigensCELLMARK  36       Abnormal blood cell fractions; blasts fractions;                    CD lymphocytesCHAL      75       Mostly new hormone challengesCHEM     752       Many additional terms for previously unrepresented                    specimens (UR, CSF, PLR, PRT, DIAF, SNV, AMN)DRUG     153       Substance concentrationsHEM       55       Manual counts; complementsMICRO    249       New methods for serological tests and microscopic                    observations; viruses such as mumps and rubeola on                    large variety of specimensSERO      85TOX      138       Drugs of abuse screens and confirms; non-drug toxins                    in new specimens.URO.US    50       Clinical terms for ultrasound measurements in                    urology.VET       78       Microbiology terms used in veterinary medicineWith this release of LOINC, we have begun representing results used by the veterinary medicine community. These first terms represent microbiology results for antibodies and antigens to bacteria and viruses which are important infectious agents in commercial livestock. In future releases, we will also include chemistry tests for non-human species. To accommodate this expansion of the database, we have also added a new field (SPECIES) which contains codes reporting which animal species the term relates to. If the field is blank, "human" is to be assumed the relevant species.Three new fields have been added to the LOINC database, as described below42 CSCQ_FRNCH_NM  Char  255  French name for LOINC term. Supplied by                              Centre Suisse de Controle de Qualite.                              This field contains extended characters                              and will not transfer correctly  to 7-bit                              systems43 SPECIES        Char   20  Codes detailing which non-human species                              the term applies to. If blank, "human" is                              assumed.44 EXAMPL_ANSWERS Char   50  For some tests and measurements, we have                              supplied examples of valid answers, such                              as "1:64", "negative @ 1:16", or "55".                              This differs from the ANSWERLIST field,                              which details possible choices for                              nominal scale terms.Changes to existing LOINC termsChanges to Component/Analyte FieldTrailing .TOTAL has been removed from Laboratory LOINC terms except when occurring in denominator of a fraction (e.g.,  ALBUMIN/PROTEIN.TOTAL)Leading "PROTEIN." removed, e.g., PROTEIN.PREALBUMIN becomes PREALBUMINLeading "LIPIDS." Removed, e.g., LIPIDS.TRIGLYCERIDE becomes TRIGLYCERIDECHORIONIC GONADOTROPIN changed to CHORIOGONADOTROPIN (previously, both variants existed in database)D- and L- changed to dextro- and levo-; D- and L- added to RELAT_NMSVariants like "SPECIMEN 1" and "FIRST SPECIMEN" changed to "1ST SPECIMEN" and so on for other numbers. Also, ACUTE and CONVALESCENT changed to 1st SPECIMEN and 2nd SPECIMEN, Acute and Convalescent added to RELAT_NMSCorrected delimiters (some terms had .SUPINE rather than ^SUPINE, etc.)The formal names of Vitamin D varieties were corrected to correspond to the more familiar numbered name which appeared in the related names field: Cholecalciferol instead of calciferol; calciferol instead ofergocalciferol, and a term was added for ergosterol, which was missing from the database.Changed "COCAINE" to "BENZOYLCOGONINE" and "CANNABINOIDS" to "TETRAHYDROCANNABINOL" for all specimens otherthan BLD, SER/PLAS, and USUB, since cocaine/cannabinoids are detectable only in those specimens.Added denominators of xFRs where previously omitted, especially electrophoresis fractions and METHMOGLOBIN."SPERM" changed to "SPERMATOZOA"; SPERM added to RELAT_NMSAdded "SP" to micro tests that detect genera, not individual species.Changed storage mite ab terms so that Latin name is component and storage mite is in related names. Also corrected spelling of Tyrophagus putrescentiae."Q WAVE" replaces "Q-WAVE"A,B AB and AG Previously, blood bank tests for antibodies/antigens to both A and B were named AB AB and AB AG, which was ambiguous and confusing). These are now called A.B AB and A.B AG.Standardized virus names so that they are all of the form<name> VIRUS <subtype (w/out words like TYPE,SEROGROUP,etc)><modifier> <{AB,AG,DNA}> . <Igx>e.g.,   HERPES SIMPLEX VIRUS 2 AB        EPSTEIN BARR VIRUS CAPSID AB.IGGReconciled spelling ofGamma glutamyl transferaseXanthochromiaSquamous6-monoacetylmorphinevarious gangliosidesEpstein BarrAmino beta guanidinopropionateChanges to other major parts of nameSome SER and PLAS terms standardized to SER/PLAS;resulting duplicates retiredPCR/PROBE changed to PROBE.AMP.TAR; DNA PROBE changed to PROBExCNC and xFR corrected to reflect xCNT for solid specimensProperty NARIC has been added for cell counts per HPF and LPF."SAMHSA" removed from method field for specimens other than UR and SER, since only these two specimens are approved for SAMHSA testing.Several varieties of "date", "date/time" etc standardized to property TMSTPThere has also been a universal change to the SCALE field : Because there has been so much confusion about the appropriate use of QL and SQ, we are changing these codes to more closely correspond to a "common sense" knowledge of these distinctions. In this release of LOINC, QL is replaced by NOM (for nominal), SQ is replaced by ORD (for ordinal) and SQN is replaced by ORDQN. There is also an expanded discussion of the SCALE field, including examples, in the revised version of the Users' Guide, dated April 1998.Terms retired:107 terms have been marked "DEL" in the STATUS field, meaning they should no longer be used. Three were incorrect or nonexistent blood bank tests for which no corresponding correct term or concept could be identified; the remaining 104 were either duplicates of existing terms or erroneous terms for which new correct terms were constructed; these terms are mapped to the correct replacement terms in the MAP_TO field.
+                       +------------------+
+                       |  Version 1.0J-a  | 
+                       | Released 10/9/97 |
+                       +----------------- +
+
+(Version 1.0J was circulated briefly with a release of RELMA but never as a stand-alone database. Version 1.0J-a is a slight modification of 1.0J, which corrects a few errors in the database.)Release 1.0J-a of the LOINC database contains 13,465 terms, including 2,613 terms new in this release.Class      Changes/Additions-----      -----------------ABXBACT    Precision of agar diffusion and MIC changed to SQN to            accommodate both semiquantitative and quantitative            reporting.ALLERGY    Added 110 new IgE antibody terms for allergens.BC         Added 80 terms, including many terms for cells found in            bone marrow, cerebrospinal fluid, and other non-blood            specimens, and terms for cell morphology.CELLMARK   Added: 19 new termsCHAL       Added 279 new terms, including many new terms for recording            unspecified challenges.CHEM       Added 433 new terms, including terms for many analytes in            amniotic fluid, peritoneal dialysis fluid, and unspecified            body fluid.DRUG       Added 219 new terms.ED         Added: 190 new terms adopted from CDC DEEDS (Data Elements FUNCTION   for Emergency Department Systems) data dictionary for H&P.HX     recording emergency department variables.HEM        Added: 18 new termsHLA        Added: 15 new termsMICRO      Added: 318 new terms, including non-method specific terms            for many antibody tests.OB.US      Added: Completely new class containing 558 terms to            describe measurements and observations taken during            obstetric ultrasound examination.SERO       Added: 102 new terms, including non-method specific terms            for many antibody tests.TOX        Added: 123 new terms, including both new analytes in serum            and/or urine, and specimens such as hair, nails, meconium,            and vitreous fluid.Changes in the database structureFour new fields have been added to the database:CLASSTYPEWith the merging of the laboratory and clinical databases in the last release, we perceived a need to easily separate the database into these two groups. Thus we assigned a new variable, CLASSTYPE, which equals "1" if the terms is in a LAB class and "2" if it is in a CLINIC class.FORMULAMany of the OB.US (obstetric ultrasound) terms are calculations based on regression formulae published in the clinical literature. We added the FORMULA field to store the details of these regression equations. MULTUM_CDMultum Inc. produces a database of codes for drugs, similar to the Medispan codes which are already included in the LOINC database. Multum has graciously provided us with a map between their drug code values and the drug terms included in the LOINC database. We added this field to store those values.DEEDS_CDThe CDC has developed a data dictionary listing terms relevant to emergency department care and has assigned code values to those terms. This field contains the DEEDS code value which maps to the LOINC code in question.A complete listing of the field locations, sizes, and types follows.Position   Name          Type   Size1          LOINC_NUM     Text     72          COMPONENT     Text   1503          PROPERTY      Text    104          TIME_ASPCT    Text    105          SYSTEM        Text    506          SCALE_TYP     Text    307          METHOD_TYP    Text    508          RELAT_NMS     Text   2549          CLASS         Text    2010         SOURCE        Text     811         EUCLIDE_CD    Text    1012         ASTM_CD       Text     913         IUPAC_CD      Text     814         DT_LAST_CH    Text     815         CHNG_REAS     Text   25416         CHNG_TYPE     Text     317         COMMENTS      Text   25418         ANSWERLIST    Text   25419         STATUS        Text     320         MAP_TO        Text     721         SCOPE         Text   25422         SNOWMED_CD    Text    1023         VA_CD         Text     824         METPATH_CD    Text    1025         HCFA_CD       Text    1226         CDC_CD        Text     627         NORM_RANGE    Text    3028         EX_US_UNIT    Text    3029         IPCC_UNITS    Text    3030         GPI_CD        Text    1131         GPI_CD_TOT    Text   25432         REFERENCE     Text   25433         EXACT_CMP_SY  Text   25434         MOLAR_MASS    Text    1335         IUPC_ANLT_CD  Text    1336         ANSWERLIST2   Text   25437         ANSWERLIST3   Text   25438         CLASSTYPE     Integer  239         FORMULA       Text   25540         MULTUM_CD    Text      641         DEEDS_CD     Text      7Changes to RELMAThere have been numerous changes to the RELMA program since the last documented version (0.96 Beta). Some of the changes are "visible" to the user (e.g., new program options) while others are not (e.g., changes in data organization, speed improvements, etc.). The most obvious change is in the size of the database itself. There are now over 13,400 LOINC terms in the database with more than 7,600 keywords and 170,000 searchable components. Despite the increased database size, most searches are completed in less than a second on a Pentium machine. These improvements come at a cost, however. The disk space required by RELMA has increased to almost 70M, of which over 65M is just for the database. Some of the major highlights in this release include the following.The LMOF (Local Master Observation File) table has been split out from the LOINCACS.MDB database into its own database file (LMOF.MDB). This was done to make updating the LOINC database safer and easier for the user.The routine for importing local numbers and descriptions is more flexible.Searches can be restricted by class (e.g., Lab or Clinic) and subclasses (e.g., CHEM, CHAL, etc.).Keywords for searching the database can be automatically toggled.Persistent keywords: If the user types in a keyword in any of the last three keyword boxes (keyword boxes 8, 9, and 10), these keywords do not disappear as the user moves from one local code to the next.Easier access to LOINC details: A left-mouse click now highlights a row in the grid box and a right-mouse click then causes details for the highlighted LOINC number to be presented.Duplicate removal: When wildcard searches are done, it is possible for duplicate LOINC numbers to be presented. A new button removes these duplicates and sorts the output by description. Clicking on the "No Dups" button when there are no duplicates still sorts the grid box output by description, which may be usefulto the user.Double-click mapping: Once a LOINC a term is highlighted in the grid box, double-clicking immediately maps the highlighted LOINC term to the local code. This speeds up the mapping process considerably compared to earlier versions of RELMA.New program options: One option permits the user to output the content of the LMOF table to an ASCII file. A second option allows the user to read the ASCII file back into the LMOF table. New report options: You can sort the output of various reports. In most cases, you can elect to have the output ordered by: 1) physical file order, 2) LOINC number, 3) LOINC description, 4) local code number, or 5) local description.Speed improvements: The data structures have been changed to reduce database search times.
+
+                       +-------------------+
+                       |   Version 1.0i    |
+                       | Released 01/08/97 |
+                       +-------------------+
+
+In release 1.0i, we have added 1,040 records in the areas ofsurgical pathology, immune stains, microbiology, blood banking,fertility, and others. A new class, SURGPATH, has been created torepresent surgical pathology terms. The Users' Guide has beenupdated to reflect the many changes that have taken place sinceApril 1996, including the recent release of the Clinical LOINC database.Important: The syntax representing observations made on an entity other than the patient has been changed. The SYSTEM_TYP field may now contain a modifier delimited with the "^" character. This change may require some users to modify the procedures they have developed to import or parse LOINC terms into their data applications. Please consult Section 2.5.1 of the new Users' Guide for more information on this change.
+                       +-------------------+
+                       |  Clinical LOINC   |
+                       |    Version 1.0    |
+                       | Released 12/03/96 |
+                       +-------------------+
+
+The first release of Clinical LOINC contains 1,492 observations and 37 fields. The first 35 fields are identical to the fields available in Laboratory LOINC; fields 36 and 37 (ANSWERLST2 and ANSWERLST3) provide an overflow for ANSWERLIST values that exceed the 254 characters allowable in FoxPro dBase and Microsoft Excel files.
+
+                       +-------------------+
+                       |  Version 1.0h(2)  |
+                       | Released 08/29/96 |
+                       +-------------------+
+
+LOINC News: In July 1996, the American Clinical Laboratory Association (ACLA) endorsed LOINC and is now recommending that all of its member report laboratory results using LOINC codes. The 40+ members of the ACLA account for approximately 70% of the volume of tests performed in the United States. Also, ICD10 PCS codes for HCFA are being now constructed based on LOINC terms. Finally, Ontario, Canada is very interested in the use of LOINC codes for province-wide laboratory result reporting.Corrections to existing terms     SUPER Convention: Previously we used "LITTLE" in the      component/analyte name to indicate that the following     alphabetic character is lower case in the official name. In     this release we similarly employ the word "SUPER" to     indicate that the following character is a superscript     according to official nomenclature.      Blood bank: The parentheses included in the names of blood      bank antigens were mostly unnecessary. They should not have     been included according to our naming rules for specifying     lower case alphabetic terms (LITTLE) unless, as in a few     cases, the lowercase letter is enclosed by parentheses in     the formal name. These have been corrected in this release.Changes to standard report format: We have changed the content of the printable (WordPerfect and Word) LOINC reports in the following ways:  The ASTM Code, IUPAC Code, MetPath Code, and Comments columns are no longer displayed. They are still maintained in the database, they are just not printed on the word processing reports. Columns representing the Exact Core Component Synonym, Change Reason, IUPAC Analyte Code, and Molar Mass have been added to the report. (The Exact Core Component Synonym, IUPAC Analyte Code, and Molar Mass fields are new to LOINC with Release 1.0h -- see Section 4 for a description.) We stress that this is a change to the printed reports only; we have not and never will change the order of the fields in the database itself (in either the tab-delimited ASCII "LOINDBT1.TXT" or the dBase "LOINC.DBF" formats). The order of the columns on the reports is now:StatusClassLoinc NumberMap ToAnalyte/Component NameType of PropertyTime AspectSystem/SpecimenType of ScaleMethodRelated NamesExact Core Component SynonymDate Last ChangedReason for ChangeAnswer ListEUCLIDES CodeIUPAC Analyte CodeMolar Mass     New data fields: 3 new fields have been added and populated withdata for many observations:Field #   Field Name               Type      Width33        XCT_CMP_SY          C         25434        MOLAR_MASS          C         1335        IUP_ANL_CD          C         13     Field 33: Exact core component synonym: This field contains     an exact synonym for the "core component" of the LOINC     component name. We have included the mixed case and     "superscript" form of blood bank and HLA antigens (e.g.,     Lua) here to make it easier for automatic matching programs.     As there is no ASCII character for superscript letters, we     use the hat (^) to signify that the next character is a     superscript in these exact synonyms. (E.g., if the core     component is represented as L LITTLE U LITTLE SUPER A in the     LOINC component/analyte name field, it is represented in the     Exact Core Synonym field as Lu^a.) In a future release we     will add more exact synonyms for the core components.     Field 34: Molecular weights: This field contains the     molecular weights of many chemical moieties when they are     provided to us. Those added in this release were kindly     contributed by IUPAC.     Field 35: IUPAC analyte code: This field contains the     Chemical Abstract service number or the Enzyme Nomenclature     number for the chemical components for chemicals and/or     enzymes. These were also contributed by IUPAC.New observations: We have added 1,559 terms in the following areas:     Susceptibilities based on antibiotic gradient strips     (E-tests):We have added observations to represent each of     the antibiotics for which susceptibilities can be performed     via antibiotic gradient strips.     Allergen testing: serum IGE and basophil bound antibodies:     We have significantly enlarged the set of serum IGE allergen     tests, and have added a large number of tests for basophil     bound antibodies to specific allergens using the leukocyte     histamine release method. This test may be more clinically     predictive than the serum based IGE allergen tests. Most of     these allergen test terms were contributed by Lab Corp and     Corning MetPath.      We edited the allergen names so that the part of the name     that corresponds most closely to the genus comes first, the     species comes next, and finer specification comes last. So     an IGE AB against Live Oak would be listed as OAK LIVE     AB.IGE. The IGE AB against Interior Live Oak would be listed     OAK LIVE INTERIOR AB.IGE. If the allergen came from a     particular part of the tree (e.g., bark) it would be OAK     LIVE INTERIOR BARK AB.IGE. (Of course, common names do not     always align well with the corresponding scientific name.)     In the future, we will work toward including the Latin     scientific name for each of the species represented in these     allergen tests in the exact component synonym field.      Microbiology expansion: We have added many terms to the     microbiology section to deal with exotic infections,     antigens and antibodies against more specific subspecies     (especially for viruses), and scattered IGM and IGG     measures. Some of these additions were made in response to     the CDCs communicable disease electronic reporting project,     with which we are cooperating.     Lymphocyte bound CD antigens: Corning MetPath contributed     approximately 40 new terms for reporting levels and ratios     of lymphocyte bound CD antigens.New "Type of Scale" Level: We have introduced a new category for Type of Scale. The new category, "SQN,"applies to results that can be reported as either QN or SQ scales.
+                       +-------------------+
+                       |   Version 1.0g    |
+                       | Released 04/28/96 |
+                       +-------------------+
+
+Approximately 100 new terms added in a variety of areas. Drug terms linked to Medispan 10-digit GPI codes where available in new field GPI_CD. Drugs with multiple GPI entries are linked in GPI_CD_TOTAL. New field REFERENCE contains references to textbook, journal, or other source which provided information about term.Beginning with Version 1.0g, LOINC is available in DBF format. This format is distributed as LOINCDBF.EXE, a self-extracting file containing the DBF, accompanying CDX, and a read.me file.
+                       +-------------------+
+                       |   Version 1.0f    |
+                       | Released 12/21/95 |
+                       +-------------------+
+
+Classes VIRO, PROBE, BACT, and SERO terms for infections agents reclassified as MICRO (microbiology). Approximately XXX new microbiology terms added. Corrections to properties, IUPAC codes, and EUCLIDES codes. Link to MetPath codes corrected. Word and WordPerfect versions of database rearranged to show MetPath code links and make identification of deleted terms easier. Variable order changed in tab-delimited database. Changes documented in new release of Users' Guide.
+                       +-------------------+
+                       |   Version 1.0e    |
+                       | Released 09/15/95 |
+                       +-------------------+
+
+About 25 corrections to properties to correspond to IUPAC usage. Term 6300-8 added for glucose in amniotic fluid. Nomenclature of parts of name changed to conform more closely to IUPAC: measure = component/analyte; timing = time aspect; specimen = system/sample; precision = scale.
+
+                       +-------------------+
+                       |   Version 1.0d    |
+                       | Released 07/14/95 |
+                       +-------------------+
+
+Approximately 350 terms added: allergen IGE tests (these are often called RAST tests, after the commonly used method, but more than one method is used) and coagulation tests - mostly beginning with the letters P through Z -- which were inadvertently omitted from Release 1.0a. We have established links between LOINC codes and approximately 1500 MetPath codes. These are mapped in METPATH_CODE.In most instances, we have supplied properties for the records whose property fields were blank. Most of these terms are in the hematology class.We identified a number of duplicate entries. Usually these had quite different names but the names were synonyms. In these cases, one of the duplicates was marked "DEL" in the STATUS field, and the MAP_TO field of that record contains a pointer to the correct record. In every case the LOINC record with the smaller LOINCnumber was identified as the preferred LOINC record and the other one was marked as a "deleted term." (Records are never actually deleted from the LOINC database, but if a term should no longer be used, the value of STATUS will be set to DEL.)
+
+                       +-------------------+
+                       |   Version 1.0c    |
+                       | Released 06/28/95 |
+                       +-------------------+
+
+Two terms with duplicate LOINC Number 5917-0 marked Status="DEL" and reassigned to LOINC Numbers 5932-9 and5933-7.
+                       +-------------------+
+                       |   Version 1.0b    |
+                       | Released 06/23/95 |
+                       +-------------------+
+
+Approximately 20 Chemistry terms added.
+
+                       +-------------------+
+                       |   Version 1.0a    |
+                       | Released 05/24/95 |
+                       +-------------------+
+
+"MAP_TO" field added to provide mapping to new terms when old terms are marked for logical deletion (we put a "DEL" in the STATUS field to indicate this.)  We added 16 coagulation terms to the WP version; these terms were in the 1.0 release of the ASCII database but were mistakenly omitted from the WordPerfect 1.0 release. We marked term 3173-2 (Activated Partial Thromboplastin Time) as STATUS="DEL" because it was a duplicate of term 5898-2 (Coagulation Surface Induced, which carries APTT and Activated Partial Thromboplastin Time assynonyms). In BC (blood count) terms, METHOD=FLOW CYTOMETER changed to METHOD = AUTOMATED COUNT to more accurately reflect lab terminology.                         +-------------------+                       |   Version 1.0     |                       | Released 04/24/95 |                       +-------------------+
