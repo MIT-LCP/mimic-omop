@@ -1,0 +1,4 @@
+ WITH admissions AS (SELECT hadm_id, subject_id, admittime::date, admittime, dischtime::date, dischtime, admission_type, admission_location, discharge_location FROM mimic.admissions) 
+ INSERT INTO omop.VISIT_OCCURRENCE (visit_occurrence_id, person_id, visit_start_date, visit_start_datetime, visit_end_date, visit_end_datetime, visit_source_value, admitting_source_value, discharge_to_source_value)
+ SELECT admissions.hadm_id, admissions.subject_id, admissions.admittime::date, admissions.admittime, admissions.dischtime::date, admissions.dischtime, admissions.admission_type, admissions.admission_location, admissions.discharge_location 
+FROM admissions 

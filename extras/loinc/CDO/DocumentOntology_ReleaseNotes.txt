@@ -1,0 +1,12 @@
+Document Ontology file release notes
+
+--------------------
+ Version 2.61       
+ Released June 2017  
+--------------------
+
+The LOINC Document Ontology file has been released since December 2013 (LOINC Version 2.46), but this is the inaugural edition of the Document Ontology Readme and Release notes. 
+
+The LOINC Version 2.61 Document Ontology file contains 9763 rows of data for 2567 LOINC codes in the Class DOC.ONTOLOGY.
+
+Please see the associated Readme for technical details about the contents of this file.

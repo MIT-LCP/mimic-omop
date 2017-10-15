@@ -6,6 +6,8 @@
 mapping_file  <- commandArgs(TRUE)[1]
 mapping_file_path  <- gsub("mapping.csv","",mapping_file, perl=TRUE)
 mapping_data <- read.csv(mapping_file)
+mapping_data <- mapping_data[!mapping_data$mimic_table%in%"",]
+print(mapping_data)
 sql <- ' WITH %s \n %s'
 
 
