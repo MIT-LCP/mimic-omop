@@ -3,4 +3,4 @@ admissions AS (SELECT ethnicity as ethnicity_source_value FROM mimic.admissions)
  INSERT INTO omop.PERSON (person_id, year_of_birth, month_of_birth, day_of_birth, birth_datetime, gender_source_value, ethnicity_source_value)
  SELECT patients.person_id, patients.year_of_birth, patients.month_of_birth, patients.day_of_birth, patients.birth_datetime, patients.gender_source_value, admissions.ethnicity_source_value 
 FROM patients
- LEFT JOIN admissions USING () 
+ LEFT JOIN admissions ON () 
