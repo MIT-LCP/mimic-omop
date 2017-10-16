@@ -6,6 +6,7 @@ HOW TO
 - from that mapping file, the generate_sql.R program generates a sql template:
 	- `Rscript generate_sql.R StandardizedClinicalDataTables/DEATH/mapping.csv`
 	- generates a etl_template.sql
+- the command does the trick: `find . -name "mapping.csv" -exec Rscript generate_sql.R {} \;`
 
 Insertion Order (infered by from schemaspy tool)
 ================================================
