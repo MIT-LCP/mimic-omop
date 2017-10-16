@@ -26,6 +26,11 @@ ROADMAP
 - [ ] extend USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
 
 
+Tasks division
+==============
+- person, Dx and Proc tables
+- other tables
+
 DEADLINE
 ========
 
