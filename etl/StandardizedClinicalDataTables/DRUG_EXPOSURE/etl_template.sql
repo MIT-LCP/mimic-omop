@@ -1,4 +1,4 @@
- WITH  AS (SELECT  FROM mimic.) 
- INSERT INTO omop.DRUG_EXPOSURE ()
- SELECT NA.drug_exposure_id, NA.person_id, NA.drug_concept_id, NA.drug_exposure_start_date, NA.drug_exposure_start_datetime, NA.drug_exposure_end_date, NA.drug_exposure_end_datetime, NA.verbatim_end_date, NA.drug_type_concept_id, NA.stop_reason, NA.refills, NA.quantity, NA.days_supply, NA.sig, NA.route_concept_id, NA.lot_number, NA.provider_id, NA.visit_occurrence_id, NA.drug_source_value, NA.drug_source_concept_id, NA.route_source_value, NA.dose_unit_source_value, NA.visit_detail_id 
-FROM NA 
+ WITH prescriptions AS (SELECT row_id as drug_exposure_id, subject_id as person_id, startdate as drug_exposure_start_date, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_date, enddate as drug_exposure_end_datetime, dose_val_rx as quantity, hadm_id as visit_occurrence_id, drug as drug_source_value, route as route_source_value, dose_unit_rx as dose_unit_source_value, icustay_id as visit_detail_id FROM mimic.prescriptions) 
+ INSERT INTO omop.DRUG_EXPOSURE (drug_exposure_id, person_id, drug_exposure_start_date, drug_exposure_start_datetime, drug_exposure_end_date, drug_exposure_end_datetime, quantity, visit_occurrence_id, drug_source_value, route_source_value, dose_unit_source_value, visit_detail_id)
+ SELECT prescriptions.drug_exposure_id, prescriptions.person_id, prescriptions.drug_exposure_start_date, prescriptions.drug_exposure_start_datetime, prescriptions.drug_exposure_end_date, prescriptions.drug_exposure_end_datetime, prescriptions.quantity, prescriptions.visit_occurrence_id, prescriptions.drug_source_value, prescriptions.route_source_value, prescriptions.dose_unit_source_value, prescriptions.visit_detail_id 
+FROM prescriptions 
