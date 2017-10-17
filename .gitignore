@@ -4,6 +4,7 @@ extras/loinc/source_organization.csv
 extras/loinc/Oracle/*
 extras/loinc/MySql/*
 extras/loinc/LOINC_2.61_Text.zip
+omop/athena/*
 
 # OSX .DS_Store file
 .DS_Store
