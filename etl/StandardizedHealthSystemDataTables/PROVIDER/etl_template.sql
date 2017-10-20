@@ -1,4 +1,4 @@
- WITH  AS (SELECT  FROM mimic.) 
- INSERT INTO omop.PROVIDER ()
- SELECT NA.provider_id, NA.provider_name, NA.npi, NA.dea, NA.specialty_concept_id, NA.care_site_id, NA.year_of_birth, NA.gender_concept_id, NA.provider_source_value, NA.specialty_source_value, NA.specialty_source_concept_id, NA.gender_source_value, NA.gender_source_concept_id 
-FROM NA 
+ WITH caregivers AS (SELECT cgid as provider_id, description as specialty_source_value FROM mimic.caregivers) 
+ INSERT INTO omop.PROVIDER (provider_id, specialty_source_value)
+ SELECT caregivers.provider_id, caregivers.specialty_source_value 
+FROM caregivers 
