@@ -1,0 +1,1001 @@
+"(45089, 'past medical history'),",1
+" (41958, 'discharge medications'),",1
+" (41475, 'allergies'),",1
+" (41104, 'discharge diagnosis'),",1
+" (40828, 'discharge disposition'),",1
+" (39640, 'medications on admission'),",1
+" (39380, 'physical exam'),",1
+" (38759, 'brief hospital course'),",1
+" (38742, 'chief complaint'),",0
+" (38734, 'major surgical or invasive procedure'),",0
+" (38619, 'discharge condition'),",1
+" (38588, 'history of present illness'),",1
+" (38588, 'discharge instructions'),",1
+" (38098, 'social history'),",0
+" (37919, 'pertinent results'),",0
+" (37733, 'family history'),",0
+" (37677, 'followup instructions'),",1
+" (26672, 'facility'),",0
+" (14089, 'impression'),",0
+" (6678, 'discharge diagnoses'),",1
+" (4708, 'admission labs'),",0
+" (4407, 'service'),",0
+" (4091, 'imaging'),",0
+" (4084, 'pulses'),",0
+" (3757, '[**hospital 93**] medical condition'),",1
+" (3752, 'reason for this examination'),",0
+" (3455, 'primary'),",0
+" (3290, 'secondary'),",0
+" (3179, 'discharge labs'),",0
+" (2934, 'addendum'),",1
+" (2718, 'on admission'),",1
+" (2515, 'medications'),",1
+" (2218, 'primary diagnosis'),",1
+" (2205, 'neuro'),",0
+" (2121, 'cranial nerves'),",0
+" (1975, 'review of systems'),",1
+" (1949, 'micro'),",0
+" (1856, 'medications on discharge'),",1
+" (1845, 'past surgical history'),",0
+" (1757, 'findings'),",1
+" (1753, 'final diagnosis'),",1
+" (1722, 'on discharge'),",1
+" (1657, 'microbiology'),",0
+" (1602, 'hospital course'),",1
+" (1526, 'secondary diagnosis'),",1
+" (1474, 'secondary diagnoses'),",1
+" (1448, 'labs on admission'),",0
+" (1423, 'transitional issues'),",1
+" (1420, 'studies'),",0
+" (1342, 'conclusions'),",1
+" (1316, 'other past medical history'),",1
+" (1300, 'incisions'),",0
+" (1165, 'pmh'),",1
+" (1155, 'admission exam'),",1
+" (1130, 'admission physical exam'),",1
+" (1113, 'discharge exam'),",1
+" (1092, 'cardiac history'),",1
+" (1078, 'following'),",1
+" (1008, 'admission'),",1
+" (961, 'labs'),",0
+" (958, 'pantoprazole sodium 40 mg tablet, delayed release (e.c.) sig'),",0
+" (936, 'primary diagnoses'),",1
+" (875, 'medication changes'),",1
+" (874, 'comments'),",0
+" (861, 'labs on discharge'),",0
+" (826, 'neurologic'),",0
+" (809, 'care recommendations'),",1
+" (768, 'medications on transfer'),",1
+" (765, 'the following changes were made to your medications'),",1
+" (719, 'discharge physical exam'),",1
+" (717, 'cxr'),",0
+" (712, 'general'),",1
+" (689, 'discharge'),",1
+" (687, 'neurologic examination'),",0
+" (682, 'motor'),",0
+" (633, 'diagnosis'),",1
+" (625, 'immunizations recommended'),",0
+" (598, 'what activities you can and cannot do'),",0
+" (584, 'medications at home'),",1
+" (580, 'pre-bypass'),",0
+" (578, 'interpretation'),",0
+" (575, 'psh'),",0
+" (559, 'we made the following changes to your medications'),",1
+" (543, 'incision care'),",0
+" (542, 'active issues'),",0
+" (534, 'what to report to office'),",0
+" (492, 'cardiology'),",1
+" (487, 'cardiac enzymes'),",0
+" (482, 'home medications'),",1
+" (460, 'radiology'),",0
+" (460, 'echo'),",0
+" (450, 'physical exam on admission'),",1
+" (438, 'admission medications'),",1
+" (434, 'physical therapy'),",1
+" (425, 'reflexes'),",0
+" (422, 'measurements'),",1
+" (419, 'you are scheduled for the following appointments'),",0
+" (406, '-dtrs'),",0
+" (397, 'activity'),",0
+" (392, '-cranial nerves'),",0
+" (391, 'care and recommendations'),",1
+" (384, 'pe'),",0
+" (378, 'treatments frequency'),",1
+" (364, 'review of sytems'),",1
+" (361, 'at discharge'),",1
+" (347, 'wound care'),",0
+" (347, 'ros'),",0
+" (347, 'primary care'),",1
+" (343, 'urine'),",0
+" (341, 'hospital course by system'),",1
+" (340, 'what to expect when you go home'),",0
+" (340, 'physical examination'),",1
+" (339, 'hospital course by systems'),",1
+" (338, 'chronic issues'),",1
+" (331, '[**last name (namepattern4) 2138**]p instructions'),",0
+" (311, 'summary of hospital course by systems'),",1
+" (310, 'regional left ventricular wall motion'),",0
+" (307, 'physical exam on discharge'),",1
+" (300, 'upon admission'),",1
+" (300, 'meds on transfer'),",1
+" (296, 'cbc'),",0
+" (283, 'post-bypass'),",0
+" (273, 'contraindications for iv contrast'),",0
+" (268, 'ct head'),",0
+" (267, 'pertinent labs'),",0
+" (264, 'micu course'),",1
+" (258, 'conclusion'),",1
+" (246, 'acid fast culture (preliminary)'),",0
+" (243, 'we have made the following changes to your medications'),",1
+" (243, 'pmhx'),",1
+" (243, 'please call to schedule the following'),",0
+" (240, 'mental status'),",0
+" (235, 'metoprolol succinate 25 mg tablet extended release 24 hr sig'),",0
+" (234, 'reports'),",1
+" (233, 'ekg'),",0
+" (229, 'recommendations'),",0
+" (224, 'pathology'),",0
+" (219, 'pre-cpb'),",0
+" (219, 'hematology'),",0
+" (217, 'sensory'),",0
+" (217, 'exam on discharge'),",1
+" (216, 'post-cpb'),",0
+" (216, 'oncologic history'),",1
+" (216, 'blood culture, routine (preliminary)'),",0
+" (215, 'upon discharge'),",1
+" (215, 'procedure'),",0
+" (214, 'data'),",0
+" (213, 'coags'),",0
+" (205, 'chemistries'),",0
+" (204, 'we made the following changes to your medicines'),",1
+" (204, 'images'),",0
+" (203, 'the following changes have been made to your medications'),",1
+" (197, 'metoprolol succinate 50 mg tablet extended release 24 hr sig'),",0
+" (197, 'clinical implications'),",1
+" (196, 'past oncologic history'),",1
+" (194, 'medications prior to admission'),",1
+" (192, 'fungal culture (preliminary)'),",0
+" (190, '-percutaneous coronary interventions'),",0
+" (189, 'tte'),",1
+" (186, 'please call to schedule appointments with'),",0
+" (184, 'stomach'),",0
+" (184, 'other labs'),",0
+" (184, 'emergency department for any of the following'),",1
+" (181, 'respiratory culture (preliminary)'),",0
+" (172, 'meds'),",1
+" (172, 'changes to your medications'),",1
+" (171, 'inactive issues'),",0
+" (170, 'injuries'),",0
+" (170, 'care and recommendations at the time of discharge'),",0
+" (168, 'plan'),",0
+" (167, 'labs at discharge'),",0
+" (165, '[ ] abnormal findings'),",0
+" (161, 'cardiac'),",1
+" (160, 'home meds'),",1
+" (159, '[**location (un) **] physician'),",0
+" (157, 'imaging studies'),",0
+" (153, 'chemistry'),",0
+" (150, 'follow up'),",1
+" (150, 'blood culture, routine (pending)'),",0
+" (149, 'lfts'),",1
+" (149, 'general discharge instructions'),",1
+" (149, 'admit labs'),",0
+" (146, 'follow-up appointments'),",0
+" (146, 'final diagnoses'),",1
+" (145, 'admission pe'),",1
+" (143, 'metoprolol succinate 50 mg tablet sustained release 24hr sig'),",0
+" (143, 'cardiovascular'),",1
+" (140, 'other pertinent labs'),",0
+" (140, 'at admission'),",1
+" (139, 'icu course'),",1
+" (139, 'exam on admission'),",1
+" (139, 'cv'),",0
+" (136, 'follow-up'),",1
+" (134, 'technical factors'),",0
+" (133, 'hospital course by problem'),",1
+" (132, 'anesthesia'),",0
+" (131, 'metoprolol succinate 25 mg tablet sustained release 24hr sig'),",0
+" (130, 'admission physical examination'),",1
+" (129, 'the following'),",1
+" (127, 'impressions'),",0
+" (127, 'discharge pe'),",1
+" (126, 'outpatient medications'),",1
+" (126, 'have any of the following'),",0
+" (126, 'follows'),",1
+" (125, 'cardiac cath supplies used'),",0
+" (124, 'other'),",1
+" (122, 'please make the following changes to your medications'),",1
+" (122, 'anticoagulation'),",0
+" (121, 'post cpb'),",0
+" (121, 'on'),",0
+" (121, 'indications for catheterization'),",0
+" (118, 'transfer medications'),",1
+" (118, 'summary of hospital course'),",1
+" (118, 'procedures'),",0
+" (118, 'duodenum'),",0
+" (117, 'laboratory data'),",0
+" (117, 'it is normal to have slight swelling of the legs'),",0
+" (116, 'immediately after the operation'),",1
+" (116, 'diagnoses'),",1
+" (115, 'egd'),",0
+" (115, 'cardiac cath'),",0
+" (114, 'transitions of care'),",1
+" (114, 'micro data'),",0
+" (113, 'pshx'),",0
+" (113, 'neurology'),",0
+" (112, 'summary of hospital course by system'),",1
+" (112, 'preoperative medications'),",1
+" (111, 'ct chest'),",0
+" (110, 'transitional care issues'),",1
+" (109, 'ecg'),",0
+" (108, 'id'),",0
+" (105, 'premedications'),",1
+" (105, 'cultures'),",0
+" (105, 'cn'),",0
+" (105, 'active diagnoses'),",1
+" (104, 'vitals'),",1
+" (104, 'new medications'),",1
+" (104, 'head ct'),",0
+" (103, 'primary reason for hospitalization'),",1
+" (102, 'diet'),",0
+" (101, 'return to the er if'),",0
+" (101, 'neurological exam'),",0
+" (101, 'acid fast culture (pending)'),",0
+" (99, 'you have the following appointments scheduled'),",0
+" (99, 'outpatient issues'),",1
+" (99, 'meds at home'),",1
+" (99, 'again. in general'),",0
+" (98, 'recommended immunizations'),",0
+" (98, 'assessment and plan'),",0
+" (98, 'admission diagnoses'),",1
+" (97, 'you have the following appointments'),",0
+" (97, 'urine studies'),",0
+" (97, 'relevant labs'),",0
+" (97, 'other medication'),",1
+" (96, 'please call your doctor or go to the emergency department if'),",1
+" (96, 'labs at admission'),",0
+" (95, 'urine culture (preliminary)'),",0
+" (95, 'hpi'),",0
+" (95, 'admission diagnosis'),",1
+" (94, 'infectious disease'),",0
+" (94, 'admission physical'),",1
+" (93, 'floor course'),",1
+" (93, 'eeg'),",0
+" (92, 'please keep the following appointments'),",0
+" (92, 'anemia'),",0
+" (91, 'physical examination on admission'),",1
+" (91, 'fen'),",0
+" (90, 'vs'),",0
+" (90, 'iron and vitamin d supplementation'),",0
+" (90, 'ext'),",0
+" (90, 'chronic diagnoses'),",1
+" (89, 'sublingual sublingual prn (as needed) as needed for chest pain'),",0
+" (89, 'please note the following changes to your medications'),",1
+" (89, 'on transfer'),",0
+" (89, 'on presentation'),",0
+" (89, 'gi'),",0
+" (89, 'call 911 or go to the nearest emergency room if you experience'),",0
+" (88, 'when to call your surgeon'),",0
+" (88, 'physician immediately if you experience'),",0
+" (88, 'gross'),",0
+" (88, 'cta chest'),",0
+" (88, 'complications developing. these complications include'),",0
+" (87, 'physical exam upon discharge'),",1
+" (87, '[**last name (namepattern4) 4125**]ospital course'),",0
+" (86, 'relevant imaging'),",0
+" (85, 'the following changes were made to your medication regimen'),",1
+" (85, 'prophylaxis'),",0
+" (85, 'osh labs'),",0
+" (85, 'fluid restriction'),",0
+" (85, 'cardiac risk factors'),",1
+" (85, '-cabg'),",0
+" (84, 'postbypass'),",0
+" (84, 'other tobacco use'),",0
+" (84, 'it is normal to have incisional and leg swelling'),",0
+" (84, 'heent'),",1
+" (84, 'current medications'),",1
+" (82, 'exam'),",1
+" (81, 'cta'),",0
+" (80, 'criteria'),",0
+" (80, '[**location (un) **] diagnosis'),",1
+" (79, 'contrast injected'),",0
+" (79, '10. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (78, 'sensation'),",0
+" (77, 'urinalysis'),",0
+" (76, 'vital signs'),",1
+" (76, 'transition of care issues'),",1
+" (76, 'transition of care'),",1
+" (75, 'meds on admission'),",1
+" (74, 'upon presentation to [**hospital1 18**]'),",1
+" (74, 'follow-up plans'),",1
+" (73, 'renal'),",0
+" (73, 'pulmonary'),",0
+" (73, 'mra of the head'),",0
+" (73, 'heme'),",0
+" (72, 'strength'),",0
+" (72, 'please call us immediately for any of the following problems'),",1
+" (71, 'wound culture (preliminary)'),",0
+" (71, 'coordination'),",0
+" (71, 'abg'),",0
+" (70, 'results'),",0
+" (70, 'discharge physical'),",1
+" (69, '[**location (un) **] condition'),",0
+" (68, 'note'),",1
+" (68, 'medication instructions'),",1
+" (68, 'follow up appointments'),",0
+" (68, 'below'),",0
+" (67, 'other past history'),",1
+" (66, 'ct torso'),",0
+" (66, '[**hospital1 **] medications'),",1
+" (65, 'follow-up appointment'),",0
+" (65, 'cautions'),",0
+" (65, 'born between 32 and 35 weeks with two of the following'),",0
+" (65, '[**location (un) **] instructions'),",1
+" (64, 'neurologic exam'),",0
+" (64, 'born between 32 and 35 weeks with 2 of the following'),",0
+" (64, '[**hospital1 **] disposition'),",1
+" (63, 'transitional'),",0
+" (63, 'scheduled appointments'),",0
+" (63, 'immunizations received'),",0
+" (63, 'anaerobic culture (preliminary)'),",0
+" (62, 'transitional care'),",1
+" (62, 'labs upon admission'),",0
+" (62, 'hypertension'),",1
+" (62, 'cad'),",0
+" (61, 'start'),",1
+" (61, 'social hx'),",0
+" (61, 'r normal (x)  abnormal ()   comments'),",1
+" (61, 'exercise'),",0
+" (61, 'echocardiogram'),",0
+" (60, 'ms'),",0
+" (60, 'jp drain care'),",0
+" (60, 'instructions'),",1
+" (60, 'initial labs'),",0
+" (60, 'endocrine'),",0
+" (60, '11. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (59, 'other medical history'),",1
+" (59, 'new medicines'),",1
+" (59, 'contrast'),",0
+" (59, 'aerobic bottle (pending)'),",0
+" (58, 'the following medication changes were made'),",1
+" (58, 'respiratory'),",0
+" (58, 'problem list'),",1
+" (58, 'pe on admission'),",1
+" (58, 'occupation'),",0
+" (58, '- percutaneous coronary interventions'),",0
+" (57, 'other studies'),",0
+" (56, 'stopped'),",0
+" (56, 'scheduled appointments '),",0
+" (56, 'recommendations after discharge'),",1
+" (56, 'l normal (x)  abnormal ()    comments'),",1
+" (56, 'history of hospital course by systems'),",1
+" (56, 'csf'),",0
+" (56, 'anaerobic bottle (pending)'),",0
+" (55, 'post bypass'),",0
+" (55, 'labwork on admission'),",0
+" (55, 'gait'),",0
+" (55, 'ed course'),",0
+" (55, 'blood cultures'),",0
+" (55, 'appointments'),",0
+" (54, 'microbiology data'),",0
+" (54, 'exam upon discharge'),",1
+" (54, 'esophagus'),",0
+" (53, 'previously scheduled appointments'),",0
+" (53, 'prebypass'),",0
+" (53, 'hospitalization'),",1
+" (53, 'fluid culture (preliminary)'),",0
+" (53, 'discharge followup'),",1
+" (53, 'chem'),",0
+" (53, 'acute issues'),",1
+" (53, 'active problems'),",1
+" (52, 'surgical history'),",0
+" (52, 'started'),",0
+" (52, 'other blood chemistry'),",0
+" (52, 'laboratory results'),",0
+" (52, 'l normal (x)  abnormal ()   comments'),",1
+" (52, 'ct abdomen'),",0
+" (52, 'cath'),",0
+" (51, 'pulm'),",0
+" (51, 'neurological examination'),",0
+" (51, 'experience'),",0
+" (51, 'cardiac catheterization'),",0
+" (51, '12. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (50, 'the following changes were made to your home medications'),",1
+" (50, 'summary'),",1
+" (50, 'radiologic data'),",0
+" (50, 'electrolytes'),",0
+" (49, 'treatment frequency'),",1
+" (49, 'pertinent imaging'),",0
+" (48, 'regimen'),",0
+" (48, 'labs prior to discharge'),",0
+" (47, 'r normal (x)  abnormal ()    comments'),",1
+" (47, 'followup'),",1
+" (47, '[**hospital unit name 153**] course'),",0
+" (47, '[**hospital 5**] medical condition'),",1
+" (46, 'please call to schedule appointments with your'),",0
+" (46, 'osh'),",0
+" (46, 'mri head'),",0
+" (46, 'chest ct'),",0
+" (46, 'already scheduled appointments'),",0
+" (45, 'trends'),",0
+" (45, 'the following medications were changed'),",1
+" (45, 'recommended follow-up'),",1
+" (45, 'pending labs'),",0
+" (45, 'assessment'),",0
+" (44, 'transfer meds'),",1
+" (44, 'radiographs'),",0
+" (44, 'other appointments'),",0
+" (43, 'pleural fluid'),",0
+" (43, 'please follow up with'),",0
+" (43, 'labs upon discharge'),",0
+" (43, 'hemodynamics'),",1
+" (43, 'ct c-spine'),",0
+" (43, 'chest x-ray'),",0
+" (43, 'changes in your medication reconciliation'),",1
+" (42, 'ua'),",0
+" (42, 'tee'),",0
+" (42, 'per admitting resident'),",0
+" (42, 'iron studies'),",0
+" (42, 'exam upon admission'),",1
+" (42, 'evaluation'),",0
+" (42, 'at time of discharge'),",1
+" (41, 'review of hospital course by systems'),",1
+" (41, 'picc line'),",0
+" (41, 'on transfer to floor'),",1
+" (41, 'mri'),",0
+" (41, 'final discharge diagnoses'),",1
+" (41, 'family hx'),",0
+" (41, 'endo'),",0
+" (41, 'admission cxr'),",0
+" (40, 'you will be starting some new medications'),",1
+" (40, 'mpression'),",0
+" (40, 'laboratory'),",0
+" (40, 'events'),",1
+" (40, 'emergency  department for any of the following'),",1
+" (40, 'changes'),",1
+" (40, 'b. born between 32 and 35 weeks with two of the following'),",0
+" (40, 'admission laboratories'),",0
+" (39, 'the following appointments have been made for you'),",1
+" (39, 'other pmh'),",0
+" (39, 'last dental exam'),",0
+" (39, 'discharge examination'),",1
+" (39, 'clot section and biopsy slides'),",0
+" (39, 'acute renal failure'),",0
+" (38, 'pre cpb'),",0
+" (38, 'please follow-up with the following appointments'),",1
+" (38, 'oncology history'),",1
+" (38, 'misc'),",0
+" (38, 'htn'),",0
+" (38, 'ercp'),",0
+" (38, 'colonoscopy'),",0
+" (38, 'as follows'),",0
+" (37, 'please attend the following appointments'),",1
+" (37, 'physical exam at discharge'),",1
+" (37, 'patient discharge instructions'),",1
+" (37, 'past psychiatric history'),",0
+" (37, 'nutrition'),",0
+" (37, 'lab results on admission'),",0
+" (37, 'ct abd'),",0
+" (37, 'aspirate smear'),",0
+" (37, 'admitting diagnosis'),",1
+" (36, 'problems during hospital stay'),",1
+" (36, 'please note the following medication changes'),",1
+" (36, 'peripheral blood smear'),",0
+" (36, 'onc history'),",1
+" (36, 'neuro exam'),",0
+" (36, 'microbiologic data'),",0
+" (36, 'labwork on discharge'),",0
+" (36, 'general instructions'),",1
+" (36, 'culture data'),",0
+" (36, 'cardiac labs'),",0
+" (36, 'at home'),",1
+" (36, 'active issues by problem'),",1
+" (36, '[**hospital1 **] diagnosis'),",1
+" (35, 'transition issues'),",0
+" (35, 'thrombocytopenia'),",0
+" (35, 'resp'),",0
+" (35, 'pertinent studies'),",1
+" (35, 'on admission to micu'),",1
+" (35, 'lactate'),",0
+" (35, 'laboratories'),",0
+" (35, 'gastroenterology'),",0
+" (35, 'during this admission'),",0
+" (35, 'coagulation'),",0
+" (35, '-motor'),",0
+" (34, 'please note the following changes in your medications'),",1
+" (34, 'pcp'),",0
+" (34, 'pain'),",0
+" (34, 'medications started'),",1
+" (34, 'following medications'),",1
+" (34, 'exam at discharge'),",1
+" (34, 'deep tendon reflexes'),",0
+" (33, 'skin'),",0
+" (33, 'secondary dx'),",0
+" (33, 'rhythm'),",0
+" (33, 'radiopharmeceutical data'),",0
+" (33, 'pe on discharge'),",1
+" (33, 'mri brain'),",0
+" (33, 'immunizations'),",0
+" (33, 'home'),",1
+" (33, 'history'),",1
+" (33, 'hct trend'),",0
+" (33, 'follow-up instructions'),",1
+" (33, 'changed'),",0
+" (33, 'brief course'),",0
+" (33, 'blood'),",0
+" (33, 'acute care'),",0
+" (33, '14. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (32, 'stop'),",0
+" (32, 'onc hx'),",0
+" (32, 'on arrival'),",1
+" (32, 'laboratory studies on admission'),",1
+" (32, 'issues'),",0
+" (32, 'how you [**month (only) **] feel'),",0
+" (32, 'discharge physical examination'),",1
+" (32, 'cytology'),",0
+" (32, 'ccu course'),",0
+" (32, '13. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (31, 'your incision'),",0
+" (31, 'sepsis'),",0
+" (31, 'physical examination on discharge'),",1
+" (31, 'pain management'),",0
+" (31, 'operation'),",0
+" (31, 'medications (home)'),",1
+" (31, 'include'),",1
+" (31, 'following changes'),",1
+" (31, 'discharge plan'),",1
+" (31, 'care and recommendations at discharge'),",1
+" (31, 'call the office immediately if you have any of the following'),",1
+" (31, 'atrial fibrillation'),",0
+" (31, 'activities'),",1
+" (31, '[**hospital1 **] instructions'),",1
+" (30, 'we have made the following changes to your medication regimen'),",1
+" (30, 'to do'),",0
+" (30, 'respiratory failure'),",0
+" (30, 'report comment'),",1
+" (30, 'rads'),",0
+" (30, 'please start the following medications'),",1
+" (30, 'physical exam upon admission'),",1
+" (30, 'oncology'),",0
+" (30, 'medications upon transfer'),",1
+" (30, 'general drain care'),",0
+" (30, 'follow up appointments recommended'),",1
+" (30, 'cxr on admission'),",1
+" (30, 'cta head'),",0
+" (30, 'chronic problems'),",1
+" (30, 'abgs'),",0
+" (30, '[**hospital3 **]'),",0
+" (30, '[ ] inguinal nl   [ ] abnormal findings'),",0
+" (29, 'your bowels'),",0
+" (29, 'wound'),",0
+" (29, 'surgeon'),",0
+" (29, 'problems'),",1
+" (29, 'please follow up with the following appointments'),",1
+" (29, 'medications at discharge'),",1
+" (29, 'from osh'),",0
+" (29, 'drugs'),",1
+" (29, 'diabetes'),",1
+" (29, '(1) tablet, delayed release (e.c.) po q12h (every 12 hours)'),",0
+" (28, 'tox screen'),",0
+" (28, 'surgical course'),",0
+" (28, 'lab results on discharge'),",0
+" (28, 'lab results'),",0
+" (28, 'in the ed'),",0
+" (28, 'hypotension'),",0
+" (28, 'hospital course is reviewed below by problem'),",1
+" (28, 'fh'),",0
+" (28, 'dtrs'),",0
+" (28, 'depression'),",0
+" (28, 'condition on discharge'),",1
+" (28, 'chest'),",0
+" (28, 'cardiac biomarkers'),",0
+" (28, 'at the time of discharge'),",1
+" (28, 'added'),",0
+" (28, '[**hospital1 **] condition'),",1
+" (28, '[ ] nails nl   [ ] abnormal findings'),",0
+" (28, '* upon admission, we added'),",1
+" (27, 'you should not resume'),",0
+" (27, 'serologies'),",0
+" (27, 'pump'),",0
+" (27, 'psychiatric history'),",0
+" (27, 'pneumonia'),",0
+" (27, 'pending results'),",0
+" (27, 'past cardiac procedures'),",0
+" (27, 'operation performed'),",0
+" (27, 'on admission to icu'),",1
+" (27, 'nontender, nondistended, positive bowel sounds.  extremities'),",0
+" (27, 'medicine course'),",1
+" (27, 'medications (on transfer)'),",1
+" (27, 'major [**first name3 (lf) 2947**] or invasive procedure'),",1
+" (27, 'in the ed, initial vs were'),",0
+" (27, 'electrophysiology'),",0
+" (27, 'chronic care'),",0
+" (27, '-sensory'),",0
+" (26, 'vascular'),",0
+" (26, 'the following medications were changed during this admission'),",1
+" (26, 'renal us'),",0
+" (26, 'pending studies'),",0
+" (26, 'new'),",0
+" (26, 'medication'),",1
+" (26, 'intervals axes'),",0
+" (26, 'hypothyroidism'),",0
+" (26, 'dispo'),",0
+" (26, 'di[**last name (stitle) 408**]e instructions'),",0
+" (26, 'brain mri'),",0
+" (26, '[**name2 (ni) 5059**]'),",0
+" (26, '[ ] cranial nerves intact   [ ] abnormal findings'),",0
+" (26, '- cabg'),",0
+" (25, 'your medications'),",1
+" (25,",0
+"  'what you should contact your healthcare provider [**name initial (pre) **]'),",1
+" (25, 'use of other medications'),",1
+" (25, 'urology'),",0
+" (25, 'these foods contain vitamin k'),",0
+" (25, 'sh'),",0
+" (25, 'qualitative wall motion'),",0
+" (25, 'ppx'),",0
+" (25, 'pericardial fluid'),",0
+" (25, 'osh imaging'),",0
+" (25, 'notable labs'),",1
+" (25, 'nicu course by systems'),",0
+" (25, 'monitoring'),",0
+" (25, 'medications changed'),",1
+" (25, 'left ventriculography'),",0
+" (25, 'lactate trend'),",0
+" (25, 'kub'),",0
+" (25, 'coumadin (warfarin) and diet'),",0
+" (25, 'coronary artery disease'),",0
+" (25, 'brief history'),",1
+" (25, 'admission results'),",1
+" (25, 'abdominal ultrasound'),",0
+" (25, 'abdomen'),",0
+" (25, '[ ] other'),",1
+" (25, '(1) tablet, delayed release (e.c.) po q24h (every 24 hours)'),",0
+" (24, 'trauma'),",0
+" (24, 'surgical incision'),",0
+" (24, 'sex'),",0
+" (24, 'ruq ultrasound'),",0
+" (24, 'problem'),",1
+" (24, 'please stop the following medications'),",1
+" (24, 'pertinent interval labs'),",0
+" (24, 'peritoneal fluid'),",0
+" (24, 'of the following'),",0
+" (24, 'non-contrast head ct'),",0
+" (24, 'medications stopped'),",1
+" (24, 'medications at the time of discharge'),",1
+" (24, 'extremities'),",0
+" (24, 'diet '),",0
+" (24, 'danger signs'),",1
+" (24, 'code'),",1
+" (24, 'care recommendations at the time of discharge'),",1
+" (24, 'all'),",0
+" (24, '[**doctor last name **]'),",0
+" (24, '[ ] asbestos [ ] other'),",0
+" (24, '15. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (23, 'volumetric data'),",0
+" (23, 'urine culture (pending)'),",0
+" (23, 'the following medications were started'),",1
+" (23, 'the following changes were made to your medication list'),",1
+" (23, 'substance abuse history'),",1
+" (23, 'sputum'),",0
+" (23, 'relevant imaging data'),",1
+" (23, 'ptca comments'),",0
+" (23, 'principal'),",1
+" (23, 'postoperative course was remarkable for the following'),",1
+" (23, 'please call to schedule appointments'),",0
+" (23, 'other findings'),",1
+" (23, 'mra head'),",0
+" (23, 'medical management'),",1
+" (23, 'margins'),",0
+" (23, 'following instructions'),",1
+" (23, 'endoscopy'),",0
+" (23, 'disposition'),",0
+" (23, 'date of birth'),",0
+" (23, 'chf'),",0
+" (23, 'chem 7'),",0
+" (23, 'cardiologist'),",1
+" (23, 'cardiac echo'),",0
+" (23, 'brief summary of hospital course'),",1
+" (23, 'blood gases'),",0
+" (23, '[**last name (un) 1724**]'),",1
+" (23, '[**hospital unit name 13533**]'),",0
+" (22, 'you also have the following appointments'),",0
+" (22, 'we made the following changes to your home medications'),",1
+" (22, 'uti'),",0
+" (22, 'thoracic spine'),",0
+" (22, 'renal ultrasound'),",0
+" (22, 'radiopharmaceutical data'),",1
+" (22, 'radiologic studies'),",0
+" (22, 'radiographic studies'),",0
+" (22, 'preoperative diagnosis'),",1
+" (22, 'pre bypass'),",0
+" (22, 'please keep your previously scheduled appointments'),",0
+" (22, 'physical exam at admission'),",1
+" (22, 'orthopedics'),",0
+" (22, 'operations'),",0
+" (22, 'on day of discharge'),",0
+" (22, 'nephrology'),",0
+" (22, 'lungs'),",0
+" (22, 'labs from osh'),",0
+" (22, 'history of'),",1
+" (22, 'habits'),",0
+" (22, 'gen'),",0
+" (22, 'follow up plans'),",0
+" (22, 'fever'),",0
+" (22, 'fecal culture (pending)'),",0
+" (22, 'exam at time of discharge'),",1
+" (22, 'ct neck'),",0
+" (22, 'blood gas'),",0
+" (22, 'appointment'),",0
+" (21, 'your medications have changed as follows'),",1
+" (21, 'we made the following changes in your medicines'),",1
+" (21, 'urine culture'),",0
+" (21, 'toxicology'),",0
+" (21, 'relevant laboratory data on admission'),",0
+" (21, 'procedure performed'),",0
+" (21, 'prior to discharge'),",1
+" (21, 'primary care physician'),",0
+" (21, 'per omr'),",0
+" (21, 'path'),",0
+" (21, 'osseous structures'),",0
+" (21, 'note on attending review'),",0
+" (21, 'neurological'),",0
+" (21, 'musculoskeletal lower extremity'),",0
+" (21, 'medications at transfer'),",1
+" (21, 'initial exam'),",1
+" (21, 'in ed'),",0
+" (21, 'hospital course by problems'),",1
+" (21, 'follow-up needed for'),",0
+" (21, 'discharge laboratories'),",0
+" (21, 'ct pelvis'),",0
+" (21, 'course by problem'),",1
+" (21, 'by problem'),",0
+" (21, 'away if any of the following problems develop'),",0
+" (21, '[**hospital **] diagnosis'),",1
+" (21, '[**hospital **] condition'),",1
+" (20, 'vs upon admission to trauma bay'),",0
+" (20, 'vascular surgery'),",0
+" (20, 'transitions in care'),",0
+" (20, 'the following medications were stopped'),",1
+" (20, 'swallowing assessment'),",0
+" (20, 'respiratory distress'),",0
+" (20, 'pulmonology'),",0
+" (20, 'procedures performed'),",1
+" (20, 'other pmhx'),",1
+" (20, 'medications on transfer from osh'),",1
+" (20, 'medications at time of discharge'),",1
+" (20, 'hyponatremia'),",0
+" (20, 'hyperlipidemia'),",0
+" (20, 'dm'),",0
+" (20, 'diagnostics'),",0
+" (20, 'chronic'),",0
+" (20, 'carbidopa-levodopa 50-200 mg tablet sustained release sig'),",0
+" (20, 'any of the following three criteria'),",0
+" (20, 'admit exam'),",1
+" (20, '[**hospital **] instructions'),",1
+" (19, 'the following changes have been made to your medication regimen'),",1
+" (19, 'surgery'),",0
+" (19, 'special instructions if applicable'),",1
+" (19, 'special instructions for patient'),",1
+" (19, 'primary dx'),",1
+" (19, 'please make the following changes to your medication regimen'),",0
+" (19, 'please call your [**name2 (ni) 5059**] if you develop'),",0
+" (19, 'other notable labs'),",0
+" (19, 'other instructions'),",0
+" (19, 'neurosurgery'),",0
+" (19, 'miscellaneous'),",0
+" (19, 'mental status exam'),",0
+" (19, 'medicine floor course'),",1
+" (19, 'medications changes'),",1
+" (19, 'margins uninvolved by invasive carcinoma'),",0
+" (19, 'laboratory studies on discharge'),",0
+" (19, 'laboratory investigations'),",0
+" (19, 'issues of transitions in care'),",0
+" (19, 'inr trend'),",0
+" (19, 'hypoxia'),",0
+" (19, 'gastrointestinal'),",0
+" (19, 'follow-up appointments recommended'),",0
+" (19, 'discharge summary addendum'),",1
+" (19, 'd'),",0
+" (19, 'cta head and neck'),",0
+" (19, 'cath report'),",0
+" (19, 'care and recommendations after discharge'),",1
+" (19, 'cardiac markers'),",0
+" (19, 'any of the following'),",0
+" (19, 'admission examination'),",1
+" (19, '2d-echocardiogram'),",0
+" (18, 'we have made the following changes to your home medications'),",1
+" (18, 'transfer diagnoses'),",1
+" (18, 'the following medication changes were recommended'),",1
+" (18, 'test performed at'),",0
+" (18, 'studies pending at discharge'),",1
+" (18, 'stool'),",0
+" (18, 'report'),",0
+" (18, 'psych'),",0
+" (18, 'pre-op'),",1
+" (18, 'pertinent labs during hospitalization'),",1
+" (18, 'outpatient meds'),",1
+" (18, 'oral motor exam'),",1
+" (18, 'on the day of discharge'),",1
+" (18, 'on admission to the micu'),",1
+" (18, 'musculoskeletal'),",0
+" (18, 'medications upon admission'),",1
+" (18, 'labs on transfer'),",1
+" (18, 'lab data'),",1
+" (18, 'gu'),",0
+" (18, 'gi bleed'),",0
+" (18, 'ekgs'),",0
+" (18, 'discharge diagnosis list'),",1
+" (18, 'ct of the pelvis'),",0
+" (18, 'ct'),",0
+" (18, 'course'),",0
+" (18, 'coumadin (warfarin)'),",0
+" (18, 'coagulation profile'),",0
+" (18, 'ce trend'),",0
+" (18, 'cbc trend'),",0
+" (18, 'car seat position screening'),",0
+" (18, 'brief hospital course by problem'),",1
+" (18, 'arf'),",0
+" (18, 'anaerobic culture (pending)'),",0
+" (18, 'abd'),",0
+" (18, '[**hospital1 18**]'),",0
+" (18, '16. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (18, '-illicit drugs'),",0
+" (17, 'who meet any of the following three criteria'),",0
+" (17, 'treatment history'),",1
+" (17, 'the following changes to your medications were made'),",1
+" (17, 'the following appointments have been scheduled for you'),",0
+" (17, 'pulse exam'),",0
+" (17, 'preop'),",1
+" (17, 'potassium chloride 10 meq capsule, sustained release sig'),",0
+" (17, 'postoperative diagnoses'),",1
+" (17, 'please start taking'),",0
+" (17, 'pharyngeal phase'),",0
+" (17, 'pertinent labs and studies'),",1
+" (17, 'personal care'),",1
+" (17, 'pending'),",1
+" (17, 'past surgical hx'),",1
+" (17, 'osh studies'),",0
+" (17, 'on arrival to micu'),",1
+" (17, 'notable studies'),",1
+" (17, 'neck'),",0
+" (17, 'microbio'),",1
+" (17, 'medical history'),",1
+" (17, 'lumbar spine'),",0
+" (17, 'location'),",0
+" (17, 'lipids'),",0
+" (17, 'labs on admit'),",0
+" (17, 'labs at time of discharge'),",0
+" (17, 'labs at osh'),",0
+" (17, 'laboratory studies'),",0
+" (17, 'icu admission exam'),",1
+" (17, 'discharge date'),",1
+" (17, 'diagnosed by'),",1
+" (17, 'cvs'),",0
+" (17, 'code status'),",1
+" (17, 'changes to medications'),",1
+" (17, 'changes in medication'),",1
+" (17, 'cards'),",0
+" (17, 'call your doctor for'),",1
+" (17, 'altered mental status'),",0
+" (17, 'admitting diagnoses'),",1
+" (17, 'additional labs'),",0
+" (17, 'addendum to hospital course'),",1
+" (17, '-mental status'),",0
+" (17, '- cranial nerves'),",0
+" (16, 'when you leave the hospital'),",1
+" (16, 'we made the following changes to your medication'),",1
+" (16, 'video swallow'),",0
+" (16, 'upon presentation'),",0
+" (16, 'treatment techniques'),",1
+" (16, 'the following medication changes have been made'),",1
+" (16, 'ruq us'),",0
+" (16, 'previous biopsies'),",0
+" (16, 'prenatal course'),",0
+" (16, 'please start'),",0
+" (16, 'physical exam on transfer'),",1
+" (16, 'pfi'),",0
+" (16, 'oral phase'),",0
+" (16, 'on transfer to the floor'),",0
+" (16, 'nchct'),",0
+" (16, 'name of primary pediatrician'),",1
+" (16, 'medications on presentation'),",1
+" (16, 'medication regimen'),",1
+" (16, 'liver function tests'),",0
+" (16, 'laboratory data on admission'),",1
+" (16, 'discharge vital signs'),",1
+" (16, 'diabetes mellitus'),",0
+" (16, 'ct scan'),",0
+" (16, 'communication'),",0
+" (16, 'ce'),",0
+" (16, 'cause of death'),",1
+" (16, 'call your doctor or go to the er for any of the following'),",0
+" (16, 'brief micu course'),",1
+" (16, 'antibiotics'),",1
+" (16, 'anaerobic bottle (preliminary)'),",0
+" (16, 'aerobic bottle (preliminary)'),",0
+" (16, 'addendum to discharge summary'),",1
+" (16, '17. potassium chloride 10 meq capsule, sustained release sig'),",0
+" (16, '(continued)'),",0
+" (15, 'the following appointments were made for you'),",1
+" (15, 'stop taking'),",0
+" (15, 'scheduled'),",1
+" (15, 'refl'),",0
+" (15, 'reason for admission'),",1
+" (15, 'postoperative diagnosis'),",1
+" (15, 'please stop'),",0
+" (15, 'others'),",1
+" (15, 'other relevant labs'),",0
+" (15, 'on the floor'),",1
+" (15, 'on admit'),",1
+" (15, 'multidisciplinary rounds'),",1
+" (15, 'mrv of the head'),",0
+" (15, 'mra of the neck'),",0
+" (15, 'most recent labs'),",1
+" (15, 'medications at time of transfer'),",1
+" (15, 'medications as outpatient'),",1
+" (15, 'medical floor course'),",1
+" (15, 'medical course'),",1
+" (15, 'it was decided that she would undergo a'),",0
+" (15, 'followup appointments'),",0
+" (15, 'final report'),",1
+" (15, 'experience any of the following'),",0
+" (15, 'ed course (labs, imaging, interventions, consults)'),",0
+" (15, 'discharge diagnoses list'),",1
+" (15, 'ct angiography of the head'),",0
+" (15, 'ct abdomen and pelvis'),",0
+" (15, 'chest pain'),",0
+" (15, 'carotid us'),",0
+" (15, 'aspirin low dose 81 mg tablet, delayed release (e.c.) sig'),",0
+" (15, 'appointments listed below'),",0
+" (15, 'any of the following 4 criteria'),",0
+" (15, 'admit'),",1
+" (15, 'admission pex'),",0
+" (15, 'acute diagnoses'),",1
+" (15, '[**last name (namepattern4) 15255**] of present illness'),",0
+" (15, '[**hospital1 18**] labs'),",0
+" (15, '[ ] mood change        []suicidal ideation  [ ] other'),",0
+" (15, '-deep tendon reflexes'),",0
+" (14, 'you have the following appointment scheduled'),",0
+" (14, 'we made the following changes to your home medication list'),",1
+" (14, 'we are changing your medications as follows'),",1
+" (14, 'urine cultures'),",0
+" (14, 'treatment'),",1
+" (14, 'tox'),",0
+" (14, 'thrombotic events'),",0
+" (14, 'the following changes have been made to your home medications'),",1
+" (14, 'tfts'),",0
+" (14, 'systemic lupus erythematosus'),",0
+" (14, 'summary of data from the exercise lab'),",0
+" (14, 'sputum cx'),",0
+" (14, 'some of your medications were changed during this admission'),",1
+" (14, 'secondary discharge diagnoses'),",1
+" (14, 'return to the [**hospital1 18**] emergency department for'),",0
+" (14, 'recommended'),",0
+" (14, 'psurghx'),",0
+" (14, 'psurgh'),",0
+" (14, 'principal diagnosis'),",1
+" (14, 'preoperative diagnoses'),",1
+" (14, 'preop exam'),",1
+" (14, 'plan going forward'),",0
+" (14, 'physical exam on admission to micu'),",1
+" (14, 'other results'),",0
+" (14, 'nih ss'),",0
+" (14, 'mrsa screen (pending)'),",0
+" (14, 'meds (on transfer)'),",1
+" (14, 'medications changed this admission'),",1
+" (14, 'medications at rehab'),",1
+" (14, 'medications (at home)'),",1
+" (14, 'lft trend'),",0
+" (14, 'labs on dc'),",0
+" (14, 'initial physical exam'),",1
+" (14, 'general review of systems'),",0
+" (14, 'following 4 criteria'),",0
+" (14, 'dm2'),",0
+" (14, 'discharged labs'),",0
+" (14, 'discharge status'),",1
+" (14, 'discharge medication'),",1
+" (14, 'diarrhea'),",0
+" (14, 'develop'),",0
+" (14, 'ct of the abdomen'),",0
+" (14, 'ct angiogram'),",0
