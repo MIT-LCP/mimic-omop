@@ -1,6 +1,6 @@
 "omop_table","omop_column","omop_required","omop_type","mimic_table","mimic_column","mimic_type","comments"
 "PERSON","person_id","Yes","integer","patients","subject_id",,"?theorically should be a new autoincrement"
-"PERSON","gender_concept_id","Yes","integer",,,,"lookup to the athena coding for gender"
+"PERSON","gender_concept_id","Yes","integer","patients","CASE WHEN gender ='F' THEN 8532 WHEN GENDER = 'M' THEN 8507 ELSE NULL END",,"lookup to the athena coding for gender;(inspired from google)"
 "PERSON","year_of_birth","Yes","integer","patients","extract(year FROM dob)",,"transform: get the year with ""extract"" fonction"
 "PERSON","month_of_birth","No","integer","patients","extract(month FROM dob)",,"transform: get the year with ""extract"" fonction"
 "PERSON","day_of_birth","No","integer","patients","extract(day FROM dob)",,"transform: get the year with ""extract"" fonction"
