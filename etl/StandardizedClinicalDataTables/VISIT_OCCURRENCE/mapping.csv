@@ -1,18 +1,18 @@
 "omop_table","omop_column","omop_required","omop_type","mimic_table","mimic_column","mimic_type","comments"
-"VISIT_OCCURRENCE","visit_occurrence_id","Yes","integer","admissions","hadm_id",,
-"VISIT_OCCURRENCE","person_id","Yes","integer","admissions","subject_id",,
-"VISIT_OCCURRENCE","visit_concept_id","Yes","integer",,,,
+"VISIT_OCCURRENCE","visit_occurrence_id","Yes","integer","admissions","mimic_id",,
+"VISIT_OCCURRENCE","person_id","Yes","integer","patients","mimic_id",,
+"VISIT_OCCURRENCE","visit_concept_id","Yes","integer","admissions",9201,,"inpatient visit"
 "VISIT_OCCURRENCE","visit_start_date","Yes","date","admissions","admittime::date",,
 "VISIT_OCCURRENCE","visit_start_datetime","No","datetime","admissions","admittime",,
 "VISIT_OCCURRENCE","visit_end_date","Yes","date","admissions","dischtime::date",,
 "VISIT_OCCURRENCE","visit_end_datetime","No","datetime","admissions","dischtime",,
-"VISIT_OCCURRENCE","visit_type_concept_id","Yes","Integer",,,,
-"VISIT_OCCURRENCE","provider_id","No","integer",,,,
-"VISIT_OCCURRENCE","care_site_id","No","integer",,,,
+"VISIT_OCCURRENCE","visit_type_concept_id","Yes","Integer","admissions",44818518,,"visit derived from EHR record"
+"VISIT_OCCURRENCE","provider_id","No","integer","caregivers","mimic_id",,
+"VISIT_OCCURRENCE","care_site_id","No","integer","gcpt_care_site","mimic_id",,
 "VISIT_OCCURRENCE","visit_source_value","No","string(50)","admissions","admission_type",,"?visit_source_value VS admitting_source_value"
-"VISIT_OCCURRENCE","visit_source_concept_id","No","Integer",,,,"?visit_source_value VS admitting_source_value"
+"VISIT_OCCURRENCE","visit_source_concept_id","No","Integer","gcpt_admission_location_to_concept","concept_id",,"?visit_source_value VS admitting_source_value"
 "VISIT_OCCURRENCE","admitting_source_concept_id","No","Integer",,,,"?visit_source_value VS admitting_source_value"
 "VISIT_OCCURRENCE","admitting_source_value","No","Varchar","admissions","admission_location",,"?visit_source_value VS admitting_source_value"
-"VISIT_OCCURRENCE","discharge_to_concept_id","No","Integer",,,,
+"VISIT_OCCURRENCE","discharge_to_concept_id","No","Integer","gcpt_discharge_location_to_concept","concept_id",,
 "VISIT_OCCURRENCE","discharge_to_source_value","No","Varchar","admissions","discharge_location",,
 "VISIT_OCCURRENCE","preceding_visit_occurrence_id","No","Integer",,,,"transform: use a window function to get the last"
