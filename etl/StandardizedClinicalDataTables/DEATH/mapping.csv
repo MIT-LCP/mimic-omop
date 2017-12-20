@@ -1,8 +1,8 @@
 "omop_table","omop_column","omop_required","omop_type","mimic_table","mimic_column","mimic_type","comments"
-"DEATH","person_id","Yes","integer","patients","subject_id",,
+"DEATH","person_id","Yes","integer","patients","mimic_id",,
 "DEATH","death_date","Yes","date","patients","dod",,"transform: cast to date"
 "DEATH","death_datetime","No","datetime","patients","dod",,
-"DEATH","death_type_concept_id","Yes","integer",,,,
+"DEATH","death_type_concept_id","Yes","integer","patients","CASE WHEN dod_hosp IS NULL THEN 261 ELSE 38003569 END",,
 "DEATH","cause_concept_id","No","integer",,,,
 "DEATH","cause_source_value","No","varchar(50)",,,,
 "DEATH","cause_source_concept_id","No","integer",,,,
