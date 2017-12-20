@@ -1,12 +1,12 @@
 "omop_table","omop_column","omop_required","omop_type","mimic_table","mimic_column","mimic_type","comments"
-"PERSON","person_id","Yes","integer","patients","subject_id",,"?theorically should be a new autoincrement"
+"PERSON","person_id","Yes","integer","patients","mimic_id",,"?theorically should be a new autoincrement → it does"
 "PERSON","gender_concept_id","Yes","integer","patients","CASE WHEN gender ='F' THEN 8532 WHEN GENDER = 'M' THEN 8507 ELSE NULL END",,"lookup to the athena coding for gender;(inspired from google)"
 "PERSON","year_of_birth","Yes","integer","patients","extract(year FROM dob)",,"transform: get the year with ""extract"" fonction"
 "PERSON","month_of_birth","No","integer","patients","extract(month FROM dob)",,"transform: get the year with ""extract"" fonction"
 "PERSON","day_of_birth","No","integer","patients","extract(day FROM dob)",,"transform: get the year with ""extract"" fonction"
 "PERSON","birth_datetime","No","datetime","patients","dob",,"transform: get the year with ""extract"" fonction"
-"PERSON","race_concept_id","Yes","integer",,,,
-"PERSON","ethnicity_concept_id","Yes","integer",,,,"lookup to the athena coding "
+"PERSON","race_concept_id","Yes","integer","gcpt_ethnicity_to_concept","race_concept_id",,
+"PERSON","ethnicity_concept_id","Yes","integer","gcpt_ethnicity_to_concept","ethnicity_concept_id",,"lookup to the athena coding "
 "PERSON","location_id","No","integer",,,,
 "PERSON","provider_id","No","integer",,,,
 "PERSON","care_site_id","No","integer",,,,
