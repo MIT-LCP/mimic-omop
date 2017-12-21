@@ -9,3 +9,6 @@ COMMENT ON COLUMN omop.death.death_visit_detail_delay             IS '[CONTRIB] 
 
 ALTER TABLE omop.death ADD COLUMN death_visit_occurrence_delay double precision;
 COMMENT ON COLUMN omop.death.death_visit_occurrence_delay      IS '[CONTRIB] Difference between deathtime and visit_start_datetime of VISIT_OCCURRENCE table';
+
+ALTER TABLE omop.measurement ADD COLUMN quality_concept_id bigint;
+COMMENT ON COLUMN omop.measurement.quality_concept_id             IS '[CONTRIB] Quality mask, can be queried with regex, to filter based on quality aspects';
