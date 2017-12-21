@@ -2,9 +2,9 @@
 # given a path containing csv.
 # structure is infered
 
-#install.packages("remotes",repos=NULL)
+#install.packages("remotes")
 #remotes::install_github("r-dbi/RPostgres")
-
+library(RPostgres)
 library(DBI)
 
 getValueFromConfFile <- function(file, pattern){
