@@ -1,0 +1,9 @@
+care_site_id,care_site_name,place_of_service_concept_id
+50,"Unknown",8717
+51,"CCU",8717
+52,"CSRU",8717
+53,"MICU",8717
+54,"NICU",8717
+55,"SICU",8717
+56,"TSICU",8717
+57,"NWARD",8717

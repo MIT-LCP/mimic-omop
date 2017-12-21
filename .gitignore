@@ -4,9 +4,9 @@ extras/loinc/source_organization.csv
 extras/loinc/Oracle/*
 extras/loinc/MySql/*
 extras/google/*
+!extras/google/concept
 extras/loinc/LOINC_2.61_Text.zip
 omop/athena/*
-extras/google/*
 
 # OSX .DS_Store file
 .DS_Store

@@ -1,0 +1,48 @@
+mimic_name,concept_id
+PAT (Paroxysmal Atrial Tachycardia),4064869
+Parox Atr Tachy,4064869
+Vent. Tachy,4064871
+VT (Ventricular Tachycardia),4064871
+Normal Sinus,4091898
+SR (Sinus Rhythm),4091898
+Wand.Atrial Pace,4111551
+WAP (Wandering atrial pacemaker),4111551
+Idioventricular,4138336
+Sinus Brady,21499419
+SB (Sinus Bradycardia),21499419
+MultFocalAtrTach,37017191
+MAT (Multifocal atrial tachycardia),37017191
+V Paced,45877359
+A Paced,45877359
+AV Paced,45877359
+Paced,45877359
+Zoll Paced,45877359
+Sinus Tachy,45879290
+ST (Sinus Tachycardia),45879290
+Asystole,45881036
+Junctional,45881038
+JR (Junctional Rhythm),45881038
+JT (Junctional Tachycardia),45881038
+PJT (Paroxysmal Junctional Tachycardia),45881038
+Ventricular Fib,45883015
+VF (Ventricular Fibrillation),45883015
+Atrial Fib,45883018
+AF (Atrial Fibrillation),45883018
+Atrial Flutter,45883019
+A Flut (Atrial Flutter),45883019
+2nd AVB Mobitz 2,45883020
+2nd AV M2 (Second degree AV Block - Mobitz 2),45883020
+RBBB (Right Bundle Branch Block),45883022
+LBBB (Left Bundle Branch Block),45883893
+Supravent Tachy,45883894
+SVT (Supra Ventricular Tachycardia),45883894
+1st Deg AV Block,45884784
+1st AV (First degree AV Block),45884784
+2nd AVB/Mobitz I,45884785
+2nd AV W-M1 (Second degree AV Block Wenckebach - Mobitz1),45884785
+Wenckebach,45884785
+Comp Heart Block,45884786
+3rd AV (Complete Heart Block),45884786
+SA (Sinus Arrhythmia),45884787
+Sinus Arrhythmia,45884787
+Other/Remarks,
