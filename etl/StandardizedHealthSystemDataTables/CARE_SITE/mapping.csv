@@ -1,7 +1,7 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-CARE_SITE,care_site_id,Yes,integer,,,,
-CARE_SITE,care_site_name,No,varchar(255),,,,
-CARE_SITE,place_of_service_concept_id,No,integer,,,,
-CARE_SITE,location_id,No,integer,,,,
-CARE_SITE,care_site_source_value,No,varchar(50),,,,
-CARE_SITE,place_of_service_source_value,No,varchar(50),,,,
+"omop_table","omop_column","omop_required","omop_type","mimic_table","mimic_column","mimic_type","comments"
+"CARE_SITE","care_site_id","Yes","integer","gcpt_care_site","mimic_id",,
+"CARE_SITE","care_site_name","No","varchar(255)","gcpt_care_site","care_site_name",,
+"CARE_SITE","place_of_service_concept_id","No","integer","gcpt_care_site","place_of_service_concept_id",,
+"CARE_SITE","location_id","No","integer",,,,
+"CARE_SITE","care_site_source_value","No","varchar(50)",,,,
+"CARE_SITE","place_of_service_source_value","No","varchar(50)",,,,

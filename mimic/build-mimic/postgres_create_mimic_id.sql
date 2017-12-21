@@ -66,3 +66,5 @@
  nextval('mimic.mimic_id_seq'::regclass);
  ALTER TABLE mimic.transfers add column mimic_id bigint default         
  nextval('mimic.mimic_id_seq'::regclass);
+ ALTER TABLE mimic.gcpt_care_site add column mimic_id bigint default         
+ nextval('mimic.mimic_id_seq'::regclass);
