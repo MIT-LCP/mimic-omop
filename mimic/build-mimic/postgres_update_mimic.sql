@@ -7,7 +7,7 @@ INSERT INTO mimic.transfers (row_id, hadm_id, subject_id, curr_careunit, intime,
 SELECT -1 * row_id -- demoniac trick to moove forward
      , hadm_id
      , subject_id
-     , admission_type as curr_careunit
+     , 'EMERGENCY' as curr_careunit
      , edregtime as intime
      , edouttime as outtime
   FROM mimic.admissions
