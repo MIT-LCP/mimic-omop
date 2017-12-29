@@ -1,3 +1,9 @@
+set search_path to omop;
+TRUNCATE TABLE  omop.care_site CASCADE;
+TRUNCATE TABLE  omop.person CASCADE;
+TRUNCATE TABLE  omop.death CASCADE;
+TRUNCATE TABLE  omop.visit_occurrence CASCADE;
+TRUNCATE TABLE  omop.visit_detail CASCADE;
 \i StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i StandardizedClinicalDataTables/PERSON/etl.sql
 \i StandardizedClinicalDataTables/DEATH/etl.sql
