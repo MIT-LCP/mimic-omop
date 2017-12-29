@@ -1,3 +1,5 @@
+ -- when first stay, then take admitting_source_value from visit_occurrence
+ -- when last stay, then take discharge_to_value from visit_occurrence
  WITH transfers AS (SELECT subject_id, hadm_id, curr_careunit, mimic_id as visit_detail_id, 9201 as visit_detail_concept_id, intime::date as visit_start_date, intime as visit_start_datetime, outtime::date as visit_end_date, outtime as visit_end_datetime, 44818518 as visit_type_concept_id, eventtype as discharge_to_source_value, LAG(mimic_id) OVER (PARTITION BY hadm_id ORDER BY intime ASC) as preceding_visit_detail_id FROM mimic.transfers WHERE curr_careunit IS NOT NULL),
 patients AS (SELECT subject_id, mimic_id as person_id FROM mimic.patients),
 gcpt_care_site AS (SELECT care_site_name, mimic_id as care_site_id FROM mimic.gcpt_care_site),

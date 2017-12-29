@@ -1,9 +1,9 @@
-care_site_id,care_site_name,place_of_service_concept_id
-50,"Unknown",8717
-51,"CCU",8717
-52,"CSRU",8717
-53,"MICU",8717
-54,"NICU",8717
-55,"SICU",8717
-56,"TSICU",8717
-57,"NWARD",8717
+care_site_id,care_site_name,place_of_service_concept_id,care_site_descr
+51,"CCU",581382,"Coronary care unit"
+52,"CSRU",581382,"Cardiac surgery recovery unit"
+53,"MICU",581382,"Medical intensive care unit"
+54,"NICU",581382,"Neonatal intensive care unit"
+55,"SICU",581382,"Neonatal ward"
+56,"TSICU",581382,"Surgical intensive care unit"
+57,"NWARD",581382,"Trauma/surgical intensive care unit"
+58,"EMERGENCY",581381,"Emergency Room Critical Care Facility"
