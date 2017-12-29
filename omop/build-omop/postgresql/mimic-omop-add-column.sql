@@ -28,5 +28,5 @@ COMMENT ON COLUMN omop.visit_occurrence.visit_occurrence_length IS '[CONTRIB] Le
 ALTER TABLE omop.visit_detail ADD COLUMN visit_detail_length integer;
 COMMENT ON COLUMN omop.visit_detail.visit_detail_length IS '[CONTRIB] Length of visit detail';
 
-ALTER TABLE omop.care_site ADD COLUMN care_site_descr integer;
+ALTER TABLE omop.care_site ADD COLUMN care_site_descr text;
 COMMENT ON COLUMN omop.care_site.care_site_descr IS '[CONTRIB] Full label of care site';
