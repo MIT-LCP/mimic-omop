@@ -12,3 +12,18 @@ COMMENT ON COLUMN omop.death.death_visit_occurrence_delay      IS '[CONTRIB] Dif
 
 ALTER TABLE omop.measurement ADD COLUMN quality_concept_id bigint;
 COMMENT ON COLUMN omop.measurement.quality_concept_id             IS '[CONTRIB] Quality mask, can be queried with regex, to filter based on quality aspects';
+
+ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_year integer;
+COMMENT ON COLUMN omop.visit_occurrence.age_in_year             IS '[CONTRIB] Age at visit';
+
+ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_month integer;
+COMMENT ON COLUMN omop.visit_occurrence.age_in_month             IS '[CONTRIB] Age at visit';
+
+ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_day integer;
+COMMENT ON COLUMN omop.visit_occurrence.age_in_day IS '[CONTRIB] Age at visit';
+
+ALTER TABLE omop.visit_occurrence ADD COLUMN visit_occurrence_length integer;
+COMMENT ON COLUMN omop.visit_occurrence.visit_occurrence_length IS '[CONTRIB] Length of visit occurrence';
+
+ALTER TABLE omop.visit_detail ADD COLUMN visit_detail_length integer;
+COMMENT ON COLUMN omop.visit_detail.visit_detail_length IS '[CONTRIB] Length of visit detail';
