@@ -30,6 +30,3 @@ COMMENT ON COLUMN omop.visit_detail.visit_detail_length IS '[CONTRIB] Length of 
 
 ALTER TABLE omop.visit_detail ADD COLUMN discharge_delay double precision;
 COMMENT ON COLUMN omop.visit_detail.discharge_delay IS '[CONTRIB] Delay between discharge decision and effective discharge';
-
-ALTER TABLE omop.care_site ADD COLUMN care_site_descr text;
-COMMENT ON COLUMN omop.care_site.care_site_descr IS '[CONTRIB] Full label of care site';

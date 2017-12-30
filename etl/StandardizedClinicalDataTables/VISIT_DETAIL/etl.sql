@@ -34,14 +34,14 @@
 "transfers" AS (
                           SELECT subject_id
                                , hadm_id
-                               , curr_careunit
+                               , coalesce(curr_careunit,'UNKNOWN') as curr_careunit
                                , mimic_id as visit_detail_id
                                , 9201 as visit_detail_concept_id
                                , transfers_no_bed.intime_real::date as visit_start_date
                                , intime_real as visit_start_datetime
                                , outtime_real::date as visit_end_date
                                , outtime_real as visit_end_datetime
-                               , 44818518 as visit_type_concept_id
+                               , 44818518 as visit_type_concept_id -- [athena] Visit derived from EHR record
                                --, callout_discharge_to_source_value as discharge_to_source_value
                                --, prev_careunit as admitting_source_value
                                --, LEAD(mimic_id) OVER ( PARTITION BY hadm_id ORDER BY transfers_no_bed.intime_real ASC) as later_visit_detail_id
@@ -121,13 +121,13 @@ UNION ALL
 SELECT
         patients.person_id
       , serv.visit_detail_id
-      , 9201 as visit_detail_concept_id
+      , 262 as visit_detail_concept_id -- [athena] Emergency Room and Inpatient Visit
       , serv.visit_start_datetime::date as visit_start_date
       , serv.visit_start_datetime
       , serv.visit_end_datetime::date as visit_end_date
       , serv.visit_end_datetime
 
-      , 44818518 as visit_type_concept_id
+      , 45770670 as visit_type_concept_id -- [athena] services and care
       , gcpt_care_site.care_site_id
 
 --    , transfers.curr_careunit

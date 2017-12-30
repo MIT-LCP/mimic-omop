@@ -5,8 +5,8 @@ MICU,"Medical intensive care unit",581382,1
 NICU,"Neonatal intensive care unit",581382,1
 SICU,"Neonatal ward",581382,1
 TSICU,"Surgical intensive care unit",581382,1
-NWARD,581382,"Trauma/surgical intensive care unit",1
-EMERGENCY,581381,"Emergency Room Critical Care Facility",1
+NWARD,"Trauma/surgical intensive care unit",581382,1
+EMERGENCY,"Emergency Room Critical Care Facility",581381,1
 CMED,"Cardiac Medical - for non-surgical cardiac related admissions",581383,1
 CSURG,"Cardiac Surgery - for surgical cardiac admissions",45765807,0
 DENT,"Dental - for dental/jaw related admissions",40489497,1
