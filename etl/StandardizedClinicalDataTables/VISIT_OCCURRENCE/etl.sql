@@ -14,12 +14,16 @@ WITH
 	visit_end_date,
 	visit_end_datetime,
 	visit_type_concept_id,
+
 	visit_source_value,
 	visit_source_concept_id,
+
 	admitting_source_concept_id,
 	admitting_source_value,
+
 	discharge_to_concept_id,
 	discharge_to_source_value,
+
 	preceding_visit_occurrence_id
 )
  SELECT admissions.visit_occurrence_id
@@ -30,12 +34,16 @@ WITH
       , admissions.visit_end_date
       , admissions.visit_end_datetime
       , admissions.visit_type_concept_id
+
       , gcpt_admission_type_to_concept.visit_source_value
       , gcpt_admission_type_to_concept.visit_source_concept_id
+
       , gcpt_admission_location_to_concept.admitting_source_concept_id
       , gcpt_admission_location_to_concept.admission_location
+
       , gcpt_discharge_location_to_concept.discharge_to_concept_id
       , gcpt_discharge_location_to_concept.discharge_location
+
       , admissions.preceding_visit_occurrence_id
    FROM admissions
  LEFT JOIN gcpt_admission_location_to_concept USING (admission_location)
