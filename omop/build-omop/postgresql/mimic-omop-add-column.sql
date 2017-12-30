@@ -22,11 +22,14 @@ COMMENT ON COLUMN omop.visit_occurrence.age_in_month             IS '[CONTRIB] A
 ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_day integer;
 COMMENT ON COLUMN omop.visit_occurrence.age_in_day IS '[CONTRIB] Age at visit';
 
-ALTER TABLE omop.visit_occurrence ADD COLUMN visit_occurrence_length integer;
+ALTER TABLE omop.visit_occurrence ADD COLUMN visit_occurrence_length double precision;
 COMMENT ON COLUMN omop.visit_occurrence.visit_occurrence_length IS '[CONTRIB] Length of visit occurrence';
 
-ALTER TABLE omop.visit_detail ADD COLUMN visit_detail_length integer;
+ALTER TABLE omop.visit_detail ADD COLUMN visit_detail_length double precision;
 COMMENT ON COLUMN omop.visit_detail.visit_detail_length IS '[CONTRIB] Length of visit detail';
+
+ALTER TABLE omop.visit_detail ADD COLUMN discharge_delay double precision;
+COMMENT ON COLUMN omop.visit_detail.discharge_delay IS '[CONTRIB] Delay between discharge decision and effective discharge';
 
 ALTER TABLE omop.care_site ADD COLUMN care_site_descr text;
 COMMENT ON COLUMN omop.care_site.care_site_descr IS '[CONTRIB] Full label of care site';
