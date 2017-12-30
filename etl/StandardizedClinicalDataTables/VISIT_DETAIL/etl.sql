@@ -1,5 +1,30 @@
  -- when first stay, then take admitting_source_value from visit_occurrence
  -- when last stay, then take discharge_to_value from visit_occurrence
+-- 
+-- While omop concentrates the information of stays in the visit_details table, mimic has several places:
+-- 
+-- - transfers
+-- - callout
+-- - services
+-- - admissions
+-- 
+-- I found out that mimic also have two distinct way of storing unit of care information:
+-- - MICU, NWARD and so on (say CLASS1 type unit)
+-- - CMED CSURG DENT ENTGU GYN and so on. ( say CLASS2 type unit )
+-- 
+-- 
+-- Right now, the etl prototype:
+-- - uses mimic.transfers as the granularity
+-- - fusion the beds by not considering mooving from bed in the same unit as a new stay (as spotted there https://github.com/MIT-LCP/mimic-code/issues/203)
+-- - does consider urgency stays as stay entry in the visit_detail  (info from admissions) 
+-- - calculates and keep the delay of callout for ICU stays
+-- - makes a distinction from
+-- - does not fusion icustay stays mooves that are under 24hour
+-- - grabs the more information possible from CLASS2 type unit from callout, services and put them into admitting/discharge columns
+-- - callout service information stores the service after an ICU
+-- - stores the CLASS1 type unit into care_site
+-- 
+-- 
  WITH
 "callout_delay" as (SELECT callout_service as callout_discharge_to_source_value, hadm_id, curr_careunit, createtime, outcometime, extract(epoch from outcometime - createtime)/3600/24 as discharge_delay, (outcometime - createtime) / 2 + createtime as mean_time FROM mimic.callout WHERE callout_outcome not ilike 'cancel%'), 
 "transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM mimic.transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
