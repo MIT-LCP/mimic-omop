@@ -19,3 +19,4 @@ SURG,"Surgical - general surgical service not classified elsewhere",45765829,1
 TRAUM,"Trauma - injury or damage caused by physical harm from an external source",4263098,1
 TSURG,"Thoracic Surgical - surgery on the thorax, located between the neck and the abdomen",,0
 VSURG,"Vascular Surgical - surgery relating to the circulatory system",4087906,0
+UNKNOWN,"Unknown service",,0
