@@ -10,7 +10,7 @@
 "transfers" AS ( SELECT t10.subject_id , t10.hadm_id , t10.visit_detail_id , t10.visit_detail_concept_id , t10.visit_start_date , t10.visit_start_datetime , t10.visit_end_date , t10.visit_end_datetime , t10.visit_type_concept_id , CASE WHEN t10.preceding_visit_detail_id IS NULL THEN NULL ELSE coalesce(t9.curr_careunit,'UNKNOWN') END as admitting_source_value , coalesce(t10.curr_careunit,t9.discharge_to_source_value,'UNKNOWN') as curr_careunit , CASE WHEN t10.later_visit_detail_id IS NULL THEN NULL ELSE coalesce(t11.curr_careunit, t10.discharge_to_source_value,'UNKNOWN') END as discharge_to_source_value , t10.later_visit_detail_id , t10.preceding_visit_detail_id , t10.discharge_delay FROM transfers_light as t10 LEFT JOIN transfers_light as t9 ON (t10.preceding_visit_detail_id = t9.visit_detail_id) LEFT JOIN transfers_light as t11 ON (t10.later_visit_detail_id     = t11.visit_detail_id)),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM mimic.patients),
 "gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id FROM mimic.gcpt_care_site),
-"gcpt_visit_detail_source_to_concept" AS (SELECT * FROM mimic.gcpt_visit_detail_source_to_concept),
+"gcpt_visit_detail_source_to_concept" AS (SELECT visit_source_value, visit_source_concept_id FROM mimic.gcpt_visit_detail_source_to_concept UNION ALL SELECT care_site_name as visit_source_value, place_of_service_concept_id as visit_source_concept_id FROM mimic.gcpt_care_site),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id FROM mimic.admissions),
 "visit_source" AS (SELECT hadm_id, transfertime, curr_service as visit_source_value FROM mimic.services)
  INSERT INTO omop.VISIT_DETAIL (
@@ -50,14 +50,16 @@
       , transfers.visit_type_concept_id
       , gcpt_care_site.care_site_id
 
-      , visit_source.visit_source_value
+      , transfers.curr_careunit
       , gcpt_visit_detail_source_to_concept.visit_source_concept_id
 
       , gcpt_visit_detail_admitting.visit_source_concept_id
-      , gcpt_visit_detail_admitting.visit_source_value
+     -- , gcpt_visit_detail_admitting.visit_source_value
+, transfers.admitting_source_value
 
       , gcpt_visit_detail_discharge.visit_source_concept_id
-      , gcpt_visit_detail_discharge.visit_source_value
+     -- , gcpt_visit_detail_discharge.visit_source_value
+     , transfers.discharge_to_source_value
 
       , transfers.preceding_visit_detail_id
       , admissions.visit_occurrence_id
@@ -65,8 +67,8 @@
    FROM transfers
  LEFT JOIN patients USING (subject_id)
  LEFT JOIN admissions USING (hadm_id) 
+ LEFT JOIN gcpt_visit_detail_source_to_concept  ON (transfers.curr_careunit = visit_source_value)
+ LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_admitting ON (gcpt_visit_detail_admitting.visit_source_value = transfers.admitting_source_value)
+ LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_discharge ON (gcpt_visit_detail_discharge.visit_source_value = transfers.discharge_to_source_value)
  LEFT JOIN visit_source ON (transfers.hadm_id = visit_source.hadm_id AND transfers.visit_start_datetime = visit_source.transfertime) 
- LEFT JOIN gcpt_visit_detail_source_to_concept USING (visit_source_value)
- LEFT JOIN gcpt_visit_detail_source_to_concept as gcpt_visit_detail_admitting ON (gcpt_visit_detail_admitting.visit_source_value=admitting_source_value)
- LEFT JOIN gcpt_visit_detail_source_to_concept as gcpt_visit_detail_discharge ON (gcpt_visit_detail_discharge.visit_source_value=discharge_to_source_value)
  LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)

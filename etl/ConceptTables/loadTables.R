@@ -40,7 +40,7 @@ dbSendQuery(con, sql)
 
 PATH_CSV <- "~/git/mimic-omop/extras/google/concept/"
 SCHEMA_TARGET <- "mimic"
-fichs <- list.files(PATH_CSV,pattern="visit_*.csv")
+fichs <- list.files(PATH_CSV,pattern="visit_detail_source_to_concept.csv")
 for(fich in fichs){
 	tmp <- readDf(file.path(PATH_CSV,fich))
 	names(tmp) <- tolower(names(tmp))
