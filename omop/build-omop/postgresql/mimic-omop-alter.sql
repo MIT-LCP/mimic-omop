@@ -6,6 +6,8 @@
 --   columns.table_catalog = 'mimic' AND 
 --   columns.table_schema = 'omop' AND 
 --   columns.data_type = 'integer';
+
+-- bigint is a better choice for future and international database merging challenges
  ALTER TABLE concept_class ALTER COLUMN   concept_class_concept_id TYPE bigint;
  ALTER TABLE source_to_concept_map ALTER COLUMN   source_concept_id TYPE bigint;
  ALTER TABLE source_to_concept_map ALTER COLUMN   target_concept_id TYPE bigint;
@@ -199,3 +201,119 @@
  ALTER TABLE person ALTER COLUMN   gender_source_concept_id TYPE bigint;
  ALTER TABLE person ALTER COLUMN   race_source_concept_id TYPE bigint;
  ALTER TABLE person ALTER COLUMN   ethnicity_source_concept_id TYPE bigint;
+
+-- SELECT                  
+--     'ALTER TABLE '||columns.table_name||' ALTER COLUMN   '||columns.column_name||' TYPE text;'
+--  FROM 
+--     information_schema.columns
+--  WHERE 
+--    columns.table_catalog = 'mimic' AND 
+--    columns.table_schema = 'omop' AND 
+--    columns.data_type ilike 'character%';
+
+-- there is actually no need to limit the character size in postgres.
+-- limiting them is error prone and does not improve any performances or security
+ ALTER TABLE attribute_definition ALTER COLUMN   attribute_name TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   cdm_source_name TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   cdm_source_abbreviation TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   cdm_holder TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   source_documentation_reference TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   cdm_etl_reference TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   cdm_version TYPE text;
+ ALTER TABLE cdm_source ALTER COLUMN   vocabulary_version TYPE text;
+ ALTER TABLE vocabulary ALTER COLUMN   vocabulary_id TYPE text;
+ ALTER TABLE vocabulary ALTER COLUMN   vocabulary_name TYPE text;
+ ALTER TABLE vocabulary ALTER COLUMN   vocabulary_reference TYPE text;
+ ALTER TABLE vocabulary ALTER COLUMN   vocabulary_version TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   snippet TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   offset TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   lexical_variant TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   nlp_system TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   term_exists TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   term_temporal TYPE text;
+ ALTER TABLE note_nlp ALTER COLUMN   term_modifiers TYPE text;
+ ALTER TABLE person ALTER COLUMN   person_source_value TYPE text;
+ ALTER TABLE person ALTER COLUMN   gender_source_value TYPE text;
+ ALTER TABLE person ALTER COLUMN   race_source_value TYPE text;
+ ALTER TABLE person ALTER COLUMN   ethnicity_source_value TYPE text;
+ ALTER TABLE payer_plan_period ALTER COLUMN   payer_source_value TYPE text;
+ ALTER TABLE payer_plan_period ALTER COLUMN   plan_source_value TYPE text;
+ ALTER TABLE payer_plan_period ALTER COLUMN   family_source_value TYPE text;
+ ALTER TABLE domain ALTER COLUMN   domain_id TYPE text;
+ ALTER TABLE domain ALTER COLUMN   domain_name TYPE text;
+ ALTER TABLE concept_relationship ALTER COLUMN   relationship_id TYPE text;
+ ALTER TABLE concept_relationship ALTER COLUMN   invalid_reason TYPE text;
+ ALTER TABLE relationship ALTER COLUMN   relationship_id TYPE text;
+ ALTER TABLE relationship ALTER COLUMN   relationship_name TYPE text;
+ ALTER TABLE relationship ALTER COLUMN   is_hierarchical TYPE text;
+ ALTER TABLE relationship ALTER COLUMN   defines_ancestry TYPE text;
+ ALTER TABLE relationship ALTER COLUMN   reverse_relationship_id TYPE text;
+ ALTER TABLE concept_synonym ALTER COLUMN   concept_synonym_name TYPE text;
+ ALTER TABLE drug_strength ALTER COLUMN   invalid_reason TYPE text;
+ ALTER TABLE location ALTER COLUMN   address_1 TYPE text;
+ ALTER TABLE location ALTER COLUMN   address_2 TYPE text;
+ ALTER TABLE location ALTER COLUMN   city TYPE text;
+ ALTER TABLE location ALTER COLUMN   state TYPE text;
+ ALTER TABLE location ALTER COLUMN   zip TYPE text;
+ ALTER TABLE location ALTER COLUMN   county TYPE text;
+ ALTER TABLE location ALTER COLUMN   location_source_value TYPE text;
+ ALTER TABLE cohort_definition ALTER COLUMN   cohort_definition_name TYPE text;
+ALTER TABLE specimen ALTER COLUMN   specimen_source_id TYPE text;
+ ALTER TABLE specimen ALTER COLUMN   specimen_source_value TYPE text;
+ ALTER TABLE specimen ALTER COLUMN   unit_source_value TYPE text;
+ ALTER TABLE specimen ALTER COLUMN   anatomic_site_source_value TYPE text;
+ ALTER TABLE specimen ALTER COLUMN   disease_status_source_value TYPE text;
+ ALTER TABLE death ALTER COLUMN   cause_source_value TYPE text;
+ ALTER TABLE visit_detail ALTER COLUMN   visit_source_value TYPE text;
+ ALTER TABLE visit_detail ALTER COLUMN   admitting_source_value TYPE text;
+ ALTER TABLE visit_detail ALTER COLUMN   discharge_to_source_value TYPE text;
+ ALTER TABLE procedure_occurrence ALTER COLUMN   procedure_source_value TYPE text;
+ ALTER TABLE procedure_occurrence ALTER COLUMN   qualifier_source_value TYPE text;
+ ALTER TABLE drug_exposure ALTER COLUMN   stop_reason TYPE text;
+ ALTER TABLE drug_exposure ALTER COLUMN   lot_number TYPE text;
+ ALTER TABLE drug_exposure ALTER COLUMN   drug_source_value TYPE text;
+ ALTER TABLE drug_exposure ALTER COLUMN   route_source_value TYPE text;
+ ALTER TABLE drug_exposure ALTER COLUMN   dose_unit_source_value TYPE text;
+ ALTER TABLE condition_occurrence ALTER COLUMN   stop_reason TYPE text;
+ ALTER TABLE condition_occurrence ALTER COLUMN   condition_source_value TYPE text;
+ ALTER TABLE condition_occurrence ALTER COLUMN   condition_status_source_value TYPE text;
+ ALTER TABLE note ALTER COLUMN   note_title TYPE text;
+ ALTER TABLE note ALTER COLUMN   note_source_value TYPE text;
+ ALTER TABLE care_site ALTER COLUMN   care_site_name TYPE text;
+ ALTER TABLE care_site ALTER COLUMN   care_site_source_value TYPE text;
+ ALTER TABLE care_site ALTER COLUMN   place_of_service_source_value TYPE text;
+ ALTER TABLE provider ALTER COLUMN   provider_name TYPE text;
+ ALTER TABLE provider ALTER COLUMN   npi TYPE text;
+ ALTER TABLE provider ALTER COLUMN   dea TYPE text;
+ ALTER TABLE provider ALTER COLUMN   provider_source_value TYPE text;
+ ALTER TABLE provider ALTER COLUMN   specialty_source_value TYPE text;
+ ALTER TABLE provider ALTER COLUMN   gender_source_value TYPE text;
+ ALTER TABLE observation ALTER COLUMN   value_as_string TYPE text;
+ ALTER TABLE observation ALTER COLUMN   observation_source_value TYPE text;
+ ALTER TABLE observation ALTER COLUMN   unit_source_value TYPE text;
+ ALTER TABLE observation ALTER COLUMN   qualifier_source_value TYPE text;
+ ALTER TABLE source_to_concept_map ALTER COLUMN   source_code TYPE text;
+ ALTER TABLE source_to_concept_map ALTER COLUMN   source_vocabulary_id TYPE text;
+ ALTER TABLE source_to_concept_map ALTER COLUMN   source_code_description TYPE text;
+ ALTER TABLE source_to_concept_map ALTER COLUMN   target_vocabulary_id TYPE text;
+ ALTER TABLE source_to_concept_map ALTER COLUMN   invalid_reason TYPE text;
+ ALTER TABLE concept_class ALTER COLUMN   concept_class_id TYPE text;
+ ALTER TABLE concept_class ALTER COLUMN   concept_class_name TYPE text;
+ ALTER TABLE cost ALTER COLUMN   cost_domain_id TYPE text;
+ ALTER TABLE cost ALTER COLUMN   revenue_code_source_value TYPE text;
+ ALTER TABLE cost ALTER COLUMN   drg_source_value TYPE text;
+ ALTER TABLE device_exposure ALTER COLUMN   unique_device_id TYPE text;
+ ALTER TABLE device_exposure ALTER COLUMN   device_source_value TYPE text;
+ ALTER TABLE measurement ALTER COLUMN   measurement_source_value TYPE text;
+ ALTER TABLE measurement ALTER COLUMN   unit_source_value TYPE text;
+ ALTER TABLE measurement ALTER COLUMN   value_source_value TYPE text;
+ ALTER TABLE visit_occurrence ALTER COLUMN   visit_source_value TYPE text;
+ ALTER TABLE visit_occurrence ALTER COLUMN   admitting_source_value TYPE text;
+ ALTER TABLE visit_occurrence ALTER COLUMN   discharge_to_source_value TYPE text;
+ ALTER TABLE concept ALTER COLUMN   concept_name TYPE text;
+ ALTER TABLE concept ALTER COLUMN   domain_id TYPE text;
+ ALTER TABLE concept ALTER COLUMN   vocabulary_id TYPE text;
+ ALTER TABLE concept ALTER COLUMN   concept_class_id TYPE text;
+ ALTER TABLE concept ALTER COLUMN   standard_concept TYPE text;
+ ALTER TABLE concept ALTER COLUMN   concept_code TYPE text;
+ ALTER TABLE concept ALTER COLUMN   invalid_reason TYPE text;
