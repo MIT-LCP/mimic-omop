@@ -36,7 +36,7 @@
                                , hadm_id
                                , coalesce(curr_careunit,'UNKNOWN') as curr_careunit
                                , mimic_id as visit_detail_id
-                               , 9201 as visit_detail_concept_id
+			       , CASE WHEN curr_careunit = 'EMERGENCY' THEN 9203 WHEN curr_careunit != 'UNKNOWN' THEN 9204 ELSE 9201 END as visit_detail_concept_id
                                , transfers_no_bed.intime_real::date as visit_start_date
                                , intime_real as visit_start_datetime
                                , outtime_real::date as visit_end_date
@@ -121,7 +121,7 @@ UNION ALL
 SELECT
         patients.person_id
       , serv.visit_detail_id
-      , 262 as visit_detail_concept_id -- [athena] Emergency Room and Inpatient Visit
+      , 9201 as visit_detail_concept_id -- [athena] Emergency Room and Inpatient Visit
       , serv.visit_start_datetime::date as visit_start_date
       , serv.visit_start_datetime
       , serv.visit_end_datetime::date as visit_end_date

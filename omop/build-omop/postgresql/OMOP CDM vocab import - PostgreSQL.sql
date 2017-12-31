@@ -66,4 +66,5 @@ TRUNCATE TABLE drug_strength CASCADE;
 \copy DRUG_STRENGTH FROM '../../athena/DRUG_STRENGTH.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
 COMMIT;
 
+INSERT INTO concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, valid_start_date, valid_end_date) VALUES (9204 , 'Intensive Care Unit Visit' , 'Visit'     , 'Visit'         , 'Visit'            , 'S'                , 'ER'           , '1970-01-01'       , '2099-12-31'   );
 
