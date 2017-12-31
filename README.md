@@ -11,6 +11,16 @@ REMARKS
 	1. [mimic](mimic/doc/schemaspy/index.html)
 	1. [omop](omop/doc/schemaspy/index.html)
 
+ETL DONE
+========
+
+- [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE/README.md)
+- [PERSON](etl/StandardizedClinicalDataTables/PERSON/REAMDE.md)
+- [DEATH](etl/StandardizedClinicalDataTables/DEATH/README.md)
+- [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE/README.md)
+- [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL/README.md)
+- [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/README.md)
+
 ROADMAP
 =======
 
