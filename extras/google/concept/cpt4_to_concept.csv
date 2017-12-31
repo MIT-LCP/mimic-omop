@@ -1,0 +1,24 @@
+procedure_source_value,procedure_type_concept_id,omop_mapping_is_sure
+[ICU][Evaluation and management] Case management services,45888394,1
+[ICU][Evaluation and management] Consultations,45888170,1
+[ICU][Evaluation and management] Critical care services,45889908,1
+[ICU][Evaluation and management] Follow-up inpatient consultations (deleted codes),42733800,1
+[ICU][Evaluation and management] Hospital inpatient services,45888919,1
+[ICU][Evaluation and management] Prolonged services,45890238,1
+"[ICU][Medicine] Central nervous system assessments/tests (neuro-cognitive, mental status, speech testing)",45888918,1
+[ICU][Medicine] Dialysis,45889365,1
+[ICU][Medicine] Psychiatry,45889674,1
+[ICU][Radiology] Diagnostic ultrasound,45889037,1
+[ICU][Surgery] Cardiovascular system,45890138,1
+[ICU][Surgery] Digestive system,45888353,1
+[ICU][Surgery] Hemic and lymphatic systems,45888126,1
+[ICU][Surgery] Mediastinum and diaphragm,45888059,1
+[ICU][Surgery] Musculoskeletal system,45889792,1
+[ICU][Surgery] Nervous system,45889768,1
+[ICU][Surgery] Operating microscope (deleted code),45889481,1
+[ICU][Surgery] Respiratory system,45888416,1
+[ICU][Surgery] Urinary system,45888397,1
+"[Resp][Medicine] Pulmonary VENT MGMT, 1ST DAY (INVASIVE)",42738852,0
+[Resp][Medicine] Pulmonary VENT MGMT;SUBSQ DAYS(INVASIVE),42738853,0
+"[Resp][Medicine] Pulmonary VENT MGMT,1ST DAY (NIV)",2314036,0
+[Resp][Medicine] Pulmonary VENT MGMT;SUBSQ DAYS(NIV),2314036,0
