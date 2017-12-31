@@ -45,6 +45,15 @@ author:  Lee Evans
 set search_path to omop;
 BEGIN;
  --SET CONSTRAINTS ALL DEFERRED;
+TRUNCATE TABLE concept CASCADE;
+TRUNCATE TABLE concept_class CASCADE;
+TRUNCATE TABLE vocabulary CASCADE;
+TRUNCATE TABLE domain CASCADE;
+TRUNCATE TABLE relationship CASCADE;
+TRUNCATE TABLE concept_synonym CASCADE;
+TRUNCATE TABLE concept_ancestor CASCADE;
+TRUNCATE TABLE concept_relationship CASCADE;
+TRUNCATE TABLE drug_strength CASCADE;
 
 \copy CONCEPT FROM '../../athena/CONCEPT.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
 \copy CONCEPT_CLASS FROM '../../athena/CONCEPT_CLASS.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
