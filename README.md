@@ -15,6 +15,7 @@ ETL DONE
 ========
 
 - [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE/README.md)
+- [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER/README.md)
 - [PERSON](etl/StandardizedClinicalDataTables/PERSON/README.md)
 - [DEATH](etl/StandardizedClinicalDataTables/DEATH/README.md)
 - [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE/README.md)
