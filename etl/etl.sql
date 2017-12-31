@@ -5,6 +5,7 @@ TRUNCATE TABLE  omop.death CASCADE;
 TRUNCATE TABLE  omop.visit_occurrence CASCADE;
 TRUNCATE TABLE  omop.visit_detail CASCADE;
 TRUNCATE TABLE  omop.procedure_occurrence CASCADE;
+
 \i StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i StandardizedClinicalDataTables/PERSON/etl.sql
 \i StandardizedClinicalDataTables/DEATH/etl.sql
