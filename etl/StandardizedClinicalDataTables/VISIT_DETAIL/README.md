@@ -29,10 +29,15 @@ Those fields have been added:
 
 ``` sql
 -- the distribution of ward types
-SELECT count(1), concept_name FROM omop.visit_detail LEFT JOIN omop.concept ON (visit_detail_concept_id = concept_id) WHERE 44818518 = visit_type_concept_id GROUP BY concept_name;
+SELECT count(1), concept_name
+  FROM omop.visit_detail 
+  LEFT JOIN omop.concept ON (visit_detail_concept_id = concept_id) 
+  WHERE 44818518 = visit_type_concept_id 
+  GROUP BY concept_name;
 ```
- count |       concept_name        
--------+---------------------------
-    72 | Emergency Room Visit
-   187 | Inpatient Visit
-   185 | Intensive Care Unit Visit
+|  count  |     concept_name            |
+|---------|-----------------------------|
+|    72   |  Emergency Room Visit       |
+|   187   |  Inpatient Visit            |
+|    185  |   Intensive Care Unit Visit |
+
