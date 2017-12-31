@@ -35,6 +35,7 @@ SELECT count(1), concept_name
   WHERE 44818518 = visit_type_concept_id 
   GROUP BY concept_name;
 ```
+
 |  count  |     concept_name            |
 |---------|-----------------------------|
 |    72   |  Emergency Room Visit       |
