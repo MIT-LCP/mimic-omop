@@ -5,6 +5,7 @@ extras/loinc/Oracle/*
 extras/loinc/MySql/*
 extras/google/*
 !extras/google/concept
+extras/google/export/*
 extras/loinc/LOINC_2.61_Text.zip
 omop/athena/*
 etl/Result/
