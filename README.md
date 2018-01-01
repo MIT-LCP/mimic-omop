@@ -22,6 +22,7 @@ ETL DONE
 - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL/README.md)
 - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/README.md)
 - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE/README.md)
+- [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION/README.md)
 
 ROADMAP
 =======
