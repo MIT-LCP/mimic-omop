@@ -1,4 +1,4 @@
-procedure_source_value,procedure_type_concept_id,omop_mapping_is_sure
+procedure_source_value,procedure_concept_id,omop_mapping_is_sure
 [ICU][Evaluation and management] Case management services,45888394,1
 [ICU][Evaluation and management] Consultations,45888170,1
 [ICU][Evaluation and management] Critical care services,45889908,1
