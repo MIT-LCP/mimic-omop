@@ -6,6 +6,7 @@ TRUNCATE TABLE  omop.visit_occurrence CASCADE;
 TRUNCATE TABLE  omop.visit_detail CASCADE;
 TRUNCATE TABLE  omop.procedure_occurrence CASCADE;
 TRUNCATE TABLE  omop.provider CASCADE;
+TRUNCATE TABLE  omop.condition_occurrence CASCADE;
 
 \i StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i StandardizedClinicalDataTables/PERSON/etl.sql
@@ -14,3 +15,4 @@ TRUNCATE TABLE  omop.provider CASCADE;
 \i StandardizedClinicalDataTables/VISIT_DETAIL/etl.sql
 \i StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/etl.sql
 \i StandardizedHealthSystemDataTables/PROVIDER/etl.sql
+\i StandardizedClinicalDataTables/CONDITION_OCCURRENCE/etl.sql
