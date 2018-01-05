@@ -68,7 +68,7 @@ UNION ALL
 --     ON adm.ADMISSION_TYPE = map.ADMISSION_TYPE
 -- UNION ALL 
   SELECT
-        adm.HADM_ID * 10 + 1 as observation_id
+        nextval('mimic.mimic_id_seq') AS observation_id
       , patients.person_id
       , 46235654 as observation_concept_id -- Primary insurance
       , adm.ADMITTIME::date as observation_date
@@ -92,7 +92,7 @@ UNION ALL
   WHERE adm.insurance IS NOT NULL
 UNION ALL 
   SELECT
-        adm.HADM_ID * 10 + 2 as observation_id
+        nextval('mimic.mimic_id_seq') AS observation_id
       , patients.person_id
       , 40766231 as observation_concept_id -- Marital status
       , adm.admittime::date as observation_date
@@ -116,7 +116,7 @@ UNION ALL
   WHERE adm.marital_status IS NOT NULL
 UNION ALL 
   SELECT
-        adm.HADM_ID * 10 + 3 as observation_id
+        nextval('mimic.mimic_id_seq') AS observation_id
       , patients.person_id
       , 4052017 as observation_concept_id -- Religious affiliation
       , adm.admittime::date as observation_date
@@ -138,33 +138,33 @@ UNION ALL
     JOIN gcpt_religion_to_concept as map USING (religion)
     LEFT JOIN patients USING (subject_id)
   WHERE adm.religion IS NOT NULL
+-- UNION ALL 
+--   SELECT
+--         adm.HADM_ID * 10 + 4 as observation_id
+--       , patients.person_id
+--       , 4143467 as observation_concept_id -- Chief complaint
+--       , adm.admittime::date as observation_date
+--       , adm.admittime as observation_datetime
+--       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
+--       , null as value_as_number
+--       , adm.diagnosis as value_as_string
+--       , null as value_as_concept_id
+--       , null as qualifier_concept_id
+--       , null as value_as_concept_id
+--       , null as provider_id
+--       , adm.visit_occurrence_id
+--       , null as visit_detail_id
+--       , null as observation_source_value
+--       , null as observation_source_concept_id
+--       , null as unit_source_value
+--       , null as qualifier_source_value
+--   FROM admissions as adm
+--     LEFT JOIN patients USING (subject_id)
+--   WHERE
+--     adm.diagnosis IS NOT NULL
 UNION ALL 
   SELECT
-        adm.HADM_ID * 10 + 4 as observation_id
-      , patients.person_id
-      , 4143467 as observation_concept_id -- Chief complaint
-      , adm.admittime::date as observation_date
-      , adm.admittime as observation_datetime
-      , 38000280 as observation_type_concept_id -- Observation recorded from EHR
-      , null as value_as_number
-      , adm.diagnosis as value_as_string
-      , null as value_as_concept_id
-      , null as qualifier_concept_id
-      , null as value_as_concept_id
-      , null as provider_id
-      , adm.visit_occurrence_id
-      , null as visit_detail_id
-      , null as observation_source_value
-      , null as observation_source_concept_id
-      , null as unit_source_value
-      , null as qualifier_source_value
-  FROM admissions as adm
-    LEFT JOIN patients USING (subject_id)
-  WHERE
-    adm.diagnosis IS NOT NULL
-UNION ALL 
-  SELECT
-        adm.HADM_ID * 10 + 5 as observation_id
+        nextval('mimic.mimic_id_seq') AS observation_id
       , patients.person_id
       , 40758030 as observation_concept_id -- Language.preferred
       , adm.admittime::date as observation_date
@@ -188,7 +188,7 @@ UNION ALL
     adm.language IS NOT NULL
 UNION ALL
   SELECT
-        adm.HADM_ID * 10 + 6 as observation_id
+        nextval('mimic.mimic_id_seq') AS observation_id
       , patients.person_id
       , 44803968 as observation_concept_id -- Ethnicity - National Public Health Classification
       , adm.admittime::date as observation_date
