@@ -1,5 +1,7 @@
 # Source Tables
 
+## diagnosis_icd
+
 - omop standard code is SNOMED
 - omoo provides a mapping from icd9 to SNOMED
 - all icd9 codes are found into omop
@@ -10,6 +12,10 @@
 - google mention some codes are not condition but observation or procedure. Not sure to understand 
 - because snomed-icd9 mapping produces multiple snomed code for one icd9, OMOP spec says we should duplicate rows in the table. The main concern is how to generate condition_occurrence_id and should be adressed elegantly soon
 
+## admissions
+
+- the chief complaint admissions diagnosis column
+- when `condition_type_concept_id` = 42894222
 
 # Lookup Tables
 
@@ -17,3 +23,9 @@
 
 - sequence the condition
 - there is no beyond 20
+
+## gcpt_admissions_diagnosis_to_concept
+
+- free text have been mapped manually from @aparrot
+- it represent 50% of admissions diagnosis mapped
+- a manual a and collaborativ method should be done for the other unmapped code

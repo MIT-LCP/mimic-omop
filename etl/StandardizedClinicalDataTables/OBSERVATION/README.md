@@ -7,7 +7,6 @@
 ## admissions
 
 - `observation_concept_id` is equal to 4052017  (Religious affiliation)
-- `observation_concept_id` is equal to 4143467  (Chief complaint)
 - `observation_concept_id` is equal to 40758030 (Language.preferred)
 - `observation_concept_id` is equal to 40766231 (Marital status)
 - `observation_concept_id` is equal to 44803968 (Ethnicity - National Public Health Classification)
