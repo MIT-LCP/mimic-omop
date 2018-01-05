@@ -89,7 +89,7 @@ LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
 
 -- Microbiology
 WITH 
-"resistance" AS ( SELECT mimic_id as measurement_id , chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , dilution_comparison as operator_name , dilution_value as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM mimic.microbiologyevents WHERE interpretation IS NOT NULL) , 
+"resistance" AS ( SELECT mimic_id as measurement_id , chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name , dilution_value as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM mimic.microbiologyevents WHERE interpretation IS NOT NULL) , 
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
