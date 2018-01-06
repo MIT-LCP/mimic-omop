@@ -1,4 +1,7 @@
 set search_path to omop;
+
+\i mimic/build-mimic/postgres_update_mimic.sql
+
 TRUNCATE TABLE  omop.care_site CASCADE;
 TRUNCATE TABLE  omop.person CASCADE;
 TRUNCATE TABLE  omop.death CASCADE;
