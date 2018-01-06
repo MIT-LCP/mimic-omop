@@ -160,3 +160,145 @@ LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN omop_operator USING (operator_name);
+
+-- chartevents (minus labs)
+DROP FUNCTION IF EXISTS map_bp_calc(text);
+CREATE FUNCTION map_bp_calc(text) RETURNS double precision AS
+$BODY$
+DECLARE
+sp integer;
+dp integer;
+map double precision;
+BEGIN
+    -- Since execution is not finished, we can check whether rows were returned
+    -- and raise exception if not.
+    sp := regexp_replace(text,'(\\d+)/\\d+','\\1','b')::double precision;
+    dp := regexp_replace(text,'\\d+/(\\d+)','\\1','b')::double precision;
+    map := dp + 1 / 3 * (sp - dp);
+    IF map > 0 THEN
+        RETURN null::double precision;
+    END IF;
+
+    RETURN map;
+ END
+$BODY$
+LANGUAGE plpgsql;
+
+-- should be 0 for that code,
+-- and units push inside source_concept_id
+DELETE FROM omop.concept WHERE concept_id IN (2000000001,2000000002);
+INSERT INTO omop.concept (
+ concept_id       
+, concept_name     
+, domain_id        
+, vocabulary_id    
+, concept_class_id 
+, concept_code     
+, valid_start_date 
+, valid_end_date   
+) VALUES (2000000001,'L/min/m2','','','','','1979-01-01','2099-01-01'), (2000000002,'dynes.sec.cm-5/m2','','','','','1979-01-01','2099-01-01');
+
+WITH
+"chartevents" as (
+SELECT 
+      c.mimic_id as measurement_id,
+      c.subject_id, 
+      c.hadm_id,
+      c.cgid,
+      m.measurement_concept_id as measurement_concept_id,
+      c.charttime as measurement_datetime, 
+      c.valuenum as value_as_number,
+      v.concept_id as value_as_concept_id,
+      m.unit_concept_id as unit_concept_id,
+      d.label as measurement_source_value,
+      c.valueuom as unit_source_value, 
+      CASE
+        WHEN m.label_type = 'systolic_bp' AND value ~ '/' THEN regexp_replace(value,'(\\d+)/','\\1','b')::double precision 
+        WHEN m.label_type = 'diastolic_bp' AND value ~ '/' THEN regexp_replace(value,'/(\\d+)','\\1','b')::double precision 
+        WHEN m.label_type = 'map_bp' AND value ~ '/' THEN map_bp_calc(value)
+        WHEN m.label_type = 'fio2' AND c.valuenum between 0 AND 1 THEN c.valuenum * 100
+	WHEN m.label_type = 'temperature' AND c.VALUENUM > 85 THEN (c.VALUENUM - 32)*5/9
+	WHEN m.label_type = 'pain_level' THEN CASE 
+		WHEN d.LABEL ~* 'level' THEN CASE
+		      WHEN c.VALUE ~* 'unable' THEN NULL
+		      WHEN c.VALUE ~* 'none' AND NOT c.VALUE ~* 'mild' THEN 0
+		      WHEN c.VALUE ~* 'none' AND c.VALUE ~* 'mild' THEN 1
+		      WHEN c.VALUE ~* 'mild' AND NOT c.VALUE ~* 'mod' THEN 2
+		      WHEN c.VALUE ~* 'mild' AND c.VALUE ~* 'mod' THEN 3
+		      WHEN c.VALUE ~* 'mod'  AND NOT c.VALUE ~* 'sev' THEN 4
+		      WHEN c.VALUE ~* 'mod'  AND c.VALUE ~* 'sev' THEN 5
+		      WHEN c.VALUE ~* 'sev'  AND NOT c.VALUE ~* 'wor' THEN 6
+		      WHEN c.VALUE ~* 'sev'  AND c.VALUE ~* 'wor' THEN 7
+		      WHEN c.VALUE ~* 'wor' THEN 8
+		      ELSE NULL
+		      END
+		WHEN c.VALUE ~* 'no' THEN 0
+		WHEN c.VALUE ~* 'yes' THEN  1
+	        END
+        WHEN m.label_type = 'sas_rass'  THEN CASE 
+                WHEN d.LABEL ~ '^Riker' THEN CASE 
+                      WHEN c.VALUENUM IS NULL THEN CASE 
+                           WHEN c.VALUE ~ 'Calm' THEN 0
+                           WHEN c.VALUE ~ 'Unarous' OR c.VALUE ~ '(Sedated)' THEN -1
+                           WHEN c.VALUE ~ 'Agitated' THEN 1
+                           ELSE NULL 
+                           END
+                      WHEN c.VALUENUM < 4 THEN -1
+                      WHEN c.VALUENUM = 4 THEN 0
+                      WHEN c.VALUENUM > 4 THEN 1
+                      ELSE NULL 
+                      END
+               WHEN c.VALUENUM < 0 THEN -1
+               WHEN c.VALUENUM = 0 THEN 0
+          WHEN c.VALUENUM > 0 THEN 1
+          ELSE NULL 
+        END
+	WHEN m.label_type = 'height_weight'  THEN CASE
+		WHEN d.LABEL ~ 'W' THEN CASE
+	           WHEN d.LABEL ~* 'lb' THEN 0.453592 * c.VALUENUM
+		   ELSE NULL
+		   END
+		ELSE 0.0254 * c.VALUENUM
+		END
+	ELSE NULL
+	END AS valuenum_fromvalue,
+      c.value as value_source_value, 
+      m.value_lb as value_lb,
+      m.value_ub as value_ub,
+      m.label_type
+    FROM mimic.chartevents as c
+    JOIN mimic.d_items as d ON (d.itemid=c.itemid AND category != 'Labs') 
+    JOIN mimic.gcpt_chart_label_to_concept as m 
+      ON (label = d_label)
+    LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM mimic.gcpt_heart_rhythm_to_concept) as v 
+      ON m.label_type = v.label_type AND c.value = v.mimic_name
+  ),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
+"caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM mimic.caregivers),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions)
+INSERT INTO omop.measurement
+SELECT
+  measurement_id AS measurement_id                 
+, patients.person_id                     
+, 4170475  as measurement_concept_id      
+, measurement_datetime::date AS measurement_date              
+, measurement_datetime AS measurement_datetime          
+, 44818701 as measurement_type_concept_id 
+, 4172703 AS operator_concept_id 
+, coalesce(valuenum_fromvalue, value_as_number) AS value_as_number               
+, value_as_concept_id AS value_as_concept_id           
+, unit_concept_id AS unit_concept_id               
+, value_lb AS range_low                     
+, value_ub AS range_high                    
+, caregivers.provider_id AS provider_id                   
+, admissions.visit_occurrence_id AS visit_occurrence_id           
+, null::bigint As visit_detail_id               
+, measurement_source_value AS measurement_source_value      
+, null::bigint AS measurement_source_concept_id 
+, unit_source_value AS unit_source_value             
+, value_source_value AS  value_source_value            
+, null::bigint AS quality_concept_id            
+FROM chartevents
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN caregivers USING (cgid)
+LEFT JOIN admissions USING (hadm_id);
