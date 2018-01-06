@@ -1,5 +1,6 @@
---TODO lab is the reference data source for lab (duplicates lab/measurement) -> remove them from measurment
+-- LABS FROM labevents
 TRUNCATE omop.measurement;
+TRUNCATE omop.fact_relationship;
 WITH 
 "labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value, substring(value,'^(<=|>=|<|>)') as operator_name,
 	    CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
@@ -13,8 +14,6 @@ WITH
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM mimic.gcpt_lab_unit_to_concept)
---"chartevents_lab" AS (SELECT mimic_id as measurement_id, subject_id, hadm_id, valueuom as value_as_number FROM mimic.chartevents JOIN mimic.d_items USING (itemid) WHERE category = 'Labs')
---"d_items" AS (SELECT label as measurement_source_value FROM mimic.d_items) 
 INSERT INTO omop.measurement
 SELECT
   labevents.measurement_id                 
@@ -45,3 +44,261 @@ LEFT JOIN omop_loinc USING (label)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (label)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
+
+-- LABS from chartevents
+WITH
+"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM mimic.chartevents JOIN mimic.d_items ON (d_items.itemid=chartevents.itemid AND category = 'Labs')),
+"d_items" AS (SELECT itemid, label FROM mimic.d_items),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
+"gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM mimic.gcpt_lab_label_to_concept),
+"gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM mimic.gcpt_lab_unit_to_concept)
+INSERT INTO omop.measurement
+SELECT 
+  chartevents_lab.measurement_id                 
+, patients.person_id                     
+, coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
+, chartevents_lab.measurement_datetime::date AS measurement_date              
+, chartevents_lab.measurement_datetime AS measurement_datetime          
+, 44818702 AS measurement_type_concept_id -- Lab result
+, operator_concept_id AS operator_concept_id -- = operator
+, chartevents_lab.value_as_number AS value_as_number               
+, null::bigint AS value_as_concept_id           
+, gcpt_lab_unit_to_concept.unit_concept_id               
+, null::double precision AS range_low                     
+, null::double precision AS range_high                    
+, null::bigint AS provider_id                   
+, admissions.visit_occurrence_id AS visit_occurrence_id           
+, null::bigint As visit_detail_id               
+, d_items.label AS measurement_source_value      
+, null::bigint AS measurement_source_concept_id 
+, gcpt_lab_unit_to_concept.unit_source_value             
+, chartevents_lab.value_source_value            
+, null::bigint AS quality_concept_id            
+  FROM chartevents_lab
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN admissions USING (hadm_id)
+LEFT JOIN d_items USING (itemid)
+LEFT JOIN omop_loinc USING (label)
+LEFT JOIN omop_operator USING (operator_name)
+LEFT JOIN gcpt_lab_label_to_concept USING (label)
+LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
+
+-- Microbiology
+-- TODO: Map the culture & drug sensitivity
+WITH 
+"culture" AS (SELECT DISTINCT ON (subject_id, chartdate, spec_itemid, org_name) spec_itemid, mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value FROM mimic.microbiologyevents ),
+"resistance" AS (SELECT spec_itemid, nextval('mimic.mimic_id_seq') as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name ,CASE WHEN trim(dilution_text) ~ '^(<=|=>|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(dilution_text),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM mimic.microbiologyevents WHERE dilution_text IS NOT NULL) , 
+"fact_relationship" AS (SELECT culture.measurement_id as fact_id_1, resistance.measurement_id AS fact_id_2 FROM resistance LEFT JOIN culture USING (subject_id, measurement_date, spec_itemid, org_name)),
+"insert_fact_relationship" AS (
+    INSERT INTO omop.fact_relationship
+    SELECT 
+      21 AS domain_concept_id_1 -- Measurement
+    , fact_id_1
+    , 21 AS domain_concept_id_2 -- Measurement
+    , fact_id_2 
+    , 44818757 as relationship_concept_id -- Has interpretation (SNOMED)
+    FROM fact_relationship 
+    RETURNING *),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"gcpt_resistance_to_concept" AS (SELECT * FROM mimic.gcpt_resistance_to_concept),
+"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM mimic.gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED'))
+INSERT INTO omop.measurement
+SELECT
+  culture.measurement_id AS measurement_id
+, patients.person_id
+, 4098207  as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
+, measurement_date AS measurement_date
+, measurement_time AS measurement_datetime
+, 44818702 AS measurement_type_concept_id -- Lab result
+, null AS operator_concept_id
+, null value_as_number
+, CASE WHEN org_name IS NULL THEN 9189 ELSE coalesce(gcpt_org_name_to_concept.value_as_concept_id, 0) END AS value_as_concept_id           -- staphiloccocus OR negative in case nothing
+, null::bigint AS unit_concept_id
+, null::double precision AS range_low
+, null::double precision AS range_high
+, null::bigint AS provider_id
+, admissions.visit_occurrence_id AS visit_occurrence_id
+, null::bigint As visit_detail_id
+, culture.measurement_source_value AS measurement_source_value -- BLOOD ...
+, null::bigint AS measurement_source_concept_id
+, null::text AS unit_source_value
+, culture.org_name AS value_source_value -- Staph...
+, null::bigint AS quality_concept_id
+FROM culture
+LEFT JOIN gcpt_org_name_to_concept USING (org_name)
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN admissions USING (hadm_id)
+UNION ALL
+SELECT
+  measurement_id AS measurement_id                 
+, patients.person_id                     
+, 4170475  as measurement_concept_id      -- Culture Sensitivity
+, measurement_date AS measurement_date              
+, measurement_time AS measurement_datetime          
+, 44818702 AS measurement_type_concept_id -- Lab result
+, operator_concept_id AS operator_concept_id -- = operator
+, value_as_number AS value_as_number               
+, gcpt_resistance_to_concept.value_as_concept_id AS value_as_concept_id           
+, null::bigint AS unit_concept_id               
+, null::double precision AS range_low                     
+, null::double precision AS range_high                    
+, null::bigint AS provider_id                   
+, admissions.visit_occurrence_id AS visit_occurrence_id           
+, null::bigint As visit_detail_id               
+, resistance.measurement_source_value AS measurement_source_value      
+, null::bigint AS measurement_source_concept_id 
+, null::text AS unit_source_value             
+, value_source_value AS  value_source_value            
+, null::bigint AS quality_concept_id            
+FROM resistance
+LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN admissions USING (hadm_id)
+LEFT JOIN omop_operator USING (operator_name);
+
+-- chartevents (minus labs)
+DROP FUNCTION IF EXISTS map_bp_calc(text);
+CREATE FUNCTION map_bp_calc(text) RETURNS double precision AS
+$BODY$
+DECLARE
+sp integer;
+dp integer;
+map double precision;
+BEGIN
+    -- Since execution is not finished, we can check whether rows were returned
+    -- and raise exception if not.
+    sp := regexp_replace(text,'(\\d+)/\\d+','\\1','b')::double precision;
+    dp := regexp_replace(text,'\\d+/(\\d+)','\\1','b')::double precision;
+    map := dp + 1 / 3 * (sp - dp);
+    IF map > 0 THEN
+        RETURN null::double precision;
+    END IF;
+
+    RETURN map;
+ END
+$BODY$
+LANGUAGE plpgsql;
+
+-- should be 0 for that code,
+-- and units push inside source_concept_id
+DELETE FROM omop.concept WHERE concept_id IN (2000000001,2000000002);
+INSERT INTO omop.concept (
+ concept_id       
+, concept_name     
+, domain_id        
+, vocabulary_id    
+, concept_class_id 
+, concept_code     
+, valid_start_date 
+, valid_end_date   
+) VALUES (2000000001,'L/min/m2','','','','','1979-01-01','2099-01-01'), (2000000002,'dynes.sec.cm-5/m2','','','','','1979-01-01','2099-01-01');
+
+WITH
+"chartevents" as (
+SELECT 
+      c.mimic_id as measurement_id,
+      c.subject_id, 
+      c.hadm_id,
+      c.cgid,
+      m.measurement_concept_id as measurement_concept_id,
+      c.charttime as measurement_datetime, 
+      c.valuenum as value_as_number,
+      v.concept_id as value_as_concept_id,
+      m.unit_concept_id as unit_concept_id,
+      d.label as measurement_source_value,
+      c.valueuom as unit_source_value, 
+      CASE
+        WHEN m.label_type = 'systolic_bp' AND value ~ '/' THEN regexp_replace(value,'(\\d+)/','\\1','b')::double precision 
+        WHEN m.label_type = 'diastolic_bp' AND value ~ '/' THEN regexp_replace(value,'/(\\d+)','\\1','b')::double precision 
+        WHEN m.label_type = 'map_bp' AND value ~ '/' THEN map_bp_calc(value)
+        WHEN m.label_type = 'fio2' AND c.valuenum between 0 AND 1 THEN c.valuenum * 100
+	WHEN m.label_type = 'temperature' AND c.VALUENUM > 85 THEN (c.VALUENUM - 32)*5/9
+	WHEN m.label_type = 'pain_level' THEN CASE 
+		WHEN d.LABEL ~* 'level' THEN CASE
+		      WHEN c.VALUE ~* 'unable' THEN NULL
+		      WHEN c.VALUE ~* 'none' AND NOT c.VALUE ~* 'mild' THEN 0
+		      WHEN c.VALUE ~* 'none' AND c.VALUE ~* 'mild' THEN 1
+		      WHEN c.VALUE ~* 'mild' AND NOT c.VALUE ~* 'mod' THEN 2
+		      WHEN c.VALUE ~* 'mild' AND c.VALUE ~* 'mod' THEN 3
+		      WHEN c.VALUE ~* 'mod'  AND NOT c.VALUE ~* 'sev' THEN 4
+		      WHEN c.VALUE ~* 'mod'  AND c.VALUE ~* 'sev' THEN 5
+		      WHEN c.VALUE ~* 'sev'  AND NOT c.VALUE ~* 'wor' THEN 6
+		      WHEN c.VALUE ~* 'sev'  AND c.VALUE ~* 'wor' THEN 7
+		      WHEN c.VALUE ~* 'wor' THEN 8
+		      ELSE NULL
+		      END
+		WHEN c.VALUE ~* 'no' THEN 0
+		WHEN c.VALUE ~* 'yes' THEN  1
+	        END
+        WHEN m.label_type = 'sas_rass'  THEN CASE 
+                WHEN d.LABEL ~ '^Riker' THEN CASE 
+                      WHEN c.VALUENUM IS NULL THEN CASE 
+                           WHEN c.VALUE ~ 'Calm' THEN 0
+                           WHEN c.VALUE ~ 'Unarous' OR c.VALUE ~ '(Sedated)' THEN -1
+                           WHEN c.VALUE ~ 'Agitated' THEN 1
+                           ELSE NULL 
+                           END
+                      WHEN c.VALUENUM < 4 THEN -1
+                      WHEN c.VALUENUM = 4 THEN 0
+                      WHEN c.VALUENUM > 4 THEN 1
+                      ELSE NULL 
+                      END
+               WHEN c.VALUENUM < 0 THEN -1
+               WHEN c.VALUENUM = 0 THEN 0
+          WHEN c.VALUENUM > 0 THEN 1
+          ELSE NULL 
+        END
+	WHEN m.label_type = 'height_weight'  THEN CASE
+		WHEN d.LABEL ~ 'W' THEN CASE
+	           WHEN d.LABEL ~* 'lb' THEN 0.453592 * c.VALUENUM
+		   ELSE NULL
+		   END
+		ELSE 0.0254 * c.VALUENUM
+		END
+	ELSE NULL
+	END AS valuenum_fromvalue,
+      c.value as value_source_value, 
+      m.value_lb as value_lb,
+      m.value_ub as value_ub,
+      m.label_type
+    FROM mimic.chartevents as c
+    JOIN mimic.d_items as d ON (d.itemid=c.itemid AND category != 'Labs') 
+    JOIN mimic.gcpt_chart_label_to_concept as m 
+      ON (label = d_label)
+    LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM mimic.gcpt_heart_rhythm_to_concept) as v 
+      ON m.label_type = v.label_type AND c.value = v.mimic_name
+  ),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
+"caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM mimic.caregivers),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions)
+INSERT INTO omop.measurement
+SELECT
+  measurement_id AS measurement_id                 
+, patients.person_id                     
+, 4170475  as measurement_concept_id      
+, measurement_datetime::date AS measurement_date              
+, measurement_datetime AS measurement_datetime          
+, 44818701 as measurement_type_concept_id 
+, 4172703 AS operator_concept_id 
+, coalesce(valuenum_fromvalue, value_as_number) AS value_as_number               
+, value_as_concept_id AS value_as_concept_id           
+, unit_concept_id AS unit_concept_id               
+, value_lb AS range_low                     
+, value_ub AS range_high                    
+, caregivers.provider_id AS provider_id                   
+, admissions.visit_occurrence_id AS visit_occurrence_id           
+, null::bigint As visit_detail_id               
+, measurement_source_value AS measurement_source_value      
+, null::bigint AS measurement_source_concept_id 
+, unit_source_value AS unit_source_value             
+, value_source_value AS  value_source_value            
+, null::bigint AS quality_concept_id            
+FROM chartevents
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN caregivers USING (cgid)
+LEFT JOIN admissions USING (hadm_id);
