@@ -33,7 +33,7 @@
       , patients.person_id
       , 4085802 as observation_concept_id -- Referred by nurse
       , datetimeevents.observation_date
-      , datetimeevents.observation_datetime
+      , to_datetime(datetimeevents.observation_datetime)
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null::double precision as value_as_number
       , d_items.value_as_string as value_as_string
@@ -72,7 +72,7 @@ UNION ALL
       , patients.person_id
       , 46235654 as observation_concept_id -- Primary insurance
       , adm.ADMITTIME::date as observation_date
-      , adm.ADMITTIME as observation_datetime
+      , to_datetime(adm.ADMITTIME) as observation_datetime
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null as value_as_number
       , adm.INSURANCE as value_as_string
@@ -96,7 +96,7 @@ UNION ALL
       , patients.person_id
       , 40766231 as observation_concept_id -- Marital status
       , adm.admittime::date as observation_date
-      , adm.admittime as observation_datetime
+      , to_datetime(adm.admittime) as observation_datetime
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null as value_as_number
       , adm.marital_status as value_as_string
@@ -120,7 +120,7 @@ UNION ALL
       , patients.person_id
       , 4052017 as observation_concept_id -- Religious affiliation
       , adm.admittime::date as observation_date
-      , adm.admittime as observation_datetime
+      , to_datetime(adm.admittime) as observation_datetime
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null as value_as_number
       , adm.religion as value_as_string
@@ -168,7 +168,7 @@ UNION ALL
       , patients.person_id
       , 40758030 as observation_concept_id -- Language.preferred
       , adm.admittime::date as observation_date
-      , adm.admittime as observation_datetime
+      , to_datetime(adm.admittime) as observation_datetime
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null as value_as_number
       , adm.language as value_as_string
@@ -192,7 +192,7 @@ UNION ALL
       , patients.person_id
       , 44803968 as observation_concept_id -- Ethnicity - National Public Health Classification
       , adm.admittime::date as observation_date
-      , adm.admittime as observation_datetime
+      , to_datetime(adm.admittime) as observation_datetime
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null as value_as_number
       , adm.ethnicity as value_as_string

@@ -89,9 +89,9 @@
       , transfers.visit_detail_id
       , transfers.visit_detail_concept_id
       , transfers.visit_start_date
-      , transfers.visit_start_datetime
+      , to_datetime(transfers.visit_start_datetime)
       , transfers.visit_end_date
-      , transfers.visit_end_datetime
+      , to_datetime(transfers.visit_end_datetime)
 
       , transfers.visit_type_concept_id
       , gcpt_care_site.care_site_id
@@ -123,9 +123,9 @@ SELECT
       , serv.visit_detail_id
       , 9201 as visit_detail_concept_id -- [athena] Emergency Room and Inpatient Visit
       , serv.visit_start_datetime::date as visit_start_date
-      , serv.visit_start_datetime
+      , to_datetime(serv.visit_start_datetime)
       , serv.visit_end_datetime::date as visit_end_date
-      , serv.visit_end_datetime
+      , to_datetime(serv.visit_end_datetime)
 
       , 45770670 as visit_type_concept_id -- [athena] services and care
       , gcpt_care_site.care_site_id

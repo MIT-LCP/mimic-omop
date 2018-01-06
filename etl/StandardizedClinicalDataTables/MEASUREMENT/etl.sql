@@ -21,7 +21,7 @@ SELECT
 , patients.person_id                     
 , coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
 , labevents.measurement_datetime::date AS measurement_date              
-, labevents.measurement_datetime AS measurement_datetime          
+, to_datetime(labevents.measurement_datetime) AS measurement_datetime          
 , 44818702 AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , labevents.value_as_number AS value_as_number               
@@ -62,7 +62,7 @@ SELECT
 , patients.person_id                     
 , coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
 , chartevents_lab.measurement_datetime::date AS measurement_date              
-, chartevents_lab.measurement_datetime AS measurement_datetime          
+, to_datetime(chartevents_lab.measurement_datetime) AS measurement_datetime          
 , 44818702 AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , chartevents_lab.value_as_number AS value_as_number               
@@ -114,7 +114,7 @@ SELECT
 , patients.person_id
 , 4098207  as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
 , measurement_date AS measurement_date
-, measurement_time AS measurement_datetime
+, to_datetime(measurement_time) AS measurement_datetime
 , 44818702 AS measurement_type_concept_id -- Lab result
 , null AS operator_concept_id
 , null value_as_number
@@ -140,7 +140,7 @@ SELECT
 , patients.person_id                     
 , 4170475  as measurement_concept_id      -- Culture Sensitivity
 , measurement_date AS measurement_date              
-, measurement_time AS measurement_datetime          
+, to_datetime(measurement_time) AS measurement_datetime          
 , 44818702 AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , value_as_number AS value_as_number               
@@ -248,7 +248,7 @@ SELECT
 , patients.person_id                     
 , measurement_concept_id as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
-, measurement_datetime AS measurement_datetime          
+, to_datetime(measurement_datetime) AS measurement_datetime          
 , 44818701 as measurement_type_concept_id 
 , 4172703 AS operator_concept_id 
 , coalesce(valuenum_fromvalue, value_as_number) AS value_as_number               
@@ -279,7 +279,7 @@ WITH
 , valueuom AS unit_source_value
 , value
 , mimic_id as measurement_id
-, storetime as measurement_datetime
+, to_datetime(charttime) as measurement_datetime
 FROM outputevents
 ),
 "gcpt_output_label_to_concept" AS (SELECT item_id as itemid, concept_id as measurement_concept_id FROM gcpt_output_label_to_concept),
@@ -293,7 +293,7 @@ SELECT
 , patients.person_id                     
 , measurement_concept_id as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
-, measurement_datetime AS measurement_datetime          
+, to_datetime(measurement_datetime) AS measurement_datetime          
 , 2000000003 as measurement_type_concept_id 
 , 4172703 AS operator_concept_id 
 , value AS value_as_number               

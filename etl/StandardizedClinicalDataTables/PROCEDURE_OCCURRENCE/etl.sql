@@ -23,7 +23,7 @@ SELECT
 , patients.person_id
 , admissions.visit_occurrence_id
 , coalesce(cpt_event.procedure_datetime, admissions.admittime)::date as procedure_date
-, coalesce(cpt_event.procedure_datetime, admissions.admittime) as procedure_datetime
+, to_datetime(coalesce(cpt_event.procedure_datetime, admissions.admittime)) as procedure_datetime
 , 257 as procedure_type_concept_id
 , coalesce(gcpt_cpt4_to_concept.procedure_concept_id,0) as procedure_concept_id
 , procedure_source_value
@@ -37,7 +37,7 @@ SELECT
 , patients.person_id
 , admissions.visit_occurrence_id
 , proc_event.procedure_datetime::date as procedure_date
-, proc_event.procedure_datetime
+, to_datetime(proc_event.procedure_datetime)
 , 38000275 as procedure_type_concept_id
 , coalesce(gcpt_procedure_to_concept.procedure_concept_id,0) as procedure_concept_id
 , procedure_source_value
@@ -51,7 +51,7 @@ SELECT
 , patients.person_id
 , admissions.visit_occurrence_id
 , admissions.procedure_datetime::date as procedure_date
-, admissions.procedure_datetime
+, to_datetime(admissions.procedure_datetime)
 , 38003622 as procedure_type_concept_id
 , coalesce(concept_proc_icd9.procedure_concept_id,0) as procedure_concept_ide
 , proc_icd.procedure_source_value
