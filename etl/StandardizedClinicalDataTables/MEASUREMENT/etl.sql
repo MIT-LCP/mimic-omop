@@ -1,4 +1,5 @@
 -- LABS FROM labevents
+set search_path to mimic;
 TRUNCATE omop.measurement;
 TRUNCATE omop.fact_relationship;
 WITH 
@@ -184,19 +185,6 @@ BEGIN
 $BODY$
 LANGUAGE plpgsql;
 
--- should be 0 for that code,
--- and units push inside source_concept_id
-DELETE FROM omop.concept WHERE concept_id IN (2000000001,2000000002);
-INSERT INTO omop.concept (
- concept_id       
-, concept_name     
-, domain_id        
-, vocabulary_id    
-, concept_class_id 
-, concept_code     
-, valid_start_date 
-, valid_end_date   
-) VALUES (2000000001,'L/min/m2','','','','','1979-01-01','2099-01-01'), (2000000002,'dynes.sec.cm-5/m2','','','','','1979-01-01','2099-01-01');
 
 WITH
 "chartevents" as (
@@ -280,7 +268,7 @@ INSERT INTO omop.measurement
 SELECT
   measurement_id AS measurement_id                 
 , patients.person_id                     
-, 4170475  as measurement_concept_id      
+, measurement_concept_id as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
 , measurement_datetime AS measurement_datetime          
 , 44818701 as measurement_type_concept_id 
@@ -299,6 +287,55 @@ SELECT
 , value_source_value AS  value_source_value            
 , null::bigint AS quality_concept_id            
 FROM chartevents
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN caregivers USING (cgid)
+LEFT JOIN admissions USING (hadm_id);
+
+-- OUTPUT events
+WITH 
+"outputevents" AS (SELECT
+  subject_id
+, hadm_id
+, itemid
+, cgid
+, valueuom AS unit_source_value
+, value
+, mimic_id as measurement_id
+, storetime as measurement_datetime
+FROM outputevents
+),
+"gcpt_output_label_to_concept" AS (SELECT item_id as itemid, concept_id as measurement_concept_id FROM gcpt_output_label_to_concept),
+"gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
+"caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions)
+INSERT INTO omop.measurement
+SELECT
+  measurement_id AS measurement_id                 
+, patients.person_id                     
+, 4170475 as measurement_concept_id      
+, measurement_datetime::date AS measurement_date              
+, measurement_datetime AS measurement_datetime          
+, 2000000003 as measurement_type_concept_id 
+, 4172703 AS operator_concept_id 
+, value AS value_as_number               
+, null::bigint AS value_as_concept_id           
+, unit_concept_id AS unit_concept_id               
+, null::double precision AS range_low                     
+, null::double precision AS range_high                    
+, caregivers.provider_id AS provider_id                   
+, admissions.visit_occurrence_id AS visit_occurrence_id           
+, null::bigint As visit_detail_id               
+, null::text AS measurement_source_value      
+--, d_items.mimic_id AS measurement_source_concept_id 
+, null::bigint AS measurement_source_concept_id 
+, outputevents.unit_source_value AS unit_source_value             
+, null::text AS value_source_value            
+, null::bigint AS quality_concept_id            
+FROM outputevents
+LEFT JOIN gcpt_output_label_to_concept USING (itemid)
+LEFT JOIN gcpt_lab_unit_to_concept ON gcpt_lab_unit_to_concept.unit_source_value ilike outputevents.unit_source_value
+LEFT JOIN d_items USING (itemid)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN admissions USING (hadm_id);
