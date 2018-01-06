@@ -1,4 +1,3 @@
---TODO lab is the reference data source for lab (duplicates lab/measurement) -> remove them from measurment
 -- LABS FROM labevents
 TRUNCATE omop.measurement;
 TRUNCATE omop.fact_relationship;
@@ -88,12 +87,14 @@ LEFT JOIN gcpt_lab_label_to_concept USING (label)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
 
 -- Microbiology
+-- TODO: Map the culture & drug sensitivity
 WITH 
 "resistance" AS ( SELECT mimic_id as measurement_id , chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name , dilution_value as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM mimic.microbiologyevents WHERE interpretation IS NOT NULL) , 
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_resistance_to_concept" AS (SELECT * FROM mimic.gcpt_resistance_to_concept),
+"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM mimic.gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')) ,
 "fact_relationship" AS (SELECT nextval('mimic.mimic_id_seq') as fact_id_1, resistance.measurement_id as fact_id_2 FROM resistance),
 "insert_fact_relationship" AS (
     INSERT INTO omop.fact_relationship
@@ -142,7 +143,7 @@ SELECT
 , 44818702 AS measurement_type_concept_id -- Lab result
 , null AS operator_concept_id
 , null value_as_number
-, null AS value_as_concept_id           -- staphiloccocus, but not done yet
+, gcpt_org_name_to_concept.value_as_concept_id AS value_as_concept_id           -- staphiloccocus, but not done yet
 , null::bigint AS unit_concept_id
 , null::double precision AS range_low
 , null::double precision AS range_high
@@ -156,5 +157,8 @@ SELECT
 , null::bigint AS quality_concept_id
 FROM resistance
 LEFT JOIN fact_relationship ON (fact_id_2 = measurement_id)
+LEFT JOIN gcpt_org_name_to_concept USING (org_name)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id);
+
+--
