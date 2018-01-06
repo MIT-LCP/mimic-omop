@@ -66,5 +66,3 @@ CREATE SEQUENCE mimic.mimic_id_seq START WITH 1000000000;
  nextval('mimic.mimic_id_seq'::regclass);
  ALTER TABLE mimic.transfers add column mimic_id integer default         
  nextval('mimic.mimic_id_seq'::regclass);
- ALTER TABLE mimic.gcpt_care_site add column mimic_id integer default         
- nextval('mimic.mimic_id_seq'::regclass);

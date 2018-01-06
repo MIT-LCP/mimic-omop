@@ -49,3 +49,8 @@ DEADLINE
 
 - January, 15th 2018
 
+MEMO
+=====
+
+- raw mimic total object: 397844042
+- then `mimic_id_seq` = 1397844042

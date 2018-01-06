@@ -35,7 +35,7 @@ paste0("gcpt_",gsub("\\.csv$","",name))
 mooveSchema <- function(table, schema){
 sql <- sprintf("ALTER TABLE %s SET SCHEMA %s", tableName(table), schema)
 dbSendQuery(con, sql)
-sql <- sprintf("ALTER TABLE %s.%s add column mimic_id bigint default nextval('mimic.mimic_id_seq'::regclass);", schema, tableName(table))
+sql <- sprintf("ALTER TABLE %s.%s add column mimic_id integer default nextval('mimic.mimic_id_seq'::regclass);", schema, tableName(table))
 dbSendQuery(con, sql)
 }
 
