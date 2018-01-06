@@ -89,13 +89,9 @@ LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
 -- Microbiology
 -- TODO: Map the culture & drug sensitivity
 WITH 
-"resistance" AS ( SELECT mimic_id as measurement_id , chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name , dilution_value as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM mimic.microbiologyevents WHERE interpretation IS NOT NULL) , 
-"patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
-"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions),
-"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
-"gcpt_resistance_to_concept" AS (SELECT * FROM mimic.gcpt_resistance_to_concept),
-"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM mimic.gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')) ,
-"fact_relationship" AS (SELECT nextval('mimic.mimic_id_seq') as fact_id_1, resistance.measurement_id as fact_id_2 FROM resistance),
+"culture" AS (SELECT DISTINCT ON (subject_id, chartdate, spec_itemid, org_name) spec_itemid, mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value FROM mimic.microbiologyevents ),
+"resistance" AS (SELECT spec_itemid, nextval('mimic.mimic_id_seq') as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name , dilution_value as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM mimic.microbiologyevents WHERE dilution_text IS NOT NULL) , 
+"fact_relationship" AS (SELECT culture.measurement_id as fact_id_1, resistance.measurement_id AS fact_id_2 FROM resistance LEFT JOIN culture USING (subject_id, measurement_date, spec_itemid, org_name)),
 "insert_fact_relationship" AS (
     INSERT INTO omop.fact_relationship
     SELECT 
@@ -105,8 +101,39 @@ WITH
     , fact_id_2 
     , 44818757 as relationship_concept_id -- Has interpretation (SNOMED)
     FROM fact_relationship 
-    RETURNING *)
+    RETURNING *),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM mimic.patients),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM mimic.admissions),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"gcpt_resistance_to_concept" AS (SELECT * FROM mimic.gcpt_resistance_to_concept),
+"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM mimic.gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED'))
 INSERT INTO omop.measurement
+SELECT
+  culture.measurement_id AS measurement_id
+, patients.person_id
+, 4098207  as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
+, measurement_date AS measurement_date
+, measurement_time AS measurement_datetime
+, 44818702 AS measurement_type_concept_id -- Lab result
+, null AS operator_concept_id
+, null value_as_number
+, CASE WHEN org_name IS NULL THEN 9189 ELSE coalesce(gcpt_org_name_to_concept.value_as_concept_id, 0) END AS value_as_concept_id           -- staphiloccocus OR negative in case nothing
+, null::bigint AS unit_concept_id
+, null::double precision AS range_low
+, null::double precision AS range_high
+, null::bigint AS provider_id
+, admissions.visit_occurrence_id AS visit_occurrence_id
+, null::bigint As visit_detail_id
+, culture.measurement_source_value AS measurement_source_value -- BLOOD ...
+, null::bigint AS measurement_source_concept_id
+, null::text AS unit_source_value
+, culture.org_name AS value_source_value -- Staph...
+, null::bigint AS quality_concept_id
+FROM culture
+LEFT JOIN gcpt_org_name_to_concept USING (org_name)
+LEFT JOIN patients USING (subject_id)
+LEFT JOIN admissions USING (hadm_id)
+UNION ALL
 SELECT
   measurement_id AS measurement_id                 
 , patients.person_id                     
@@ -132,33 +159,4 @@ FROM resistance
 LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
-LEFT JOIN omop_operator USING (operator_name)
-UNION ALL
-SELECT
-  fact_id_1 AS measurement_id
-, patients.person_id
-, 4098207  as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
-, measurement_date AS measurement_date
-, measurement_time AS measurement_datetime
-, 44818702 AS measurement_type_concept_id -- Lab result
-, null AS operator_concept_id
-, null value_as_number
-, gcpt_org_name_to_concept.value_as_concept_id AS value_as_concept_id           -- staphiloccocus, but not done yet
-, null::bigint AS unit_concept_id
-, null::double precision AS range_low
-, null::double precision AS range_high
-, null::bigint AS provider_id
-, admissions.visit_occurrence_id AS visit_occurrence_id
-, null::bigint As visit_detail_id
-, resistance.org_name AS measurement_source_value
-, null::bigint AS measurement_source_concept_id
-, null::text AS unit_source_value
-, value_source_value AS value_source_value
-, null::bigint AS quality_concept_id
-FROM resistance
-LEFT JOIN fact_relationship ON (fact_id_2 = measurement_id)
-LEFT JOIN gcpt_org_name_to_concept USING (org_name)
-LEFT JOIN patients USING (subject_id)
-LEFT JOIN admissions USING (hadm_id);
-
---
+LEFT JOIN omop_operator USING (operator_name);
