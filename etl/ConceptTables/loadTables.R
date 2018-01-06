@@ -25,7 +25,7 @@ connect <- function(){
 con <<- connect()
 
 readDf <- function(path){
-read.table(path,sep=",",header=TRUE, quote="\"", fill=TRUE)
+read.table(path,sep=",",header=TRUE, quote="\"", fill=TRUE, comment.char = "")
 }
 
 tableName <- function(name){
