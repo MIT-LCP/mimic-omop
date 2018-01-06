@@ -10,7 +10,7 @@ WITH
 	FROM labevents),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"d_labitems" AS (SELECT itemid, label FROM d_labitems),
+"d_labitems" AS (SELECT itemid, label, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
@@ -33,7 +33,7 @@ SELECT
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
 , d_labitems.label AS measurement_source_value      
-, null::bigint AS measurement_source_concept_id 
+, d_labitems.mimic_id AS measurement_source_concept_id 
 , gcpt_lab_unit_to_concept.unit_source_value             
 , labevents.value_source_value            
 , null::bigint AS quality_concept_id            
@@ -49,7 +49,7 @@ LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
 -- LABS from chartevents
 WITH
 "chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category = 'Labs')),
-"d_items" AS (SELECT itemid, label FROM d_items),
+"d_items" AS (SELECT itemid, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
@@ -74,7 +74,7 @@ SELECT
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
 , d_items.label AS measurement_source_value      
-, null::bigint AS measurement_source_concept_id 
+, d_items.mimic_id AS measurement_source_concept_id 
 , gcpt_lab_unit_to_concept.unit_source_value             
 , chartevents_lab.value_source_value            
 , null::bigint AS quality_concept_id            
@@ -198,7 +198,7 @@ SELECT
       c.valuenum as value_as_number,
       v.concept_id as value_as_concept_id,
       m.unit_concept_id as unit_concept_id,
-      d.label as measurement_source_value,
+      d.mimic_id as measurement_source_concept_id,
       c.valueuom as unit_source_value, 
       CASE
         WHEN m.label_type = 'systolic_bp' AND value ~ '/' THEN regexp_replace(value,'(\\d+)/','\\1','b')::double precision 
@@ -255,7 +255,7 @@ SELECT
       m.value_ub as value_ub,
       m.label_type
     FROM chartevents as c
-    JOIN d_items as d ON (d.itemid=c.itemid AND category != 'Labs') 
+    JOIN d_items as d ON (d.itemid=c.itemid AND category != 'Labs')  -- remove the labs, because done before
     JOIN gcpt_chart_label_to_concept as m 
       ON (label = d_label)
     LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
@@ -281,8 +281,8 @@ SELECT
 , caregivers.provider_id AS provider_id                   
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
-, measurement_source_value AS measurement_source_value      
-, null::bigint AS measurement_source_concept_id 
+, null::text AS measurement_source_value      
+, measurement_source_concept_id AS measurement_source_concept_id 
 , unit_source_value AS unit_source_value             
 , value_source_value AS  value_source_value            
 , null::bigint AS quality_concept_id            
@@ -313,7 +313,7 @@ INSERT INTO omop.measurement
 SELECT
   measurement_id AS measurement_id                 
 , patients.person_id                     
-, 4170475 as measurement_concept_id      
+, measurement_concept_id as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
 , measurement_datetime AS measurement_datetime          
 , 2000000003 as measurement_type_concept_id 
@@ -327,8 +327,7 @@ SELECT
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
 , null::text AS measurement_source_value      
---, d_items.mimic_id AS measurement_source_concept_id 
-, null::bigint AS measurement_source_concept_id 
+, d_items.mimic_id AS measurement_source_concept_id 
 , outputevents.unit_source_value AS unit_source_value             
 , null::text AS value_source_value            
 , null::bigint AS quality_concept_id            
