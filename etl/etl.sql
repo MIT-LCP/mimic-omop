@@ -14,6 +14,7 @@ TRUNCATE TABLE  omop.observation CASCADE;
 TRUNCATE TABLE  omop.drug_exposure CASCADE;
 TRUNCATE TABLE  omop.measurement CASCADE;
 
+\i pg_function.sql
 \i StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i StandardizedClinicalDataTables/PERSON/etl.sql
 \i StandardizedClinicalDataTables/DEATH/etl.sql

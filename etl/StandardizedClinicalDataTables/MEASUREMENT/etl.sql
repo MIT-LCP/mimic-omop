@@ -162,28 +162,6 @@ LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN omop_operator USING (operator_name);
 
--- chartevents (minus labs)
-DROP FUNCTION IF EXISTS map_bp_calc(text);
-CREATE FUNCTION map_bp_calc(text) RETURNS double precision AS
-$BODY$
-DECLARE
-sp integer;
-dp integer;
-map double precision;
-BEGIN
-    -- Since execution is not finished, we can check whether rows were returned
-    -- and raise exception if not.
-    sp := regexp_replace(text,'(\\d+)/\\d+','\\1','b')::double precision;
-    dp := regexp_replace(text,'\\d+/(\\d+)','\\1','b')::double precision;
-    map := dp + 1 / 3 * (sp - dp);
-    IF map > 0 THEN
-        RETURN null::double precision;
-    END IF;
-
-    RETURN map;
- END
-$BODY$
-LANGUAGE plpgsql;
 
 
 WITH

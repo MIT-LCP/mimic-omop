@@ -35,3 +35,13 @@ LEFT JOIN omop_rxnorm USING (concept_code)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 WHERE drug_exposure_end_datetime IS NOT NULL;
+
+-- FROM inputevent
+-- WITH
+-- "inputevent_cv" AS (
+-- 	SELECT
+-- 	subject_id
+-- 	hadm_id
+-- 	storetime as drug_exposure_start_datetime
+-- FROM inputevents_cv
+-- JOIN gcpt_inputevents_drug_to_concept USING (itemid))
