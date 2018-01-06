@@ -1,13 +1,13 @@
  WITH 
-"datetimeevents" AS (SELECT subject_id, hadm_id, itemid, cgid, mimic_id as observation_id, coalesce(value,charttime)::date as observation_date, value as observation_datetime FROM mimic.datetimeevents),
-"patients" AS (SELECT subject_id, mimic_id as person_id FROM mimic.patients),
-"caregivers" AS (SELECT cgid, mimic_id as provider_id FROM mimic.caregivers),
-"admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, insurance, marital_status, language, diagnosis, religion, ethnicity, admittime FROM mimic.admissions),
-"d_items" AS (SELECT itemid, label as value_as_string FROM mimic.d_items),
-"gcpt_insurance_to_concept" AS (SELECT * FROM mimic.gcpt_insurance_to_concept),
-"gcpt_ethnicity_to_concept" AS (SELECT * FROM mimic.gcpt_ethnicity_to_concept),
-"gcpt_religion_to_concept" AS (SELECT * FROM mimic.gcpt_religion_to_concept),
-"gcpt_marital_status_to_concept" AS (SELECT * FROM mimic.gcpt_marital_status_to_concept)
+"datetimeevents" AS (SELECT subject_id, hadm_id, itemid, cgid, mimic_id as observation_id, coalesce(value,charttime)::date as observation_date, value as observation_datetime FROM datetimeevents),
+"patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
+"caregivers" AS (SELECT cgid, mimic_id as provider_id FROM caregivers),
+"admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, insurance, marital_status, language, diagnosis, religion, ethnicity, admittime FROM admissions),
+"d_items" AS (SELECT itemid, label as value_as_string FROM d_items),
+"gcpt_insurance_to_concept" AS (SELECT * FROM gcpt_insurance_to_concept),
+"gcpt_ethnicity_to_concept" AS (SELECT * FROM gcpt_ethnicity_to_concept),
+"gcpt_religion_to_concept" AS (SELECT * FROM gcpt_religion_to_concept),
+"gcpt_marital_status_to_concept" AS (SELECT * FROM gcpt_marital_status_to_concept)
  INSERT INTO omop.OBSERVATION (
           observation_id
         , person_id
@@ -64,11 +64,11 @@ UNION ALL
 --     adm.ADMISSION_TYPE as value_as_string
 --   FROM
 --     admissions as adm
---     JOIN `chc-mimic.mimic3_omop.admission_type_to_concept` as map
+--     JOIN `chc-mimic3_omop.admission_type_to_concept` as map
 --     ON adm.ADMISSION_TYPE = map.ADMISSION_TYPE
 -- UNION ALL 
   SELECT
-        nextval('mimic.mimic_id_seq') AS observation_id
+        nextval('mimic_id_seq') AS observation_id
       , patients.person_id
       , 46235654 as observation_concept_id -- Primary insurance
       , adm.ADMITTIME::date as observation_date
@@ -92,7 +92,7 @@ UNION ALL
   WHERE adm.insurance IS NOT NULL
 UNION ALL 
   SELECT
-        nextval('mimic.mimic_id_seq') AS observation_id
+        nextval('mimic_id_seq') AS observation_id
       , patients.person_id
       , 40766231 as observation_concept_id -- Marital status
       , adm.admittime::date as observation_date
@@ -116,7 +116,7 @@ UNION ALL
   WHERE adm.marital_status IS NOT NULL
 UNION ALL 
   SELECT
-        nextval('mimic.mimic_id_seq') AS observation_id
+        nextval('mimic_id_seq') AS observation_id
       , patients.person_id
       , 4052017 as observation_concept_id -- Religious affiliation
       , adm.admittime::date as observation_date
@@ -164,7 +164,7 @@ UNION ALL
 --     adm.diagnosis IS NOT NULL
 UNION ALL 
   SELECT
-        nextval('mimic.mimic_id_seq') AS observation_id
+        nextval('mimic_id_seq') AS observation_id
       , patients.person_id
       , 40758030 as observation_concept_id -- Language.preferred
       , adm.admittime::date as observation_date
@@ -188,7 +188,7 @@ UNION ALL
     adm.language IS NOT NULL
 UNION ALL
   SELECT
-        nextval('mimic.mimic_id_seq') AS observation_id
+        nextval('mimic_id_seq') AS observation_id
       , patients.person_id
       , 44803968 as observation_concept_id -- Ethnicity - National Public Health Classification
       , adm.admittime::date as observation_date

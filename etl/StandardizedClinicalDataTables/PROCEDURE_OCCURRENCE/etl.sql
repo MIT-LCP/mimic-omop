@@ -1,13 +1,13 @@
 WITH 
-"proc_icd" as (SELECT mimic_id as procedure_occurrence_id, subject_id, hadm_id, icd9_code as procedure_source_value, CASE WHEN length(cast(ICD9_CODE as text)) = 2 THEN cast(ICD9_CODE as text) ELSE concat(substr(cast(ICD9_CODE as text), 1, 2), '.', substr(cast(ICD9_CODE as text), 3)) END AS concept_code FROM mimic.procedures_icd),
+"proc_icd" as (SELECT mimic_id as procedure_occurrence_id, subject_id, hadm_id, icd9_code as procedure_source_value, CASE WHEN length(cast(ICD9_CODE as text)) = 2 THEN cast(ICD9_CODE as text) ELSE concat(substr(cast(ICD9_CODE as text), 1, 2), '.', substr(cast(ICD9_CODE as text), 3)) END AS concept_code FROM procedures_icd),
 "concept_proc_icd9" as ( SELECT concept_id as procedure_concept_id, concept_code FROM omop.concept WHERE vocabulary_id = 'ICD9Proc'),
-"patients" AS (SELECT subject_id, mimic_id as person_id FROM mimic.patients),
-"admissions" AS (SELECT hadm_id, admittime, dischtime as procedure_datetime, mimic_id as visit_occurrence_id FROM mimic.admissions),
-"proc_event" as (SELECT procedureevents_mv.mimic_id as procedure_occurrence_id, subject_id, hadm_id, itemid, starttime as procedure_datetime, label as procedure_source_value FROM mimic.procedureevents_mv LEFT JOIN mimic.d_items USING (itemid)),
-"gcpt_procedure_to_concept" as (SELECT item_id as itemid, concept_id as procedure_concept_id from mimic.gcpt_procedure_to_concept),
+"patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
+"admissions" AS (SELECT hadm_id, admittime, dischtime as procedure_datetime, mimic_id as visit_occurrence_id FROM admissions),
+"proc_event" as (SELECT procedureevents_mv.mimic_id as procedure_occurrence_id, subject_id, hadm_id, itemid, starttime as procedure_datetime, label as procedure_source_value FROM procedureevents_mv LEFT JOIN d_items USING (itemid)),
+"gcpt_procedure_to_concept" as (SELECT item_id as itemid, concept_id as procedure_concept_id from gcpt_procedure_to_concept),
 "concept_cpt4" AS (SELECT concept_id as procedure_concept_id, concept_code from omop.concept where vocabulary_id = 'CPT4'),
-"cpt_event" AS ( SELECT mimic_id as procedure_occurrence_id , subject_id , hadm_id , chartdate as procedure_datetime , trim('[' || coalesce(costcenter,'') || '][' || coalesce(sectionheader,'') || '] ' || subsectionheader || ' ' || coalesce(description, '')) as procedure_source_value FROM mimic.cptevents),
-"gcpt_cpt4_to_concept" as (SELECT * FROM mimic.gcpt_cpt4_to_concept)
+"cpt_event" AS ( SELECT mimic_id as procedure_occurrence_id , subject_id , hadm_id , chartdate as procedure_datetime , trim('[' || coalesce(costcenter,'') || '][' || coalesce(sectionheader,'') || '] ' || subsectionheader || ' ' || coalesce(description, '')) as procedure_source_value FROM cptevents),
+"gcpt_cpt4_to_concept" as (SELECT * FROM gcpt_cpt4_to_concept)
 INSERT INTO omop.procedure_occurrence (
   procedure_occurrence_id
 , person_id

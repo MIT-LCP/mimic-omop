@@ -1,9 +1,9 @@
 WITH
-"google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, drug_source_value, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM mimic.gcpt_gdata_drug_exposure JOIN mimic.prescriptions ON (drug_exposure_id = row_id)),
+"google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, drug_source_value, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
-"drug_exposure" AS (SELECT subject_id, hadm_id, row_id, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM mimic.prescriptions),
-"patients" AS (SELECT subject_id, mimic_id as person_id from mimic.patients),
-"admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM mimic.admissions)
+"drug_exposure" AS (SELECT subject_id, hadm_id, row_id, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
+"patients" AS (SELECT subject_id, mimic_id as person_id from patients),
+"admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions)
 INSERT INTO omop.drug_exposure
 SELECT 
   drug_exposure_id
