@@ -24,7 +24,7 @@ SELECT
 , coalesce(label, 'UNKNOWN') as concept_name
 , 'Measurement'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
-, '' as concept_class_id
+, coalesce(category, '') as concept_class_id
 , itemid as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
@@ -39,7 +39,7 @@ SELECT
 , coalesce(label || '[' || fluid || '][' || category || ']', 'UNKNOWN') as concept_name
 , 'Measurement'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
-, '' as concept_class_id
+, 'Lab Test' as concept_class_id -- omop Lab Test
 , itemid as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
@@ -62,3 +62,33 @@ distinct on (drug, prod_strength)
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
 FROM prescriptions;
+
+-- PROCEDURE  -- CPT4
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+  mimic_id as concept_id
+, procedure_source_value as concept_name
+, 'Procedure'::text as domain_id
+, 'MIMIC Generated' as vocabulary_id
+, 'CPT4' as concept_class_id -- omop Lab Test
+, '' as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM gcpt_cpt4_to_concept;
+
+-- PROCEDURE  -- ICD
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+  mimic_id as concept_id
+, coalesce(long_title,short_title) as concept_name
+, 'Procedure'::text as domain_id
+, 'MIMIC ICD9Proc' as vocabulary_id
+, '4-dig billing code' as concept_class_id -- omop Lab Test
+, icd9_code as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM d_icd_procedures;
