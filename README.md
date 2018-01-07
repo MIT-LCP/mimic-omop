@@ -25,6 +25,7 @@ ETL DONE
 - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION/README.md)
 - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/README.md)
 - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT/README.md)
+- [NOTE](etl/StandardizedClinicalDataTables/NOTE/README.md)
 - [COHORT_DEFINITION](etl/StandardizedDerivedElements/COHORT_DEFINITION/README.md)
 - [COHORT](etl/StandardizedDerivedElements/COHORT/README.md)
 
