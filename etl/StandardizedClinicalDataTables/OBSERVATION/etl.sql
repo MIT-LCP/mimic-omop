@@ -214,6 +214,7 @@ SELECT
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND observation_concept_id = 4085802 --other datetime comes from admissions admittime and are not relevant
 AND row_to_insert.observation_datetime IS NOT NULL
 AND
 (--only one visit_detail

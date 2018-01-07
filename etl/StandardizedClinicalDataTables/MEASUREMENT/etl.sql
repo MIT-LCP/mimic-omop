@@ -14,8 +14,8 @@ WITH
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
-"gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept)
-INSERT INTO omop.measurement
+"gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
+"row_to_insert" AS (
 SELECT
   labevents.measurement_id                 
 , patients.person_id                     
@@ -44,7 +44,30 @@ LEFT JOIN d_labitems USING (itemid)
 LEFT JOIN omop_loinc USING (label)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (label)
-LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
+LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value))
+INSERT INTO omop.measurement
+SELECT
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, row_to_insert.visit_detail_id
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+, row_to_insert.quality_concept_id
+FROM row_to_insert;
 
 -- LABS from chartevents
 WITH
@@ -55,9 +78,8 @@ WITH
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
-"gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept)
-INSERT INTO omop.measurement
-SELECT 
+"gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
+"row_to_insert" AS (SELECT 
   chartevents_lab.measurement_id                 
 , patients.person_id                     
 , coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
@@ -85,7 +107,30 @@ LEFT JOIN d_items USING (itemid)
 LEFT JOIN omop_loinc USING (label)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (label)
-LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value);
+LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value))
+INSERT INTO omop.measurement
+SELECT
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, row_to_insert.visit_detail_id --no visit_detail assignation since datetime is not relevant
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+, row_to_insert.quality_concept_id
+FROM row_to_insert;
 
 -- Microbiology
 -- TODO: Map the culture & drug sensitivity
@@ -107,9 +152,8 @@ WITH
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_resistance_to_concept" AS (SELECT * FROM gcpt_resistance_to_concept),
-"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED'))
-INSERT INTO omop.measurement
-SELECT
+"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')),
+"row_to_insert" AS (SELECT
   culture.measurement_id AS measurement_id
 , patients.person_id
 , 4098207  as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
@@ -160,10 +204,33 @@ FROM resistance
 LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
-LEFT JOIN omop_operator USING (operator_name);
+LEFT JOIN omop_operator USING (operator_name))
+INSERT INTO omop.measurement
+SELECT
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, row_to_insert.visit_detail_id --no visit_detail assignation since datetime is not relevant
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+, row_to_insert.quality_concept_id
+FROM row_to_insert;
 
 
-
+--MEASUREMENT from chartevents (without labs) 
 WITH
 "chartevents" as (
 SELECT 
@@ -241,9 +308,8 @@ SELECT
   ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
-"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions)
-INSERT INTO omop.measurement
-SELECT
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"row_to_insert" AS (SELECT
   measurement_id AS measurement_id                 
 , patients.person_id                     
 , measurement_concept_id as measurement_concept_id      
@@ -267,7 +333,43 @@ SELECT
 FROM chartevents
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
-LEFT JOIN admissions USING (hadm_id);
+LEFT JOIN admissions USING (hadm_id))
+INSERT INTO omop.measurement
+SELECT 
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, visit_detail_assign.visit_detail_id
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+, row_to_insert.quality_concept_id
+FROM row_to_insert
+LEFT JOIN omop.visit_detail_assign 
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND row_to_insert.measurement_datetime IS NOT NULL
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+);
 
 -- OUTPUT events
 WITH 
@@ -286,9 +388,8 @@ FROM outputevents
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
-"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions)
-INSERT INTO omop.measurement
-SELECT
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"row_to_insert" AS (SELECT
   measurement_id AS measurement_id                 
 , patients.person_id                     
 , measurement_concept_id as measurement_concept_id      
@@ -315,4 +416,40 @@ LEFT JOIN gcpt_lab_unit_to_concept ON gcpt_lab_unit_to_concept.unit_source_value
 LEFT JOIN d_items USING (itemid)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
-LEFT JOIN admissions USING (hadm_id);
+LEFT JOIN admissions USING (hadm_id))
+INSERT INTO omop.measurement
+SELECT 
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, visit_detail_assign.visit_detail_id
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+, row_to_insert.quality_concept_id
+FROM row_to_insert
+LEFT JOIN omop.visit_detail_assign 
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND row_to_insert.measurement_datetime IS NOT NULL
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+);
