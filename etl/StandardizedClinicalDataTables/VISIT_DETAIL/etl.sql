@@ -1,30 +1,3 @@
- -- when first stay, then take admitting_source_value from visit_occurrence
- -- when last stay, then take discharge_to_value from visit_occurrence
--- 
--- While omop concentrates the information of stays in the visit_details table, mimic has several places:
--- 
--- - transfers
--- - callout
--- - services
--- - admissions
--- 
--- I found out that mimic also have two distinct way of storing unit of care information:
--- - MICU, NWARD and so on (say CLASS1 type unit)
--- - CMED CSURG DENT ENTGU GYN and so on. ( say CLASS2 type unit )
--- 
--- 
--- Right now, the etl prototype:
--- - uses transfers as the granularity
--- - fusion the beds by not considering mooving from bed in the same unit as a new stay (as spotted there https://github.com/MIT-LCP/mimic-code/issues/203)
--- - does consider urgency stays as stay entry in the visit_detail  (info from admissions) 
--- - calculates and keep the delay of callout for ICU stays
--- - makes a distinction from
--- - does not fusion icustay stays mooves that are under 24hour
--- - grabs the more information possible from CLASS2 type unit from callout, services and put them into admitting/discharge columns
--- - callout service information stores the service after an ICU
--- - stores the CLASS1 type unit into care_site
--- 
--- 
  WITH
 "callout_delay" as (SELECT callout_service as callout_discharge_to_source_value, hadm_id, curr_careunit, createtime, outcometime, extract(epoch from outcometime - createtime)/3600/24 as discharge_delay, (outcometime - createtime) / 2 + createtime as mean_time FROM callout WHERE callout_outcome not ilike 'cancel%'), 
 "transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
@@ -150,4 +123,21 @@ FROM serv
 -- LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_admitting ON (gcpt_visit_detail_admitting.visit_source_value = transfers.admitting_source_value)
 -- LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_discharge ON (gcpt_visit_detail_discharge.visit_source_value = transfers.discharge_to_source_value)
 -- LEFT JOIN visit_source ON (transfers.hadm_id = visit_source.hadm_id AND transfers.visit_start_datetime = visit_source.transfertime) 
- LEFT JOIN gcpt_care_site ON (care_site_name = curr_service)
+ LEFT JOIN gcpt_care_site ON (care_site_name = curr_service);
+
+
+-- first draft of icustay assignation table 
+DROP TABLE IF EXISTS omop.visit_detail_assign;
+CREATE TABLE omop.visit_detail_assign AS 
+SELECT
+  visit_detail_id
+, visit_occurrence_id
+, visit_start_datetime
+, visit_end_datetime
+, visit_detail_id = first_value(visit_detail_id) OVER w AS  is_first
+, visit_detail_id = last_value(visit_detail_id) OVER w AS is_last
+, visit_detail_concept_id = 9204 AS is_icu
+, visit_detail_concept_id = 9203 AS is_emergency
+FROM (SELECT * FROM omop.visit_detail WHERE visit_type_concept_id = 44818518) as visit_tmp -- only ward kind 
+WINDOW w AS (PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following);
+

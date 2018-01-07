@@ -1,7 +1,7 @@
 
 ---- should be 0 for that code,
 ---- and units push inside source_concept_id
-DELETE FROM omop.concept WHERE concept_id >= 500000000;
+-- DELETE FROM omop.concept WHERE concept_id >= 500000000;
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
 ) VALUES 

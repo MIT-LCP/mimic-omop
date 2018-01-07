@@ -279,7 +279,7 @@ WITH
 , valueuom AS unit_source_value
 , value
 , mimic_id as measurement_id
-, to_datetime(charttime) as measurement_datetime
+, charttime as measurement_datetime
 FROM outputevents
 ),
 "gcpt_output_label_to_concept" AS (SELECT item_id as itemid, concept_id as measurement_concept_id FROM gcpt_output_label_to_concept),

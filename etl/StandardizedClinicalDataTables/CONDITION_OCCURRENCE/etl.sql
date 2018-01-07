@@ -11,9 +11,9 @@ INSERT INTO omop.condition_occurrence (
 , person_id                     
 , condition_concept_id      
 , condition_start_date
-, to_datetime(condition_start_datetime)      
+, condition_start_datetime
 , condition_end_date 
-, to_datetime(condition_end_datetime)
+, condition_end_datetime
 , condition_type_concept_id     
 , stop_reason                   
 , provider_id                   
