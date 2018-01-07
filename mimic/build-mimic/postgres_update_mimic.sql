@@ -10,6 +10,6 @@ SELECT -1 * row_id -- demoniac trick to moove forward
      , subject_id
      , 'EMERGENCY' as curr_careunit
      , edregtime as intime
-     , edouttime as outtime
+     , admittime as dischtime -- the end of the emergency is considered the begin of the the admission
   FROM admissions
  WHERE edregtime IS NOT NULL;

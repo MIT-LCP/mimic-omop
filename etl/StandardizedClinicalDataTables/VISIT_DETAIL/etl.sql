@@ -15,20 +15,14 @@
                                , outtime_real::date as visit_end_date
                                , outtime_real as visit_end_datetime
                                , 44818518 as visit_type_concept_id -- [athena] Visit derived from EHR record
-                               --, callout_discharge_to_source_value as discharge_to_source_value
-                               --, prev_careunit as admitting_source_value
-                               --, LEAD(mimic_id) OVER ( PARTITION BY hadm_id ORDER BY transfers_no_bed.intime_real ASC) as later_visit_detail_id
                                , LAG(mimic_id) OVER ( PARTITION BY hadm_id ORDER BY transfers_no_bed.intime_real ASC) as preceding_visit_detail_id
                                , discharge_delay
             FROM transfers_no_bed
                  )
                , 
---"transfers" AS ( SELECT t10.subject_id , t10.hadm_id , t10.visit_detail_id , t10.visit_detail_concept_id , t10.visit_start_date , t10.visit_start_datetime , t10.visit_end_date , t10.visit_end_datetime , t10.visit_type_concept_id , CASE WHEN t10.preceding_visit_detail_id IS NULL THEN NULL ELSE coalesce(t9.curr_careunit,'UNKNOWN') END as admitting_source_value , coalesce( t10.curr_careunit, t9.discharge_to_source_value,t10bis.curr_careunit,'UNKNOWN') as curr_careunit , CASE WHEN t10.later_visit_detail_id IS NULL THEN NULL ELSE coalesce(t11.curr_careunit, t10.discharge_to_source_value,'UNKNOWN') END as discharge_to_source_value , t10.later_visit_detail_id , t10.preceding_visit_detail_id , t10.discharge_delay FROM transfers_light as t10 LEFT JOIN ( SELECT hadm_id , transfertime , curr_service as curr_careunit FROM services) as t10bis ON ( t10bis.hadm_id      = t10.hadm_id AND t10bis.transfertime = t10.visit_start_datetime) LEFT JOIN transfers_light as t9 ON (t10.preceding_visit_detail_id = t9.visit_detail_id) LEFT JOIN transfers_light as t11 ON (t10.later_visit_detail_id     = t11.visit_detail_id)) , 
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id FROM gcpt_care_site),
---"gcpt_visit_detail_source_to_concept" AS (SELECT visit_source_value, visit_source_concept_id FROM gcpt_visit_detail_source_to_concept UNION ALL SELECT care_site_name as visit_source_value, place_of_service_concept_id as visit_source_concept_id FROM gcpt_care_site),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
---"visit_source" AS (SELECT hadm_id, transfertime, curr_service as visit_source_value FROM services)
 "serv_tmp" as (SELECT services.*, lead(services.row_id) OVER(PARTITION BY services.hadm_id ORDER BY transfertime) as next, lag(services.row_id) OVER(PARTITION BY services.hadm_id ORDER BY transfertime) as prev , admittime, dischtime FROM services LEFT JOIN admissions USING (hadm_id)),
 "serv" as (SELECT serv_tmp.mimic_id as visit_detail_id, serv_tmp.subject_id, serv_tmp.hadm_id, serv_tmp.curr_service, serv_adm_prev.mimic_id as preceding_visit_detail_id, serv_tmp.transfertime as visit_start_datetime, CASE WHEN serv_tmp.prev IS NULL AND serv_tmp.next IS NOT NULL THEN serv_adm_next.transfertime WHEN serv_tmp.prev IS NULL AND serv_tmp.next IS NULL THEN serv_tmp.dischtime WHEN serv_tmp.prev IS NOT NULL AND serv_tmp.next IS NULL THEN serv_tmp.dischtime WHEN serv_tmp.prev IS NOT NULL AND serv_tmp.next IS NOT NULL THEN serv_adm_next.transfertime END as visit_end_datetime FROM serv_tmp LEFT JOIN serv_tmp as serv_adm_prev ON (serv_tmp.prev = serv_adm_prev.row_id) LEFT JOIN serv_tmp as serv_adm_next ON (serv_tmp.next = serv_adm_next.row_id))
  INSERT INTO omop.VISIT_DETAIL (
@@ -42,17 +36,6 @@
 
 	, visit_type_concept_id
 	, care_site_id
-
---	, visit_source_value
---	, visit_source_concept_id
-
---	, admitting_source_concept_id
---	, admitting_source_value
-
---	, discharge_to_concept_id
---	, discharge_to_source_value
-
---        , visit_detail_parent_id
 	, preceding_visit_detail_id
 	, visit_occurrence_id
 	, discharge_delay
@@ -68,27 +51,12 @@
 
       , transfers.visit_type_concept_id
       , gcpt_care_site.care_site_id
-
---    , transfers.curr_careunit
---    , gcpt_visit_detail_source_to_concept.visit_source_concept_id
-
---    , gcpt_visit_detail_admitting.visit_source_concept_id
---    , transfers.admitting_source_value
-
---      , gcpt_visit_detail_discharge.visit_source_concept_id
---      , transfers.discharge_to_source_value
-
---      , null::bigint  
       , transfers.preceding_visit_detail_id
       , admissions.visit_occurrence_id
       , transfers.discharge_delay
    FROM transfers
  LEFT JOIN patients USING (subject_id)
  LEFT JOIN admissions USING (hadm_id) 
--- LEFT JOIN gcpt_visit_detail_source_to_concept  ON (transfers.curr_careunit = visit_source_value)
--- LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_admitting ON (gcpt_visit_detail_admitting.visit_source_value = transfers.admitting_source_value)
--- LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_discharge ON (gcpt_visit_detail_discharge.visit_source_value = transfers.discharge_to_source_value)
--- LEFT JOIN visit_source ON (transfers.hadm_id = visit_source.hadm_id AND transfers.visit_start_datetime = visit_source.transfertime) 
  LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 UNION ALL
 SELECT
@@ -99,30 +67,14 @@ SELECT
       , to_datetime(serv.visit_start_datetime)
       , serv.visit_end_datetime::date as visit_end_date
       , to_datetime(serv.visit_end_datetime)
-
       , 45770670 as visit_type_concept_id -- [athena] services and care
       , gcpt_care_site.care_site_id
-
---    , transfers.curr_careunit
---    , gcpt_visit_detail_source_to_concept.visit_source_concept_id
-
---    , gcpt_visit_detail_admitting.visit_source_concept_id
---    , transfers.admitting_source_value
-
---      , gcpt_visit_detail_discharge.visit_source_concept_id
---      , transfers.discharge_to_source_value
-
---      , null::bigint  
       , serv.preceding_visit_detail_id
       , admissions.visit_occurrence_id
       , null::double precision as discharge_delay
 FROM serv
  LEFT JOIN patients USING (subject_id)
  LEFT JOIN admissions USING (hadm_id) 
--- LEFT JOIN gcpt_visit_detail_source_to_concept  ON (transfers.curr_careunit = visit_source_value)
--- LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_admitting ON (gcpt_visit_detail_admitting.visit_source_value = transfers.admitting_source_value)
--- LEFT JOIN gcpt_visit_detail_source_to_concept gcpt_visit_detail_discharge ON (gcpt_visit_detail_discharge.visit_source_value = transfers.discharge_to_source_value)
--- LEFT JOIN visit_source ON (transfers.hadm_id = visit_source.hadm_id AND transfers.visit_start_datetime = visit_source.transfertime) 
  LEFT JOIN gcpt_care_site ON (care_site_name = curr_service);
 
 
@@ -134,10 +86,10 @@ SELECT
 , visit_occurrence_id
 , visit_start_datetime
 , visit_end_datetime
-, visit_detail_id = first_value(visit_detail_id) OVER w AS  is_first
-, visit_detail_id = last_value(visit_detail_id) OVER w AS is_last
+, visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC ) AS  is_first
+, visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following) AS is_last
 , visit_detail_concept_id = 9204 AS is_icu
 , visit_detail_concept_id = 9203 AS is_emergency
-FROM (SELECT * FROM omop.visit_detail WHERE visit_type_concept_id = 44818518) as visit_tmp -- only ward kind 
-WINDOW w AS (PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following);
-
+FROM  omop.visit_detail 
+WHERE visit_type_concept_id = 44818518 -- only ward kind 
+;

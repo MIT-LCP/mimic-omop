@@ -7,33 +7,14 @@
 "gcpt_insurance_to_concept" AS (SELECT * FROM gcpt_insurance_to_concept),
 "gcpt_ethnicity_to_concept" AS (SELECT * FROM gcpt_ethnicity_to_concept),
 "gcpt_religion_to_concept" AS (SELECT * FROM gcpt_religion_to_concept),
-"gcpt_marital_status_to_concept" AS (SELECT * FROM gcpt_marital_status_to_concept)
- INSERT INTO omop.OBSERVATION (
-          observation_id
-        , person_id
-        , observation_concept_id
-        , observation_date
-        , observation_datetime
-        , observation_type_concept_id
-        , value_as_number
-        , value_as_string
-        , value_as_concept_id
-        , qualifier_concept_id
-        , unit_concept_id
-        , provider_id
-        , visit_occurrence_id
-        , visit_detail_id
-        , observation_source_value
-        , observation_source_concept_id
-        , unit_source_value
-        , qualifier_source_value
-)
- SELECT 
+"gcpt_marital_status_to_concept" AS (SELECT * FROM gcpt_marital_status_to_concept),
+"row_to_insert" AS
+ (SELECT 
         datetimeevents.observation_id
       , patients.person_id
       , 4085802 as observation_concept_id -- Referred by nurse
       , datetimeevents.observation_date
-      , to_datetime(datetimeevents.observation_datetime)
+      , to_datetime(datetimeevents.observation_datetime) as observation_datetime
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null::double precision as value_as_number
       , d_items.value_as_string as value_as_string
@@ -209,5 +190,39 @@ UNION ALL
   FROM admissions as adm
     JOIN gcpt_ethnicity_to_concept as map USING (ethnicity)
     LEFT JOIN patients USING (subject_id)
-  WHERE adm.ethnicity IS NOT NULL
+  WHERE adm.ethnicity IS NOT NULL)
+ INSERT INTO omop.OBSERVATION 
+SELECT 
+          observation_id
+        , person_id
+        , observation_concept_id
+        , observation_date
+        , observation_datetime
+        , observation_type_concept_id
+        , value_as_number
+        , value_as_string
+        , value_as_concept_id
+        , qualifier_concept_id
+        , unit_concept_id
+        , provider_id
+        , row_to_insert.visit_occurrence_id
+        , visit_detail_assign.visit_detail_id
+        , observation_source_value
+        , observation_source_concept_id
+        , unit_source_value
+        , qualifier_source_value
+FROM row_to_insert
+LEFT JOIN omop.visit_detail_assign 
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND row_to_insert.observation_datetime IS NOT NULL
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
+)
 ;
