@@ -35,7 +35,7 @@ paste0("gcpt_",gsub("\\.csv$","",name))
 mooveSchema <- function(table, schema){
 sql <- sprintf("ALTER TABLE %s SET SCHEMA %s", tableName(table), schema)
 dbSendQuery(con, sql)
-sql <- sprintf("ALTER TABLE %s.%s add column mimic_id integer default nextval('mimic.mimic_id_seq'::regclass);", schema, tableName(table))
+sql <- sprintf("ALTER TABLE %s.%s add column mimic_id integer default nextval('mimic.mimic_id_concept_seq'::regclass);", schema, tableName(table))
 dbSendQuery(con, sql)
 }
 
@@ -46,7 +46,7 @@ dbSendQuery(con, sql)
 
 PATH_CSV <- "~/git/mimic-omop/extras/google/concept/"
 SCHEMA_TARGET <- "mimic"
-fichs <- list.files(PATH_CSV,pattern="resistance_to_concept.csv")
+fichs <- list.files(PATH_CSV,pattern="*.csv")
 for(fich in fichs){
 	tmp <- readDf(file.path(PATH_CSV,fich))
 	names(tmp) <- tolower(names(tmp))

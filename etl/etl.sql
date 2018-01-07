@@ -14,6 +14,7 @@ TRUNCATE TABLE  omop.observation CASCADE;
 TRUNCATE TABLE  omop.drug_exposure CASCADE;
 TRUNCATE TABLE  omop.measurement CASCADE;
 
+\i ../mimic/build-mimic/postgres_create_mimic_id.sql
 \i pg_function.sql
 \i StandardizedVocabularies/CONCEPT/etl.sql
 \i StandardizedHealthSystemDataTables/CARE_SITE/etl.sql

@@ -45,7 +45,6 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM d_labitems;
 
-
 -- DRUGS
 -- Generates LOCAL concepts for mimic drugs
 INSERT INTO omop.concept (
@@ -53,7 +52,7 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 ) 
 SELECT 
 distinct on (drug, prod_strength)
-  nextval('mimic.mimic_id_seq') as concept_id
+  nextval('mimic.mimic_id_concept_seq') as concept_id
 , trim(drug || ' ' || prod_strength) as concept_name
 , 'Drug'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
