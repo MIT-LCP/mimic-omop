@@ -227,3 +227,5 @@ OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
 )
 ;
+
+--TODO drgcodes
