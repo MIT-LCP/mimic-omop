@@ -2,7 +2,7 @@
 ---- should be 0 for that code,
 ---- and units push inside source_concept_id
 ALTER TABLE omop.concept DISABLE TRIGGER ALL;
-DELETE FROM omop.concept WHERE concept_id >= 500000000;
+DELETE FROM omop.concept WHERE concept_id >= 200000000;
 ALTER TABLE omop.concept ENABLE TRIGGER ALL;
 
 --MIMIC-OMOP
@@ -16,6 +16,11 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 , (2000000004,'Intravenous Bolus','Type Concept','MIMIC Generated','Drug Type','','1979-01-01','2099-01-01')
 , (2000000005,'Intravenous Continous','Type Concept','MIMIC Generated','Drug Type','','1979-01-01','2099-01-01')
 ;
+
+--
+-- abbreviation -> concept_synonym
+-- hierarchie   -> part of
+--
 
 --ITEMS
 INSERT INTO omop.concept (
