@@ -317,3 +317,7 @@ ALTER TABLE specimen ALTER COLUMN   specimen_source_id TYPE text;
  ALTER TABLE concept ALTER COLUMN   standard_concept TYPE text;
  ALTER TABLE concept ALTER COLUMN   concept_code TYPE text;
  ALTER TABLE concept ALTER COLUMN   invalid_reason TYPE text;
+
+
+ALTER TABLE drug_exposure ALTER COLUMN drug_exposure_start_date DROP NOT NULL;
+ALTER TABLE drug_exposure ALTER COLUMN drug_exposure_end_date DROP NOT NULL;
