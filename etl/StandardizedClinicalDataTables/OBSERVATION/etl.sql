@@ -300,6 +300,7 @@ WITH
              , hadm_id
              , charttime as observation_datetime
              , value as value_as_string
+             , valuenum as value_as_number --paradoxally, the text is sometime joined by numeric values
              , d_items.mimic_id as observation_source_concept_id
              , d_items.label as observation_source_value
           FROM chartevents
@@ -317,7 +318,7 @@ SELECT
         , observation_datetime::date observation_date
         , observation_datetime
         , 581413 as observation_type_concept_id -- Observation from Measurement
-        , null::numeric value_as_number
+        , value_as_number
         , value_as_string
         , null::integer value_as_concept_id
         , null::integer qualifier_concept_id
