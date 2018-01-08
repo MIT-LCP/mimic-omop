@@ -13,6 +13,8 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 , (2000000001,'L/min/m2','Unit','MIMIC Generated','','','1979-01-01','2099-01-01')
 , (2000000002,'dynes.sec.cm-5/m2','Unit','MIMIC Generated','','','1979-01-01','2099-01-01')
 , (2000000003,'Output Event','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
+, (2000000004,'Intravenous Bolus','Type Concept','MIMIC Generated','Drug Type','','1979-01-01','2099-01-01')
+, (2000000005,'Intravenous Continous','Type Concept','MIMIC Generated','Drug Type','','1979-01-01','2099-01-01')
 ;
 
 --ITEMS
