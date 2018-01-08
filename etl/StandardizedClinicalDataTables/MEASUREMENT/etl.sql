@@ -379,7 +379,10 @@ WITH
 , itemid
 , cgid
 , valueuom AS unit_source_value
-, value
+, CASE 
+    WHEN itemid IN (227488,227489) THEN -1 * value
+    ELSE value
+  END AS value
 , mimic_id as measurement_id
 , charttime as measurement_datetime
 FROM outputevents
