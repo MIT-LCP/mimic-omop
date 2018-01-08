@@ -26,7 +26,7 @@ SELECT
 , coalesce(label, 'UNKNOWN') as concept_name
 , 'Measurement'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
-, coalesce(category, '') as concept_class_id
+, dbsource || ' ' ||coalesce(category, '') as concept_class_id
 , itemid as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
