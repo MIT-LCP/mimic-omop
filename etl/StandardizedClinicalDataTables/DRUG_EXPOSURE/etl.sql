@@ -96,7 +96,7 @@ SELECT
 , orderid = linkorderid as is_leader -- other input are linked to it/them
 , linkorderid
 , orderid
-, ordercategorydescription || ' (' || ordercategoryname || ')' AS route_concept_source
+, ordercategorydescription || ' (' || ordercategoryname || ')' AS route_source_value
 , statusdescription as stop_reason
 , cancelreason
 FROM inputevents_mv),
