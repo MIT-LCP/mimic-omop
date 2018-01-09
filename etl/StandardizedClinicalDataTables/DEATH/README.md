@@ -30,7 +30,9 @@ WITH tmp AS
          , count(death.person_id) as dead 
   FROM person  
   LEFT JOIN death 
-  USING (person_id));
+  USING (person_id))
+SELECT dead * 100 / total as percentage FROM tmp;
+
 ```
 
 ``` sql
@@ -38,8 +40,12 @@ WITH tmp AS
 SELECT distinct concept_name, death_type_concept_id  as concept_id 
 From death d 
 JOIN concept c on d.death_type_concept_id = c.concept_id;
-FROM person;
 ```
+|                concept_name                     |       concept_id            |
+|-------------------------------------------------|-----------------------------|
+|   EHR record patient status "Deceased"          |              38003569       |
+|   US Social Security Death Master File record   |              261            |
+
 
 ``` sql
 -- Distribution of age of death
