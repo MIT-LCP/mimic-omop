@@ -228,4 +228,146 @@ OR -- middle
 )
 ;
 
---TODO drgcodes
+-- drgcodes
+WITH
+"drgcodes" AS (
+SELECT
+  mimic_id as observation_id
+, subject_id
+, hadm_id
+, description
+FROM drgcodes
+),
+"gcpt_drgcode_to_concept" AS (SELECT description, concept_id AS value_as_concept_id FROM gcpt_drgcode_to_concept),
+"patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
+"admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, coalesce(edregtime, admittime) as observation_datetime FROM admissions),
+"row_to_insert" AS (
+SELECT
+          observation_id
+        , person_id
+        , 4296248 as observation_concept_id -- Cost containment drgcode should be in cost table apparently.... http://forums.ohdsi.org/t/most-appropriate-omop-table-to-house-drg-information/1591/9
+        , observation_datetime::date as observation_date
+        , observation_datetime
+        , 38000280 as observation_type_concept_id -- Observation recorded from EHR
+        , null::numeric value_as_number
+        , description as value_as_string
+        , coalesce(value_as_concept_id, 0) as value_as_concept_id
+        , null::integer qualifier_concept_id
+        , null::integer unit_concept_id
+        , null::integer provider_id
+        , visit_occurrence_id
+        , null::integer visit_detail_id
+        , null::text observation_source_value
+        , null::integer observation_source_concept_id
+        , null::text unit_source_value
+        , null::text qualifier_source_value
+	FROM drgcodes
+	LEFT JOIN patients USING (subject_id)
+	LEFT JOIN admissions USING (hadm_id)
+	LEFT JOIN gcpt_drgcode_to_concept USING (description)
+)
+INSERT INTO omop.observation
+SELECT 
+          observation_id
+        , person_id
+        , observation_concept_id
+        , observation_date
+        , observation_datetime
+        , observation_type_concept_id
+        , value_as_number
+        , value_as_string
+        , value_as_concept_id
+        , qualifier_concept_id
+        , unit_concept_id
+        , provider_id
+        , visit_occurrence_id
+        , visit_detail_id
+        , observation_source_value
+        , observation_source_concept_id
+        , unit_source_value
+        , qualifier_source_value
+FROM row_to_insert;
+
+
+-- Chartevents.text
+WITH
+"chartevents_text" AS (
+        SELECT 
+        chartevents.itemid
+             , chartevents.mimic_id as observation_id
+             , subject_id
+             , cgid
+             , hadm_id
+             , charttime as observation_datetime
+             , value as value_as_string
+             , valuenum as value_as_number --paradoxally, the text is sometime joined by numeric values
+             , d_items.mimic_id as observation_source_concept_id
+             , d_items.label as observation_source_value
+          FROM chartevents
+          JOIN d_items
+            ON (d_items.itemid = chartevents.itemid AND param_type = 'Text')
+       ),
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
+"row_to_insert" AS (
+SELECT
+          observation_id
+        , person_id
+        , 0 as observation_concept_id
+        , observation_datetime::date observation_date
+        , observation_datetime
+        , 581413 as observation_type_concept_id -- Observation from Measurement
+        , value_as_number
+        , value_as_string
+        , null::integer value_as_concept_id
+        , null::integer qualifier_concept_id
+        , null::integer unit_concept_id
+        , provider_id
+        , visit_occurrence_id
+        , null::integer visit_detail_id
+        , observation_source_value
+        , observation_source_concept_id
+        , null::integer unit_source_value
+        , null::text qualifier_source_value
+        FROM chartevents_text
+        LEFT JOIN patients USING (subject_id)
+        LEFT JOIN caregivers USING (cgid)
+        LEFT JOIN admissions USING (hadm_id))
+INSERT INTO omop.observation
+SELECT
+          observation_id
+        , person_id
+        , observation_concept_id
+        , observation_date
+        , observation_datetime
+        , observation_type_concept_id
+        , value_as_number
+        , value_as_string
+        , value_as_concept_id
+        , qualifier_concept_id
+        , unit_concept_id
+        , provider_id
+        , row_to_insert.visit_occurrence_id
+        , visit_detail_assign.visit_detail_id
+        , observation_source_value
+        , observation_source_concept_id
+        , unit_source_value
+        , qualifier_source_value
+FROM row_to_insert
+LEFT JOIN omop.visit_detail_assign 
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND row_to_insert.observation_datetime IS NOT NULL
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
+)
+;
+
+-- TODO weight from inputevent_mv

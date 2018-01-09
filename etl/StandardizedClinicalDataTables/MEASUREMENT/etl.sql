@@ -300,7 +300,7 @@ SELECT
       m.value_ub as value_ub,
       m.label_type
     FROM chartevents as c
-    JOIN d_items as d ON (d.itemid=c.itemid AND category != 'Labs')  -- remove the labs, because done before
+    JOIN d_items as d ON (d.itemid=c.itemid AND category != 'Labs' AND param_type != 'Text')  -- remove the labs, because done before ; Text are put into observation
     JOIN gcpt_chart_label_to_concept as m 
       ON (label = d_label)
     LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
@@ -379,7 +379,10 @@ WITH
 , itemid
 , cgid
 , valueuom AS unit_source_value
-, value
+, CASE 
+    WHEN itemid IN (227488,227489) THEN -1 * value
+    ELSE value
+  END AS value
 , mimic_id as measurement_id
 , charttime as measurement_datetime
 FROM outputevents
@@ -453,3 +456,4 @@ OR -- last
 OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
 );
+
