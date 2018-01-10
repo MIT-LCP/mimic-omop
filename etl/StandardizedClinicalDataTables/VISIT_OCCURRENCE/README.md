@@ -36,7 +36,7 @@ FROM visit_occurrence;
 -- nb of dead patients in hospital
 SELECT count(person_id) AS dead_hospital_count
 FROM visit_occurrence
-WHERE discharge_to_concept_id = 4216643;          --concept.concept_name = 'Patient died'
+WHERE discharge_to_concept_id = 4216643;                          -- concept.concept_name = 'Patient died'
 ```
 
 ``` sql
@@ -50,7 +50,7 @@ WITH tmp AS
   (
         SELECT person_id
         FROM visit_occurrence
-        WHERE discharge_to_concept_id = 434489   --concept.concept_name = 'Dead'
+        WHERE discharge_to_concept_id = 434489                   -- concept.concept_name = 'Dead'
   ) d USING (person_id)
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
