@@ -1,0 +1,26 @@
+ordercategoryname,concept_id,concept_name
+01-Drips,45879918,"Infusion, intravenous catheter, continuous"
+02-Fluids (Crystalloids),45879918,"Infusion, intravenous catheter, continuous"
+03-IV Fluid Bolus,45884915,"Injection, intravenous, rapid push"
+04-Fluids (Colloids),45879918,"Infusion, intravenous catheter, continuous"
+05-Med Bolus,45884915,"Injection, intravenous, rapid push"
+06-Insulin (Non IV),4330773,Administration of substance via subcutaneous route
+07-Blood Products,45879918,"Infusion, intravenous catheter, continuous"
+08-Antibiotics (IV),4181778,"Intravenous injection"
+09-Antibiotics (Non IV),4200930,Administration of substance via oral route
+10-Prophylaxis (IV),4181778,"Intravenous injection"
+12-Parenteral Nutrition,45879918,"Infusion, intravenous catheter, continuous"
+13-Enteral Nutrition,4200930,Administration of substance via oral route
+14-Oral/Gastric Intake,4200930,Administration of substance via oral route
+Oral or Nasogastric,4200930,Administration of substance via oral route
+IV Piggyback,45879918,"Infusion, intravenous catheter, continuous"
+Gastric/Feeding Tube,4200930,Administration of substance via oral route
+IV Drip,45879918,"Infusion, intravenous catheter, continuous"
+Intravenous,4181778,"Intravenous injectiona"
+By Mouth,4200930,Administration of substance via oral route
+GU,4206137,Genitourinary therapy
+Drip,45879918,"Infusion, intravenous catheter, continuous"
+Intravenous Infusion,45879918,"Infusion, intravenous catheter, continuous"
+Nasogastric,4200930,Administration of substance via oral route
+Oral,4200930,Administration of substance via oral route
+Intravenous push,45884915,"Injection, intravenous, rapid push"
