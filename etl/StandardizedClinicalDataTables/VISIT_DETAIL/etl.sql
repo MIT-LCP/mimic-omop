@@ -35,6 +35,35 @@
 --"callout_delay" as (SELECT callout_service as callout_discharge_to_source_value, hadm_id, curr_careunit, createtime, outcometime, extract(epoch from outcometime - createtime)/3600/24 as discharge_delay, (outcometime - createtime) / 2 + createtime as mean_time FROM callout WHERE callout_outcome not ilike 'cancel%'), 
 --"transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
 
+-- PRINCIPLE:
+-- =========
+-- TRANSFERS:
+-- 
+-- visit_start_datetime | visit_end_datetime  
+-- ----------------------+---------------------
+--  2130-07-05 00:16:17  | 2130-07-05 17:41:52
+--  2130-07-05 17:41:52  | 2130-07-05 19:32:40
+--  2130-07-05 19:32:40  | 2130-07-06 20:51:50
+--  2130-07-06 20:51:50  | 2130-07-07 12:10:06
+-- 
+-- SERVICES:
+-- 
+--   visit_start_datetime | visit_end_datetime  
+-- -----------------------+---------------------
+--   2130-07-05 00:16:17  | 2130-07-05 19:32:40
+--   2130-07-05 19:32:40  | 2130-07-06 20:51:50
+--   2130-07-06 20:51:50  | 2130-07-07 12:09:00
+-- 
+-- VISIT_DETAIL:
+-- 		TRANSFERS		     |               SERVICES
+-- | visit_start_datetime | visit_end_datetime  | visit_start_datetime | visit_end_datetime  
+-- +----------------------+---------------------+----------------------+---------------------
+-- | 2130-07-05 00:16:17  | 2130-07-05 17:41:52 | 2130-07-05 00:16:17  | 2130-07-05 17:41:52
+-- | 2130-07-05 17:41:52  | 2130-07-05 19:32:40 | 2130-07-05 17:41:52  | 2130-07-05 19:32:40
+-- | 2130-07-05 19:32:40  | 2130-07-06 20:51:50 | 2130-07-05 19:32:40  | 2130-07-06 20:51:50
+-- | 2130-07-06 20:51:50  | 2130-07-07 12:10:06 | 2130-07-06 20:51:50  | 2130-07-07 12:09:00
+
+
 WITH
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id, 0 as visit_detail_concept_id FROM gcpt_care_site),
@@ -226,16 +255,6 @@ FROM visit_detail_service
 WHERE visit_end_date IS NOT NULL  -- trick to remove emergency services that does not actually exist
 )
 SELECT 1;
--- SELECT w.visit_start_datetime, w.visit_end_datetime, s.visit_start_datetime, s.visit_end_datetime
--- FROM insert_visit_detail_ward w 
--- LEFT JOIN insert_visit_detail_service s ON  s.visit_detail_parent_id = w.visit_detail_id
--- WHERE w.person_id = 886301
--- ORDER BY w.visit_start_datetime
--- SELECT * FROM insert_visit_detail_ward WHERE visit_occurrence_id = 16 ORDER BY visit_start_datetime;
--- SELECT visit_detail_service.visit_detail_id, visit_detail_service.care_site_id, visit_detail_parent_id,  visit_detail_ward.visit_start_datetime, visit_detail_ward.visit_end_datetime, visit_detail_service.visit_start_datetime, visit_detail_service.visit_end_datetime, sum(1) over(partition by visit_detail_parent_id) 
--- FROM visit_detail_service 
--- LEFT JOIN visit_detail_ward ON visit_detail_parent_id = visit_detail_ward.visit_detail_id
--- ORDER BY visit_detail_ward.visit_start_datetime, visit_detail_service.visit_start_datetime;
 
 -- first draft of icustay assignation table 
  DROP TABLE IF EXISTS omop.visit_detail_assign;
