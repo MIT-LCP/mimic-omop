@@ -1,7 +1,4 @@
 -- LABS FROM labevents
-set search_path to mimic;
-TRUNCATE omop.measurement;
-TRUNCATE omop.fact_relationship;
 WITH 
 "labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value, substring(value,'^(<=|>=|<|>)') as operator_name,
 	    CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
@@ -10,7 +7,7 @@ WITH
 	FROM labevents),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"d_labitems" AS (SELECT itemid, label, mimic_id FROM d_labitems),
+"d_labitems" AS (SELECT itemid, loinc_code as label, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),

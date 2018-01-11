@@ -5,6 +5,7 @@ set search_path to mimic;
 TRUNCATE TABLE  omop.care_site CASCADE;
 TRUNCATE TABLE  omop.cohort_definition CASCADE;
 TRUNCATE TABLE  omop.cohort_attribute CASCADE;
+TRUNCATE TABLE  omop.attribute_definition CASCADE;
 TRUNCATE TABLE  omop.person CASCADE;
 TRUNCATE TABLE  omop.death CASCADE;
 TRUNCATE TABLE  omop.visit_occurrence CASCADE;
