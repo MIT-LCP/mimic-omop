@@ -32,8 +32,6 @@
 --INSERT INTO visit_length, callout_delay
 
 -- WITH
---"callout_delay" as (SELECT callout_service as callout_discharge_to_source_value, hadm_id, curr_careunit, createtime, outcometime, extract(epoch from outcometime - createtime)/3600/24 as discharge_delay, (outcometime - createtime) / 2 + createtime as mean_time FROM callout WHERE callout_outcome not ilike 'cancel%'), 
---"transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
 
 -- PRINCIPLE:
 -- =========
@@ -159,6 +157,35 @@ ELSE discharge_to_concept_id
 FROM visit_detail_ward
 LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 ),
+"callout_delay" as (
+	SELECT 
+        , visit_detail_id as subject_id
+	, visit_start_datetime as cohort_start_date
+	, visit_end_datetime as cohort_end_date
+	, extract(
+		epoch
+		from outcometime - createtime
+	)/3600/24 as discharge_delay
+	, (outcometime - createtime) / 2 + createtime as mean_time
+	FROM callout
+	LEFT JOIN  visit_detail_ward v 
+	ON v.hadm_id = callout.hadm_id
+	AND callout.curr_careunit = v.curr_careunit
+	AND ((outcometime - createtime) / 2 + createtime) between v.visit_start_datetime and v.visit_end_datetime
+	WHERE callout_outcome not ilike 'cancel%'
+),
+"insert_callout_delay" AS (
+	INSERT INTO omop.cohort_attribute
+	SELECT
+	0 AS cohort_definition_id    
+	, cohort_start_date       
+	, cohort_end_date         
+	, subject_id              
+	, 1 AS  attribute_definition_id 
+	, discharge_delay as value_as_number
+	, 0 value_as_concept_id     
+	FROM callout_delay
+),
 "serv_tmp" as (
        SELECT services.*
 	    , visit_occurrence_id
@@ -253,7 +280,9 @@ SELECT
 , null::integer visit_occurrence_id
 FROM visit_detail_service
 WHERE visit_end_date IS NOT NULL  -- trick to remove emergency services that does not actually exist
-)
+),
+                    
+--"transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
 SELECT 1;
 
 -- first draft of icustay assignation table 
