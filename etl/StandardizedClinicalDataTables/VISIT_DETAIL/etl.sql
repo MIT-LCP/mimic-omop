@@ -32,8 +32,6 @@
 --INSERT INTO visit_length, callout_delay
 
 -- WITH
---"callout_delay" as (SELECT callout_service as callout_discharge_to_source_value, hadm_id, curr_careunit, createtime, outcometime, extract(epoch from outcometime - createtime)/3600/24 as discharge_delay, (outcometime - createtime) / 2 + createtime as mean_time FROM callout WHERE callout_outcome not ilike 'cancel%'), 
---"transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
 
 -- PRINCIPLE:
 -- =========
@@ -66,7 +64,7 @@
 
 WITH
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
-"gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id, 0 as visit_detail_concept_id FROM gcpt_care_site),
+"gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id, visit_detail_concept_id FROM gcpt_care_site),
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
@@ -127,7 +125,7 @@ INSERT INTO omop.visit_detail
 SELECT
   visit_detail_id
 , person_id
-, gcpt_care_site.visit_detail_concept_id
+, coalesce(gcpt_care_site.visit_detail_concept_id, 0) as visit_detail_concept_id
 , visit_start_date
 , visit_start_datetime
 , visit_end_date
@@ -158,6 +156,50 @@ ELSE discharge_to_concept_id
 , visit_occurrence_id
 FROM visit_detail_ward
 LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
+),
+"callout_delay" as (
+	SELECT 
+         visit_detail_id as subject_id
+	, visit_start_datetime as cohort_start_date
+	, visit_end_datetime as cohort_end_date
+	, extract(
+		epoch
+		from outcometime - createtime
+	)/3600/24 as discharge_delay
+	, (outcometime - createtime) / 2 + createtime as mean_time
+	FROM callout
+	LEFT JOIN  visit_detail_ward v 
+	ON v.hadm_id = callout.hadm_id
+	AND callout.curr_careunit = v.curr_careunit
+	AND ((outcometime - createtime) / 2 + createtime) between v.visit_start_datetime and v.visit_end_datetime
+	WHERE callout_outcome not ilike 'cancel%'
+),
+"insert_callout_delay" AS (
+	INSERT INTO omop.cohort_attribute
+	SELECT
+	0 AS cohort_definition_id    
+	, cohort_start_date       
+	, cohort_end_date         
+	, subject_id              
+	, 1 AS  attribute_definition_id 
+	, discharge_delay as value_as_number
+	, 0 value_as_concept_id     
+	FROM callout_delay
+),
+"insert_visit_detail_delay" AS (
+	INSERT INTO omop.cohort_attribute
+	SELECT
+	0 AS cohort_definition_id    
+	, visit_start_datetime as  cohort_start_date       
+	, visit_end_datetime as cohort_end_date         
+	, visit_detail_id as subject_id              
+	,  2  as  attribute_definition_id 
+	, extract(
+		epoch
+		from visit_end_datetime - visit_start_datetime
+	)/3600/24 AS  value_as_number
+	, 0 value_as_concept_id     
+	FROM visit_detail_ward
 ),
 "serv_tmp" as (
        SELECT services.*
@@ -266,8 +308,8 @@ SELECT 1;
  , visit_end_datetime
  , visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC ) AS  is_first
  , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following) AS is_last
- , visit_detail_concept_id = 4148981 AS is_icu
- , visit_detail_concept_id = 9203 AS is_emergency
+ , visit_detail_concept_id = 581382 AS is_icu
+ , visit_detail_concept_id = 581381 AS is_emergency
  FROM  omop.visit_detail 
  WHERE visit_type_concept_id = 2000000006 -- only ward kind 
  ;

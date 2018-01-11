@@ -1,16 +1,15 @@
 -- LABS FROM labevents
-set search_path to mimic;
-TRUNCATE omop.measurement;
-TRUNCATE omop.fact_relationship;
-WITH 
-"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value, substring(value,'^(<=|>=|<|>)') as operator_name,
-	    CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
-                THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision 
-        ELSE null::double precision END as value_as_number
-	FROM labevents),
+WITH
+"labs_value_purif" as (SELECT *, regexp_replace(regexp_replace(trim(value), 'LE[SE]S THAN ','<'),'GREATER TH[AE]N ','>') as value_purif from mimic.labevents),
+"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value,
+        CASE WHEN value_purif ~ '^[+-]*[0-9.,]+$' THEN  '=' ELSE substring(value_purif,'^(<=|>=|<|>)') END as operator_name,
+                CASE WHEN value_purif ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$'
+                        THEN regexp_replace(regexp_replace(value_purif,'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision
+                ELSE null::double precision END as value_as_number
+                        FROM lab_value_purif),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"d_labitems" AS (SELECT itemid, label, mimic_id FROM d_labitems),
+"d_labitems" AS (SELECT itemid, loinc_code as label, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
@@ -76,7 +75,7 @@ WITH
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
-"omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
+"omop_loinc" AS (SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement' AND standard_concept = 'S'),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
 "row_to_insert" AS (SELECT 

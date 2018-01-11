@@ -10,6 +10,15 @@ INSERT INTO omop.cohort_definition
 , cohort_initiation_date
  )
 VALUES
+(         0
+        , 'No particular cohort'
+        , null
+        , 0
+        , null
+        , 0
+        , now()
+)
+,
 (         1
         , 'angus severe'
         , 'jerome description'
@@ -68,4 +77,12 @@ VALUES
      --   , 'visit_occurrence'
         , 0
         , now()
-)
+);
+
+
+
+INSERT INTO omop.attribute_definition VALUES 
+  (1, 'Callout Delay', null, 0, null)
+, (2, ' Visit Detail Delay', null, 0, null)
+, (3, ' Visit Occurrence Delay', null, 0, null)
+;
