@@ -73,7 +73,7 @@ WITH
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
-"omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_name as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
+"omop_loinc" AS (SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement' AND standard_concept = 'S'),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
 "row_to_insert" AS (SELECT 
