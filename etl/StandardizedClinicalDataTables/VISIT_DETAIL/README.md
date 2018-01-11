@@ -4,16 +4,19 @@
 # Source Tables
 
 ## transfers
+- https://mimic.physionet.org/mimictables/services/
 
 - the room or bed movement have been removed so that only ward change are logged in the table
 - the emergency stays have been added in has conventional stays (may introduce strange gap in times)
-- `visit_detail_concept_id` is equal to 9201  (Inpatient visit) for a non emergency stay
-- `visit_detail_concept_id` is equal to 9203  (Emergency room) for a emergency  stay
-- `visit_detail_concept_id` is equal to 9204  (Intensive Care Unit) for an ICU  stay
-- `visit_type_concept_id` is equal to 44818518  (Visit derived from EHR record)
+- `visit_detail_concept_id` is equal to 8717 (Inpatient visit) for a non emergency stay
+- `visit_detail_concept_id` is equal to 581381 (Emergency room) for a emergency  stay
+- `visit_detail_concept_id` is equal to 581382  (Intensive Care Unit) for an ICU  stay
+- `visit_type_concept_id` is equal to 2000000006  Ward and physical location) and localize the patient
+- `visit_type_concept_id` is equal to  45770670 (Services and care) and lists services that a patient was admitted/transferred under
 - the callout delay has been added in the table has an omop contrib derived variable
 
 ## services
+- https://mimic.physionet.org/mimictables/services/
 
 - the services table populates the `visit_detail` too
 - `visit_detail_concept_id` is always equal to 9201  (Inpatient visit) because service information does not cover emergency stays
@@ -40,35 +43,54 @@ Those fields have been added:
 
 # Example
 ``` sql
--- the distribution of ward types
-SELECT concept_name, concept_id, count(1)
-FROM visit_detail
-JOIN concept ON visit_detail_concept_id = concept_id
-GROUP BY 1, 2 ORDER BY 3 desc;
-```
-       concept_name        | concept_id | count
----------------------------+------------+-------
- Inpatient Visit           |       9201 |   351
- Intensive Care Unit Visit |       9204 |   185
- Emergency Room Visit      |       9203 |    72
-
-``` sql
 -- explanation of the visit_type_concept_id
+-- 
 SELECT distinct concept_name, visit_type_concept_id  as concept_id
 From visit_detail v
 JOIN concept c on v.visit_type_concept_id = c.concept_id;
 ```
-         concept_name          | concept_id
--------------------------------+------------
- Services and care             |   45770670
- Visit derived from EHR record |   44818518
+        concept_name        | concept_id
+----------------------------+------------
+ Services and care          |   45770670
+ Ward and physical location | 2000000006
+
+``` sql
+-- the distribution of ward types (physical location)
+SELECT concept_name, concept_id, count(1)
+FROM visit_detail
+JOIN concept ON visit_detail_concept_id = concept_id
+WHERE visit_type_concept_id = 2000000006                 -- concept.concept_name = 'Ward and physical location'
+GROUP BY 1, 2 ORDER BY 3 desc;
+```
+             concept_name              | concept_id | count
+---------------------------------------+------------+-------
+ No matching concept                   |          0 |   187
+ Inpatient Intensive Care Facility     |     581382 |   170
+ Emergency Room Critical Care Facility |     581381 |    72
+ Inpatient Hospital                    |       8717 |    15
+
+
+``` sql
+-- the distribution of type of care (medical vs surgical)
+SELECT concept_name, concept_id, count(1)
+FROM visit_detail
+JOIN concept ON visit_detail_concept_id = concept_id
+WHERE visit_type_concept_id = 45770670                -- concept.concept_name = 'Services and care'
+GROUP BY 1, 2 ORDER BY 3 desc;
+```
+          concept_name           | concept_id | count
+---------------------------------+------------+-------
+ General medical service         |   45763735 |   178
+ Surgical service                |    4149152 |   150
+ Newborn care service            |    4237225 |    34
+
 
 ``` sql
 -- explanation of care_site_id
 -- -- transfers table (mimic)
 SELECT place_of_service_source_value, count (1)
 FROM visit_detail JOIN care_site c USING (care_site_id) 
-WHERE visit_type_concept_id = 44818518                   -- concept.concept_name = 'Visit derived from EHR record'
+WHERE visit_type_concept_id = 2000000006                 -- concept.concept_name = 'Ward and physical location'
 GROUP BY 1 ORDER BY count(1) DESC;
 ```
      place_of_service_source_value     | count
@@ -86,7 +108,7 @@ GROUP BY 1 ORDER BY count(1) DESC;
 ``` sql
 -- explanation of care_site_id
 -- -- service table (mimic) 
--- -- `visit_detail_concept_id` is always equal to 9201 i
+-- -- `visit_detail_concept_id` is always equal to 9201
 SELECT place_of_service_source_value, count (1)
 FROM visit_detail JOIN care_site c USING (care_site_id) 
 WHERE visit_type_concept_id = 45770670                      -- concept.concept_name = 'Services and care'
@@ -117,13 +139,12 @@ WHERE visit_detail_concept_id = 9204                 -- concept.concept_name = '
 and visit_type_concept_id = 44818518;                -- concept.concept_name = 'Visit derived from EHR record'
 ```
 
-/* Todo
 ``` sql
 -- nb of dead patients in ICU
 SELECT count(person_id) AS dead_hospital_count
 FROM visit_detail
 JOIN concept ON visit_detail_concept_id = concept_id
-WHERE visit_detail_concept_id = 9204            --concept,concept_name = 'Intensive Care Unit Visit'
+WHERE visit_detail_concept_id = 581382           --concept,concept_name = 'Intensive Care Unit Visit'
 and discharge_to_concept_id = 4216643;          --concept.concept_name = 'Patient died';
 ```
 
@@ -137,14 +158,14 @@ WITH tmp AS
   LEFT JOIN
   (
         SELECT person_id
-        FROM visit_occurrence
-        WHERE visit_detail_concept_id = 9204            -- concept.concept_name = 'Intensive Care Unit Visit'
-        and discharge_to_concept_id = 44216643          -- concept.concept_name = 'Patient died'
+        FROM visit_detail
+        WHERE visit_detail_concept_id = 581382            -- concept.concept_name = 'Intensive Care Unit Visit'
+        and discharge_to_concept_id = 4216643          -- concept.concept_name = 'Patient died'
   ) d USING (person_id)
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
 ```
-*/
+
 
 ``` sql
 -- Distribution of length of stay in icu
@@ -170,12 +191,12 @@ SELECT percentile_25
           FROM
              ( SELECT EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 as los, count(*) AS nb_los
                 FROM omop.visit_detail
-                WHERE visit_detail_concept_id = 9204                                                    
+                WHERE visit_detail_concept_id = 581382 
                 GROUP BY EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0
               ) as counter
         ) as p
      WHERE percentile <= 3
   ) as percentile_table, omop.visit_detail
-  WHERE visit_detail_concept_id = 9204     
+  WHERE visit_detail_concept_id = 581382     
   GROUP BY percentile_25, median, percentile_75;
 ```
