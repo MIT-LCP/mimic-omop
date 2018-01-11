@@ -146,7 +146,7 @@ SELECT
 , quantity
 , null::integer as days_supply
 , null::text as sig
-, route_concept_id
+, coalesce(route_concept_id, 0) as route_concept_id
 , null::integer as lot_number
 , provider_id
 , visit_occurrence_id
@@ -278,7 +278,7 @@ SELECT
 , quantity
 , null::integer as days_supply
 , null::text as sig
-, route_concept_id
+, coalesce(route_concept_id,0) as route_concept_id
 , null::integer as lot_number
 , provider_id
 , visit_occurrence_id
