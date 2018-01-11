@@ -14,25 +14,12 @@
 - patients `dod_hosp` has been described has odd behavior (https://github.com/MIT-LCP/mimic-code/issues/190)
 - only `dod_ssn` is taken in consideration and the omop concept is equal to 261
 
-# Lookup Tables
+# Examples
 
 ``` sql
 -- Number of dead patients in the dataset
 SELECT COUNT(person_id) AS num_deaths_count
 FROM person;
-```
-
-``` sql
--- % of dead patients in the dataset
-WITH tmp AS 
-(
-  SELECT COUNT(person.person_id) as total
-         , count(death.person_id) as dead 
-  FROM person  
-  LEFT JOIN death 
-  USING (person_id))
-SELECT dead * 100 / total as percentage FROM tmp;
-
 ```
 
 ``` sql

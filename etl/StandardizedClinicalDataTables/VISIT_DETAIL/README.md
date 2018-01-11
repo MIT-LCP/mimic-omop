@@ -50,7 +50,7 @@ From visit_detail v
 JOIN concept c on v.visit_type_concept_id = c.concept_id;
 ```
         concept_name        | concept_id
-----------------------------+------------
+----------------------------|------------
  Services and care          |   45770670
  Ward and physical location | 2000000006
 
@@ -63,7 +63,7 @@ WHERE visit_type_concept_id = 2000000006                 -- concept.concept_name
 GROUP BY 1, 2 ORDER BY 3 desc;
 ```
              concept_name              | concept_id | count
----------------------------------------+------------+-------
+---------------------------------------|------------|-------
  No matching concept                   |          0 |   187
  Inpatient Intensive Care Facility     |     581382 |   170
  Emergency Room Critical Care Facility |     581381 |    72
@@ -79,7 +79,7 @@ WHERE visit_type_concept_id = 45770670                -- concept.concept_name = 
 GROUP BY 1, 2 ORDER BY 3 desc;
 ```
           concept_name           | concept_id | count
----------------------------------+------------+-------
+---------------------------------|------------|-------
  General medical service         |   45763735 |   178
  Surgical service                |    4149152 |   150
  Newborn care service            |    4237225 |    34
@@ -94,7 +94,7 @@ WHERE visit_type_concept_id = 2000000006                 -- concept.concept_name
 GROUP BY 1 ORDER BY count(1) DESC;
 ```
      place_of_service_source_value     | count
----------------------------------------+-------
+---------------------------------------|-------
  Unknown service                       |   187
  Emergency Room Critical Care Facility |    72
  Medical intensive care unit           |    67
@@ -115,7 +115,7 @@ WHERE visit_type_concept_id = 45770670                      -- concept.concept_n
 GROUP BY 1 ORDER BY count(1) DESC;
 ```
                                place_of_service_source_value                               | count
--------------------------------------------------------------------------------------------+-------
+-------------------------------------------------------------------------------------------|-------
  Medical - general service for internal medicine                                           |    62
  Plastic - restortation/reconstruction of the human body (including cosmetic or aesthetic) |     1
  Newborn - infants born at the hospital                                                    |    15
@@ -135,9 +135,12 @@ GROUP BY 1 ORDER BY count(1) DESC;
 -- Number of patients in ICU
 SELECT COUNT(person_id) AS num_totalstays_count
 FROM visit_detail
-WHERE visit_detail_concept_id = 9204                 -- concept.concept_name = 'Intensive Care Unit Visit'
+WHERE visit_detail_concept_id = 581382                 -- concept.concept_name = 'Intensive Care Unit Visit'
 and visit_type_concept_id = 44818518;                -- concept.concept_name = 'Visit derived from EHR record'
 ```
+ dead_hospital_count
+---------------------
+                   127
 
 ``` sql
 -- nb of dead patients in ICU
@@ -147,6 +150,9 @@ JOIN concept ON visit_detail_concept_id = concept_id
 WHERE visit_detail_concept_id = 581382           --concept,concept_name = 'Intensive Care Unit Visit'
 and discharge_to_concept_id = 4216643;          --concept.concept_name = 'Patient died';
 ```
+ dead_hospital_count
+---------------------
+                   9
 
 ``` sql
 -- % of dead patients in icu
@@ -165,6 +171,9 @@ WITH tmp AS
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
 ```
+ dead | total | percentage
+------|-------+|------------
+    9 |   127 |          7
 
 
 ``` sql
@@ -200,3 +209,6 @@ SELECT percentile_25
   WHERE visit_detail_concept_id = 581382     
   GROUP BY percentile_25, median, percentile_75;
 ```
+   percentile_25   |      median      |  percentile_75   |       minimum       |     maximum      | mean |      stddev
+-------------------|------------------|------------------|---------------------|------------------|------|------------------
+ 0.857523148148148 | 1.68177083333333 | 3.78398148148148 | 0.00148148148148148 | 52.8522685185185 |    4 | 6.90513258308583
