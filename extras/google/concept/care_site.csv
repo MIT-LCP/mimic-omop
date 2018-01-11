@@ -1,4 +1,4 @@
-care_site_name,place_of_service_source_value,place_concept_id,visit_concept_id
+care_site_name,place_of_service_source_value,place_of_service_concept_id,visit_type_concept_id
 CCU,Coronary care unit,4149943,581382
 CSRU,Cardiac surgery recovery unit,4138949,581382
 MICU,Medical intensive care unit,40481392,581382

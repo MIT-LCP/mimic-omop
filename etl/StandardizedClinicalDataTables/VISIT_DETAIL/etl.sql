@@ -64,7 +64,7 @@
 
 WITH
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
-"gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id, 0 as visit_detail_concept_id FROM gcpt_care_site),
+"gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id, visit_detail_concept_id FROM gcpt_care_site),
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
