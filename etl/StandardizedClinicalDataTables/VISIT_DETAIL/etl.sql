@@ -186,6 +186,21 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 	, 0 value_as_concept_id     
 	FROM callout_delay
 ),
+"insert_visit_detail_delay" AS (
+	INSERT INTO omop.cohort_attribute
+	SELECT
+	0 AS cohort_definition_id    
+	, cohort_start_date       
+	, cohort_end_date         
+	, subject_id              
+	,  2  as  attribute_definition_id 
+	, extract(
+		epoch
+		from visit_end_datetime - visit_date_datetime
+	)/3600/24 AS as value_as_number
+	, 0 value_as_concept_id     
+	FROM visit_detail_ward
+),
 "serv_tmp" as (
        SELECT services.*
 	    , visit_occurrence_id
