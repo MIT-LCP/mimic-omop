@@ -3,6 +3,8 @@ set search_path to mimic;
 \i ../mimic/build-mimic/postgres_update_mimic.sql
 
 TRUNCATE TABLE  omop.care_site CASCADE;
+TRUNCATE TABLE  omop.cohort_definition CASCADE;
+TRUNCATE TABLE  omop.cohort_attribute CASCADE;
 TRUNCATE TABLE  omop.person CASCADE;
 TRUNCATE TABLE  omop.death CASCADE;
 TRUNCATE TABLE  omop.visit_occurrence CASCADE;
@@ -17,6 +19,7 @@ TRUNCATE TABLE  omop.measurement CASCADE;
 --\i ../mimic/build-mimic/postgres_create_mimic_id.sql
 \i pg_function.sql
 \i StandardizedVocabularies/CONCEPT/etl.sql
+\i StandardizedDerivedElements/COHORT_ATTRIBUTE/etl.sql
 \i StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i StandardizedClinicalDataTables/PERSON/etl.sql
 \i StandardizedClinicalDataTables/DEATH/etl.sql

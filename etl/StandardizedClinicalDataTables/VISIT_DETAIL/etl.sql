@@ -125,7 +125,7 @@ INSERT INTO omop.visit_detail
 SELECT
   visit_detail_id
 , person_id
-, gcpt_care_site.visit_detail_concept_id
+, coalesce(gcpt_care_site.visit_detail_concept_id, 0) as visit_detail_concept_id
 , visit_start_date
 , visit_start_datetime
 , visit_end_date
@@ -159,7 +159,7 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 ),
 "callout_delay" as (
 	SELECT 
-        , visit_detail_id as subject_id
+         visit_detail_id as subject_id
 	, visit_start_datetime as cohort_start_date
 	, visit_end_datetime as cohort_end_date
 	, extract(
@@ -190,14 +190,14 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 	INSERT INTO omop.cohort_attribute
 	SELECT
 	0 AS cohort_definition_id    
-	, cohort_start_date       
-	, cohort_end_date         
-	, subject_id              
+	, visit_start_datetime as  cohort_start_date       
+	, visit_end_datetime as cohort_end_date         
+	, visit_detail_id as subject_id              
 	,  2  as  attribute_definition_id 
 	, extract(
 		epoch
-		from visit_end_datetime - visit_date_datetime
-	)/3600/24 AS as value_as_number
+		from visit_end_datetime - visit_start_datetime
+	)/3600/24 AS  value_as_number
 	, 0 value_as_concept_id     
 	FROM visit_detail_ward
 ),
@@ -295,9 +295,7 @@ SELECT
 , null::integer visit_occurrence_id
 FROM visit_detail_service
 WHERE visit_end_date IS NOT NULL  -- trick to remove emergency services that does not actually exist
-),
-                    
---"transfers_call" AS (SELECT transfers.*, CASE WHEN transfers.icustay_id IS NULL THEN NULL ELSE discharge_delay END AS discharge_delay, callout_discharge_to_source_value FROM transfers LEFT JOIN callout_delay ON (transfers.hadm_id = callout_delay.hadm_id AND mean_time between intime and outtime AND callout_delay.curr_careunit = transfers.curr_careunit)),
+)
 SELECT 1;
 
 -- first draft of icustay assignation table 
@@ -310,8 +308,8 @@ SELECT 1;
  , visit_end_datetime
  , visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC ) AS  is_first
  , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following) AS is_last
- , visit_detail_concept_id = 4148981 AS is_icu
- , visit_detail_concept_id = 9203 AS is_emergency
+ , visit_detail_concept_id = 581382 AS is_icu
+ , visit_detail_concept_id = 581381 AS is_emergency
  FROM  omop.visit_detail 
  WHERE visit_type_concept_id = 2000000006 -- only ward kind 
  ;
