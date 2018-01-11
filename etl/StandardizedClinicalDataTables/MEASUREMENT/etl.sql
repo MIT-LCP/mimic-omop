@@ -1,10 +1,12 @@
 -- LABS FROM labevents
-WITH 
-"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value, substring(value,'^(<=|>=|<|>)') as operator_name,
-	    CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
-                THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision 
-        ELSE null::double precision END as value_as_number
-	FROM labevents),
+WITH
+"labs_value_purif" as (SELECT *, regexp_replace(regexp_replace(trim(value), 'LESS THAN ','<'),'GREATER THAN ','>') as value_purif from mimic.labevents),
+"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value,
+        CASE WHEN value_purif ~ '^[+-]*[0-9.,]+$' THEN  '=' ELSE substring(value_purif,'^(<=|>=|<|>)') END as operator_name,
+                CASE WHEN value_purif ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$'
+                        THEN regexp_replace(regexp_replace(value_purif,'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision
+                ELSE null::double precision END as value_as_number
+                        FROM lab_value_purif),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "d_labitems" AS (SELECT itemid, loinc_code as label, mimic_id FROM d_labitems),
