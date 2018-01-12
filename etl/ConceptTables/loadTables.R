@@ -7,6 +7,8 @@
 library(RPostgres)
 library(DBI)
 
+SCHEMA_TARGET <<- "mimiciii"
+
 getValueFromConfFile <- function(file, pattern){
 	gsub(paste0(pattern,"="),"",grep(paste0("^",pattern,"="), scan(file,what="",quiet=T),value=T))
 }
@@ -35,7 +37,7 @@ paste0("gcpt_",gsub("\\.csv$","",name))
 mooveSchema <- function(table, schema){
 sql <- sprintf("ALTER TABLE %s SET SCHEMA %s", tableName(table), schema)
 dbSendQuery(con, sql)
-sql <- sprintf("ALTER TABLE %s.%s add column mimic_id integer default nextval('mimic.mimic_id_concept_seq'::regclass);", schema, tableName(table))
+sql <- sprintf("ALTER TABLE %s.%s add column mimic_id integer default nextval('%s.mimic_id_concept_seq'::regclass);", schema, tableName(table), SCHEMA_TARGET)
 dbSendQuery(con, sql)
 }
 
@@ -45,7 +47,6 @@ dbSendQuery(con, sql)
 }
 
 PATH_CSV <- "~/git/mimic-omop/extras/google/concept/"
-SCHEMA_TARGET <- "mimic"
 fichs <- list.files(PATH_CSV,pattern="*.csv")
 for(fich in fichs){
 	tmp <- readDf(file.path(PATH_CSV,fich))

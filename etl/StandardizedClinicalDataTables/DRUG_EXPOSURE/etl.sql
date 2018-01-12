@@ -1,6 +1,6 @@
 -- from drug_exposure
 WITH
-"google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
+"google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM mimic.gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
 "drug_exposure" AS (SELECT trim(drug || ' ' || prod_strength) as drug_source_value, subject_id, hadm_id, row_id, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
@@ -101,7 +101,7 @@ SELECT
 , ordercategoryname
 , cancelreason
 FROM inputevents_mv),
-"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
@@ -235,7 +235,7 @@ FROM inputevents_cv
 ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
 "gcpt_cv_input_label_to_concept" AS (SELECT DISTINCT ON (item_id) item_id as itemid, concept_id as drug_concept_id FROM gcpt_mv_input_label_to_concept),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),

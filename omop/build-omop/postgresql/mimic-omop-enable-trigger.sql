@@ -1,0 +1,45 @@
+--SELECT
+--'ALTER TABLE '|| table_name ||' ENABLE TRIGGER ALL;'
+--FROM information_schema.tables WHERE table_schema = 'omop' ;
+
+
+ALTER TABLE omop.visit_detail_assign ENABLE TRIGGER ALL;
+ALTER TABLE omop.cdm_source ENABLE TRIGGER ALL;
+ALTER TABLE omop.attribute_definition ENABLE TRIGGER ALL;
+ALTER TABLE omop.vocabulary ENABLE TRIGGER ALL;
+ALTER TABLE omop.person ENABLE TRIGGER ALL;
+ALTER TABLE omop.note_nlp ENABLE TRIGGER ALL;
+ALTER TABLE omop.domain ENABLE TRIGGER ALL;
+ALTER TABLE omop.concept_synonym ENABLE TRIGGER ALL;
+ALTER TABLE omop.cohort ENABLE TRIGGER ALL;
+ALTER TABLE omop.relationship ENABLE TRIGGER ALL;
+ALTER TABLE omop.fact_relationship ENABLE TRIGGER ALL;
+ALTER TABLE omop.drug_strength ENABLE TRIGGER ALL;
+ALTER TABLE omop.concept_ancestor ENABLE TRIGGER ALL;
+ALTER TABLE omop.observation_period ENABLE TRIGGER ALL;
+ALTER TABLE omop.payer_plan_period ENABLE TRIGGER ALL;
+ALTER TABLE omop.concept_relationship ENABLE TRIGGER ALL;
+ALTER TABLE omop.cohort_definition ENABLE TRIGGER ALL;
+ALTER TABLE omop.location ENABLE TRIGGER ALL;
+ALTER TABLE omop.specimen ENABLE TRIGGER ALL;
+ALTER TABLE omop.dose_era ENABLE TRIGGER ALL;
+ALTER TABLE omop.visit_detail ENABLE TRIGGER ALL;
+ALTER TABLE omop.death ENABLE TRIGGER ALL;
+ALTER TABLE omop.procedure_occurrence ENABLE TRIGGER ALL;
+ALTER TABLE omop.drug_exposure ENABLE TRIGGER ALL;
+ALTER TABLE omop.note ENABLE TRIGGER ALL;
+ALTER TABLE omop.condition_occurrence ENABLE TRIGGER ALL;
+ALTER TABLE omop.care_site ENABLE TRIGGER ALL;
+ALTER TABLE omop.provider ENABLE TRIGGER ALL;
+ALTER TABLE omop.observation ENABLE TRIGGER ALL;
+ALTER TABLE omop.concept_class ENABLE TRIGGER ALL;
+ALTER TABLE omop.source_to_concept_map ENABLE TRIGGER ALL;
+ALTER TABLE omop.cohort_attribute ENABLE TRIGGER ALL;
+ALTER TABLE omop.drug_era ENABLE TRIGGER ALL;
+ALTER TABLE omop.condition_era ENABLE TRIGGER ALL;
+ALTER TABLE omop.cost ENABLE TRIGGER ALL;
+ALTER TABLE omop.device_exposure ENABLE TRIGGER ALL;
+ALTER TABLE omop.measurement ENABLE TRIGGER ALL;
+ALTER TABLE omop.visit_occurrence ENABLE TRIGGER ALL;
+ALTER TABLE omop.concept ENABLE TRIGGER ALL;
+
