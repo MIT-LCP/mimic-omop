@@ -300,8 +300,7 @@ SELECT
       m.label_type
     FROM chartevents as c
     JOIN d_items as d ON (d.itemid=c.itemid AND category IS DISTINCT FROM 'Labs' AND param_type IS DISTINCT FROM 'Text')  -- remove the labs, because done before ; Text are put into observation
-    JOIN gcpt_chart_label_to_concept as m 
-      ON (label = d_label)
+    LEFT JOIN gcpt_chart_label_to_concept as m ON (label = d_label)
     LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
       ON m.label_type = v.label_type AND c.value = v.mimic_name
   ),
