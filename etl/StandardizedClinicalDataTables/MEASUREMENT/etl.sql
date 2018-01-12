@@ -9,7 +9,7 @@ WITH
                         FROM labs_value_purif),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"d_labitems" AS (SELECT itemid, loinc_code as label, mimic_id FROM d_labitems),
+"d_labitems" AS (SELECT itemid, loinc_code as label, category, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
@@ -20,8 +20,13 @@ SELECT
 , patients.person_id                     
 , coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
 , labevents.measurement_datetime::date AS measurement_date              
-, to_datetime(labevents.measurement_datetime) AS measurement_datetime          
-, 44818702 AS measurement_type_concept_id -- Lab result
+, labevents.measurement_datetime AS measurement_datetime          
+, CASE 
+     WHEN category ILIKE 'blood gas'  THEN  2000000010
+     WHEN category ILIKE 'chemistry'  THEN  2000000011
+     WHEN category ILIKE 'hematology' THEN  2000000009
+     ELSE 44818702 --labs
+  END AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , labevents.value_as_number AS value_as_number               
 , null::bigint AS value_as_concept_id           
@@ -70,8 +75,8 @@ FROM row_to_insert;
 
 -- LABS from chartevents
 WITH
-"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category = 'Labs')),
-"d_items" AS (SELECT itemid, label, mimic_id FROM d_items),
+"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'Enzymes','Chemistry') )),
+"d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
@@ -83,8 +88,13 @@ WITH
 , patients.person_id                     
 , coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
 , chartevents_lab.measurement_datetime::date AS measurement_date              
-, to_datetime(chartevents_lab.measurement_datetime) AS measurement_datetime          
-, 44818702 AS measurement_type_concept_id -- Lab result
+, chartevents_lab.measurement_datetime AS measurement_datetime          
+, CASE 
+     WHEN category ILIKE 'blood gases'  THEN  2000000010
+     WHEN lower(category) IN ('chemistry','enzymes')  THEN  2000000011
+     WHEN lower(category) IN ('hematology','heme/coag','enzymes') THEN  2000000009
+     ELSE 44818702 -- there no trivial way to classify
+  END AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , chartevents_lab.value_as_number AS value_as_number               
 , null::bigint AS value_as_concept_id           
@@ -160,7 +170,7 @@ WITH
 , patients.person_id
 , coalesce(gcpt_spec_type_to_concept.measurement_concept_id, 4098207) as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
 , measurement_date AS measurement_date
-, to_datetime(measurement_time) AS measurement_datetime
+, measurement_time AS measurement_datetime
 , 2000000007 AS measurement_type_concept_id -- Lab result -- Microbiology - Culture
 , null AS operator_concept_id
 , null value_as_number
@@ -300,7 +310,7 @@ SELECT
       m.value_ub as value_ub,
       m.label_type
     FROM chartevents as c
-    JOIN d_items as d ON (d.itemid=c.itemid AND category IS DISTINCT FROM 'Labs' AND param_type IS DISTINCT FROM 'Text')  -- remove the labs, because done before ; Text are put into observation
+    JOIN d_items as d ON (d.itemid=c.itemid AND category IS DISTINCT FROM 'Labs'  AND category IS DISTINCT FROM  'Blood Gases' AND category IS DISTINCT FROM  'Hematology' AND category IS DISTINCT FROM 'Chemistry' AND category IS DISTINCT FROM  'Heme/Coag' AND category IS DISTINCT FROM  'Coags' AND category IS DISTINCT FROM  'Enzymes' AND param_type IS DISTINCT FROM 'Text')  -- remove the labs, because done before ; Text are put into observation
     LEFT JOIN gcpt_chart_label_to_concept as m ON (label = d_label)
     LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
       ON m.label_type = v.label_type AND c.value = v.mimic_name
@@ -313,7 +323,7 @@ SELECT
 , patients.person_id                     
 , coalesce(measurement_concept_id, 0) as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
-, to_datetime(measurement_datetime) AS measurement_datetime          
+, measurement_datetime AS measurement_datetime          
 , 44818701 as measurement_type_concept_id 
 , 4172703 AS operator_concept_id 
 , coalesce(valuenum_fromvalue, value_as_number) AS value_as_number               
@@ -396,7 +406,7 @@ FROM outputevents
 , patients.person_id                     
 , measurement_concept_id as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
-, to_datetime(measurement_datetime) AS measurement_datetime          
+, measurement_datetime AS measurement_datetime          
 , 2000000003 as measurement_type_concept_id 
 , 4172703 AS operator_concept_id 
 , value AS value_as_number               

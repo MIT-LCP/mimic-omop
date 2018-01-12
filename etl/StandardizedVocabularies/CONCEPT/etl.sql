@@ -16,11 +16,17 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 , (2000000004,'Intravenous Bolus','Type Concept','MIMIC Generated','Drug Type','','1979-01-01','2099-01-01')
 , (2000000005,'Intravenous Continous','Type Concept','MIMIC Generated','Drug Type','','1979-01-01','2099-01-01')
 , (2000000006,'Ward and physical location','Type Concept','MIMIC Generated','Visit Type','','1979-01-01','2099-01-01')
-, (2000000007,'Microbiology - Culture','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
-, (2000000008,'Microbiology - Culture Sensitivity','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
+, (2000000007,'Labs - Culture Organisms','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
+, (2000000008,'Labs - Culture Sensitivity','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
+, (2000000009,'Labs - Hemato','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
+, (2000000010,'Labs - Blood Gaz','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
+, (2000000011,'Labs - Chemistry','Type Concept','MIMIC Generated','Meas Type','','1979-01-01','2099-01-01')
 
 ;
 
+-- INSERT INTO omop.concept_relationship()
+-- VALUES
+-- ();
 --
 -- abbreviation -> concept_synonym
 -- hierarchie   -> part of
