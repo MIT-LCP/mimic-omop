@@ -152,7 +152,8 @@ WITH
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_resistance_to_concept" AS (SELECT * FROM gcpt_resistance_to_concept),
 "gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')),
-"gcpt_spec_type_to_concept" AS (SELECT mimic_id as measurement_concept_id, spec_type_desc as measurement_source_value FROM gcpt_spec_type_to_concept),
+"gcpt_spec_type_to_concept" AS (SELECT concept_id as measurement_concept_id, spec_type_desc as measurement_source_value FROM gcpt_spec_type_to_concept LEFT JOIN omop.concept ON (loinc = concept_code AND standard_concept ='S' AND domain_id = 'Measurement')),
+"gcpt_atb_to_concept" AS (SELECT concept_id as measurement_concept_id, ab_name as measurement_source_value FROM gcpt_atb_to_concept LEFT JOIN omop.concept ON (concept.concept_code = gcpt_atb_to_concept.concept_code AND standard_concept = 'S' AND domain_id = 'Measurement')),
 "d_items" AS (SELECT mimic_id as measurement_source_concept_id, itemid FROM d_items WHERE category IN ( 'SPECIMEN', 'ORGANISM')),
 "row_to_insert" AS (SELECT
   culture.measurement_id AS measurement_id
@@ -185,7 +186,7 @@ UNION ALL
 SELECT
   measurement_id AS measurement_id                 
 , patients.person_id                     
-, coalesce(gcpt_atb_to_concept.measurement_concept_id, 0) as measurement_concept_id      -- Culture Sensitivity
+, coalesce(gcpt_atb_to_concept.measurement_concept_id, 4170475) as measurement_concept_id      -- Culture Sensitivity
 , measurement_date AS measurement_date              
 , measurement_time AS measurement_datetime          
 , 2000000008 AS measurement_type_concept_id -- Lab result
@@ -206,6 +207,7 @@ SELECT
 FROM resistance
 LEFT JOIN d_items ON (ab_itemid = itemid)
 LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
+LEFT JOIN gcpt_atb_to_concept USING (measurement_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN omop_operator USING (operator_name))
