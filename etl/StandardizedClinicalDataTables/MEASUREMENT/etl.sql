@@ -142,9 +142,9 @@ SELECT
 FROM row_to_insert;
 
 -- Microbiology
--- TODO: Map the culture & drug sensitivity
+-- NOTICE: the number of culture is complicated to determine (the distinct on (coalesce).. is a result)
 WITH 
-"culture" AS (SELECT DISTINCT ON (subject_id, chartdate, spec_itemid, org_name) spec_itemid,  mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value FROM microbiologyevents ),
+"culture" AS (SELECT DISTINCT ON (subject_id, chartdate, coalesce(spec_itemid,row_id), coalesce(org_name,row_id::text)) spec_itemid,  mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value FROM microbiologyevents ),
 "resistance" AS (SELECT spec_itemid, ab_itemid ,nextval('mimic_id_seq') as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name ,CASE WHEN trim(dilution_text) ~ '^(<=|=>|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(dilution_text),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM microbiologyevents WHERE dilution_text IS NOT NULL) , 
 "fact_relationship" AS (SELECT culture.measurement_id as fact_id_1, resistance.measurement_id AS fact_id_2 FROM resistance LEFT JOIN culture USING (subject_id, measurement_date, spec_itemid, org_name)),
 "insert_fact_relationship" AS (
