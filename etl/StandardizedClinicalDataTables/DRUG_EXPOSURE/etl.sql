@@ -1,3 +1,4 @@
+-- from drug_exposure
 WITH
 "google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
@@ -92,18 +93,20 @@ SELECT
 , CASE WHEN rate IS NOT NULL THEN rateuom WHEN amount IS NOT NULL THEN amountuom ELSE NULL END AS dose_unit_source_value
 , 38000180 AS drug_type_concept_id -- Inpatient administration
 --, 4112421 as route_concept_id -- intraveous
-, 0 AS route_concept_id
 , orderid = linkorderid as is_leader -- other input are linked to it/them
 , linkorderid
 , orderid
 , ordercategorydescription || ' (' || ordercategoryname || ')' AS route_source_value
 , statusdescription as stop_reason
+, ordercategoryname
 , cancelreason
 FROM inputevents_mv),
+"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
 "gcpt_mv_input_label_to_concept" AS (SELECT DISTINCT ON (item_id) item_id as itemid, concept_id as drug_concept_id FROM gcpt_mv_input_label_to_concept),
+"gcpt_map_route_to_concept" AS (SELECT concept_id as route_concept_id, ordercategoryname FROM gcpt_map_route_to_concept),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
 "d_items" AS (SELECT itemid, label as drug_source_value, mimic_id as drug_source_concept_id FROM d_items),
 "fact_relationship" AS (
@@ -131,7 +134,7 @@ RETURNING *
 SELECT
   drug_exposure_id
 , person_id
-, coalesce(gcpt_inputevents_drug_to_concept.drug_concept_id, gcpt_mv_input_label_to_concept.drug_concept_id, 0) AS drug_concept_id
+, coalesce(rxnorm_map.drug_concept_id, gcpt_inputevents_drug_to_concept.drug_concept_id, gcpt_mv_input_label_to_concept.drug_concept_id, 0) AS drug_concept_id
 , drug_exposure_start_datetime::date AS drug_exposure_start_date
 , drug_exposure_start_datetime
 , drug_exposure_end_datetime::date AS drug_exposure_end_date
@@ -143,7 +146,7 @@ SELECT
 , quantity
 , null::integer as days_supply
 , null::text as sig
-, route_concept_id
+, coalesce(route_concept_id, 0) as route_concept_id
 , null::integer as lot_number
 , provider_id
 , visit_occurrence_id
@@ -158,7 +161,9 @@ LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN gcpt_inputevents_drug_to_concept USING (itemid)
 LEFT JOIN gcpt_mv_input_label_to_concept USING (itemid)
+LEFT JOIN gcpt_map_route_to_concept USING (ordercategoryname)
 LEFT JOIN d_items USING (itemid)
+LEFT JOIN rxnorm_map USING (drug_source_value)
 )
 INSERT INTO omop.drug_exposure
 SELECT 
@@ -221,18 +226,20 @@ SELECT
 , CASE WHEN rate IS NOT NULL THEN rateuom WHEN amount IS NOT NULL THEN amountuom ELSE NULL END as dose_unit_source_value
 , 38000180 AS drug_type_concept_id -- Inpatient administration
 --, 4112421 as route_concept_id -- intraveous
-, 0 AS route_concept_id -- only original route is provided: this would be error prone
 , orderid = linkorderid as is_leader -- other input are linked to it/them
 , orderid 
 , linkorderid
+, originalroute
 , stopped as stop_reason
 FROM inputevents_cv
 ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
 "gcpt_cv_input_label_to_concept" AS (SELECT DISTINCT ON (item_id) item_id as itemid, concept_id as drug_concept_id FROM gcpt_mv_input_label_to_concept),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
+"gcpt_map_route_to_concept" AS (SELECT concept_id as route_concept_id, ordercategoryname as originalroute FROM gcpt_map_route_to_concept),
 "d_items" AS (SELECT itemid, label as drug_source_value, mimic_id as drug_source_concept_id FROM d_items),
 "fact_relationship" AS (
 INSERT INTO omop.fact_relationship 
@@ -259,7 +266,7 @@ RETURNING *
 SELECT
   drug_exposure_id
 , person_id
-, coalesce(gcpt_inputevents_drug_to_concept.drug_concept_id, gcpt_cv_input_label_to_concept.drug_concept_id, 0) AS drug_concept_id
+, coalesce(rxnorm_map.drug_concept_id, gcpt_inputevents_drug_to_concept.drug_concept_id, gcpt_cv_input_label_to_concept.drug_concept_id, 0) AS drug_concept_id
 , drug_exposure_start_datetime::date AS drug_exposure_start_date
 , drug_exposure_start_datetime
 , drug_exposure_end_datetime::date AS drug_exposure_end_date
@@ -271,7 +278,7 @@ SELECT
 , quantity
 , null::integer as days_supply
 , null::text as sig
-, route_concept_id
+, coalesce(route_concept_id,0) as route_concept_id
 , null::integer as lot_number
 , provider_id
 , visit_occurrence_id
@@ -287,6 +294,8 @@ LEFT JOIN caregivers USING (cgid)
 LEFT JOIN gcpt_inputevents_drug_to_concept USING (itemid)
 LEFT JOIN gcpt_cv_input_label_to_concept USING (itemid)
 LEFT JOIN d_items USING (itemid)
+LEFT JOIN rxnorm_map USING (drug_source_value)
+LEFT JOIN gcpt_map_route_to_concept USING (originalroute)
 )
 INSERT INTO omop.drug_exposure
 SELECT 
