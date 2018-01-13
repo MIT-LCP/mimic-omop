@@ -222,7 +222,7 @@ Standardized clinical data
 ************************/
 
 
-CREATE TABLE person 
+CREATE UNLOGGED TABLE person 
     (
      person_id					INTEGER		NOT NULL , 
      gender_concept_id				INTEGER		NOT NULL , 
@@ -249,7 +249,7 @@ CREATE TABLE person
 
 
 
-CREATE TABLE observation_period 
+CREATE UNLOGGED TABLE observation_period 
     ( 
      observation_period_id			INTEGER		NOT NULL , 
      person_id					INTEGER		NOT NULL , 
@@ -263,7 +263,7 @@ CREATE TABLE observation_period
 
 
 
-CREATE TABLE specimen
+CREATE UNLOGGED TABLE specimen
     ( 
          specimen_id					INTEGER			NOT NULL ,
 	 person_id					INTEGER			NOT NULL ,
@@ -285,7 +285,7 @@ CREATE TABLE specimen
 
 
 
-CREATE TABLE death 
+CREATE UNLOGGED TABLE death 
     ( 
      person_id						INTEGER			NOT NULL , 
      death_date						DATE			NOT NULL , 
@@ -299,7 +299,7 @@ CREATE TABLE death
 
 
 
-CREATE TABLE visit_occurrence 
+CREATE UNLOGGED TABLE visit_occurrence 
     ( 
      visit_occurrence_id			INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -322,7 +322,7 @@ CREATE TABLE visit_occurrence
 ;
 
 
-CREATE TABLE visit_detail
+CREATE UNLOGGED TABLE visit_detail
     ( 
      visit_detail_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -347,7 +347,7 @@ CREATE TABLE visit_detail
 ;
 
 
-CREATE TABLE procedure_occurrence 
+CREATE UNLOGGED TABLE procedure_occurrence 
     ( 
      procedure_occurrence_id		INTEGER			NOT NULL , 
      person_id				INTEGER			NOT NULL , 
@@ -368,7 +368,7 @@ CREATE TABLE procedure_occurrence
 
 
 
-CREATE TABLE drug_exposure 
+CREATE UNLOGGED TABLE drug_exposure 
     ( 
      drug_exposure_id			INTEGER			NOT NULL , 
      person_id				INTEGER			NOT NULL , 
@@ -397,7 +397,7 @@ CREATE TABLE drug_exposure
 ;
 
 
-CREATE TABLE device_exposure 
+CREATE UNLOGGED TABLE device_exposure 
     ( 
      device_exposure_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -418,7 +418,7 @@ CREATE TABLE device_exposure
 ;
 
 
-CREATE TABLE condition_occurrence 
+CREATE UNLOGGED TABLE condition_occurrence 
     ( 
      condition_occurrence_id		INTEGER			NOT NULL , 
      person_id				INTEGER			NOT NULL , 
@@ -441,7 +441,7 @@ CREATE TABLE condition_occurrence
 
 
 
-CREATE TABLE measurement 
+CREATE UNLOGGED TABLE measurement 
     ( 
      measurement_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -467,7 +467,7 @@ CREATE TABLE measurement
 
 
 
-CREATE TABLE note 
+CREATE UNLOGGED TABLE note 
     ( 
      note_id					INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -489,7 +489,7 @@ CREATE TABLE note
 
 
 /*This table is new in CDM v5.2*/
-CREATE TABLE note_nlp
+CREATE UNLOGGED TABLE note_nlp
 (
   note_nlp_id					BIGINT 			NOT NULL ,
   note_id					INTEGER			NOT NULL ,
@@ -509,7 +509,7 @@ CREATE TABLE note_nlp
 ;
 
 
-CREATE TABLE observation 
+CREATE UNLOGGED TABLE observation 
     ( 
      observation_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -534,7 +534,7 @@ CREATE TABLE observation
 
 
 
-CREATE TABLE fact_relationship 
+CREATE UNLOGGED TABLE fact_relationship 
     ( 
      domain_concept_id_1			INTEGER			NOT NULL , 
      fact_id_1					INTEGER			NOT NULL ,
