@@ -1,0 +1,81 @@
+label,category,measurement_type_concept_id
+Anion gap,Labs,2000000010
+TCO2 (calc) Venous,Labs,2000000010
+PO2 (Mixed Venous),Labs,2000000010
+Troponin-T,Labs,2000000011
+Digoxin,Labs,2000000011
+Potassium (serum),Labs,2000000011
+HCO3 (serum),Labs,2000000011
+C Reactive Protein (CRP),Labs,2000000011
+CK-MB,Labs,2000000011
+Vancomycin (Random),Labs,2000000011
+Vancomycin (Trough),Labs,2000000011
+Albumin,Labs,2000000011
+Platelet Count,Labs,2000000009
+Phenytoin (Dilantin),Labs,2000000011
+Cortisol,Labs,2000000011
+Potassium (whole blood),Labs,2000000011
+Prothrombin time,Labs,2000000011
+PTT,Labs,2000000011
+INR,Labs,2000000011
+Fibrinogen,Labs,2000000011
+Sed Rate,Labs,2000000011
+Specific Gravity (urine),Labs,2000000011
+Alkaline Phosphate,Labs,2000000011
+BUN,Labs,2000000011
+Calcium non-ionized,Labs,2000000011
+CK-MB fraction (%),Labs,2000000011
+CK (CPK),Labs,2000000011
+D-Dimer,Labs,2000000011
+Differential-Atyps,Labs,2000000009
+Differential-Bands,Labs,2000000009
+Differential-Basos,Labs,2000000009
+Differential-Eos,Labs,2000000009
+Differential-Lymphs,Labs,2000000009
+Differential-Monos,Labs,2000000009
+Differential-Neuts,Labs,2000000009
+Direct Bilirubin,Labs,2000000011
+Glucose finger stick,Labs,2000000011
+Ionized Calcium,Labs,2000000010
+Lactic Acid,Labs,2000000010
+LDL calculated,Labs,2000000011
+Lipase,Labs,2000000011
+Mixed Venous O2% Sat,Labs,2000000010
+Phosphorous,Labs,2000000011
+Serum Osmolality,Labs,2000000011
+Total Bilirubin,Labs,2000000011
+Total Granulocyte Count (TGC),Labs,2000000009
+Triglyceride,Labs,2000000011
+Uric Acid,Labs,2000000011
+TCO2 (calc) Arterial,Labs,2000000010
+Central Venous O2% Sat,Labs,2000000010
+Activated Clotting Time,Labs,2000000009
+Hematocrit (serum),Labs,2000000009
+WBC,Labs,2000000009
+Ammonia,Labs,2000000011
+Amylase,Labs,2000000011
+AST,Labs,2000000011
+Chloride (serum),Labs,2000000011
+Cholesterol,Labs,2000000011
+Creatinine,Labs,2000000011
+Glucose (serum),Labs,2000000011
+HDL,Labs,2000000011
+LDH,Labs,2000000011
+Magnesium,Labs,2000000011
+ALT,Labs,2000000011
+Sodium (serum),Labs,2000000011
+Total Protein,Labs,2000000011
+PH (dipstick),Labs,2000000010
+Arterial O2 pressure,Labs,2000000010
+Arterial O2 Saturation,Labs,2000000010
+Hemoglobin,Labs,2000000009
+Arterial CO2 Pressure,Labs,2000000010
+PH (Venous),Labs,2000000010
+Arterial Base Excess,Labs,2000000010
+Venous CO2 Pressure,Labs,2000000010
+Venous O2 Pressure,Labs,2000000010
+Sodium (whole blood),Labs,2000000011
+Chloride (whole blood),Labs,2000000011
+Glucose (whole blood),Labs,2000000011
+Hematocrit (whole blood - calc),Labs,2000000009
+PH (Arterial),Labs,2000000010
