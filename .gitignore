@@ -9,6 +9,7 @@ extras/google/export/*
 extras/loinc/LOINC_2.61_Text.zip
 omop/athena/*
 etl/Result/
+etl.log
 
 # OSX .DS_Store file
 .DS_Store

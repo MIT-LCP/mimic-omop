@@ -1,3 +1,5 @@
+etl.log: 
+	psql -h localhost  -d mimic postgres  -f etl/etl.sql -o etl.log
 export:
 	find etl/Result/ -name "*.gz" -delete &&\
 	find etl/Result/ -name "*.tar" -delete &&\
@@ -6,5 +8,5 @@ export:
 	cp etl/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/ &&\
 	tar -cf etl/Result/mimic-omop.tar etl/Result/
-etl:
-	psql -h localhost  -d mimic postgres  -f etl/.sql
+clean:
+	rm etl.log
