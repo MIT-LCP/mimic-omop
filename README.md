@@ -11,23 +11,58 @@ REMARKS
 	1. [mimic](mimic/doc/schemaspy/index.html)
 	1. [omop](omop/doc/schemaspy/index.html)
 
-ETL DONE
-========
+OMOP TABLES LOADED
+==================
 
-- [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE/README.md)
-- [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER/README.md)
-- [PERSON](etl/StandardizedClinicalDataTables/PERSON/README.md)
-- [DEATH](etl/StandardizedClinicalDataTables/DEATH/README.md)
-- [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE/README.md)
-- [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL/README.md)
-- [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/README.md)
-- [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE/README.md)
-- [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION/README.md)
-- [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/README.md)
-- [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT/README.md)
-- [NOTE](etl/StandardizedClinicalDataTables/NOTE/README.md)
-- [COHORT_DEFINITION](etl/StandardizedDerivedElements/COHORT_DEFINITION/README.md)
-- [COHORT](etl/StandardizedDerivedElements/COHORT/README.md)
+- [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE)
+- [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
+- [PERSON](etl/StandardizedClinicalDataTables/PERSON)
+- [DEATH](etl/StandardizedClinicalDataTables/DEATH)
+- [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE)
+- [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
+- [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
+- [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
+- [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
+- [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
+- [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+- [NOTE](etl/StandardizedClinicalDataTables/NOTE)
+- [COHORT_DEFINITION](etl/StandardizedDerivedElements/COHORT_DEFINITION)
+- [COHORT](etl/StandardizedDerivedElements/COHORT)
+
+MIMIC TABLES EQUIVALENCE
+========================
+
+- patients
+  - [PERSON](etl/StandardizedClinicalDataTables/PERSON)
+- admissions
+  - [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE)
+  - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
+  - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
+- transfers
+  - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
+- services
+  - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
+- prescriptions
+  - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
+- inputevents_cv
+  - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
+- inputevents_mv
+  - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
+- outputevents
+  - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+- labevents
+  - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+- chartevents
+  - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+  - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
+- drgcodes
+  - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
+- procedure_icd
+  - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
+- procedureevents
+  - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
+- diagnoses_icd
+  - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
 
 ROADMAP
 =======
