@@ -226,7 +226,7 @@
  ALTER TABLE vocabulary ALTER COLUMN   vocabulary_reference TYPE text;
  ALTER TABLE vocabulary ALTER COLUMN   vocabulary_version TYPE text;
  ALTER TABLE note_nlp ALTER COLUMN   snippet TYPE text;
- ALTER TABLE note_nlp ALTER COLUMN   offset TYPE text;
+-- ALTER TABLE note_nlp ALTER COLUMN   offset TYPE text;
  ALTER TABLE note_nlp ALTER COLUMN   lexical_variant TYPE text;
  ALTER TABLE note_nlp ALTER COLUMN   nlp_system TYPE text;
  ALTER TABLE note_nlp ALTER COLUMN   term_exists TYPE text;
@@ -310,13 +310,13 @@ ALTER TABLE specimen ALTER COLUMN   specimen_source_id TYPE text;
  ALTER TABLE visit_occurrence ALTER COLUMN   visit_source_value TYPE text;
  ALTER TABLE visit_occurrence ALTER COLUMN   admitting_source_value TYPE text;
  ALTER TABLE visit_occurrence ALTER COLUMN   discharge_to_source_value TYPE text;
- ALTER TABLE concept ALTER COLUMN   concept_name TYPE text;
- ALTER TABLE concept ALTER COLUMN   domain_id TYPE text;
- ALTER TABLE concept ALTER COLUMN   vocabulary_id TYPE text;
- ALTER TABLE concept ALTER COLUMN   concept_class_id TYPE text;
- ALTER TABLE concept ALTER COLUMN   standard_concept TYPE text;
- ALTER TABLE concept ALTER COLUMN   concept_code TYPE text;
- ALTER TABLE concept ALTER COLUMN   invalid_reason TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   concept_name TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   domain_id TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   vocabulary_id TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   concept_class_id TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   standard_concept TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   concept_code TYPE text;
+-- ALTER TABLE concept ALTER COLUMN   invalid_reason TYPE text;
 
 
 ALTER TABLE drug_exposure ALTER COLUMN drug_exposure_start_date DROP NOT NULL;

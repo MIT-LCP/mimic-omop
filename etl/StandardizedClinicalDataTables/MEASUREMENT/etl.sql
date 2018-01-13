@@ -40,7 +40,6 @@ SELECT
 , d_labitems.mimic_id AS measurement_source_concept_id 
 , gcpt_lab_unit_to_concept.unit_source_value             
 , labevents.value_source_value            
-, null::bigint AS quality_concept_id            
 FROM labevents
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -70,7 +69,6 @@ SELECT
 , row_to_insert.measurement_source_concept_id
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
-, row_to_insert.quality_concept_id
 FROM row_to_insert;
 
 -- LABS from chartevents
@@ -108,7 +106,6 @@ WITH
 , d_items.mimic_id AS measurement_source_concept_id 
 , gcpt_lab_unit_to_concept.unit_source_value             
 , chartevents_lab.value_source_value            
-, null::bigint AS quality_concept_id            
   FROM chartevents_lab
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -138,7 +135,6 @@ SELECT
 , row_to_insert.measurement_source_concept_id
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
-, row_to_insert.quality_concept_id
 FROM row_to_insert;
 
 -- Microbiology
@@ -185,7 +181,6 @@ WITH
 , d_items.measurement_source_concept_id AS measurement_source_concept_id
 , null::text AS unit_source_value
 , culture.org_name AS value_source_value -- Staph...
-, null::bigint AS quality_concept_id
 FROM culture
 LEFT JOIN d_items ON (spec_itemid = itemid)
 LEFT JOIN gcpt_spec_type_to_concept USING (measurement_source_value)
@@ -213,7 +208,6 @@ SELECT
 , d_items.measurement_source_concept_id AS measurement_source_concept_id 
 , null::text AS unit_source_value             
 , value_source_value AS  value_source_value            
-, null::bigint AS quality_concept_id            
 FROM resistance
 LEFT JOIN d_items ON (ab_itemid = itemid)
 LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
@@ -242,7 +236,6 @@ SELECT
 , row_to_insert.measurement_source_concept_id
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
-, row_to_insert.quality_concept_id
 FROM row_to_insert;
 
 
@@ -338,7 +331,6 @@ SELECT
 , measurement_source_concept_id AS measurement_source_concept_id 
 , unit_source_value AS unit_source_value             
 , value_source_value AS  value_source_value            
-, null::bigint AS quality_concept_id            
 FROM chartevents
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
@@ -364,7 +356,6 @@ SELECT
 , row_to_insert.measurement_source_concept_id
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
-, row_to_insert.quality_concept_id
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
@@ -421,7 +412,6 @@ FROM outputevents
 , d_items.mimic_id AS measurement_source_concept_id 
 , outputevents.unit_source_value AS unit_source_value             
 , null::text AS value_source_value            
-, null::bigint AS quality_concept_id            
 FROM outputevents
 LEFT JOIN gcpt_output_label_to_concept USING (itemid)
 LEFT JOIN gcpt_lab_unit_to_concept ON gcpt_lab_unit_to_concept.unit_source_value ilike outputevents.unit_source_value
@@ -450,7 +440,6 @@ SELECT
 , row_to_insert.measurement_source_concept_id
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
-, row_to_insert.quality_concept_id
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id

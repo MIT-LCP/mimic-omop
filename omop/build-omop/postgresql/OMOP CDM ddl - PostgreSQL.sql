@@ -222,6 +222,7 @@ Standardized clinical data
 ************************/
 
 
+DROP TABLE IF EXISTS person CASCADE;
 CREATE UNLOGGED TABLE person 
     (
      person_id					INTEGER		NOT NULL , 
@@ -249,6 +250,7 @@ CREATE UNLOGGED TABLE person
 
 
 
+DROP TABLE IF EXISTS observation_period CASCADE;
 CREATE UNLOGGED TABLE observation_period 
     ( 
      observation_period_id			INTEGER		NOT NULL , 
@@ -263,6 +265,7 @@ CREATE UNLOGGED TABLE observation_period
 
 
 
+DROP TABLE IF EXISTS specimen CASCADE;
 CREATE UNLOGGED TABLE specimen
     ( 
          specimen_id					INTEGER			NOT NULL ,
@@ -285,6 +288,7 @@ CREATE UNLOGGED TABLE specimen
 
 
 
+DROP TABLE IF EXISTS death CASCADE;
 CREATE UNLOGGED TABLE death 
     ( 
      person_id						INTEGER			NOT NULL , 
@@ -299,6 +303,7 @@ CREATE UNLOGGED TABLE death
 
 
 
+DROP TABLE IF EXISTS visit_occurrence CASCADE;
 CREATE UNLOGGED TABLE visit_occurrence 
     ( 
      visit_occurrence_id			INTEGER			NOT NULL , 
@@ -322,6 +327,7 @@ CREATE UNLOGGED TABLE visit_occurrence
 ;
 
 
+DROP TABLE IF EXISTS visit_detail CASCADE;
 CREATE UNLOGGED TABLE visit_detail
     ( 
      visit_detail_id				INTEGER			NOT NULL , 
@@ -347,6 +353,7 @@ CREATE UNLOGGED TABLE visit_detail
 ;
 
 
+DROP TABLE IF EXISTS procedure_occurrence CASCADE;
 CREATE UNLOGGED TABLE procedure_occurrence 
     ( 
      procedure_occurrence_id		INTEGER			NOT NULL , 
@@ -368,6 +375,7 @@ CREATE UNLOGGED TABLE procedure_occurrence
 
 
 
+DROP TABLE IF EXISTS drug_exposure CASCADE;
 CREATE UNLOGGED TABLE drug_exposure 
     ( 
      drug_exposure_id			INTEGER			NOT NULL , 
@@ -397,6 +405,7 @@ CREATE UNLOGGED TABLE drug_exposure
 ;
 
 
+DROP TABLE IF EXISTS device_exposure CASCADE;
 CREATE UNLOGGED TABLE device_exposure 
     ( 
      device_exposure_id				INTEGER			NOT NULL , 
@@ -418,6 +427,7 @@ CREATE UNLOGGED TABLE device_exposure
 ;
 
 
+DROP TABLE IF EXISTS condition_occurrence CASCADE;
 CREATE UNLOGGED TABLE condition_occurrence 
     ( 
      condition_occurrence_id		INTEGER			NOT NULL , 
@@ -441,6 +451,7 @@ CREATE UNLOGGED TABLE condition_occurrence
 
 
 
+DROP TABLE IF EXISTS measurement CASCADE;
 CREATE UNLOGGED TABLE measurement 
     ( 
      measurement_id				INTEGER			NOT NULL , 
@@ -467,6 +478,7 @@ CREATE UNLOGGED TABLE measurement
 
 
 
+DROP TABLE IF EXISTS note CASCADE;
 CREATE UNLOGGED TABLE note 
     ( 
      note_id					INTEGER			NOT NULL , 
@@ -489,6 +501,7 @@ CREATE UNLOGGED TABLE note
 
 
 /*This table is new in CDM v5.2*/
+DROP TABLE IF EXISTS note_nlp;
 CREATE UNLOGGED TABLE note_nlp
 (
   note_nlp_id					BIGINT 			NOT NULL ,
@@ -509,6 +522,7 @@ CREATE UNLOGGED TABLE note_nlp
 ;
 
 
+DROP TABLE IF EXISTS observation CASCADE;
 CREATE UNLOGGED TABLE observation 
     ( 
      observation_id				INTEGER			NOT NULL , 
@@ -534,6 +548,7 @@ CREATE UNLOGGED TABLE observation
 
 
 
+DROP TABLE IF EXISTS fact_relationship CASCADE;
 CREATE UNLOGGED TABLE fact_relationship 
     ( 
      domain_concept_id_1			INTEGER			NOT NULL , 
@@ -555,7 +570,8 @@ Standardized health system data
 
 
 
-CREATE TABLE location 
+DROP TABLE IF EXISTS location CASCADE;
+CREATE UNLOGGED TABLE location 
     ( 
      location_id				INTEGER			NOT NULL , 
      address_1					VARCHAR(50)		NULL , 
@@ -570,7 +586,8 @@ CREATE TABLE location
 
 
 
-CREATE TABLE care_site 
+DROP TABLE IF EXISTS care_site CASCADE;
+CREATE UNLOGGED TABLE care_site 
     ( 
      care_site_id				INTEGER			NOT NULL , 
      care_site_name				VARCHAR(255)		NULL ,
@@ -583,7 +600,8 @@ CREATE TABLE care_site
 
 
 	
-CREATE TABLE provider 
+DROP TABLE IF EXISTS provider CASCADE;
+CREATE UNLOGGED TABLE provider 
     ( 
      provider_id				INTEGER			NOT NULL ,
      provider_name				VARCHAR(255)		NULL , 
@@ -611,6 +629,7 @@ Standardized health economics
 ************************/
 
 
+DROP TABLE IF EXISTS payer_plan_period CASCADE;
 CREATE TABLE payer_plan_period 
     ( 
      payer_plan_period_id			INTEGER			NOT NULL , 
@@ -626,6 +645,7 @@ CREATE TABLE payer_plan_period
 
 
 
+DROP TABLE IF EXISTS cost CASCADE;
 CREATE TABLE cost 
     (
      cost_id				INTEGER	  		NOT NULL , 
@@ -663,7 +683,8 @@ Standardized derived elements
 
 ************************/
 
-CREATE TABLE cohort 
+DROP TABLE IF EXISTS cohort CASCADE;
+CREATE UNLOGGED TABLE cohort 
     ( 
      cohort_definition_id			INTEGER			NOT NULL , 
      subject_id					INTEGER			NOT NULL ,
@@ -673,7 +694,8 @@ CREATE TABLE cohort
 ;
 
 
-CREATE TABLE cohort_attribute 
+DROP TABLE IF EXISTS cohort_attribute CASCADE;
+CREATE UNLOGGED TABLE cohort_attribute 
     ( 
      cohort_definition_id			INTEGER			NOT NULL , 
      cohort_start_date				DATE			NOT NULL , 
@@ -688,7 +710,8 @@ CREATE TABLE cohort_attribute
 
 
 
-CREATE TABLE drug_era 
+DROP TABLE IF EXISTS drug_era CASCADE;
+CREATE UNLOGGED TABLE drug_era 
     ( 
      drug_era_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -701,7 +724,8 @@ CREATE TABLE drug_era
 ;
 
 
-CREATE TABLE dose_era 
+DROP TABLE IF EXISTS dose_era CASCADE;
+CREATE UNLOGGED TABLE dose_era 
     (
      dose_era_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
@@ -716,7 +740,8 @@ CREATE TABLE dose_era
 
 
 
-CREATE TABLE condition_era 
+DROP TABLE IF EXISTS condition_era CASCADE;
+CREATE UNLOGGED TABLE condition_era 
     ( 
      condition_era_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
