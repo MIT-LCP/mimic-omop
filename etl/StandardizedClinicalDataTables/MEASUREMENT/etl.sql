@@ -255,9 +255,9 @@ SELECT
       d.mimic_id as measurement_source_concept_id,
       c.valueuom as unit_source_value, 
       CASE
-        WHEN m.label_type = 'systolic_bp' AND value ~ '/' THEN regexp_replace(value,'(\\d+)/','\\1','b')::double precision 
-        WHEN m.label_type = 'diastolic_bp' AND value ~ '/' THEN regexp_replace(value,'/(\\d+)','\\1','b')::double precision 
-        WHEN m.label_type = 'map_bp' AND value ~ '/' THEN map_bp_calc(value)
+        WHEN m.label_type = 'systolic_bp' AND value ~ '[0-9]+/[0-9]+' THEN regexp_replace(value,'([0-9]+)/[0-9]*',E'\\1','g')::double precision 
+        WHEN m.label_type = 'diastolic_bp' AND value ~ '[0-9]+/[0-9]+' THEN regexp_replace(value,'[0-9]*/([0-9]+)',E'\\1','g')::double precision 
+        WHEN m.label_type = 'map_bp' AND value ~ '[0-9]+/[0-9]+' THEN map_bp_calc(value)
         WHEN m.label_type = 'fio2' AND c.valuenum between 0 AND 1 THEN c.valuenum * 100
 	WHEN m.label_type = 'temperature' AND c.VALUENUM > 85 THEN (c.VALUENUM - 32)*5/9
 	WHEN m.label_type = 'pain_level' THEN CASE 
