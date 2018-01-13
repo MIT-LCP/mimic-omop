@@ -24,8 +24,8 @@ sp integer;
 dp integer;
 map double precision;
 BEGIN
-    sp := regexp_replace(text,'(\\d+)/\\d+','\\1','b')::double precision;
-    dp := regexp_replace(text,'\\d+/(\\d+)','\\1','b')::double precision;
+    sp := regexp_replace(text,'([0-9]+)/[0-9]+',E'\\1','g')::double precision;
+    dp := regexp_replace(text,'[0-9]+/([0-9]+)',E'\\1','g')::double precision;
     map := dp + 1 / 3 * (sp - dp);
     IF map > 0 THEN
         RETURN null::double precision;
