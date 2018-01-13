@@ -1,4 +1,4 @@
-set search_path to mimic;
+set search_path to mimiciii;
 \timing
 \i mimic/build-mimic/postgres_update_mimic.sql
 
@@ -17,11 +17,11 @@ TRUNCATE TABLE  omop.observation CASCADE;
 TRUNCATE TABLE  omop.drug_exposure CASCADE;
 TRUNCATE TABLE  omop.measurement CASCADE;
 
-\i mimic/build-mimic/postgres_create_mimic_id.sql
+--\i mimic/build-mimic/postgres_create_mimic_id.sql
 
 \i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
 
-\i pg_function.sql
+\i etl/pg_function.sql
 \i etl/StandardizedVocabularies/CONCEPT/etl.sql
 \i etl/StandardizedDerivedElements/COHORT_ATTRIBUTE/etl.sql
 \i etl/StandardizedHealthSystemDataTables/CARE_SITE/etl.sql

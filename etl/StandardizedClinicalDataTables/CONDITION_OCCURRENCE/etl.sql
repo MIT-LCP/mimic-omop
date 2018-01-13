@@ -40,9 +40,9 @@ WHERE icd9_code IS NOT NULL
 , person_id                     
 , coalesce(condition_concept_id, 0) as condition_concept_id      
 , condition_start_datetime::date as condition_start_date
-, to_datetime(condition_start_datetime) AS condition_start_datetime
+, (condition_start_datetime) AS condition_start_datetime
 , condition_end_datetime::date as condition_end_date 
-, to_datetime(condition_end_datetime) AS condition_end_datetime
+, (condition_end_datetime) AS condition_end_datetime
 , condition_type_concept_id     
 , null as stop_reason                   
 , null::bigint as provider_id                   
@@ -64,9 +64,9 @@ SELECT
 , patients.person_id AS person_id                     
 , coalesce(adm_diag_cpt.concept_id, 0) AS condition_concept_id      
 , admissions.condition_start_datetime::date AS condition_start_date
-, to_datetime(admissions.condition_start_datetime) AS  condition_start_datetime      
+, (admissions.condition_start_datetime) AS  condition_start_datetime      
 , admissions.condition_end_datetime::date AS condition_end_date 
-, to_datetime(admissions.condition_end_datetime) AS condition_end_datetime        
+, (admissions.condition_end_datetime) AS condition_end_datetime        
 , 42894222 AS condition_type_concept_id   --EHR Chief Complaint
 , null AS stop_reason                   
 , null AS provider_id                   

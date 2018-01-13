@@ -12,9 +12,9 @@ WITH
 , person_id
 , coalesce(drug_concept_id, 0) as drug_concept_id
 , drug_exposure_start_datetime::date as drug_exposure_start_date
-, to_datetime(drug_exposure_start_datetime) AS drug_exposure_start_datetime
+, (drug_exposure_start_datetime) AS drug_exposure_start_datetime
 , drug_exposure_end_datetime::date as drug_exposure_end_date
-, to_datetime(drug_exposure_end_datetime) AS drug_exposure_end_datetime
+, (drug_exposure_end_datetime) AS drug_exposure_end_datetime
 , null::date as verbatim_end_date
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason

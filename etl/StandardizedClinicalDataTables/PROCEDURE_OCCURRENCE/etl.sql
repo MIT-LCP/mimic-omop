@@ -15,7 +15,7 @@ SELECT
 , patients.person_id
 , coalesce(gcpt_cpt4_to_concept.procedure_concept_id,0) as procedure_concept_id
 , coalesce(cpt_event.procedure_datetime, admissions.admittime)::date as procedure_date
-, to_datetime(coalesce(cpt_event.procedure_datetime, admissions.admittime)) as procedure_datetime
+, (coalesce(cpt_event.procedure_datetime, admissions.admittime)) as procedure_datetime
 , 257 as procedure_type_concept_id -- Hospitalization Cost Record
 , null::integer as modifier_concept_id
 , null::integer as quantity
@@ -35,7 +35,7 @@ SELECT
 , patients.person_id
 , coalesce(gcpt_procedure_to_concept.procedure_concept_id,0) as procedure_concept_id
 , proc_event.procedure_datetime::date as procedure_date
-, to_datetime(proc_event.procedure_datetime) as procedure_datetime
+, (proc_event.procedure_datetime) as procedure_datetime
 , 38000275 as procedure_type_concept_id -- EHR order list entry
 , null as modifier_concept_id
 , null as quantity
@@ -55,7 +55,7 @@ SELECT
 , patients.person_id
 , coalesce(concept_proc_icd9.procedure_concept_id,0) as procedure_concept_id
 , admissions.procedure_datetime::date as procedure_date
-, to_datetime(admissions.procedure_datetime) AS procedure_datetime
+, (admissions.procedure_datetime) AS procedure_datetime
 , 38003622 as procedure_type_concept_id
 , null as modifier_concept_id
 , null as quantity

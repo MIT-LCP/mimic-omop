@@ -172,7 +172,7 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 	ON v.hadm_id = callout.hadm_id
 	AND callout.curr_careunit = v.curr_careunit
 	AND ((outcometime - createtime) / 2 + createtime) between v.visit_start_datetime and v.visit_end_datetime
-	WHERE callout_outcome not ilike 'cancel%'
+	WHERE callout_outcome not ilike 'cancel%' AND visit_detail_id IS NOT NULL
 ),
 "insert_callout_delay" AS (
 	INSERT INTO omop.cohort_attribute
@@ -181,7 +181,7 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 	, cohort_start_date       
 	, cohort_end_date         
 	, subject_id              
-	, 1 AS  attribute_definition_id 
+	, 1 AS  attribute_definition_id -- callout delay
 	, discharge_delay as value_as_number
 	, 0 value_as_concept_id     
 	FROM callout_delay
@@ -193,7 +193,7 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
 	, visit_start_datetime as  cohort_start_date       
 	, visit_end_datetime as cohort_end_date         
 	, visit_detail_id as subject_id              
-	,  2  as  attribute_definition_id 
+	,  2  as  attribute_definition_id  -- visit delay
 	, extract(
 		epoch
 		from visit_end_datetime - visit_start_datetime

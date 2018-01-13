@@ -77,7 +77,8 @@ distinct on (drug, prod_strength)
 , coalesce(ndc,'') as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
-FROM prescriptions;
+FROM prescriptions 
+WHERE trim(drug || ' ' || prod_strength) IS NOT NULL;
 
 -- PROCEDURE  -- CPT4
 INSERT INTO omop.concept (

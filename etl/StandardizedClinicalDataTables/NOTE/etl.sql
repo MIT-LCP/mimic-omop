@@ -21,7 +21,7 @@ SELECT
   note_id
 , person_id
 , note_date
-, to_datetime(note_datetime) as note_datetime
+, note_datetime as note_datetime
 , coalesce(gcpt_note_category_to_concept.note_type_concept_id,0) AS  note_type_concept_id
 , 0 AS note_class_concept_id -- TODO/ not yet mapped to CDO
 , note_title
