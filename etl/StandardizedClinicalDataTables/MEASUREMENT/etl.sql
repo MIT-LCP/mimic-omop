@@ -143,9 +143,25 @@ FROM row_to_insert;
 -- Microbiology
 -- NOTICE: the number of culture is complicated to determine (the distinct on (coalesce).. is a result)
 WITH 
-"culture" AS (SELECT DISTINCT ON (subject_id, chartdate, coalesce(spec_itemid,row_id), coalesce(org_name,row_id::text)) spec_itemid,  mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value FROM microbiologyevents ),
-"resistance" AS (SELECT spec_itemid, ab_itemid ,nextval('mimic_id_seq') as measurement_id, chartdate as measurement_date , charttime as measurement_time , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name ,CASE WHEN trim(dilution_text) ~ '^(<=|=>|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(dilution_text),'[^0-9+-.]*([+-]*[0-9.,]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name FROM microbiologyevents WHERE dilution_text IS NOT NULL) , 
-"fact_relationship" AS (SELECT culture.measurement_id as fact_id_1, resistance.measurement_id AS fact_id_2 FROM resistance LEFT JOIN culture USING (subject_id, measurement_date, spec_itemid, org_name) WHERE culture.measurement_id IS NOT NULL),
+"culture" AS (
+	SELECT DISTINCT ON (subject_id, hadm_id, coalesce(charttime,chartdate), coalesce(spec_itemid,0), coalesce(org_name,'')) spec_itemid,  mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_datetime , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value 
+	FROM microbiologyevents 
+),
+"resistance" AS (
+	SELECT spec_itemid, ab_itemid, nextval('mimic_id_seq') as measurement_id, chartdate as measurement_date , charttime as measurement_datetime , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name ,CASE WHEN trim(dilution_text) ~ '^(<=|=>|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(dilution_text),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name 
+	FROM microbiologyevents 
+	WHERE dilution_text IS NOT NULL
+), 
+"fact_relationship" AS (
+	SELECT culture.measurement_id as fact_id_1, resistance.measurement_id AS fact_id_2 
+	FROM resistance 
+	LEFT JOIN culture ON (
+		resistance.subject_id = culture.subject_id 
+		and resistance.hadm_id = culture.hadm_id 
+		AND coalesce(culture.measurement_datetime,culture.measurement_date) = coalesce(resistance.measurement_datetime,resistance.measurement_date) 
+		AND coalesce(resistance.spec_itemid,0) = coalesce(culture.spec_itemid,0) 
+		AND coalesce(resistance.org_name,'') = coalesce(culture.org_name,'')) 
+),
 "insert_fact_relationship" AS (
     INSERT INTO omop.fact_relationship
     SELECT 
@@ -169,7 +185,7 @@ WITH
 , patients.person_id
 , coalesce(gcpt_spec_type_to_concept.measurement_concept_id, 4098207) as measurement_concept_id      -- --30088009 -- Blood Culture but not done yet
 , measurement_date AS measurement_date
-, measurement_time AS measurement_datetime
+, measurement_datetime AS measurement_datetime
 , 2000000007 AS measurement_type_concept_id -- Lab result -- Microbiology - Culture
 , null AS operator_concept_id
 , null value_as_number
@@ -196,7 +212,7 @@ SELECT
 , patients.person_id                     
 , coalesce(gcpt_atb_to_concept.measurement_concept_id, 4170475) as measurement_concept_id      -- Culture Sensitivity
 , measurement_date AS measurement_date              
-, measurement_time AS measurement_datetime          
+, measurement_datetime AS measurement_datetime          
 , 2000000008 AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , value_as_number AS value_as_number               
