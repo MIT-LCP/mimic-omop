@@ -53,10 +53,6 @@ LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN omop_cpt4 USING (cpt_cd)
 LEFT JOIN standard_cpt4 USING (cpt_cd)
 UNION ALL
---TODO
--- populate measurement with
--- chart
--- link to visit_detail
 SELECT
   procedure_occurrence_id
 , patients.person_id
