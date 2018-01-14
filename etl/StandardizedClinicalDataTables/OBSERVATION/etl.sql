@@ -306,6 +306,37 @@ WITH
           FROM chartevents
           JOIN d_items
             ON (d_items.itemid = chartevents.itemid AND param_type = 'Text')
+	WHERE and label NOT IN  --these are discrete values -> go to measurement
+	(
+		  'Visual Disturbances'
+		, 'Tremor (CIWA)'
+		, 'Strength R Leg'
+		, 'Strength R Arm'
+		, 'Strength L Leg'
+		, 'Strength L Arm'
+		, 'Riker-SAS Scale'
+		, 'Richmond-RAS Scale'
+		, 'Pressure Ulcer Stage #2'
+		, 'Pressure Ulcer Stage #1'
+		, 'PAR-Respiration'
+		, 'Paroxysmal Sweats'
+		, 'PAR-Oxygen saturation'
+		, 'PAR-Consciousness'
+		, 'PAR-Circulation'
+		, 'PAR-Activity'
+		, 'Pain Level Response'
+		, 'Pain Level'
+		, 'Nausea and Vomiting (CIWA)'
+		, 'Headache'
+		, 'Goal Richmond-RAS Scale'
+		, 'GCS - Verbal Response'
+		, 'GCS - Motor Response'
+		, 'GCS - Eye Opening'
+		, 'Braden Sensory Perception'
+		, 'Braden Nutrition'
+		, 'Braden Moisture'
+		, 'Braden Mobility'
+	)
        ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
