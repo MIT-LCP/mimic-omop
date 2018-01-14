@@ -69,7 +69,7 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 ) 
 SELECT 
 distinct on (drug, prod_strength)
-  nextval('mimic.mimic_id_concept_seq') as concept_id
+  nextval('mimic_id_concept_seq') as concept_id
 , trim(drug || ' ' || prod_strength) as concept_name
 , 'Drug'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
@@ -109,3 +109,60 @@ SELECT
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
 FROM d_icd_procedures;
+
+
+-- TEXTUAL BUT DISCRETE LABS 
+
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+distinct on (c.value)
+  nextval('mimic_id_concept_seq') as concept_id
+, c.value as concept_name
+, 'Measurement'::text as domain_id
+, 'MIMIC d_items' as vocabulary_id
+, label as concept_class_id -- omop Lab Test
+, itemid as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM chartevents c
+join d_items using (itemid)
+where 
+c.value is not null
+and param_type= 'Text'
+and label IN 
+(
+  'Visual Disturbances'
+, 'Tremor (CIWA)'
+, 'Strength R Leg'
+, 'Strength R Arm'
+, 'Strength L Leg'
+, 'Strength L Arm'
+, 'Riker-SAS Scale'
+, 'Richmond-RAS Scale'
+, 'Pressure Ulcer Stage #2'
+, 'Pressure Ulcer Stage #1'
+, 'PAR-Respiration'
+, 'Paroxysmal Sweats'
+, 'PAR-Oxygen saturation'
+, 'PAR-Consciousness'
+, 'PAR-Circulation'
+, 'PAR-Activity'
+, 'Pain Level Response'
+, 'Pain Level'
+, 'Nausea and Vomiting (CIWA)'
+, 'Headache'
+, 'Goal Richmond-RAS Scale'
+, 'GCS - Verbal Response'
+, 'GCS - Motor Response'
+, 'GCS - Eye Opening'
+, 'Braden Sensory Perception'
+, 'Braden Nutrition'
+, 'Braden Moisture'
+, 'Braden Mobility'
+, 'Braden Friction/Shear'
+, 'Braden Activity'
+, 'Anxiety'
+, 'Agitation'
+);
