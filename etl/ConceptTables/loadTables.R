@@ -7,7 +7,7 @@
 library(RPostgres)
 library(DBI)
 
-SCHEMA_TARGET <<- "mimiciii"
+SCHEMA_TARGET <<- "mimic"
 
 getValueFromConfFile <- function(file, pattern){
 	gsub(paste0(pattern,"="),"",grep(paste0("^",pattern,"="), scan(file,what="",quiet=T),value=T))
