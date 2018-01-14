@@ -1,4 +1,24 @@
- WITH gcpt_care_site AS (SELECT mimic_id as care_site_id, care_site_name as care_site_name, place_of_service_concept_id as place_of_service_concept_id, place_of_service_source_value FROM gcpt_care_site) 
- INSERT INTO omop.CARE_SITE (care_site_id, care_site_name, place_of_service_concept_id, place_of_service_source_value)
- SELECT gcpt_care_site.care_site_id, gcpt_care_site.care_site_name, gcpt_care_site.place_of_service_concept_id, place_of_service_source_value
-FROM gcpt_care_site 
+ WITH 
+"wardid" as (
+        select distinct coalesce(curr_careunit,'UNKNOWN') as curr_careunit, curr_wardid
+        from transfers
+),
+"gcpt_care_site" AS (
+ SELECT 
+      nextval('mimic_id_seq') as care_site_id
+    , CASE 
+      WHEN wardid.curr_careunit IS NOT NULL THEN care_site_name || ' ward n°' || coalesce(curr_wardid::text, '?') 
+      ELSE care_site_name end as care_site_name
+    , place_of_service_concept_id as place_of_service_concept_id
+    , care_site_name as care_site_source_value
+    , place_of_service_source_value
+ FROM gcpt_care_site
+ left join wardid on care_site_name = curr_careunit
+                      )
+ INSERT INTO omop.CARE_SITE (care_site_id, care_site_name, place_of_service_concept_id, care_site_source_value, place_of_service_source_value)
+ SELECT gcpt_care_site.care_site_id
+      , gcpt_care_site.care_site_name
+      , gcpt_care_site.place_of_service_concept_id
+      , care_site_source_value
+      , place_of_service_source_value
+   FROM gcpt_care_site;

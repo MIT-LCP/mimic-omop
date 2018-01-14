@@ -6,6 +6,11 @@
 --    table_schema = 'omop'
 -- ;
 
+create schema omop;
+set search_path to omop;
+\i "OMOP CDM ddl - PostgreSQL.sql"
+\i "mimic-omop-alter.sql"
+
 \copy omop.provider FROM PROGRAM 'gzip -dc provider.csv.gz' CSV HEADER NULL '' QUOTE '"';
 \copy omop.visit_detail_assign FROM PROGRAM 'gzip -dc visit_detail_assign.csv.gz' CSV HEADER NULL '' QUOTE '"';
 \copy omop.concept_class FROM PROGRAM 'gzip -dc concept_class.csv.gz' CSV HEADER NULL '' QUOTE '"';
@@ -45,4 +50,3 @@
 \copy omop.cohort FROM PROGRAM 'gzip -dc cohort.csv.gz' CSV HEADER NULL '' QUOTE '"';
 \copy omop.note_nlp FROM PROGRAM 'gzip -dc note_nlp.csv.gz' CSV HEADER NULL '' QUOTE '"';
 \copy omop.concept FROM PROGRAM 'gzip -dc concept.csv.gz' CSV HEADER NULL '' QUOTE '"';
-
