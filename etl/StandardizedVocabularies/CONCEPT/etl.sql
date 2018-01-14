@@ -111,6 +111,11 @@ SELECT
 FROM d_icd_procedures;
 
 
+-- NOTE_NLP sections
+
+
+
+
 --ACTUALLY NO NEED
 -- categories are going to value_source_value; when mapped they will be in value_as_concept_id
 -- itemid are in measurement_source_concept_id
@@ -170,3 +175,7 @@ FROM d_icd_procedures;
 --, 'Anxiety'
 --, 'Agitation'
 --);
+
+
+
+

@@ -1,0 +1,15 @@
+category,cat_id
+Case Management ,1
+Discharge summary,2
+ECG,3
+Echo,4
+General,5
+Nursing,6
+Nursing/other,7
+Nutrition,8
+Pharmacy,9
+Physician ,10
+Radiology,11
+Rehab Services,12
+Respiratory ,13
+Social Work,14
