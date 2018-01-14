@@ -325,21 +325,26 @@ ALTER TABLE drug_exposure ALTER COLUMN drug_exposure_end_date DROP NOT NULL;
 
 
 --- useful for note_nlp etl integration
+
 CREATE TABLE omop.tmp_note_nlp_concept
-(	
+(       
   section_code integer
 , category_code integer
 , section_text text
 );
 
 CREATE TABLE omop.tmp_note_nlp 
-(	
+(       
   row_id integer
-, section_code integer
+, section_index integer
 , section_count integer
-, section_index integer 
+, section_code integer 
 , section_begin integer
 , section_end integer 
 , section_text text
 );
-
+ALTER TABLE note_nlp DROP COLUMN "offset" ;
+ALTER TABLE note_nlp ADD COLUMN "offset_begin" integer ;
+ALTER TABLE note_nlp ADD COLUMN "offset_end" integer ;
+ALTER TABLE note_nlp ADD COLUMN "section_source_value" text ;
+ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
