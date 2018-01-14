@@ -81,6 +81,7 @@ WITH
 "omop_loinc" AS (SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement' AND standard_concept = 'S'),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
+"gcpt_labs_from_chartevents_to_concept" AS (SELECT label, category, measurement_type_concept_id from gcpt_labs_from_chartevents_to_concept),
 "row_to_insert" AS (SELECT 
   chartevents_lab.measurement_id                 
 , patients.person_id                     
@@ -91,6 +92,7 @@ WITH
      WHEN category ILIKE 'blood gases'  THEN  2000000010
      WHEN lower(category) IN ('chemistry','enzymes')  THEN  2000000011
      WHEN lower(category) IN ('hematology','heme/coag','enzymes') THEN  2000000009
+     WHEN lower(category) IN ('labs') THEN gcpt_labs_from_chartevents_to_concept.measurement_type_concept_id
      ELSE 44818702 -- there no trivial way to classify
   END AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
@@ -113,6 +115,7 @@ LEFT JOIN d_items USING (itemid)
 LEFT JOIN omop_loinc USING (label)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (label)
+LEFT JOIN gcpt_labs_from_chartevents_to_concept USING (category, label)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value))
 INSERT INTO omop.measurement
 SELECT
