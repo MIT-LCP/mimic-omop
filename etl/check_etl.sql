@@ -1,4 +1,4 @@
-set search_path to mimic;
+set search_path to :'mimicschema';
 \set ECHO
 \set QUIET 1
 -- Turn off echo and keep things quiet.
