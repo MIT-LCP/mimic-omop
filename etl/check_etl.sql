@@ -1,4 +1,18 @@
 set search_path to mimic;
+\set ECHO
+\set QUIET 1
+-- Turn off echo and keep things quiet.
+
+-- Format the output for nice TAP.
+\pset format unaligned
+\pset tuples_only true
+\pset pager
+
+-- Revert all changes on failure.
+\set ON_ERROR_ROLLBACK 1
+\set ON_ERROR_STOP false
+\set QUIET 1
+
 \i etl/StandardizedVocabularies/CONCEPT/check_etl.sql
 \i etl/StandardizedVocabularies/COHORT_DEFINITION/check_etl.sql
 \i etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION/check_etl.sql
