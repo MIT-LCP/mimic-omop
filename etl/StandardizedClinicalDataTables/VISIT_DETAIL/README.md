@@ -49,10 +49,10 @@ SELECT distinct concept_name, visit_type_concept_id  as concept_id
 From visit_detail v
 JOIN concept c on v.visit_type_concept_id = c.concept_id;
 ```
-        concept_name        | concept_id
-----------------------------|------------
- Services and care          |   45770670
- Ward and physical location | 2000000006
+|        concept_name        | concept_id|
+|----------------------------|------------|
+| Services and care          |   45770670|
+| Ward and physical location | 2000000006|
 
 ``` sql
 -- the distribution of ward types (physical location)
@@ -172,7 +172,7 @@ WITH tmp AS
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
 ```
  dead | total | percentage
-------|-------+|------------
+------|-------|------------
     9 |   127 |          7
 
 
