@@ -3,13 +3,6 @@ MIMIC-OMOP
 
 Mapping the MIMIC-III database to the OMOP schema
 
-REMARKS
-=======
-
-- both MIMIC & OMOP schema do have table & columns descriptions directly into postgres
-- take a look at the schemaspy website describing both
-	1. [mimic](mimic/doc/schemaspy/index.html)
-	1. [omop](omop/doc/schemaspy/index.html)
 
 OMOP TABLES LOADED
 ==================
@@ -42,6 +35,10 @@ MIMIC TABLES EQUIVALENCE
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
 - services
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
+- icustays
+  - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
+- callout
+  - [COHORT_ATTRIBUTES](etl/StandardizedDerivedElements/COHORT_ATTRIBUTE)
 - prescriptions
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
 - inputevents_cv
@@ -52,17 +49,40 @@ MIMIC TABLES EQUIVALENCE
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
 - labevents
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+- microbiologyevents
+  - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
 - chartevents
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
 - drgcodes
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
+- datetimeevents
+  - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
 - procedure_icd
   - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
 - procedureevents
   - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
+- cptevents
+  - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
 - diagnoses_icd
   - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
+- noteevents
+  - [NOTE](etl/StandardizedClinicalDataTables/NOTE)
+  - [NOTE_NLP](etl/StandardizedClinicalDataTables/NOTE_NLP)
+- caregivers
+  - [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
+
+
+
+
+REMARKS
+=======
+
+- both MIMIC & OMOP schema do have table & columns descriptions directly into postgres
+- take a look at the schemaspy website describing both
+	1. [mimic](mimic/doc/schemaspy/index.html)
+	1. [omop](omop/doc/schemaspy/index.html)
+
 
 ROADMAP
 =======
@@ -79,14 +99,7 @@ ROADMAP
 - [ ] test USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
 - [ ] extend USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
 
-
 DEADLINE
 ========
 
 - January, 15th 2018
-
-MEMO
-=====
-
-- raw mimic total object: 397844042
-- then `mimic_id_seq` = 1397844042
