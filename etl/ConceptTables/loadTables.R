@@ -4,10 +4,11 @@
 
 #install.packages("remotes")
 #remotes::install_github("r-dbi/RPostgres")
+args = commandArgs(trailingOnly=TRUE)
 library(RPostgres)
 library(DBI)
 
-SCHEMA_TARGET <<- "mimic"
+SCHEMA_TARGET <<- args[1] #mimic or mimiciii
 
 getValueFromConfFile <- function(file, pattern){
 	gsub(paste0(pattern,"="),"",grep(paste0("^",pattern,"="), scan(file,what="",quiet=T),value=T))

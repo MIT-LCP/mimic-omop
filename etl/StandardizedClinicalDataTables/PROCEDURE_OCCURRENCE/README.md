@@ -11,7 +11,8 @@
 
 - `procedure_type_concept_id` = 38000275 (EHR order list entry)
 - code are mapped to SNOMED procedure
-- 
+- the datetime is the begining of the procedure
+- quantity is the duration of the procedure in minutes
 
 ## ̀`mimic.cptevents`
 
