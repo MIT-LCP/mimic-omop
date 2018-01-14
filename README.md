@@ -19,8 +19,11 @@ OMOP TABLES LOADED
 - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
 - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
 - [NOTE](etl/StandardizedClinicalDataTables/NOTE)
-- [COHORT_DEFINITION](etl/StandardizedDerivedElements/COHORT_DEFINITION)
+- [NOTE_NLP](etl/StandardizedClinicalDataTables/NOTE_NLP)
+- [COHORT_DEFINITION](etl/StandardizedVocabularies/COHORT_DEFINITION)
 - [COHORT](etl/StandardizedDerivedElements/COHORT)
+- [COHORT_ATTRIBUTE](etl/StandardizedDerivedElements//COHORT_ATTRIBUTE)
+- [ATTRIBUTE_DEFINITION](etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION)
 
 MIMIC TABLES EQUIVALENCE
 ========================
