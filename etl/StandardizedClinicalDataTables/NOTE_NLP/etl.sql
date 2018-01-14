@@ -13,28 +13,45 @@ select
 , gcpt_note_section_to_concept.label as section_source_value
 , gcpt_note_section_to_concept.mimic_id as section_source_concept_id
 from omop.tmp_note_nlp
-left join noteevents using (row_id)
+join noteevents using (row_id)
 left join gcpt_note_section_to_concept ON section_code = section_id
 )
 INSERT INTO omop.note_nlp
-SELECT
-  note_nlp_id                
+(
+  note_nlp_id         
 , note_id                    
 , section_concept_id         
 , snippet                    
-, offset_begin
-, offset_end
-, 0 as note_nlp_concept_id        --section
-, 0 as note_nlp_source_concept_id -- 0
 , lexical_variant            
-, section_source_value
-, section_source_concept_id
+, note_nlp_concept_id        
+, note_nlp_source_concept_id 
+, nlp_system                 
+, nlp_date                   
+, nlp_datetime               
+, term_exists                
+, term_temporal              
+, term_modifiers             
+, offset_begin               
+, offset_end                 
+, section_source_value       
+, section_source_concept_id  
+)
+SELECT
+  note_nlp_id         
+, note_id                    
+, 0 as section_concept_id         
+, null::text as snippet                    
+, lexical_variant            
+, 4307844 as note_nlp_concept_id  --document section
+, 0 as note_nlp_source_concept_id -- 0
 , nlp_system                 
 , nlp_date                   
 , nlp_datetime               
 , null::text as term_exists                
 , null::text as term_temporal              
 , null::text as term_modifiers             
+, offset_begin               
+, offset_end                 
+, section_source_value       
+, section_source_concept_id  
 FROM note_section;
-
-

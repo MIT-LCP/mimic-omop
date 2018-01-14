@@ -1,16 +1,16 @@
-CATEGORY,concept_id
-Discharge summary,44814637
-Physician,44814639
-General,44814639
-Consult,44814639
-Radiology,44814641
-ECG,44814642
-Echo,44814642
-Respiratory,44814643
-Nutrition,44814643
-Case Management,44814643
-Rehab Services,44814643
-Pharmacy,44814643
-Social Work,44814643
-Nursing,44814644
-Nursing/other,44814644
+CATEGORY,concept_id,category_id
+Case Management,44814643,1
+Consult,44814639,2
+Discharge summary,44814637,3
+ECG,44814642,4
+Echo,44814642,5
+General,44814639,6
+Nursing,44814644,7
+Nursing/other,44814644,8
+Nutrition,44814643,9
+Pharmacy,44814643,10
+Physician,44814639,11
+Radiology,44814641,12
+Rehab Services,44814643,13
+Respiratory,44814643,14
+Social Work,44814643,15
