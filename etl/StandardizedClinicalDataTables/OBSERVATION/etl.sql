@@ -306,7 +306,7 @@ WITH
           FROM chartevents
           JOIN d_items
             ON (d_items.itemid = chartevents.itemid AND param_type = 'Text')
-	WHERE and label NOT IN  --these are discrete values -> go to measurement
+	WHERE label NOT IN  --these are discrete values -> go to measurement
 	(
 		  'Visual Disturbances'
 		, 'Tremor (CIWA)'

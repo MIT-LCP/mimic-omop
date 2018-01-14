@@ -258,6 +258,7 @@ SELECT
       d.mimic_id as measurement_source_concept_id,
       c.valueuom as unit_source_value, 
       CASE
+	WHEN d.category = 'Text' THEN valuenum -- discreteous variable
         WHEN m.label_type = 'systolic_bp' AND value ~ '[0-9]+/[0-9]+' THEN regexp_replace(value,'([0-9]+)/[0-9]*',E'\\1','g')::double precision 
         WHEN m.label_type = 'diastolic_bp' AND value ~ '[0-9]+/[0-9]+' THEN regexp_replace(value,'[0-9]*/([0-9]+)',E'\\1','g')::double precision 
         WHEN m.label_type = 'map_bp' AND value ~ '[0-9]+/[0-9]+' THEN map_bp_calc(value)
@@ -304,9 +305,52 @@ SELECT
       c.value as value_source_value, 
       m.value_lb as value_lb,
       m.value_ub as value_ub,
+      d.label AS measurement_source_value,
       m.label_type
     FROM chartevents as c
-    JOIN d_items as d ON (d.itemid=c.itemid AND category IS DISTINCT FROM 'Labs'  AND category IS DISTINCT FROM  'Blood Gases' AND category IS DISTINCT FROM  'Hematology' AND category IS DISTINCT FROM 'Chemistry' AND category IS DISTINCT FROM  'Heme/Coag' AND category IS DISTINCT FROM  'Coags' AND category IS DISTINCT FROM  'Enzymes' AND param_type IS DISTINCT FROM 'Text')  -- remove the labs, because done before ; Text are put into observation
+    JOIN d_items as d 
+    ON (d.itemid=c.itemid 
+	AND category IS DISTINCT FROM 'Labs'  
+	AND category IS DISTINCT FROM  'Blood Gases' 
+	AND category IS DISTINCT FROM  'Hematology' 
+	AND category IS DISTINCT FROM 'Chemistry' 
+	AND category IS DISTINCT FROM  'Heme/Coag' 
+	AND category IS DISTINCT FROM  'Coags' 
+	AND category IS DISTINCT FROM  'Enzymes' 
+	AND (      param_type IS DISTINCT FROM 'Text'
+		OR ( param_type = 'Text' AND label IN -- discreteous textual variables 
+		(
+			'Visual Disturbances'
+			, 'Tremor (CIWA)'
+			, 'Strength R Leg'
+			, 'Strength R Arm'
+			, 'Strength L Leg'
+			, 'Strength L Arm'
+			, 'Riker-SAS Scale'
+			, 'Richmond-RAS Scale'
+			, 'Pressure Ulcer Stage #2'
+			, 'Pressure Ulcer Stage #1'
+			, 'PAR-Respiration'
+			, 'Paroxysmal Sweats'
+			, 'PAR-Oxygen saturation'
+			, 'PAR-Consciousness'
+			, 'PAR-Circulation'
+			, 'PAR-Activity'
+			, 'Pain Level Response'
+			, 'Pain Level'
+			, 'Nausea and Vomiting (CIWA)'
+			, 'Headache'
+			, 'Goal Richmond-RAS Scale'
+			, 'GCS - Verbal Response'
+			, 'GCS - Motor Response'
+			, 'GCS - Eye Opening'
+			, 'Braden Sensory Perception'
+			, 'Braden Nutrition'
+			, 'Braden Moisture'
+			, 'Braden Mobility'
+		) ) )
+
+)  -- remove the labs, because done before ; Text are put into observation unless they are discreteous
     LEFT JOIN gcpt_chart_label_to_concept as m ON (label = d_label)
     LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
       ON m.label_type = v.label_type AND c.value = v.mimic_name
@@ -330,7 +374,7 @@ SELECT
 , caregivers.provider_id AS provider_id                   
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
-, null::text AS measurement_source_value      
+, measurement_source_value      
 , measurement_source_concept_id AS measurement_source_concept_id 
 , unit_source_value AS unit_source_value             
 , value_source_value AS  value_source_value            
