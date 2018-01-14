@@ -17,6 +17,7 @@ TRUNCATE TABLE  omop.condition_occurrence CASCADE;
 TRUNCATE TABLE  omop.observation CASCADE;
 TRUNCATE TABLE  omop.drug_exposure CASCADE;
 TRUNCATE TABLE  omop.measurement CASCADE;
+TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
 --\i mimic/build-mimic/postgres_create_mimic_id.sql
 
@@ -24,6 +25,8 @@ TRUNCATE TABLE  omop.measurement CASCADE;
 
 \i etl/pg_function.sql
 \i etl/StandardizedVocabularies/CONCEPT/etl.sql
+\i etl/StandardizedVocabularies/COHORT_DEFINITION/etl.sql
+\i etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION/etl.sql
 \i etl/StandardizedDerivedElements/COHORT_ATTRIBUTE/etl.sql
 \i etl/StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i etl/StandardizedClinicalDataTables/PERSON/etl.sql

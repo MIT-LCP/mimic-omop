@@ -1,4 +1,0 @@
- WITH  AS (SELECT  FROM mimic.) 
- INSERT INTO omop.CONCEPT_CLASS ()
- SELECT NA.concept_class_id, NA.concept_class_name, NA.concept_class_concept_id, NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA., NA. 
-FROM NA 

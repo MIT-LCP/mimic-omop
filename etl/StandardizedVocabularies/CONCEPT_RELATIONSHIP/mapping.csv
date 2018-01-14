@@ -1,7 +1,0 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-CONCEPT_RELATIONSHIP,concept_id_,Yes,integer,,,,
-CONCEPT_RELATIONSHIP,concept_id_,Yes,integer,,,,
-CONCEPT_RELATIONSHIP,relationship_id,Yes,varchar(20),,,,
-CONCEPT_RELATIONSHIP,valid_start_date,Yes,date,,,,
-CONCEPT_RELATIONSHIP,valid_end_date,Yes,date,,,,
-CONCEPT_RELATIONSHIP,invalid_reason,No,varchar(1),,,,
