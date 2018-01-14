@@ -51,6 +51,7 @@ MIMIC TABLES EQUIVALENCE
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
 - microbiologyevents
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+  - [FACT_RELATIONSHIP](etl/StandardizedClinicalDataTables/FACT_RELATIONSHIP)
 - chartevents
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
