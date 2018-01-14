@@ -27,4 +27,5 @@ SURG,Surgical - general surgical service not classified elsewhere,45765829,41491
 TRAUM,Trauma - injury or damage caused by physical harm from an external source,4263098,4149152
 TSURG,"Thoracic Surgical - surgery on the thorax, located between the neck and the abdomen",,4149152
 VSURG,Vascular Surgical - surgery relating to the circulatory system,4087906,4149152
-UNKNOWN,Unknown service,,
+UNKNOWN,Unknown Ward,,
+BIDMC,Beth Israel Deaconess Medical Center,4318944,

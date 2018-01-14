@@ -64,7 +64,14 @@
 
 WITH
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
-"gcpt_care_site" AS (SELECT care_site_name, mimic_id as care_site_id, visit_detail_concept_id FROM gcpt_care_site),
+"gcpt_care_site" AS (
+       SELECT care_site.care_site_name
+            , care_site.care_site_id
+            , visit_detail_concept_id
+       FROM omop.care_site
+       left join gcpt_care_site on gcpt_care_site.care_site_name = care_site.care_site_source_value
+                      )
+                    , 
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
@@ -96,6 +103,7 @@ WITH
 	       , admissions.visit_occurrence_id
 	       , hadm_id
 	       , eventtype
+	       , curr_wardid
 	       , coalesce(curr_careunit,'UNKNOWN') as curr_careunit -- most of ward are unknown
 	       --, CASE 
 	--	    WHEN curr_careunit = 'EMERGENCY' THEN 9203 
@@ -110,10 +118,10 @@ WITH
 	       , mimic_id = first_value(mimic_id) OVER(PARTITION BY visit_occurrence_id ORDER BY intime_real ASC ) AS  is_first
 	       , mimic_id = last_value(mimic_id) OVER(PARTITION BY visit_occurrence_id ORDER BY intime_real ASC range between current row and unbounded following) AS is_last
 	       , LAG(mimic_id) OVER ( PARTITION BY hadm_id ORDER BY transfers_no_bed.intime_real ASC) as preceding_visit_detail_id
-	, admitting_source_concept_id
-	, discharge_to_concept_id
-	, admission_location
-	, discharge_location
+	       , admitting_source_concept_id
+	       , discharge_to_concept_id
+	       , admission_location
+	       , discharge_location
 	FROM transfers_no_bed
 	LEFT JOIN patients USING (subject_id)
 	LEFT JOIN admissions USING (hadm_id) 
@@ -155,7 +163,7 @@ ELSE discharge_to_concept_id
 , null::integer visit_detail_parent_id
 , visit_occurrence_id
 FROM visit_detail_ward
-LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit)
+LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit ||' ward n°' || coalesce(curr_wardid::text,'?'))
 ),
 "callout_delay" as (
 	SELECT 
