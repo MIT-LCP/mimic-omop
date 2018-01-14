@@ -1,6 +1,0 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-FACT_RELATIONSHIP,domain_concept_id_,Yes,integer,,,,
-FACT_RELATIONSHIP,fact_id_,Yes,integer,,,,
-FACT_RELATIONSHIP,domain_concept_id_,Yes,integer,,,,
-FACT_RELATIONSHIP,fact_id_,Yes,integer,,,,
-FACT_RELATIONSHIP,relationship_concept_id,Yes,integer,,,,

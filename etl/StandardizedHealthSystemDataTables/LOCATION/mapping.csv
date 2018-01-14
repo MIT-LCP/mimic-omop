@@ -1,9 +1,0 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-LOCATION,location_id,Yes,integer,,,,
-LOCATION,address_,No,varchar(50),,,,
-LOCATION,address_,No,varchar(50),,,,
-LOCATION,city,No,varchar(50),,,,
-LOCATION,state,No,varchar(2),,,,
-LOCATION,zip,No,varchar(9),,,,
-LOCATION,county,No,varchar(20),,,,
-LOCATION,location_source_value,No,varchar(50),,,,

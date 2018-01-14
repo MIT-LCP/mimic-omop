@@ -1,4 +1,0 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-CONCEPT_SYNONYM,concept_id,Yes,Integer,,,,
-CONCEPT_SYNONYM,concept_synonym_name,Yes,varchar(1000),,,,
-CONCEPT_SYNONYM,language_concept_id,Yes,integer,,,,

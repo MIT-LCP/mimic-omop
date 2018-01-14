@@ -1,5 +1,0 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-CONCEPT_ANCESTOR,ancestor_concept_id,Yes,integer,,,,
-CONCEPT_ANCESTOR,descendant_concept_id,Yes,integer,,,,
-CONCEPT_ANCESTOR,min_levels_of_separation,Yes,integer,,,,
-CONCEPT_ANCESTOR,max_levels_of_separation,Yes,integer,,,,

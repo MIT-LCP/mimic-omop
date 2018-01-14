@@ -1,5 +1,0 @@
-omop_table,omop_column,omop_required,omop_type,mimic_table,mimic_column,mimic_type,comments
-COHORT,cohort_definition_id,Yes,integer,,,,
-COHORT,subject_id,Yes,integer,,,,
-COHORT,cohort_start_date,Yes,date,,,,
-COHORT,cohort_end_date,Yes,date,,,,
