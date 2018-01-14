@@ -1,3 +1,4 @@
+BEGIN;
 set search_path to mimic;
 \timing
 \i mimic/build-mimic/postgres_update_mimic.sql
@@ -37,3 +38,4 @@ TRUNCATE TABLE  omop.measurement CASCADE;
 \i etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/etl.sql
 
 --\i omop/build-omop/postgresql/mimic-omop-enable-trigger.sql
+COMMIT;

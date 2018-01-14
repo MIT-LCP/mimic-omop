@@ -1,7 +1,7 @@
 concept:
 	Rscript etl/ConceptTables/loadTables.R
 load: 
-	psql -h localhost  -d mimic postgres  -f etl/etl.sql 
+	psql -h  $(HOST_OMOP)  -d mimic postgres  -f etl/etl.sql 
 export:
 	find etl/Result/ -name "*.gz" -delete &&\
 	find etl/Result/ -name "*.tar" -delete &&\
