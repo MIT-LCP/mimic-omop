@@ -46,7 +46,7 @@ sql <- sprintf("DROP TABLE IF EXISTS %s.%s;", schema, tableName(table))
 dbSendQuery(con, sql)
 }
 
-PATH_CSV <- "~/git/mimic-omop/extras/google/concept/"
+PATH_CSV <- "~/git/mimic-omop/extras/concept/"
 fichs <- list.files(PATH_CSV,pattern="*.csv")
 for(fich in fichs){
 	tmp <- readDf(file.path(PATH_CSV,fich))
