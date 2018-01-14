@@ -25,7 +25,7 @@ VALUES
         , 0
         , ''
    --     , 'visit_occurrence'
-        , 0
+        , 8
         , now()
 )
 ,
@@ -35,7 +35,7 @@ VALUES
         , 0
         , ''
      --   , 'visit_occurrence'
-        , 0
+        , 8
         , now()
 )
 ,
@@ -45,7 +45,7 @@ VALUES
         , 0
         , ''
         --, 'visit_occurrence'
-        , 0
+        , 8
         , now()
 )
 ,
@@ -55,7 +55,7 @@ VALUES
         , 0
         , ''
     --    , 'visit_occurrence'
-        , 0
+        , 8
         , now()
 )
 ,
@@ -65,7 +65,7 @@ VALUES
         , 0
         , ''
      --   , 'visit_occurrence'
-        , 0
+        , 8
         , now()
 )
 ,
@@ -75,6 +75,6 @@ VALUES
         , 0
         , ''
      --   , 'visit_occurrence'
-        , 0
+        , 8
         , now()
 );
