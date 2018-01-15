@@ -2,7 +2,7 @@
 WITH
 "google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM mimic.gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
-"drug_exposure" AS (SELECT trim(drug || ' ' || prod_strength) as drug_source_value, subject_id, hadm_id, row_id, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
+"drug_exposure" AS (SELECT trim(drug || ' ' || prod_strength) as drug_source_value, subject_id, hadm_id, row_id,, dose_val_rx, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
 "omop_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'MIMIC Generated'),
@@ -19,7 +19,7 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, null::numeric as quantity
+, dose_val_rx as quantity --number of doses
 , null::integer as days_supply
 , null::text as sig
 , route_concept_id
@@ -37,7 +37,7 @@ LEFT JOIN google_drug_table USING (row_id)
 LEFT JOIN omop_rxnorm USING (concept_code)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
-WHERE drug_exposure_end_datetime IS NOT NULL)
+)
 INSERT INTO omop.drug_exposure
 SELECT
   row_to_insert.drug_exposure_id
