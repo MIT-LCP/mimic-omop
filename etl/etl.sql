@@ -1,4 +1,4 @@
-BEGIN;
+--BEGIN;
 set search_path to :'mimicschema';
 \timing
 \i mimic/build-mimic/postgres_update_mimic.sql
@@ -45,4 +45,4 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/NOTE_NLP/etl.sql
 
 \i omop/build-omop/postgresql/mimic-omop-enable-trigger.sql
-COMMIT;
+--COMMIT;
