@@ -6,6 +6,7 @@
 ## datetimeevents
 
 - `observation_concept_id` is equal to 4085802 (Referred by nurse)
+- an visit_detail_id is assigned
 
 ## admissions
 
@@ -17,7 +18,8 @@
 
 ## chartevents
 
-- maybe some free text data from chartevents could come here soon
+- Textual data from chartevents are stored here
+- categorical variables are note considered as free text and are then stored in the measurement table
 
 # Lookup Tables
 

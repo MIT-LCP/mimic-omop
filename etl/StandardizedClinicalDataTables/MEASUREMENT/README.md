@@ -10,10 +10,17 @@
 ## charteevents
 
 - rows in error have not been exported from mimic
+- visit_detail_id is assigned
 
 ## labevents
 
+- when flag is abnormal then this is described in the value_as_concept_id field
+
 ## microbiologyevents
+
+## outputevents
+
+- visit_detail_id is assigned
 
 # Help
 

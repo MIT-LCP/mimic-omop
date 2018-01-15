@@ -14,6 +14,7 @@
 - the datetime is the begining of the procedure
 - quantity is the duration of the procedure in minutes
 - rows cancelled have not been exported from mimic
+- visit_detail_id is assigned 
 
 ## ̀`mimic.cptevents`
 
