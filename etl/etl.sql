@@ -1,4 +1,5 @@
 --BEGIN;
+\set ON_ERROR_STOP true
 set search_path to :'mimicschema';
 \timing
 \i mimic/build-mimic/postgres_update_mimic.sql
