@@ -1,889 +1,639 @@
-category_id,category,section_id,label
-0,General,-1,No particular Section
-1,Case Management,1,Current plan:
-1,Case Management,2,Patient discussed with multidisciplinary team:
-1,Case Management,3,Insurance reviewer:
-1,Case Management,4,Secondary insurance:
-1,Case Management,5,Dialysis:
-1,Case Management,6,Primary insurance:
-1,Case Management,7,Status:
-1,Case Management,8,Medicaid application:
-1,Case Management,9,Phone:
-1,Case Management,10,Referrals:
-1,Case Management,11,Hospital days authorized to:
-1,Case Management,12,Pager:
-1,Case Management,13,Response:
-1,Case Management,14,Action:
-1,Case Management,15,Assessment:
-1,Case Management,16,Plan:
-1,Case Management,17,Required documentation:
-1,Case Management,18,Transportation:
-1,Case Management,19,Comments:
-1,Case Management,20,Skilled nursing facility:
-1,Case Management,21,Acute rehab:
-1,Case Management,22,Hospice home:
-1,Case Management,23,Hospice inpatient:
-1,Case Management,24,Home with services:
-2,Consult,25,Blood products:
-2,Consult,26,Stool:
-2,Consult,27,Allergies:
-2,Consult,28,Total out:
-2,Consult,29,Urine:
-2,Consult,30,Drains:
-2,Consult,31,Balance:
-2,Consult,32,Infusions:
-2,Consult,33,Other labs:
-2,Consult,34,Review of systems:
-2,Consult,35,Heart rhythm:
-2,Consult,36,Other medications:
-2,Consult,37,Tcurrent:
-2,Consult,38,Tmax:
-2,Consult,39,Neurologic:
-2,Consult,40,Skin:
-2,Consult,41,Cardiovascular:
-2,Consult,42,Ve:
-2,Consult,43,Ventilator mode:
-2,Consult,44,Extremities:
-2,Consult,45,Abdominal:
-2,Consult,46,Plateau:
-2,Consult,47,Family history:
-2,Consult,48,Changes to medical and family history:
-2,Consult,49,Past medical history:
-2,Consult,50,Social history:
-2,Consult,51,Tobacco:
-2,Consult,52,Other:
-2,Consult,53,Alcohol:
-2,Consult,54,Occupation:
-2,Consult,55,Drugs:
-2,Consult,56,Height:
-2,Consult,57,Patient unable to provide history:
-2,Consult,58,Patient admitted from:
-2,Consult,59,Compliance:
-2,Consult,60,Imaging:
-2,Consult,61,Ext:
-2,Consult,62,Recommendations:
-2,Consult,63,Musculoskeletal:
-2,Consult,64,Acid:
-2,Consult,65,Abd:
-2,Consult,66,Respiratory:
-2,Consult,67,Constitutional:
-2,Consult,68,Reason for consult:
-2,Consult,69,Albumin:
-2,Consult,70,Lungs:
-2,Consult,71,Gastrointestinal:
-2,Consult,72,Assessment:
-2,Consult,73,Eos:
-2,Consult,74,Rhonchorous:
-2,Consult,75,Vitals:
-2,Consult,76,Consult requested by:
-2,Consult,77,Endocrine:
-2,Consult,78,Impression:
-2,Consult,79,Genitourinary:
-2,Consult,80,Mono:
-2,Consult,81,Bili:
-2,Consult,82,Plan:
-2,Consult,83,Gen:
-2,Consult,84,Lymphatic:
-2,Consult,85,Events:
-2,Consult,86,Pain:
-2,Consult,87,Eyes:
-2,Consult,88,Chief complaint:
-2,Consult,89,Recs:
-2,Consult,90,Recommendations for neuroprotection:
-2,Consult,91,Neurological:
-2,Consult,92,Pulses:
-2,Consult,93,Right:
-2,Consult,94,Left:
-2,Consult,95,Neck:
-2,Consult,96,Integumentary:
-2,Consult,97,Date:
-2,Consult,98,I would add the following remarks:
-2,Consult,99,Lymph:
-2,Consult,100,Psychiatric:
-2,Consult,101,Hypotension:
-2,Consult,102,Abdomen:
-2,Consult,103,Tele:
-2,Consult,104,Ca:
-2,Consult,105,Rec:
-2,Consult,106,Total time spent on patient care:
-2,Consult,107,Critical care time:
-2,Consult,108,Father:
-2,Consult,109,Additional comments:
-2,Consult,110,Movement:
-2,Consult,111,Mother:
-2,Consult,112,Labs:
-2,Consult,113,Chest:
-2,Consult,114,Neuro:
-2,Consult,115,Diminished:
-2,Consult,116,Hospital course:
-2,Consult,117,We were called to answer two questions:
-2,Consult,118,Resp:
-2,Consult,119,Ascites :
-2,Consult,120,R arm film:
-2,Consult,121,Clear :
-2,Consult,122,Action:
-2,Consult,123,Pulm:
-2,Consult,124,Cath:
-2,Consult,125,Bronchial:
-2,Consult,126,Sounds:
-2,Consult,127,Band:
-2,Consult,128,Abd scan:
-2,Consult,129,Signs or concerns for abuse :
-2,Consult,130,Tone:
-2,Consult,131,Hyperresonant:
-2,Consult,132,Suggest:
-2,Consult,133,Imp:
-2,Consult,134,Telemetry:
-2,Consult,135,Atrial fibrillation:
-2,Consult,136,Response:
-3,Discharge summary,137,Service
-3,Discharge summary,138,Date of Birth
-3,Discharge summary,139,Allergies
-3,Discharge summary,140,Attending
-3,Discharge summary,141,Discharge Disposition
-3,Discharge summary,142,Brief Hospital Course
-3,Discharge summary,143,Discharge Diagnosis
-3,Discharge summary,144,Major Surgical or Invasive Procedure
-3,Discharge summary,145,Discharge Condition
-3,Discharge summary,146,Past Medical History
-3,Discharge summary,147,History of Present Illness
-3,Discharge summary,148,Physical Exam
-3,Discharge summary,149,Social History
-3,Discharge summary,150,Pertinent Results
-3,Discharge summary,151,Discharge Instructions
-3,Discharge summary,152,Medications on Admission
-3,Discharge summary,153,Followup Instructions
-3,Discharge summary,154,Family History
-3,Discharge summary,155,Discharge Medications
-3,Discharge summary,156,Facility
-3,Discharge summary,157,Completed by
-3,Discharge summary,158,Dictated By
-3,Discharge summary,159,IMPRESSION
-3,Discharge summary,160,HISTORY OF PRESENT ILLNESS
-3,Discharge summary,161,HOSPITAL COURSE
-3,Discharge summary,162,PAST MEDICAL HISTORY
-3,Discharge summary,163,ALLERGIES
-3,Discharge summary,164,PHYSICAL EXAMINATION
-3,Discharge summary,165,DISCHARGE DIAGNOSES
-3,Discharge summary,166,DISCHARGE MEDICATIONS
-3,Discharge summary,167,SOCIAL HISTORY
-3,Discharge summary,168,Department
-3,Discharge summary,169,CONDITION ON DISCHARGE
-3,Discharge summary,170,Admission Date
-3,Discharge summary,171,MEDICATIONS ON ADMISSION
-3,Discharge summary,172,DISCHARGE STATUS
-3,Discharge summary,173,MEDICATIONS
-3,Discharge summary,174,FAMILY HISTORY
-3,Discharge summary,175,FINDINGS
-3,Discharge summary,176,DISCHARGE DISPOSITION
-3,Discharge summary,177,DISCHARGE DIAGNOSIS
-3,Discharge summary,178,LABORATORY DATA
-3,Discharge summary,179,Provider
-3,Discharge summary,180,Reason
-3,Discharge summary,181,MEDICATIONS ON DISCHARGE
-3,Discharge summary,182,CHIEF COMPLAINT
-3,Discharge summary,183,HISTORY
-3,Discharge summary,184,PAST SURGICAL HISTORY
-3,Discharge summary,185,CONDITION AT DISCHARGE
-3,Discharge summary,186,Motor
-3,Discharge summary,187,General
-3,Discharge summary,188,SENSITIVITIES
-3,Discharge summary,189,Cranial Nerves
-3,Discharge summary,190,COMPARISON
-3,Discharge summary,191,TECHNIQUE
-3,Discharge summary,192,DISCHARGE CONDITION
-3,Discharge summary,193,Sensation
-3,Discharge summary,194,DISCHARGE INSTRUCTIONS
-3,Discharge summary,195,DISPOSITION
-3,Discharge summary,196,Secondary
-3,Discharge summary,197,PHYSICAL EXAMINATION ON ADMISSION
-3,Discharge summary,198,Neuro
-3,Discharge summary,199,ADDENDUM
-3,Discharge summary,200,Imaging
-3,Discharge summary,201,Reflexes
-3,Discharge summary,202,MITRAL VALVE
-3,Discharge summary,203,PHYSICAL EXAMINATION ON PRESENTATION
-3,Discharge summary,204,AORTIC VALVE
-3,Discharge summary,205,CARE RECOMMENDATIONS
-3,Discharge summary,206,RIGHT VENTRICLE
-3,Discharge summary,207,TRICUSPID VALVE
-3,Discharge summary,208,LEFT VENTRICLE
-3,Discharge summary,209,INDICATION
-3,Discharge summary,210,REVIEW OF SYSTEMS
-3,Discharge summary,211,FOLLOW UP
-3,Discharge summary,212,Cardiovascular
-3,Discharge summary,213,AORTA
-3,Discharge summary,214,Coordination
-3,Discharge summary,215,CXR
-3,Discharge summary,216,GENERAL COMMENTS
-3,Discharge summary,217,PRIMARY PEDIATRICIAN
-3,Discharge summary,218,Hematology
-3,Discharge summary,219,GI
-3,Discharge summary,220,PERICARDIUM
-3,Discharge summary,221,IMAGING
-3,Discharge summary,222,Name
-3,Discharge summary,223,FINAL DIAGNOSIS
-3,Discharge summary,224,NAME OF PRIMARY PEDIATRICIAN
-3,Discharge summary,225,Neurologic
-3,Discharge summary,226,HISTORY OF THE PRESENT ILLNESS
-3,Discharge summary,227,ID
-3,Discharge summary,228,Carotid Bruit        Right
-3,Discharge summary,229,ROS
-3,Discharge summary,230,Sensory
-3,Discharge summary,231,NECK
-3,Discharge summary,232,PSH
-3,Discharge summary,233,CV
-3,Discharge summary,234,LABORATORY
-3,Discharge summary,235,Infectious disease
-3,Discharge summary,236,EKG
-3,Discharge summary,237,IMMUNIZATIONS RECOMMENDED
-3,Discharge summary,238,Neurology
-3,Discharge summary,239,Labs
-3,Discharge summary,240,DISCHARGE LABS
-3,Discharge summary,241,CARE AND RECOMMENDATIONS
-3,Discharge summary,242,cc
-3,Discharge summary,243,Review of systems
-3,Discharge summary,244,SUMMARY OF HOSPITAL COURSE BY SYSTEMS
-3,Discharge summary,245,Psychosocial
-3,Discharge summary,246,Micro
-3,Discharge summary,247,CARDIOVASCULAR
-3,Discharge summary,248,IMMUNIZATIONS RECEIVED
-5,Echo,249,INTERPRETATION:
-5,Echo,250,TEST INFORMATION:
-5,Echo,251,LEFT VENTRICLE:
-5,Echo,252,MITRAL VALVE:
-5,Echo,253,AORTIC VALVE:
-5,Echo,254,RIGHT VENTRICLE:
-5,Echo,255,PERICARDIUM:
-5,Echo,256,TRICUSPID VALVE:
-5,Echo,257,LEFT ATRIUM:
-5,Echo,258,AORTA:
-5,Echo,259,INTERATRIAL SEPTUM:
-5,Echo,260,PULMONARY ARTERY:
-5,Echo,261,GENERAL COMMENTS:
-5,Echo,262,IMPRESSION:
-5,Echo,263,LV WALL MOTION:
-5,Echo,264,CLINICAL IMPLICATIONS:
-5,Echo,265,BYPASS:
-5,Echo,266,CPB:
-6,General,267,Total time spent:
-6,General,268,Plan:
-6,General,269,Nutrition:
-6,General,270,Assessment:
-6,General,271,Neurologic:
-6,General,272,Allergies:
-6,General,273,Cardiovascular:
-6,General,274,Action:
-6,General,275,Response:
-6,General,276,Urine:
-6,General,277,Balance:
-6,General,278,Heart rhythm:
-6,General,279,Drains:
-6,General,280,Total out:
-6,General,281,Stool:
-6,General,282,Blood products:
-6,General,283,Communication:
-6,General,284,Prophylaxis:
-6,General,285,Other labs:
-6,General,286,Code status:
-6,General,287,Infusions:
-6,General,288,Stress ulcer:
-6,General,289,Tmax:
-6,General,290,Comments:
-6,General,291,Lines:
-6,General,292,Disposition:
-6,General,293,Other medications:
-6,General,294,Imaging:
-6,General,295,Height:
-6,General,296,Skin:
-6,General,297,Total time:
-6,General,298,Tcurrent:
-6,General,299,Abdominal:
-6,General,300,Review of systems:
-6,General,301,Ventilator mode:
-6,General,302,Ve:
-6,General,303,Endocrine:
-6,General,304,Changes to medical and family history:
-6,General,305,Renal:
-6,General,306,Pulmonary:
-6,General,307,Tube feeding:
-6,General,308,Current medications:
-6,General,309,Ext:
-6,General,310,Consults:
-6,General,311,Hematology:
-6,General,312,Wounds:
-6,General,313,T current:
-6,General,314,Abd:
-6,General,315,Gen:
-6,General,316,Labs:
-6,General,317,Dorsalis pedis:
-6,General,318,Lungs:
-6,General,319,Plateau:
-6,General,320,Post operative day:
-6,General,321,Clinician:
-6,General,322,Fluids:
-6,General,323,Microbiology:
-6,General,324,Chest:
-6,General,325,Acid:
-6,General,326,Extremities:
-6,General,327,Problems:
-6,General,328,Vitals:
-6,General,329,I would add the following remarks:
-6,General,330,Chief complaint:
-6,General,331,Neuro:
-6,General,332,Compliance:
-6,General,333,Total time spent on patient care:
-6,General,334,Neck:
-6,General,335,Eos:
-6,General,336,Lymph:
-7,Nursing,337,PMH:
-7,Nursing,338,BP:
-7,Nursing,339,S:
-7,Nursing,340,weight:
-7,Nursing,341,D:
-7,Nursing,342,valuables:
-7,Nursing,343,with:
-7,Nursing,344,Glucose:
-7,Nursing,345,]:
-7,Nursing,346,rate:
-7,Nursing,347,status:
-7,Nursing,348,history:
-7,Nursing,349,Precautions:
-7,Nursing,350,HPI:
-7,Nursing,351,from:
-7,Nursing,352,to:
-7,Nursing,353,diagnosis:
-7,Nursing,354,Temperature:
-7,Nursing,355,out:
-7,Nursing,356,MD:
-7,Nursing,357,Height:
-7,Nursing,358,in:
-7,Nursing,359,rhythm:
-7,Nursing,360,Reactions:
-7,Nursing,361,Rate:
-7,Nursing,362,Transfer:
-7,Nursing,363,device:
-7,Nursing,364,saturation:
-7,Nursing,365,date:
-7,Nursing,366,flow:
-7,Nursing,367,set:
-7,Nursing,368,Creatinine:
-7,Nursing,369,Results:
-7,Nursing,370,BUN:
-7,Nursing,371,Clothes:
-7,Nursing,372,Jewelry:
-7,Nursing,373,Potassium:
-7,Nursing,374,Sodium:
-7,Nursing,375,Hematocrit:
-7,Nursing,376,Chloride:
-7,Nursing,377,Money:
-7,Nursing,378,Events:
-7,Nursing,379,Neuro:
-7,Nursing,380,PMHx:
-7,Nursing,381,GI:
-7,Nursing,382,re:
-7,Nursing,383,on:
-7,Nursing,384,By:
-7,Nursing,385,Resp:
-7,Nursing,386,complaint:
-7,Nursing,387,GU:
-7,Nursing,388,TITLE:
-7,Nursing,389,CV:
-7,Nursing,390,Social:
-7,Nursing,391,PSH:
-9,Nutrition,392,Labs:
-9,Nutrition,393,Pertinent medications:
-9,Nutrition,394,Specifics:
-9,Nutrition,395,Calories:
-9,Nutrition,396,Protein:
-9,Nutrition,397,Diagnosis:
-9,Nutrition,398,Estimation of current intake:
-9,Nutrition,399,Fluid:
-9,Nutrition,400,Food allergies and intolerances:
-9,Nutrition,401,Estimation of previous intake:
-9,Nutrition,402,Pt at risk due to:
-9,Nutrition,403,Calculations based on:
-9,Nutrition,404,Patient at risk due to:
-9,Nutrition,405,Comments:
-9,Nutrition,406,Tube feeding recommendations:
-9,Nutrition,407,Other:
-9,Nutrition,408,Wt:
-9,Nutrition,409,Starting rate:
-9,Nutrition,410,Tube feed:
-9,Nutrition,411,Diet:
-9,Nutrition,412,Ht:
-9,Nutrition,413,Skin:
-9,Nutrition,414,Oral supplements:
-9,Nutrition,415,Tube feeding:
-9,Nutrition,416,Recommendations:
-9,Nutrition,417,Change diet to:
-9,Nutrition,418,Diet order:
-9,Nutrition,419,Meds:
-9,Nutrition,420,Admit wt:
-10,Pharmacy,421,Assessment:
-10,Pharmacy,422,Recommendation:
-10,Pharmacy,423,Pager
-10,Pharmacy,424,Sedation
-10,Pharmacy,425,Mr
-10,Pharmacy,426,Midazolam
-10,Pharmacy,427,Unit
-10,Pharmacy,428,Final
-10,Pharmacy,429,Incomplete
-10,Pharmacy,430,C
-10,Pharmacy,431,Fentanyl
-10,Pharmacy,432,Methadone
-10,Pharmacy,433,Assessment and
-10,Pharmacy,434,If
-10,Pharmacy,435,Opioid
-10,Pharmacy,436,Fi
-10,Pharmacy,437,INPATIENT
-10,Pharmacy,438,ASSESSMENT:
-10,Pharmacy,439,Ms
-10,Pharmacy,440,Cardiovascular:
-10,Pharmacy,441,Neurologic:
-10,Pharmacy,442,Nutrition:
-10,Pharmacy,443,SPO
-10,Pharmacy,444,Pre
-10,Pharmacy,445,Importantly
-10,Pharmacy,446,Ms
-10,Pharmacy,447,RR
-10,Pharmacy,448,References
-10,Pharmacy,449,WBC
-10,Pharmacy,450,Sedation
-10,Pharmacy,451,Vt
-10,Pharmacy,452,Please contact pharmacy with questions
-10,Pharmacy,453,DVT:
-10,Pharmacy,454,Height:
-10,Pharmacy,455,Glucose
-10,Pharmacy,456,PO:
-10,Pharmacy,457,Labs
-10,Pharmacy,458,PIP:
-10,Pharmacy,459,Allergies:
-10,Pharmacy,460,Hct
-10,Pharmacy,461,Vital signs
-10,Pharmacy,462,Respiratory support
-10,Pharmacy,463,HD
-10,Pharmacy,464,Physical
-10,Pharmacy,465,Agitation
-10,Pharmacy,466,PEEP:
-10,Pharmacy,467,Hemodynamic monitoring
-10,Pharmacy,468,ICU
-10,Pharmacy,469,Ventilator mode:
-10,Pharmacy,470,Total out:
-10,Pharmacy,471,RR:
-10,Pharmacy,472,RSBI:
-10,Pharmacy,473,Total
-10,Pharmacy,474,Ve:
-10,Pharmacy,475,SEDATION
-10,Pharmacy,476,Tmax:
-10,Pharmacy,477,BP:
-10,Pharmacy,478,Infusions:
-10,Pharmacy,479,Pa
-10,Pharmacy,480,NG:
-10,Pharmacy,481,Blood products:
-10,Pharmacy,482,Other labs:
-10,Pharmacy,483,Zyprexa is a reasonable alternative in that case as it rarely
-10,Pharmacy,484,Current
-10,Pharmacy,485,Other
-10,Pharmacy,486,Wean fentanyl to
-10,Pharmacy,487,Precedex
-10,Pharmacy,488,Blood
-10,Pharmacy,489,Since
-10,Pharmacy,490,Arterial
-10,Pharmacy,491,Source:
-10,Pharmacy,492,TCO
-10,Pharmacy,493,Disposition:
-10,Pharmacy,494,Fentanyl
-10,Pharmacy,495,Fluid balance
-10,Pharmacy,496,Flowsheet
-10,Pharmacy,497,Drains:
-10,Pharmacy,498,Methadone
-10,Pharmacy,499,Stool:
-10,Pharmacy,500,Communication:
-10,Pharmacy,501,Stress ulcer:
-10,Pharmacy,502,Prophylaxis:
-10,Pharmacy,503,Propofol
-10,Pharmacy,504,METHADONE
-10,Pharmacy,505,PS :
-10,Pharmacy,506,Wgt
-10,Pharmacy,507,Plt
-10,Pharmacy,508,Heart rhythm:
-10,Pharmacy,509,Lines:
-10,Pharmacy,510,Last dose of
-10,Pharmacy,511,ABG:
-10,Pharmacy,512,Glycemic
-10,Pharmacy,513,Urine:
-10,Pharmacy,514,RECOMMENDATION
-10,Pharmacy,515,Haldol may provide relief of agitation or delirium
-10,Pharmacy,516,Balance:
-10,Pharmacy,517,HR:
-10,Pharmacy,518,Currently
-10,Pharmacy,519,HEENT:
-10,Pharmacy,520,PMH:
-10,Pharmacy,521,PND
-10,Pharmacy,522,POD
-10,Pharmacy,523,Hematology:
-10,Pharmacy,524,Pulmonary:
-10,Pharmacy,525,Methadone dose
-10,Pharmacy,526,Methadone is an
-10,Pharmacy,527,RECOMMENDATION:
-10,Pharmacy,528,HPI:
-10,Pharmacy,529,Midazolam
-10,Pharmacy,530,Renal:
-10,Pharmacy,531,Endocrine:
-10,Pharmacy,532,Respiratory
-10,Pharmacy,533,MONITORING:
-10,Pharmacy,534,Right
-10,Pharmacy,535,Creatinine
-10,Pharmacy,536,Mr
-10,Pharmacy,537,Abdominal:
-10,Pharmacy,538,No
-10,Pharmacy,539,Code status:
-10,Pharmacy,540,Comments:
-10,Pharmacy,541,Fentanyl dose
-10,Pharmacy,542,Fentanyl dose
-10,Pharmacy,543,Olanzepine
-10,Pharmacy,544,Currently sedated with precedex
-10,Pharmacy,545,T current:
-10,Pharmacy,546,Imaging:
-10,Pharmacy,547,Current medications:
-10,Pharmacy,548,In
-10,Pharmacy,549,BLOOD
-10,Pharmacy,550,CVICU
-10,Pharmacy,551,Infectious
-10,Pharmacy,552,Other medications:
-10,Pharmacy,553,Wounds:
-10,Pharmacy,554,Pain
-10,Pharmacy,555,Wean
-10,Pharmacy,556,Paralytic
-10,Pharmacy,557,Consults:
-10,Pharmacy,558,Tobramycin
-10,Pharmacy,559,Gastrointestinal
-10,Pharmacy,560,INVASIVE
-10,Pharmacy,561,Contact me with questions or concerns
-10,Pharmacy,562,Decrease the continuous infusion fentanyl to off to remove
-10,Pharmacy,563,IV
-10,Pharmacy,564,Tube feeding:
-10,Pharmacy,565,Unknown
-10,Pharmacy,566,Left
-10,Pharmacy,567,Lines
-10,Pharmacy,568,VAP bundle:
-10,Pharmacy,569,Haloperidol
-10,Pharmacy,570,Also on double pressors to maintain
-10,Pharmacy,571,Please contact me or our unit
-10,Pharmacy,572,Or
-10,Pharmacy,573,At the molecular level
-10,Pharmacy,574,Begin methadone
-10,Pharmacy,575,Antipsychotics may spare the amount of continuous sedative required
-10,Pharmacy,576,Expect
-10,Pharmacy,577,Please contact me with questions
-10,Pharmacy,578,The patient may experience rash or flushing which is a well
-10,Pharmacy,579,SERUM
-10,Pharmacy,580,The patient should also be well
-10,Pharmacy,581,Please contact me with questions or concerns
-10,Pharmacy,582,Neuromuscular blockade
-10,Pharmacy,583,PA
-10,Pharmacy,584,There is no need to
-10,Pharmacy,585,Consider using adjunctive medications such as haloperidol or olanzepine
-10,Pharmacy,586,Page me with questions
-10,Pharmacy,587,Eventually
-10,Pharmacy,588,Also
-10,Pharmacy,589,Sedation recommendations:
-10,Pharmacy,590,Pain
-10,Pharmacy,591,METHADONE
-10,Pharmacy,592,Pain:
-10,Pharmacy,593,PAIN
-10,Pharmacy,594,Pain and
-10,Pharmacy,595,Cyclosporine
-10,Pharmacy,596,Heparin
-10,Pharmacy,597,Consider weaning this after methadone is therapeutic
-10,Pharmacy,598,Medication management
-10,Pharmacy,599,Sedation and
-10,Pharmacy,600,Precedex is a
-10,Pharmacy,601,INR
-10,Pharmacy,602,Time spent
-10,Pharmacy,603,After
-10,Pharmacy,604,Insulin
-10,Pharmacy,605,In summary
-10,Pharmacy,606,Dr
-10,Pharmacy,607,Post operative day:
-10,Pharmacy,608,Would continue methadone at this current regimen
-10,Pharmacy,609,INTUBATION
-10,Pharmacy,610,Assess patient comfort every
-10,Pharmacy,611,General
-10,Pharmacy,612,Versed
-10,Pharmacy,613,PEAK level
-10,Pharmacy,614,SBT
-10,Pharmacy,615,Rounded from
-10,Pharmacy,616,Gentamicin
-10,Pharmacy,617,To transition from propofol to dexmedetomidine
-10,Pharmacy,618,Rhonchorous :
-10,Pharmacy,619,Erythromycin
-10,Pharmacy,620,Day
-10,Pharmacy,621,Assess daily for agitation:
-10,Pharmacy,622,Change from intermittent to continuous infusion methadone
-10,Pharmacy,623,It may be necessary to increase the precedex infusion up as high as
-10,Pharmacy,624,Antipsychotics can be
-10,Pharmacy,625,Mono:
-10,Pharmacy,626,Dexmedetomidine
-10,Pharmacy,627,TRANSITIONING and
-10,Pharmacy,628,Contact pharmacy if you would like to discuss sedation regimen and
-10,Pharmacy,629,DIALYSIS
-10,Pharmacy,630,Contact pharmacy with questions
-10,Pharmacy,631,Keep sedation as light as possible:
-10,Pharmacy,632,When initiate the maintenance precedex infusion
-10,Pharmacy,633,Give one dose of haldol
-10,Pharmacy,634,Agitation:
-10,Pharmacy,635,Clonidine
-10,Pharmacy,636,Give the pharmacokinetic profile of precedex
-10,Pharmacy,637,PMHx:
-10,Pharmacy,638,CORDIS
-10,Pharmacy,639,Turn off propofol so the patient should be covered with the
-10,Pharmacy,640,Piperacillin
-10,Pharmacy,641,EF:
-10,Pharmacy,642,Typically
-10,Pharmacy,643,Hydralazine
-10,Pharmacy,644,Regarding sedation dexmedetomidine infusion
-10,Pharmacy,645,EAA ligand binding to
-10,Pharmacy,646,Dose
-10,Pharmacy,647,Recommendation
-10,Pharmacy,648,However
-10,Pharmacy,649,Ciprofloxacin
-10,Pharmacy,650,Administer precedex loading dose
-10,Pharmacy,651,Currently on propofol
-10,Pharmacy,652,Medications on admission from home
-10,Pharmacy,653,Zosyn:
-10,Pharmacy,654,If precedex is not providing adequate comfort
-10,Pharmacy,655,Figure
-10,Pharmacy,656,Start precedex infusion at
-10,Pharmacy,657,Alternative sedatives to facilitate extubation
-10,Pharmacy,658,Currently on fentanyl
-10,Pharmacy,659,Continue as is to supplement the methadone infusion
-10,Pharmacy,660,No wake was done this am given
-10,Pharmacy,661,Table
-10,Pharmacy,662,Fluids:
-10,Pharmacy,663,Sp
-10,Pharmacy,664,AGITATION
-10,Pharmacy,665,A growing body of evidence suggests that the development of
-10,Pharmacy,666,Begin to wean fentanyl infusion approximately
-10,Pharmacy,667,Skin:
-10,Pharmacy,668,Albumin:
-10,Pharmacy,669,Thanks for your consideration
-10,Pharmacy,670,YESTERDAY
-10,Pharmacy,671,NOTE:
-10,Pharmacy,672,Opioid
-10,Pharmacy,673,Please contact me if would like to discuss this complicated regimen
-10,Pharmacy,674,Opioid dose conversion chart
-10,Pharmacy,675,Blockade of the
-10,Pharmacy,676,The following is
-10,Pharmacy,677,Note:
-11,Physician,678,BP:
-11,Physician,679,HR:
-11,Physician,680,RR:
-11,Physician,681,PO:
-11,Physician,682,NG:
-11,Physician,683,DVT:
-11,Physician,684,ABG:
-11,Physician,685,INR:
-11,Physician,686,IVF:
-11,Physician,687,TF:
-11,Physician,688,VAP:
-11,Physician,689,AST:
-11,Physician,690,HPI:
-11,Physician,691,LDH:
-11,Physician,692,PEEP:
-11,Physician,693,PIP:
-11,Physician,694,HEENT:
-11,Physician,695,PS :
-11,Physician,696,FEN:
-11,Physician,697,CVP:
-11,Physician,698,TITLE:
-11,Physician,699,RSBI:
-11,Physician,700,CV:
-11,Physician,701,CXR:
-11,Physician,702,PMH:
-11,Physician,703,ACCESS:
-11,Physician,704,NEURO:
-11,Physician,705,CODE:
-11,Physician,706,ID:
-11,Physician,707,PSH:
-11,Physician,708,HTN:
-11,Physician,709,ABD:
-11,Physician,710,ECG:
-11,Physician,711,DISPO:
-11,Physician,712,LUNGS:
-11,Physician,713,PULM:
-11,Physician,714,PPX:
-11,Physician,715,PROPHYLAXIS:
-11,Physician,716,ABDOMEN:
-11,Physician,717,SKIN:
-11,Physician,718,GI:
-11,Physician,719,CARDIAC:
-11,Physician,720,GEN:
-11,Physician,721,GENERAL:
-11,Physician,722,IMPRESSION:
-11,Physician,723,EXT:
-11,Physician,724,NECK:
-11,Physician,725,EXTREMITIES:
-11,Physician,726,ARF:
-11,Physician,727,CVS:
-11,Physician,728,CAD:
-11,Physician,729,TLD:
-11,Physician,730,PAP:
-11,Physician,731,RHYTHM:
-11,Physician,732,CODE STATUS:
-11,Physician,733,DISPOSITION:
-11,Physician,734,DM:
-11,Physician,735,PUMP:
-11,Physician,736,CORONARIES:
-11,Physician,737,RENAL:
-11,Physician,738,CHF:
-11,Physician,739,GU:
-11,Physician,740,CONSULTS:
-11,Physician,741,COPD:
-11,Physician,742,CONTACT:
-11,Physician,743,HEME:
-11,Physician,744,ENDO:
-11,Physician,745,COMM:
-11,Physician,746,EKG:
-11,Physician,747,UTI:
-11,Physician,748,PULSES:
-11,Physician,749,BILLING DIAGNOSIS:
-11,Physician,750,ASSESSMENT AND PLAN:
-11,Physician,751,PLAN:
-11,Physician,752,GLYCEMIC CONTROL:
-11,Physician,753,COMMUNICATIONS:
-11,Physician,754,GERD:
-11,Physician,755,VS:
-11,Physician,756,ICU CARE:
-11,Physician,757,ICP:
-11,Physician,758,ESRD:
-11,Physician,759,CT:
-11,Physician,760,MICRO:
-11,Physician,761,ICU:
-11,Physician,762,IMAGING:
-11,Physician,763,LUE:
-11,Physician,764,SVR:
-11,Physician,765,EMERGENCY CONTACT:
-11,Physician,766,SV:
-11,Physician,767,NOS:
-11,Physician,768,SVI:
-11,Physician,769,LLE:
-11,Physician,770,RVR:
-11,Physician,771,RUE:
-11,Physician,772,PNA:
-11,Physician,773,CK:
-11,Physician,774,EF:
-11,Physician,775,RLE:
-11,Physician,776,PE:
-11,Physician,777,PTT:
-11,Physician,778,TTE:
-11,Physician,779,MIN:
-11,Physician,780,FINDINGS:
-11,Physician,781,PT:
-12,Radiology,782,MEDICAL CONDITION:
-12,Radiology,783,REASON FOR THIS EXAMINATION:
-12,Radiology,784,IMPRESSION:
-12,Radiology,785,INDICATION:
-12,Radiology,786,FINDINGS:
-12,Radiology,787,COMPARISON:
-12,Radiology,788,HISTORY:
-12,Radiology,789,TECHNIQUE:
-12,Radiology,790,WET READ:
-12,Radiology,791,CLINICAL HISTORY:
-12,Radiology,792,COMPARISONS:
-12,Radiology,793,STUDY:
-12,Radiology,794,PFI:
-12,Radiology,795,BONE WINDOWS:
-12,Radiology,796,REASON FOR EXAMINATION:
-12,Radiology,797,REASON FOR EXAM:
-12,Radiology,798,CLINICAL INDICATION:
-12,Radiology,799,IV CONTRAST:
-12,Radiology,800,PROCEDURE:
-12,Radiology,801,CLINICAL INFORMATION:
-12,Radiology,802,INDICATIONS:
-12,Radiology,803,CONCLUSION:
-12,Radiology,804,CHEST:
-12,Radiology,805,EXAMINATION:
-12,Radiology,806,INTERPRETATION:
-12,Radiology,807,RADIOLOGISTS:
-12,Radiology,808,OSSEOUS STRUCTURES:
-13,Rehab Services,809,Transfer:
-13,Rehab Services,810,Rolling:
-13,Rehab Services,811,Balance:
-13,Rehab Services,812,Total distance walked:
-13,Rehab Services,813,Minutes:
-13,Rehab Services,814,Ambulation:
-13,Rehab Services,815,Stairs:
-13,Rehab Services,816,Other:
-13,Rehab Services,817,Medications:
-13,Rehab Services,818,Radiology:
-13,Rehab Services,819,Time frame:
-13,Rehab Services,820,Diagnosis:
-13,Rehab Services,821,Labs:
-13,Rehab Services,822,Posture:
-13,Rehab Services,823,Other labs:
-13,Rehab Services,824,Intervention:
-13,Rehab Services,825,Referral date:
-13,Rehab Services,826,Reason of referral:
-13,Rehab Services,827,Assessment:
-13,Rehab Services,828,Objective:
-13,Rehab Services,829,Updated medical status:
-13,Rehab Services,830,Gait:
-13,Rehab Services,831,Face time:
-13,Rehab Services,832,Plan:
-13,Rehab Services,833,Total time:
-13,Rehab Services,834,Secretions:
-13,Rehab Services,835,Teeth:
-13,Rehab Services,836,Time:
-13,Rehab Services,837,Date:
-13,Rehab Services,838,Specify:
-13,Rehab Services,839,Communicated with nsg re:
-13,Rehab Services,840,Goals:
-13,Rehab Services,841,Grooming:
-13,Rehab Services,842,Nsg recs:
-13,Rehab Services,843,Comm:
-13,Rehab Services,844,Toileting:
-13,Rehab Services,845,Coordination:
-13,Rehab Services,846,Sensation:
-13,Rehab Services,847,Integumentary:
-13,Rehab Services,848,Standing:
-13,Rehab Services,849,Hemoglobin:
-13,Rehab Services,850,Pulm:
-13,Rehab Services,851,Clarification:
-13,Rehab Services,852,Pain:
-14,Respiratory,853,Day of mechanical ventilation:
-14,Respiratory,854,Ideal body weight:
-14,Respiratory,855,Ideal tidal volume:
-14,Respiratory,856,Level of breathing assistance:
-14,Respiratory,857,Visual assessment of breathing pattern:
-14,Respiratory,858,Reason for continuing current ventilatory support:
-14,Respiratory,859,Assessment of breathing comfort:
-14,Respiratory,860,Day of intubation:
-14,Respiratory,861,Route:
-14,Respiratory,862,Cuff pressure:
-14,Respiratory,863,Trigger work assessment:
-14,Respiratory,864,Position:
-14,Respiratory,865,Known difficult intubation:
-14,Respiratory,866,Invasive ventilation assessment:
-14,Respiratory,867,Cuff volume:
-14,Respiratory,868,Procedure location:
-14,Respiratory,869,Reason:
-14,Respiratory,870,Manufacturer:
-14,Respiratory,871,Tracheostomy tube:
-14,Respiratory,872,Dysynchrony assessment:
-14,Respiratory,873,Airway problems:
-14,Respiratory,874,Transports:
-15,Social Work,875,Previous living situation:
-15,Social Work,876,Previous level of functioning:
-15,Social Work,877,Employment status:
-15,Social Work,878,Past psychiatric history:
-15,Social Work,879,Past addictions history:
-15,Social Work,880,Communication or visitation restriction:
-15,Social Work,881,Legal involvement:
-15,Social Work,882,Assessment:
-15,Social Work,883,Plan:
-15,Social Work,884,Continuing issues to be addressed:
-15,Social Work,885,Attending:
-15,Social Work,886,Other:
-15,Social Work,887,Guardian appointed:
+section_id,category_id,category,label,label_mapped
+0,-1,General,No particular Section
+1,1,Case Management ,Patient discussed with multidisciplinary team:,
+2,1,Case Management ,Current plan:,
+3,1,Case Management ,Medicaid application:,
+4,1,Case Management ,Dialysis:,
+5,1,Case Management ,Primary insurance:,
+6,1,Case Management ,Secondary insurance:,
+7,1,Case Management ,Insurance reviewer:,
+8,1,Case Management ,Status:,
+9,1,Case Management ,Phone:,
+10,1,Case Management ,Referrals:,
+11,1,Case Management ,Hospital days authorized to:,
+12,1,Case Management ,Pager:,
+13,1,Case Management ,Response:,
+14,1,Case Management ,Plan:,
+15,1,Case Management ,Action:,
+16,1,Case Management ,Assessment:,
+17,1,Case Management ,Required documentation:,
+18,1,Case Management ,Comments:,
+19,1,Case Management ,Transportation:,
+20,1,Case Management ,Acute rehab:,
+21,1,Case Management ,Skilled nursing facility:,
+22,1,Case Management ,Hospice home:,
+23,1,Case Management ,Hospice inpatient:,
+24,1,Case Management ,Home with services:,
+25,2,Consult,Blood products:,
+26,2,Consult,Drains:,
+27,2,Consult,Balance:,
+28,2,Consult,Stool:,
+29,2,Consult,Urine:,
+30,2,Consult,Total out:,
+31,2,Consult,Allergies:,
+32,2,Consult,Infusions:,
+33,2,Consult,Other labs:,
+34,2,Consult,Heart rhythm:,
+35,2,Consult,Review of systems:,
+36,2,Consult,Other medications:,
+37,2,Consult,Tmax:,
+38,2,Consult,Tcurrent:,
+39,2,Consult,Neurologic:,
+40,2,Consult,Skin:,
+41,2,Consult,Cardiovascular:,
+42,2,Consult,Ventilator mode:,
+43,2,Consult,Ve:,
+44,2,Consult,Extremities:,
+45,2,Consult,Abdominal:,
+46,2,Consult,Plateau:,
+47,2,Consult,Changes to medical and family history:,
+48,2,Consult,Family history:,
+49,2,Consult,Past medical history:,
+50,2,Consult,Social history:,
+51,2,Consult,Drugs:,
+52,2,Consult,Occupation:,
+53,2,Consult,Alcohol:,
+54,2,Consult,Tobacco:,
+55,2,Consult,Other:,
+56,2,Consult,Height:,
+57,2,Consult,Patient unable to provide history:,
+58,2,Consult,Patient admitted from:,
+59,2,Consult,Compliance:,
+60,2,Consult,Imaging:,
+61,2,Consult,Recommendations:,
+62,2,Consult,Ext:,
+63,2,Consult,Musculoskeletal:,
+64,2,Consult,Acid:,
+65,2,Consult,Abd:,
+66,3,Discharge summary,Service,
+67,3,Discharge summary,Date of Birth,
+68,3,Discharge summary,Allergies,
+69,3,Discharge summary,Attending,
+70,3,Discharge summary,Discharge Disposition,
+71,3,Discharge summary,Past Medical History,
+72,3,Discharge summary,Chief Complaint,
+73,3,Discharge summary,Major Surgical or Invasive Procedure,
+74,3,Discharge summary,Brief Hospital Course,
+75,3,Discharge summary,History of Present Illness,
+76,3,Discharge summary,Discharge Diagnosis,
+77,3,Discharge summary,Discharge Condition,
+78,3,Discharge summary,Physical Exam,
+79,3,Discharge summary,Social History,
+80,3,Discharge summary,Family History,
+81,3,Discharge summary,Pertinent Results,
+82,3,Discharge summary,Discharge Instructions,
+83,3,Discharge summary,Medications on Admission,
+84,3,Discharge summary,Followup Instructions,
+85,3,Discharge summary,Discharge Medications,
+86,3,Discharge summary,IMPRESSION,
+87,3,Discharge summary,HEENT,
+88,3,Discharge summary,Facility,
+89,3,Discharge summary,Completed by,
+90,3,Discharge summary,Dictated By,
+91,3,Discharge summary,Neck,
+92,3,Discharge summary,Neuro,
+93,3,Discharge summary,Provider,
+94,3,Discharge summary,Ext,
+95,3,Discharge summary,General,
+96,3,Discharge summary,HISTORY OF PRESENT ILLNESS,
+97,3,Discharge summary,Lungs,
+98,3,Discharge summary,Abdomen,
+99,3,Discharge summary,Mental Status,
+100,3,Discharge summary,Level of Consciousness,
+101,3,Discharge summary,HOSPITAL COURSE,
+102,3,Discharge summary,Activity Status,
+103,3,Discharge summary,PAST MEDICAL HISTORY,
+104,3,Discharge summary,Gen,
+105,3,Discharge summary,Abd,
+106,3,Discharge summary,When,
+107,3,Discharge summary,FINDINGS,
+108,3,Discharge summary,Department,
+109,3,Discharge summary,ALLERGIES,
+110,3,Discharge summary,With,
+111,3,Discharge summary,Building,
+112,3,Discharge summary,Campus,
+113,3,Discharge summary,PHYSICAL EXAMINATION,
+114,3,Discharge summary,DISCHARGE DIAGNOSES,
+115,3,Discharge summary,Skin,
+116,3,Discharge summary,Vitals,
+117,3,Discharge summary,DISCHARGE MEDICATIONS,
+118,3,Discharge summary,SOCIAL HISTORY,
+119,3,Discharge summary,Chest,
+120,3,Discharge summary,Extremities,
+121,3,Discharge summary,Sig,
+122,3,Discharge summary,NEURO,
+123,3,Discharge summary,ABD,
+124,3,Discharge summary,Admission Date,
+125,3,Discharge summary,CONDITION ON DISCHARGE,
+126,3,Discharge summary,NECK,
+127,3,Discharge summary,GEN,
+128,3,Discharge summary,SKIN,
+129,3,Discharge summary,EXT,
+130,3,Discharge summary,Phone,
+131,3,Discharge summary,LUNGS,
+132,3,Discharge summary,ABDOMEN,
+133,3,Discharge summary,GENERAL,
+134,3,Discharge summary,Primary,
+135,3,Discharge summary,Heart,
+136,3,Discharge summary,MEDICATIONS ON ADMISSION,
+137,3,Discharge summary,Reason,
+138,3,Discharge summary,Secondary,
+139,3,Discharge summary,DISCHARGE STATUS,
+140,3,Discharge summary,EXTREMITIES,
+141,3,Discharge summary,MEDICATIONS,
+142,3,Discharge summary,REASON FOR THIS EXAMINATION,
+143,3,Discharge summary,Cardiac,
+144,3,Discharge summary,FAMILY HISTORY,
+145,3,Discharge summary,HISTORY,
+146,3,Discharge summary,CARDIAC,
+147,3,Discharge summary,LABORATORY DATA,
+148,3,Discharge summary,Pulses,
+149,3,Discharge summary,DISCHARGE DIAGNOSIS,
+150,3,Discharge summary,DISCHARGE DISPOSITION,
+151,3,Discharge summary,Motor,
+152,3,Discharge summary,Cardiovascular,
+153,3,Discharge summary,PMH,
+154,3,Discharge summary,Location,
+155,3,Discharge summary,Address,
+156,3,Discharge summary,INDICATION,
+157,3,Discharge summary,CHIEF COMPLAINT,
+158,3,Discharge summary,Pulm,
+159,3,Discharge summary,Name,
+160,3,Discharge summary,CXR,
+161,3,Discharge summary,SENSITIVITIES,
+162,3,Discharge summary,Addendum,
+163,3,Discharge summary,PAST SURGICAL HISTORY,
+164,3,Discharge summary,MEDICATIONS ON DISCHARGE,
+165,3,Discharge summary,ROS,
+166,3,Discharge summary,Imaging,
+167,3,Discharge summary,Mental status,
+168,3,Discharge summary,COMPARISON,
+169,3,Discharge summary,Cranial Nerves,
+170,3,Discharge summary,CONDITION AT DISCHARGE,
+171,3,Discharge summary,EKG,
+172,3,Discharge summary,Right,
+173,3,Discharge summary,Left,
+174,3,Discharge summary,Nebulization Sig,
+175,3,Discharge summary,TECHNIQUE,
+176,3,Discharge summary,Extrem,
+177,3,Discharge summary,Neurologic,
+178,3,Discharge summary,Sensation,
+179,3,Discharge summary,Pulmonary,
+180,3,Discharge summary,PULM,
+181,3,Discharge summary,Height,
+182,3,Discharge summary,XII,
+183,3,Discharge summary,ETOH,
+184,3,Discharge summary,VIII,
+185,3,Discharge summary,ADMISSION LABS,
+186,3,Discharge summary,Review of systems,
+187,3,Discharge summary,IMAGING,
+188,3,Discharge summary,PSH,
+189,3,Discharge summary,DISCHARGE CONDITION,
+190,3,Discharge summary,MITRAL VALVE,
+191,3,Discharge summary,DP           Right,
+192,3,Discharge summary,AORTIC VALVE,
+193,3,Discharge summary,Radial       Right,
+194,3,Discharge summary,FINAL DIAGNOSIS,
+195,3,Discharge summary,Resp,
+196,3,Discharge summary,LEFT VENTRICLE,
+197,3,Discharge summary,RIGHT VENTRICLE,
+198,3,Discharge summary,PULSES,
+199,3,Discharge summary,Femoral      Right,
+200,3,Discharge summary,DISCHARGE INSTRUCTIONS,
+201,3,Discharge summary,TRICUSPID VALVE,
+202,3,Discharge summary,Tobacco,
+203,3,Discharge summary,Pulse,
+204,3,Discharge summary,DISPOSITION,
+205,3,Discharge summary,Occupation,
+206,3,Discharge summary,AORTA,
+207,3,Discharge summary,Reflexes,
+208,3,Discharge summary,Primary Diagnosis,
+209,3,Discharge summary,Admission Labs,
+210,3,Discharge summary,Contrast,
+211,3,Discharge summary,RESP,
+212,3,Discharge summary,Source,
+213,3,Discharge summary,ADDENDUM,
+214,3,Discharge summary,PHYSICAL EXAMINATION ON ADMISSION,
+215,3,Discharge summary,LEFT ATRIUM,
+216,3,Discharge summary,Approved,
+217,3,Discharge summary,REVIEW OF SYSTEMS,
+218,3,Discharge summary,PERICARDIUM,
+219,3,Discharge summary,GENERAL COMMENTS,
+220,3,Discharge summary,Coordination,
+221,3,Discharge summary,Impression,
+222,3,Discharge summary,Labs,
+223,3,Discharge summary,Surgeon,
+224,3,Discharge summary,Orientation,
+225,3,Discharge summary,Incisions,
+226,3,Discharge summary,Conclusions,
+227,3,Discharge summary,CARE RECOMMENDATIONS,
+228,3,Discharge summary,PHYSICAL EXAMINATION ON PRESENTATION,
+229,3,Discharge summary,HPI,
+230,3,Discharge summary,Hematology,
+231,3,Discharge summary,CHEST,
+232,3,Discharge summary,Lives with,
+233,3,Discharge summary,DISCHARGE LABS,
+234,3,Discharge summary,FOLLOW UP,
+235,3,Discharge summary,On admission,
+236,3,Discharge summary,Admission labs,
+237,3,Discharge summary,Language,
+238,3,Discharge summary,Indication,
+239,3,Discharge summary,On Admission,
+240,3,Discharge summary,PHYSICAL EXAM,
+241,3,Discharge summary,following,
+242,3,Discharge summary,Medications,
+243,3,Discharge summary,Doppler,
+244,3,Discharge summary,Micro,
+245,3,Discharge summary,Cardiologist,
+246,3,Discharge summary,Varicosities,
+247,3,Discharge summary,HEART,
+248,3,Discharge summary,Past Surgical History,
+249,3,Discharge summary,PRIMARY PEDIATRICIAN,
+250,3,Discharge summary,Sensory,
+251,3,Discharge summary,Secondary Diagnosis,
+252,3,Discharge summary,Discharge Labs,
+253,3,Discharge summary,CONTRAINDICATIONS for IV CONTRAST,
+254,3,Discharge summary,CARDIOVASCULAR,
+255,3,Discharge summary,HISTORY OF THE PRESENT ILLNESS,
+256,3,Discharge summary,Respiratory,
+257,3,Discharge summary,Sex,
+258,3,Discharge summary,NAME OF PRIMARY PEDIATRICIAN,
+259,3,Discharge summary,Discharge Date,
+260,3,Discharge summary,Carotid Bruit        Right,
+261,3,Discharge summary,Extr,
+262,3,Discharge summary,COMMENTS,
+263,3,Discharge summary,MICRO,
+264,3,Discharge summary,day,
+265,3,Discharge summary,Findings,
+266,3,Discharge summary,On Discharge,
+267,3,Discharge summary,STUDIES,
+268,3,Discharge summary,Discharge labs,
+269,3,Discharge summary,Microbiology,
+270,3,Discharge summary,Neurology,
+271,3,Discharge summary,CVS,
+272,3,Discharge summary,Test Type,
+273,3,Discharge summary,Specialty,
+274,3,Discharge summary,Primary diagnosis,
+275,3,Discharge summary,Infectious disease,
+276,3,Discharge summary,MICROBIOLOGY,
+277,3,Discharge summary,Abdominal,
+278,3,Discharge summary,Back,
+279,3,Discharge summary,Females,
+280,3,Discharge summary,DIAGNOSIS,
+281,3,Discharge summary,LABORATORY,
+282,3,Discharge summary,INTERPRETATION,
+283,3,Discharge summary,Secondary Diagnoses,
+284,3,Discharge summary,TRANSITIONAL ISSUES,
+285,3,Discharge summary,On discharge,
+286,3,Discharge summary,Appointment,
+287,3,Discharge summary,COR,
+288,3,Discharge summary,Gastrointestinal,
+289,3,Discharge summary,Rectal,
+290,3,Discharge summary,PSYCH,
+291,3,Discharge summary,The following changes were made to your medications,
+292,3,Discharge summary,CONCLUSION,
+293,3,Discharge summary,IMMUNIZATIONS RECOMMENDED,
+294,3,Discharge summary,Admission,
+295,3,Discharge summary,Last Dental Exam,
+296,3,Discharge summary,CARE AND RECOMMENDATIONS,
+297,3,Discharge summary,Psychosocial,
+298,3,Discharge summary,BONE WINDOWS,
+299,3,Discharge summary,Tablet Refills,
+300,3,Discharge summary,Refills,
+301,3,Discharge summary,Gait,
+302,3,Discharge summary,SUMMARY OF HOSPITAL COURSE BY SYSTEMS,
+303,3,Discharge summary,MEDICATIONS ON TRANSFER,
+304,3,Discharge summary,VII,
+305,3,Discharge summary,Race,
+306,3,Discharge summary,Studies,
+307,3,Discharge summary,Lung,
+308,3,Discharge summary,Recommendations,
+309,3,Discharge summary,ECG,
+310,3,Discharge summary,Cor,
+311,3,Discharge summary,MEDICATIONS AT HOME,
+312,3,Discharge summary,PCP,
+313,3,Discharge summary,Secondary diagnosis,
+314,3,Discharge summary,ADMISSION PHYSICAL EXAM,
+315,3,Discharge summary,criteria,
+316,3,Discharge summary,IMMUNIZATIONS RECEIVED,
+317,3,Discharge summary,CBC,
+318,3,Discharge summary,What activities you can and cannot do,
+319,5,Echo,INTERPRETATION:,
+320,5,Echo,LEFT VENTRICLE:,
+321,5,Echo,MITRAL VALVE:,
+322,5,Echo,AORTIC VALVE:,
+323,5,Echo,RIGHT VENTRICLE:,
+324,5,Echo,PERICARDIUM:,
+325,5,Echo,TRICUSPID VALVE:,
+326,5,Echo,LEFT ATRIUM:,
+327,5,Echo,AORTA:,
+328,5,Echo,GENERAL COMMENTS:,
+329,5,Echo,IMPRESSION:,
+330,5,Echo,LV WALL MOTION:,
+331,5,Echo,CLINICAL IMPLICATIONS:,
+332,6,General,Total time spent:,
+333,6,General,Plan:,
+334,6,General,Nutrition:,
+335,6,General,Assessment:,
+336,6,General,Neurologic:,
+337,6,General,Allergies:,
+338,6,General,Cardiovascular:,
+339,6,General,Action:,
+340,6,General,Response:,
+341,6,General,Urine:,
+342,6,General,Balance:,
+343,6,General,Heart rhythm:,
+344,6,General,Stool:,
+345,6,General,Total out:,
+346,6,General,Drains:,
+347,6,General,Blood products:,
+348,6,General,Communication:,
+349,6,General,Prophylaxis:,
+350,6,General,Other labs:,
+351,6,General,Code status:,
+352,6,General,Infusions:,
+353,6,General,Stress ulcer:,
+354,6,General,Comments:,
+355,6,General,Tmax:,
+356,6,General,Lines:,
+357,6,General,Disposition:,
+358,6,General,Other medications:,
+359,6,General,Imaging:,
+360,6,General,Height:,
+361,6,General,Skin:,
+362,6,General,Total time:,
+363,6,General,Tcurrent:,
+364,6,General,Abdominal:,
+365,6,General,Review of systems:,
+366,6,General,Ventilator mode:,
+367,6,General,Ve:,
+368,6,General,Endocrine:,
+369,6,General,Changes to medical and family history:,
+370,6,General,Renal:,
+371,6,General,Pulmonary:,
+372,6,General,Tube feeding:,
+373,6,General,Current medications:,
+374,6,General,Ext:,
+375,6,General,Consults:,
+376,6,General,Hematology:,
+377,6,General,Wounds:,
+378,6,General,T current:,
+379,6,General,Abd:,
+380,6,General,Gen:,
+381,6,General,Labs:,
+382,6,General,Dorsalis pedis:,
+383,6,General,Lungs:,
+384,6,General,Plateau:,
+385,6,General,Post operative day:,
+386,6,General,Clinician:,
+387,6,General,Fluids:,
+388,6,General,Microbiology:,
+389,6,General,Chest:,
+390,6,General,Acid:,
+391,6,General,Extremities:,
+392,6,General,Problems:,
+393,6,General,Vitals:,
+394,6,General,I would add the following remarks:,
+395,6,General,Chief complaint:,
+396,6,General,Neuro:,
+397,6,General,Compliance:,
+398,6,General,Total time spent on patient care:,
+399,6,General,Neck:,
+400,6,General,Lymph:,
+401,6,General,Eos:,
+402,7,Nursing,D:,
+403,7,Nursing,S:,
+404,7,Nursing,PMH:,
+405,7,Nursing,Precautions:,
+406,7,Nursing,Height:,
+407,7,Nursing,Temperature:,
+408,7,Nursing,Clothes:,
+409,7,Nursing,BUN:,
+410,7,Nursing,Jewelry:,
+411,7,Nursing,Potassium:,
+412,7,Nursing,Hematocrit:,
+413,7,Nursing,Glucose:,
+414,7,Nursing,Sodium:,
+415,7,Nursing,Chloride:,
+416,7,Nursing,Creatinine:,
+417,7,Nursing,Neuro:,
+418,7,Nursing,PMHx:,
+419,7,Nursing,GI:,
+420,7,Nursing,on:,
+421,7,Nursing,Events:,
+422,7,Nursing,Resp:,
+423,7,Nursing,CV:,
+424,7,Nursing,GU:,
+425,7,Nursing,Social:,
+426,7,Nursing,HPI:,
+427,7,Nursing,PSH:,
+428,9,Nutrition,Labs:,
+429,9,Nutrition,Pertinent medications:,
+430,9,Nutrition,Specifics:,
+431,9,Nutrition,Calories:,
+432,9,Nutrition,Protein:,
+433,9,Nutrition,Diagnosis:,
+434,9,Nutrition,Estimation of current intake:,
+435,9,Nutrition,Fluid:,
+436,9,Nutrition,Food allergies and intolerances:,
+437,9,Nutrition,Estimation of previous intake:,
+438,9,Nutrition,Pt at risk due to:,
+439,9,Nutrition,Calculations based on:,
+440,9,Nutrition,Patient at risk due to:,
+441,9,Nutrition,Comments:,
+442,9,Nutrition,Tube feeding recommendations:,
+443,9,Nutrition,Other:,
+444,9,Nutrition,Wt:,
+445,9,Nutrition,Starting rate:,
+446,9,Nutrition,Tube feed:,
+447,9,Nutrition,Diet:,
+448,9,Nutrition,Ht:,
+449,9,Nutrition,Skin:,
+450,9,Nutrition,Oral supplements:,
+451,9,Nutrition,Tube feeding:,
+452,9,Nutrition,Recommendations:,
+453,9,Nutrition,Change diet to:,
+454,9,Nutrition,Diet order:,
+455,9,Nutrition,Meds:,
+456,9,Nutrition,Admit wt:,
+457,10,Pharmacy,Assessment:,
+458,10,Pharmacy,Recommendation:,
+459,10,Pharmacy,Pager ,
+460,10,Pharmacy,Sedation,
+461,10,Pharmacy,Unit,
+462,10,Pharmacy,Midazolam ,
+463,10,Pharmacy,Final ,
+464,11,Physician ,PO:,
+465,11,Physician ,NG:,
+466,11,Physician ,HR:,
+467,11,Physician ,BP:,
+468,11,Physician ,RR:,
+469,11,Physician ,DVT:,
+470,11,Physician ,ABG:,
+471,11,Physician ,IVF:,
+472,11,Physician ,TF:,
+473,11,Physician ,VAP:,
+474,11,Physician ,HPI:,
+475,11,Physician ,PEEP:,
+476,11,Physician ,PIP:,
+477,11,Physician ,HEENT:,
+478,11,Physician ,PS :,
+479,11,Physician ,CVP:,
+480,11,Physician ,RSBI:,
+481,11,Physician ,CV:,
+482,11,Physician ,FEN:,
+483,11,Physician ,PMH:,
+484,11,Physician ,NEURO:,
+485,11,Physician ,PSH:,
+486,11,Physician ,ABD:,
+487,11,Physician ,LUNGS:,
+488,11,Physician ,ECG:,
+489,11,Physician ,ID:,
+490,11,Physician ,PULM:,
+491,11,Physician ,LDH:,
+492,11,Physician ,ABDOMEN:,
+493,11,Physician ,SKIN:,
+494,11,Physician ,CARDIAC:,
+495,11,Physician ,GEN:,
+496,11,Physician ,GENERAL:,
+497,11,Physician ,EXT:,
+498,11,Physician ,NECK:,
+499,11,Physician ,EXTREMITIES:,
+500,11,Physician ,PROPHYLAXIS:,
+501,11,Physician ,ACCESS:,
+502,11,Physician ,GI:,
+503,11,Physician ,CVS:,
+504,11,Physician ,IMPRESSION:,
+505,11,Physician ,TLD:,
+506,11,Physician ,PAP:,
+507,11,Physician ,CODE:,
+508,11,Physician ,CODE STATUS:,
+509,11,Physician ,DISPO:,
+510,11,Physician ,DISPOSITION:,
+511,11,Physician ,RENAL:,
+512,11,Physician ,CXR:,
+513,11,Physician ,CONSULTS:,
+514,11,Physician ,GU:,
+515,11,Physician ,HEME:,
+516,11,Physician ,ENDO:,
+517,11,Physician ,PULSES:,
+518,11,Physician ,BILLING DIAGNOSIS:,
+519,11,Physician ,GLYCEMIC CONTROL:,
+520,11,Physician ,COMMUNICATIONS:,
+521,11,Physician ,PPX:,
+522,11,Physician ,ICU CARE:,
+523,11,Physician ,ICP:,
+524,11,Physician ,COMM:,
+525,11,Physician ,ASSESSMENT AND PLAN:,
+526,11,Physician ,MICRO:,
+527,11,Physician ,EKG:,
+528,11,Physician ,IMAGING:,
+529,11,Physician ,SVR:,
+530,11,Physician ,SV:,
+531,11,Physician ,SVI:,
+532,11,Physician ,PLAN:,
+533,11,Physician ,VS:,
+534,12,Radiology,REASON FOR THIS EXAMINATION:,
+535,12,Radiology,IMPRESSION:,
+536,12,Radiology,INDICATION:,
+537,12,Radiology,FINDINGS:,
+538,12,Radiology,COMPARISON:,
+539,12,Radiology,HISTORY:,
+540,12,Radiology,TECHNIQUE:,
+541,12,Radiology,WET READ:,
+542,12,Radiology,CLINICAL HISTORY:,
+543,12,Radiology,COMPARISONS:,
+544,12,Radiology,STUDY:,
+545,12,Radiology,PFI:,
+546,12,Radiology,BONE WINDOWS:,
+547,12,Radiology,REASON FOR EXAMINATION:,
+548,12,Radiology,REASON FOR EXAM:,
+549,12,Radiology,CLINICAL INDICATION:,
+550,12,Radiology,PROCEDURE:,
+551,12,Radiology,CLINICAL INFORMATION:,
+552,12,Radiology,INDICATIONS:,
+553,12,Radiology,CONCLUSION:,
+554,12,Radiology,CHEST:,
+555,12,Radiology,EXAMINATION:,
+556,12,Radiology,INTERPRETATION:,
+557,12,Radiology,RADIOLOGISTS:,
+558,12,Radiology,OSSEOUS STRUCTURES:,
+559,13,Rehab Services,Transfer:,
+560,13,Rehab Services,Rolling:,
+561,13,Rehab Services,Balance:,
+562,13,Rehab Services,Total distance walked:,
+563,13,Rehab Services,Minutes:,
+564,13,Rehab Services,Ambulation:,
+565,13,Rehab Services,Stairs:,
+566,13,Rehab Services,Other:,
+567,13,Rehab Services,Medications:,
+568,13,Rehab Services,Radiology:,
+569,13,Rehab Services,Time frame:,
+570,13,Rehab Services,Diagnosis:,
+571,13,Rehab Services,Labs:,
+572,13,Rehab Services,Posture:,
+573,13,Rehab Services,Other labs:,
+574,13,Rehab Services,Intervention:,
+575,13,Rehab Services,Referral date:,
+576,13,Rehab Services,Reason of referral:,
+577,13,Rehab Services,Assessment:,
+578,13,Rehab Services,Objective:,
+579,13,Rehab Services,Updated medical status:,
+580,13,Rehab Services,Gait:,
+581,13,Rehab Services,Face time:,
+582,13,Rehab Services,Plan:,
+583,13,Rehab Services,Total time:,
+584,13,Rehab Services,Secretions:,
+585,13,Rehab Services,Teeth:,
+586,13,Rehab Services,Time:,
+587,13,Rehab Services,Date:,
+588,13,Rehab Services,Specify:,
+589,13,Rehab Services,Communicated with nsg re:,
+590,13,Rehab Services,Goals:,
+591,13,Rehab Services,Grooming:,
+592,13,Rehab Services,Nsg recs:,
+593,13,Rehab Services,Comm:,
+594,13,Rehab Services,Toileting:,
+595,13,Rehab Services,Sensation:,
+596,13,Rehab Services,Coordination:,
+597,13,Rehab Services,Integumentary:,
+598,13,Rehab Services,Standing:,
+599,13,Rehab Services,Hemoglobin:,
+600,13,Rehab Services,Pulm:,
+601,13,Rehab Services,Clarification:,
+602,13,Rehab Services,Pain:,
+603,14,Respiratory ,Day of mechanical ventilation:,
+604,14,Respiratory ,Ideal body weight:,
+605,14,Respiratory ,Ideal tidal volume:,
+606,14,Respiratory ,Level of breathing assistance:,
+607,14,Respiratory ,Visual assessment of breathing pattern:,
+608,14,Respiratory ,Reason for continuing current ventilatory support:,
+609,14,Respiratory ,Assessment of breathing comfort:,
+610,14,Respiratory ,Day of intubation:,
+611,14,Respiratory ,Route:,
+612,14,Respiratory ,Cuff pressure:,
+613,14,Respiratory ,Trigger work assessment:,
+614,14,Respiratory ,Position:,
+615,14,Respiratory ,Known difficult intubation:,
+616,14,Respiratory ,Invasive ventilation assessment:,
+617,14,Respiratory ,Cuff volume:,
+618,14,Respiratory ,Procedure location:,
+619,14,Respiratory ,Reason:,
+620,14,Respiratory ,Manufacturer:,
+621,14,Respiratory ,Tracheostomy tube:,
+622,14,Respiratory ,Dysynchrony assessment:,
+623,14,Respiratory ,Airway problems:,
+624,14,Respiratory ,Transports:,
+625,15,Social Work,Previous living situation:,
+626,15,Social Work,Previous level of functioning:,
+627,15,Social Work,Employment status:,
+628,15,Social Work,Past psychiatric history:,
+629,15,Social Work,Past addictions history:,
+630,15,Social Work,Communication or visitation restriction:,
+631,15,Social Work,Legal involvement:,
+632,15,Social Work,Assessment:,
+633,15,Social Work,Plan:,
+634,15,Social Work,Continuing issues to be addressed:,
+635,15,Social Work,Attending:,
+636,15,Social Work,Other:,
+637,15,Social Work,Guardian appointed:,
