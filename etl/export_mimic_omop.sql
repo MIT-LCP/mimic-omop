@@ -42,5 +42,5 @@
  \copy (SELECT * FROM omop.cost) TO PROGRAM 'gzip > etl/Result/cost.csv.gz' CSV HEADER QUOTE '"';
  \copy (SELECT * FROM omop.device_exposure) TO PROGRAM 'gzip > etl/Result/device_exposure.csv.gz' CSV HEADER QUOTE '"';
  \copy (SELECT * FROM omop.measurement) TO PROGRAM 'gzip > etl/Result/measurement.csv.gz' CSV HEADER QUOTE '"';
- \copy (SELECT * FROM omop.concept) TO PROGRAM 'gzip > etl/Result/concept.csv.gz' CSV HEADER QUOTE '"';
+ \copy (SELECT concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,standard_concept,concept_code,valid_start_date,valid_end_date,invalid_reason FROM omop.concept) TO PROGRAM 'gzip > etl/Result/concept.csv.gz' CSV HEADER QUOTE '"';
  \copy (SELECT * FROM omop.visit_occurrence) TO PROGRAM 'gzip > etl/Result/visit_occurrence.csv.gz' CSV HEADER QUOTE '"';
