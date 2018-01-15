@@ -1,6 +1,5 @@
 -- a first way to bulk extract section
--- next steps are:
--- 1. remove no relevant section
+-- next steps are: 1. remove no relevant section
 -- 2. add missing section from manual read
 -- 3. map sections to loinc
 -- 4. run the existing UIMA extract_section pipeline 
@@ -55,12 +54,12 @@ CREATE MATERIALIZED VIEW noteevents_section_count  AS
 WITH
 "section_regex" (category, regex) AS ( VALUES
 	('Nursing/other', ''),
-	('Nursing', '([A-z]+:)'),
-	('Radiology', '[ ]*([A-Z ]+:)'),
+	('Nursing', '\n[ ]*([A-z]+:)'),
+	('Radiology', '\n[ ]*([A-Z ]+:)'),
 	('ECG', ''),
-	('Physician ', '[ ]*([A-Z]+[A-Z ]+:)'),
-	('Discharge summary', '\n[ ]*\n([A-z0-9 ]+)(:| WERE | INCLUD | IS | ARE)'),
-	('Echo', '[ ]*([A-Z]+[A-Z ]+:)'),
+	('Physician ', '\n[ ]*([A-Z]+[A-Z ]+:)'),
+	('Discharge summary', '\n[ ]*([A-z0-9 ]+)(:| WERE | INCLUD | IS | ARE)'),
+	('Echo', '\n[ ]*([A-Z]+[A-Z ]+:)'),
 	('Respiratory ', '\n[ ]*([A-Z][a-z ]+:)'),
 	('Nutrition', '\n[ ]*([A-Z][a-z ]+:)'),
 	('General', '\n[ ]*([A-Z][a-z ]+:)'),
