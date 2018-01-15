@@ -30,6 +30,7 @@ MIMIC TABLES EQUIVALENCE
 
 - patients
   - [PERSON](etl/StandardizedClinicalDataTables/PERSON)
+  - [DEATH](etl/StandardizedClinicalDataTables/DEATH)
 - admissions
   - [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
