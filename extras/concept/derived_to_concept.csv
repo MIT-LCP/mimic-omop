@@ -1,0 +1,8 @@
+measurement_source_value,itemid
+Calcium level corrected from labevents,52000
+Kaliemia corrected from labevents,52001
+P/F from chartevents and labevents,52002
+Height from noteevents,52003
+Weight from noteevents,52004
+BMI from noteevents,52005
+Osmolarity corrigéefrom labevents,52006
