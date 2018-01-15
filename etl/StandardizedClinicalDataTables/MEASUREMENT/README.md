@@ -28,8 +28,8 @@
   https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_label_to_concept.csv
   https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_unit_to_concept.csv
   https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_value_to_concept.csv
-- Logical Observation Identifiers Names and Codes (LOINC) = database and universal standard for identifying medical laboratory observations
-  loinc.csv
+- Logical Observation Identifiers Names and Codes (LOINC) = database and universal standard for identifying medical laboratory observations loinc.csv
+- when flag is abnormal then value_as_concept_id refers to LOINC code for " abnormal", else "non abnormal" and null when unknown
 
 # Example
 

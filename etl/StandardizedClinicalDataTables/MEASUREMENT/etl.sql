@@ -1,7 +1,7 @@
 -- LABS FROM labevents
 WITH
 "labs_value_purif" as (SELECT *, regexp_replace(regexp_replace(trim(value), 'LE[SE]S THAN ','<'),'GREATER TH[AE]N ','>') as value_purif from mimic.labevents),
-"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, value as value_source_value,
+"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, flag, value as value_source_value,
         CASE WHEN value_purif ~ '^[+-]*[0-9.,]+$' THEN  '=' ELSE substring(value_purif,'^(<=|>=|<|>)') END as operator_name,
                 CASE WHEN value_purif ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$'
                         THEN regexp_replace(regexp_replace(value_purif,'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision
@@ -29,7 +29,9 @@ SELECT
   END AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
 , labevents.value_as_number AS value_as_number               
-, null::bigint AS value_as_concept_id           
+, CASE 
+   WHEN flag IS NOT NULL THEN 45878745 -- abnormal
+   ELSE 45877847 END AS value_as_concept_id       -- no abnormalities    
 , gcpt_lab_unit_to_concept.unit_concept_id               
 , null::double precision AS range_low                     
 , null::double precision AS range_high                    
