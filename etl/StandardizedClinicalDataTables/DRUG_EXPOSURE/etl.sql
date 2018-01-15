@@ -100,7 +100,9 @@ SELECT
 , statusdescription as stop_reason
 , ordercategoryname
 , cancelreason
-FROM inputevents_mv),
+FROM inputevents_mv
+WHERE cancelreason = 0
+),
 "rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),

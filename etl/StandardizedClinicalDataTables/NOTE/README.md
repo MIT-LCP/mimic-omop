@@ -5,6 +5,9 @@
 
 ## noteevents
 
+- source category goes into value_source_value
+- notes categories have been mapped to omop standard concepts
+
 # Example
 ``` sql
 -- explanation of the note_type_concept_id

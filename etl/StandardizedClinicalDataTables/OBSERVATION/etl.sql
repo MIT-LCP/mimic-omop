@@ -337,6 +337,7 @@ WITH
 		, 'Braden Moisture'
 		, 'Braden Mobility'
 	)
+	AND error = 0
        ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),

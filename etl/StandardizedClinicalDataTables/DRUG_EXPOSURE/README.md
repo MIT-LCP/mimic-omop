@@ -10,11 +10,14 @@
 - `drug_type_concept_id` = 38000177
 
 ## inputevents_cv
+
 - `drug_type_concept_id` = 38000180
 - `drug_exposure_end_datetime` is always null (because there is no end charttime in inputevents_cv)
 
 ## inputevents_mv
+
 - `drug_type_concept_id` = 38000180
+- row with cancelled have not been exported from mimic 
 
 # Example
 ``` sql

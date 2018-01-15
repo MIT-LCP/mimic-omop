@@ -13,6 +13,7 @@
 - code are mapped to SNOMED procedure
 - the datetime is the begining of the procedure
 - quantity is the duration of the procedure in minutes
+- rows cancelled have not been exported from mimic
 
 ## ̀`mimic.cptevents`
 

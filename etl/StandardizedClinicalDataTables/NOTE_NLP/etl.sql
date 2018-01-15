@@ -15,6 +15,7 @@ select
 from omop.tmp_note_nlp
 join noteevents using (row_id)
 left join gcpt_note_section_to_concept ON section_code = section_id
+WHERE iserror IS NULL
 )
 INSERT INTO omop.note_nlp
 (

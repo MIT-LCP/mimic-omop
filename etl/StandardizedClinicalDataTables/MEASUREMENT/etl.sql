@@ -73,7 +73,8 @@ FROM row_to_insert;
 
 -- LABS from chartevents
 WITH
-"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'Enzymes','Chemistry') )),
+"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'Enzymes','Chemistry') ) WHERE error = 0
+),
 "d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
@@ -370,6 +371,7 @@ SELECT
     LEFT JOIN gcpt_chart_label_to_concept as m ON (label = d_label)
     LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
       ON m.label_type = v.label_type AND c.value = v.mimic_name
+WHERE error = 0
   ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),

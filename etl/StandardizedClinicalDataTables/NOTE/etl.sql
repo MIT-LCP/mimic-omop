@@ -10,7 +10,9 @@ SELECT
 , description as note_title
 , text as note_text
 , category as note_source_value
-FROM noteevents),
+FROM noteevents
+WHERE  iserror IS NULL
+),
 "gcpt_note_category_to_concept" AS (
 SELECT category as note_source_value, concept_id as note_type_concept_id FROM gcpt_note_category_to_concept),
 "admissions" as (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),

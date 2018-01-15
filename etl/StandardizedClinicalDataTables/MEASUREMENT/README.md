@@ -2,11 +2,14 @@
 - https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT
 
 # Source Tables
+
 - when measures are mapped to standard concepts (SMOMED) measurement_concept_id != 0
   you may use the non-omop mimic itemid
 - else measurement_concept_id = 0 and you have to select measures with non-omop mimic itemid
 
 ## charteevents
+
+- rows in error have not been exported from mimic
 
 ## labevents
 
