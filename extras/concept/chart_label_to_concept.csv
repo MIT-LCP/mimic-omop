@@ -55,33 +55,33 @@ Additional Gas (lpm),o2flow,0,100,3014080,44818701,8698
 BIPAP - O2 lpm,o2flow,0,100,3014080,44818701,8698
 BiPap O2 Flow,o2flow,0,100,3014080,44818701,8698
 Flow-By (lpm),o2flow,0,100,3014080,44818701,8698
-Pulmonary Artery Pressure diastolic,hemodyanamic,0,120,3017188,44818701,8876
-Pulmonary Artery Pressure systolic,hemodyanamic,0,120,3005606,44818701,8876
-Pulmonary Artery Pressure mean,hemodyanamic,0,120,3028074,44818701,8876
-PAP [Systolic],hemodyanamic,0,120,3005606,44818701,8876
-PAP [Diastolic],hemodyanamic,0,120,3017188,44818701,8876
-PAP Mean,hemodyanamic,0,120,3028074,44818701,8876
-CO-Tandem Heart Flow,hemodyanamic,0,20,3005555,44818701,8698
-CO (Arterial),hemodyanamic,0,20,3005555,44818701,8698
-CO (PiCCO),hemodyanamic,0,20,3005555,44818701,8698
-Cardiac Output (CO NICOM),hemodyanamic,0,20,3005555,44818701,8698
-CCO CO,hemodyanamic,0,20,3005555,44818701,8698
-Cardiac Output (CCO),hemodyanamic,0,20,3005555,44818701,8698
-Cardiac Output (thermodilution),hemodyanamic,0,20,3005555,44818701,8698
-C.O. (fick),hemodyanamic,0,20,3005555,44818701,8698
-C.O.(thermodilution),hemodyanamic,0,20,3005555,44818701,8698
-Cardiac Index,hemodyanamic,0,20,21490712,44818701,2000000002
-Cardiac Index (CI NICOM),hemodyanamic,0,20,21490712,44818701,2000000002
-CI (PiCCO),hemodyanamic,0,20,21490712,44818701,2000000002
-SVV (PiCCO),hemodyanamic,0,50,2000000000,44818701,8554
-Stroke Volume Variation (SVV NICOM),hemodyanamic,0,50,2000000000,44818701,8554
-SVV (Arterial),hemodyanamic,0,50,2000000000,44818701,8554
-SVR,hemodyanamic,0,5000,3035146,44818701,4079131
-SVRI,hemodyanamic,0,5000,3008047,44818701,2000000001
-SVRI (PiCCO),hemodyanamic,0,5000,3008047,44818701,2000000001
-Central Venous Pressure,hemodyanamic,0,50,21490675,44818701,8876
-CVP,hemodyanamic,0,50,21490675,44818701,8876
-PCWP,hemodyanamic,0,50,21490776,44818701,8876
+Pulmonary Artery Pressure diastolic,hemodynamic,0,120,3017188,44818701,8876
+Pulmonary Artery Pressure systolic,hemodynamic,0,120,3005606,44818701,8876
+Pulmonary Artery Pressure mean,hemodynamic,0,120,3028074,44818701,8876
+PAP [Systolic],hemodynamic,0,120,3005606,44818701,8876
+PAP [Diastolic],hemodynamic,0,120,3017188,44818701,8876
+PAP Mean,hemodynamic,0,120,3028074,44818701,8876
+CO-Tandem Heart Flow,hemodynamic,0,20,3005555,44818701,8698
+CO (Arterial),hemodynamic,0,20,3005555,44818701,8698
+CO (PiCCO),hemodynamic,0,20,3005555,44818701,8698
+Cardiac Output (CO NICOM),hemodynamic,0,20,3005555,44818701,8698
+CCO CO,hemodynamic,0,20,3005555,44818701,8698
+Cardiac Output (CCO),hemodynamic,0,20,3005555,44818701,8698
+Cardiac Output (thermodilution),hemodynamic,0,20,3005555,44818701,8698
+C.O. (fick),hemodynamic,0,20,3005555,44818701,8698
+C.O.(thermodilution),hemodynamic,0,20,3005555,44818701,8698
+Cardiac Index,hemodynamic,0,20,21490712,44818701,2000000002
+Cardiac Index (CI NICOM),hemodynamic,0,20,21490712,44818701,2000000002
+CI (PiCCO),hemodynamic,0,20,21490712,44818701,2000000002
+SVV (PiCCO),hemodynamic,0,50,2000000000,44818701,8554
+Stroke Volume Variation (SVV NICOM),hemodynamic,0,50,2000000000,44818701,8554
+SVV (Arterial),hemodynamic,0,50,2000000000,44818701,8554
+SVR,hemodynamic,0,5000,3035146,44818701,4079131
+SVRI,hemodynamic,0,5000,3008047,44818701,2000000001
+SVRI (PiCCO),hemodynamic,0,5000,3008047,44818701,2000000001
+Central Venous Pressure,hemodynamic,0,50,21490675,44818701,8876
+CVP,hemodynamic,0,50,21490675,44818701,8876
+PCWP,hemodynamic,0,50,21490776,44818701,8876
 Minute Volume,vent_settings,2,30,21490753,44818701,8698
 Minute Volume(Obser),vent_settings,2,30,21490753,44818701,8698
 PEEP set,vent_settings,3,25,3016226,44818701,44777590
@@ -194,24 +194,24 @@ Radial a-line,map_bp,10,400,3027598,44818701,8876
 rad. aline,map_bp,10,400,3027598,44818701,8876
 Femoral A-Line,map_bp,10,400,3027598,44818701,8876
 FEM ALINE MAP,map_bp,10,400,3027598,44818701,8876
-SV (Arterial),hemodyanamic,10,300,3036518,44818701,9569
-Stroke Volume,hemodyanamic,10,300,3036518,44818701,9569
-Stroke Volume (SV NICOM),hemodyanamic,10,300,3036518,44818701,9569
-SVI,hemodyanamic,10,300,21490880,44818701,4189495
-SVI (PiCCO),hemodyanamic,10,300,21490880,44818701,4189495
-Stroke Volume Index (SVI NICOM),hemodyanamic,10,300,21490880,44818701,4189495
-ScvO2 (Presep),hemodyanamic,10,100,3018465,44818701,8554
-ScvO2 (Presep) SQI,hemodyanamic,10,100,3018465,44818701,8554
-SvO2,hemodyanamic,10,100,3018465,44818701,8554
-SVO2,hemodyanamic,10,100,3018465,44818701,8554
-svo2,hemodyanamic,10,100,3018465,44818701,8554
-SV02,hemodyanamic,10,100,3018465,44818701,8554
-svo2 RIJ,hemodyanamic,10,100,3018465,44818701,8554
-SVO2 SAT,hemodyanamic,10,100,3018465,44818701,8554
-SVO2-Presep. cath.,hemodyanamic,10,100,3018465,44818701,8554
-ScvO2 Central Venous O2% Sat,hemodyanamic,10,100,3018465,44818701,8554
-Mixed Venous O2% Sat,hemodyanamic,10,100,3018465,44818701,8554
-Mixed Venous O2,hemodyanamic,10,100,3018465,44818701,8554
+SV (Arterial),hemodynamic,10,300,3036518,44818701,9569
+Stroke Volume,hemodynamic,10,300,3036518,44818701,9569
+Stroke Volume (SV NICOM),hemodynamic,10,300,3036518,44818701,9569
+SVI,hemodynamic,10,300,21490880,44818701,4189495
+SVI (PiCCO),hemodynamic,10,300,21490880,44818701,4189495
+Stroke Volume Index (SVI NICOM),hemodynamic,10,300,21490880,44818701,4189495
+ScvO2 (Presep),hemodynamic,10,100,3018465,44818701,8554
+ScvO2 (Presep) SQI,hemodynamic,10,100,3018465,44818701,8554
+SvO2,hemodynamic,10,100,3018465,44818701,8554
+SVO2,hemodynamic,10,100,3018465,44818701,8554
+svo2,hemodynamic,10,100,3018465,44818701,8554
+SV02,hemodynamic,10,100,3018465,44818701,8554
+svo2 RIJ,hemodynamic,10,100,3018465,44818701,8554
+SVO2 SAT,hemodynamic,10,100,3018465,44818701,8554
+SVO2-Presep. cath.,hemodynamic,10,100,3018465,44818701,8554
+ScvO2 Central Venous O2% Sat,hemodynamic,10,100,3018465,44818701,8554
+Mixed Venous O2% Sat,hemodynamic,10,100,3018465,44818701,8554
+Mixed Venous O2,hemodynamic,10,100,3018465,44818701,8554
 Arterial BP [Systolic],systolic_bp,20,400,3004249,44818701,8876
 Arterial Blood Pressure systolic,systolic_bp,20,400,3004249,44818701,8876
 ART BP Systolic,systolic_bp,20,400,3004249,44818701,8876
@@ -254,3 +254,28 @@ Tidal Volume (set),vent_settings,50,1000,21490854,44818701,8587
 Tidal Volume (spontaneous),vent_settings,50,1000,3017594,44818701,8587
 Tidal Volume (Spont),vent_settings,50,1000,3017594,44818701,8587
 Vt [Spontaneous],vent_settings,50,1000,3017594,44818701,8587
+ICP,hemodynamic,,,4353953,44818701,8876
+Intra Cranial Pressure,hemodynamic,,,4353953,44818701,8876
+ICP Alarm [High],hemodynamic,,,4353953,44818701,8876
+ICP Alarm [Low],hemodynamic,,,4353953,44818701,8876
+Intra Cranial Pressure Alarm - Low,hemodynamic,,,4353953,44818701,8876
+Intra Cranial Pressure Alarm - High,hemodynamic,,,4353953,44818701,8876
+Intra Cranial Pressure #2,hemodynamic,,,4353953,44818701,8876
+ICP LEFT,hemodynamic,,,4353953,44818701,8876
+RIGHT VENT ICP,hemodynamic,,,4353953,44818701,8876
+VENT ICP,hemodynamic,,,4353953,44818701,8876
+Intra Cranial Pressure #2 Alarm - Low,hemodynamic,,,4353953,44818701,8876
+Intra Cranial Pressure #2 Alarm - High,hemodynamic,,,4353953,44818701,8876
+icp left,hemodynamic,,,4353953,44818701,8876
+ICP-ventriculostomuy,hemodynamic,,,4353953,44818701,8876
+R ICP,hemodynamic,,,4353953,44818701,8876
+CPP WITH CAMINO ICP,hemodynamic,,,4353953,44818701,8876
+ICP ventricle,hemodynamic,,,4353953,44818701,8876
+icp,hemodynamic,,,4353953,44818701,8876
+ICP  Right,hemodynamic,,,4353953,44818701,8876
+Rt ICP,hemodynamic,,,4353953,44818701,8876
+ICP Camino,hemodynamic,,,4353953,44818701,8876
+L ICP,hemodynamic,,,4353953,44818701,8876
+left icp,hemodynamic,,,4353953,44818701,8876
+ICP Right,hemodynamic,,,4353953,44818701,8876
+ventriculostomy icp,hemodynamic,,,4353953,44818701,8876
