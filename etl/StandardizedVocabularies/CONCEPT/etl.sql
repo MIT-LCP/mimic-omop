@@ -124,3 +124,18 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM gcpt_note_section_to_concept;
 
+-- Derived values
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+  mimic_id as concept_id
+, measurement_source_value as concept_name
+, 'Meas Value'::text as domain_id
+, 'MIMIC Generated' as vocabulary_id
+, 'Derived Value' as concept_class_id -- omop Lab Test
+, itemid as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM gcpt_derived_to_concept;
+
