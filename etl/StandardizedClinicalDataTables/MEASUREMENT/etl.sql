@@ -529,12 +529,12 @@ with
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
-"gcpt_derived_to_concept" as (select measurement_source_value, itemid, mimic_id as measurement_source_concept_id from gcpt_derived_to_concept),
+"gcpt_derived_to_concept" as (select measurement_source_value, itemid, mimic_id as measurement_source_concept_id, concept_id as measurement_concept_id from gcpt_derived_to_concept),
 "row_to_insert" as (
 	SELECT
 	  nextval('mimic_id_seq') as measurement_id
 	, person_id
-	, 0 as measurement_concept_id --not yet mapped
+	, coalesce(measurement_concept_id, 0) as measurement_concept_id --not yet mapped
 	, charttime::date as measurement_date
 	, charttime::timestamp as measurement_datetime
 	, 45754907 as measurement_type_concept_id --derived value
