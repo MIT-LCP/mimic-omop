@@ -11,7 +11,7 @@
 # Example
 ``` sql
 -- explanation of the note_type_concept_id
--- 
+-- = type of note in standard omop concept
 SELECT concept_name, note_type_concept_id, count(1)
 from note
 JOIN concept ON note_type_concept_id = concept_id
@@ -26,3 +26,11 @@ group by concept_name, note_type_concept_id ORDER BY count(1) desc;
  Discharge summary   |             44814637 |   59652
  Ancillary report    |             44814643 |   17622
  Inpatient note      |             44814639 |    8399
+
+
+``` sql
+-- explanation of secion_source_value
+-- = type of note in non standard mimic concept
+SELECT section_source_value, count(1)
+FROM omop.note_nlp
+GROUP by section_source_value ORDER BY count(1) desc;
