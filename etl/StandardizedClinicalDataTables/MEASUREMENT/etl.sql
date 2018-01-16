@@ -385,7 +385,7 @@ WHERE error IS NULL OR error= 0
 , coalesce(measurement_concept_id, 0) as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
 , measurement_datetime AS measurement_datetime          
-, 44818701 as measurement_type_concept_id 
+, 44818701 as measurement_type_concept_id  -- from physical examination
 , 4172703 AS operator_concept_id 
 , coalesce(valuenum_fromvalue, value_as_number) AS value_as_number               
 , value_as_concept_id AS value_as_concept_id           
@@ -538,7 +538,7 @@ with
 	, charttime::date as measurement_date
 	, charttime::timestamp as measurement_datetime
 	, 45754907 as measurement_type_concept_id --derived value
-	, 4172703 as operator_concept_id
+	, 4172703 as operator_concept_id -- =
 	, valuenum as value_as_number
 	, CASE WHEN flag = 'abnormal' THEN  45878745 --abnormal
 	  ELSE NULL END as value_as_concept_id
@@ -592,3 +592,73 @@ OR -- last
 OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
 );
+
+-- TODO weight from inputevent_mv
+ 
+with
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
+"row_to_insert" as 
+(
+select
+          nextval('mimic_id_seq') as measurement_id
+        , person_id
+        , 3025315 as measurement_concept_id  --loinc weight
+        , starttime::date as measurement_date
+        , starttime as measurement_datetime
+        , 44818701 as measurement_type_concept_id -- from physical examination
+	, 4172703 as operator_concept_id
+        , patientweight as value_as_number
+        , null::integer as value_as_concept_id
+        , 9529 as unit_concept_id --kilogram
+	, null::numeric as range_low
+	, null::numeric as range_high
+        , caregivers.provider_id
+        , visit_occurrence_id
+        , null::text as measurement_source_value
+        , null::integer as measurement_source_concept_id
+        , null::text as unit_source_value
+        , null::text as value_source_value
+	FROM inputevents_mv
+        LEFT JOIN patients USING (subject_id)
+        LEFT JOIN caregivers USING (cgid)
+        LEFT JOIN admissions USING (hadm_id)
+	WHERE patientweight is not null
+)
+INSERT INTO omop.observation
+SELECT
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, visit_detail_assign.visit_detail_id
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+FROM row_to_insert
+LEFT JOIN omop.visit_detail_assign 
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND row_to_insert.measurement_datetime IS NOT NULL
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+)
+;
