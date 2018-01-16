@@ -94,6 +94,7 @@ SELECT
 , 38000180 AS drug_type_concept_id -- Inpatient administration
 --, 4112421 as route_concept_id -- intraveous
 , orderid = linkorderid as is_leader -- other input are linked to it/them
+, first_value(mimic_id) over(partition by orderid order by starttime ASC) = mimic_id as is_orderid_leader -- other input are linked to it/them
 , linkorderid
 , orderid
 , ordercategorydescription || ' (' || ordercategoryname || ')' AS route_source_value
@@ -130,7 +131,26 @@ DISTINCT
 , 44818791 AS relationship_concept_id -- Has temporal context [SNOMED]
 FROM inputevents_mv mv1
 LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.linkorderid AND mv2.is_leader IS TRUE)
-RETURNING *
+),
+"fact_relationship_order" AS (
+INSERT INTO omop.fact_relationship 
+(
+  domain_concept_id_1     
+, fact_id_1               
+, domain_concept_id_2     
+, fact_id_2               
+, relationship_concept_id 
+
+)
+SELECT
+DISTINCT 
+  13 As fact_id_1 --Drug
+,  mv2.drug_exposure_id AS domain_concept_id_1
+, 13 As fact_id_2 --Drug
+, mv1.drug_exposure_id AS domain_concept_id_2
+, 44818784 AS relationship_concept_id -- Has associated procedure [SNOMED]
+FROM inputevents_mv mv1
+LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.orderid AND mv2.is_orderid_leader IS TRUE)
 ),
 "row_to_insert" AS (
 SELECT
