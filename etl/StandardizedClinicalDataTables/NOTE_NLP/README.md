@@ -1,11 +1,13 @@
 # URL to CommonDataModel
 - https://github.com/OHDSI/CommonDataModel/wiki/NOTE_NLP
 
+- is a contribution table
+- note_id is a foreign key to note table
+
 # Source Tables
 
 ## noteevents
 
-- rows in error have been removed
 - source category goes into value_source_value
 - sections have not been yet mapped to a standard terminology. CDO (standard from loinc) recently gave up (see https://github.com/MIT-LCP/mimic-omop/issues/13)
 - extracted section covers automatically extracted section that present at least 1% in the notes
