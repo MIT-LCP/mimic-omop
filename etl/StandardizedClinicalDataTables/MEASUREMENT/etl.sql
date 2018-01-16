@@ -75,7 +75,7 @@ FROM row_to_insert;
 
 -- LABS from chartevents
 WITH
-"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'Enzymes','Chemistry') ) WHERE error IS NULL OR error= 0
+"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'CSF', 'Enzymes','Chemistry') ) WHERE error IS NULL OR error= 0
 ),
 "d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
@@ -94,7 +94,7 @@ WITH
 , CASE 
      WHEN category ILIKE 'blood gases'  THEN  2000000010
      WHEN lower(category) IN ('chemistry','enzymes')  THEN  2000000011
-     WHEN lower(category) IN ('hematology','heme/coag','enzymes') THEN  2000000009
+     WHEN lower(category) IN ('hematology','heme/coag','csf','coags') THEN  2000000009
      WHEN lower(category) IN ('labs') THEN coalesce(gcpt_labs_from_chartevents_to_concept.measurement_type_concept_id,44818702)
      ELSE 44818702 -- there no trivial way to classify
   END AS measurement_type_concept_id -- Lab result
@@ -329,17 +329,18 @@ SELECT
     FROM chartevents as c
     JOIN d_items as d 
     ON (d.itemid=c.itemid 
-	AND category IS DISTINCT FROM 'Labs'  
+	AND category IS DISTINCT FROM  'Labs'  
 	AND category IS DISTINCT FROM  'Blood Gases' 
 	AND category IS DISTINCT FROM  'Hematology' 
-	AND category IS DISTINCT FROM 'Chemistry' 
+	AND category IS DISTINCT FROM  'Chemistry' 
 	AND category IS DISTINCT FROM  'Heme/Coag' 
 	AND category IS DISTINCT FROM  'Coags' 
+	AND category IS DISTINCT FROM  'CSF' 
 	AND category IS DISTINCT FROM  'Enzymes' 
 	AND (      param_type IS DISTINCT FROM 'Text'
 		OR ( param_type = 'Text' AND label IN -- discreteous textual variables 
 		(
-			'Visual Disturbances'
+			 'Visual Disturbances'
 			, 'Tremor (CIWA)'
 			, 'Strength R Leg'
 			, 'Strength R Arm'
