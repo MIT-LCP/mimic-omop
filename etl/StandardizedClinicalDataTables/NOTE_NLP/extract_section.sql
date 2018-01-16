@@ -105,11 +105,12 @@ LEFT JOIN categories USING (category) LIMIT 10;
 -- export section pattern to avro
 -- ref_doc_section.csv
 -- no header
-\copy(WITH                                                                                                                                  
+
+\copy (WITH                                                                                                                                  
 cat_name as (SELECT distinct category from noteevents ORDER BY 1),
 categories as ( SELECT category, row_number() over() as cat_id from cat_name)
 select row_number() over() as section_id, cat_id, label
 from noteevents_section_count  
 LEFT JOIN categories USING (category)
-where percent_avec_section >= 1 and count >=10 and  (length(label) >2 or label ~* '[A-z]+:$'))
+where percent_avec_section >= 1 and count >=10 and  (length(label) >2 or label ~* '^[A-z]+:$') order by length(label) desc)
 TO '/tmp/ref_doc_section.csv' CSV QUOTE '"';

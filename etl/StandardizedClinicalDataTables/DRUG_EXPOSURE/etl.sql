@@ -263,6 +263,9 @@ FROM inputevents_cv
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
 "gcpt_map_route_to_concept" AS (SELECT concept_id as route_concept_id, ordercategoryname as originalroute FROM gcpt_map_route_to_concept),
 "d_items" AS (SELECT itemid, label as drug_source_value, mimic_id as drug_source_concept_id FROM d_items),
+"gcpt_continuous_unit_carevue.csv" as (
+	select dose_unit_source_value, dose_unit_source_value_new
+ from gcpt_continuous_unit_carevue),
 "fact_relationship" AS (
 INSERT INTO omop.fact_relationship 
 (
@@ -308,7 +311,7 @@ SELECT
 , drug_source_value
 , d_items.drug_source_concept_id
 , null::text route_source_value
-, dose_unit_source_value
+, coalesce(gcpt_continuous_unit_carevue.dose_unit_source_value_new, dose_unit_source_value) as dose_unit_source_value
 FROM inputevents_cv
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -318,6 +321,7 @@ LEFT JOIN gcpt_cv_input_label_to_concept USING (itemid)
 LEFT JOIN d_items USING (itemid)
 LEFT JOIN rxnorm_map USING (drug_source_value)
 LEFT JOIN gcpt_map_route_to_concept USING (originalroute)
+LEFT JOIN gcpt_continuous_unit_carevue USING (dose_unit_source_value)
 )
 INSERT INTO omop.drug_exposure
 SELECT 
