@@ -95,7 +95,7 @@ WITH
      WHEN category ILIKE 'blood gases'  THEN  2000000010
      WHEN lower(category) IN ('chemistry','enzymes')  THEN  2000000011
      WHEN lower(category) IN ('hematology','heme/coag','enzymes') THEN  2000000009
-     WHEN lower(category) IN ('labs') THEN gcpt_labs_from_chartevents_to_concept.measurement_type_concept_id
+     WHEN lower(category) IN ('labs') THEN coalesce(gcpt_labs_from_chartevents_to_concept.measurement_type_concept_id,44818702)
      ELSE 44818702 -- there no trivial way to classify
   END AS measurement_type_concept_id -- Lab result
 , operator_concept_id AS operator_concept_id -- = operator
