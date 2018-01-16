@@ -1,5 +1,5 @@
 section_id,category_id,category,label,label_mapped
-0,-1,General,No particular Section
+-1,0,General,No particular Section
 1,1,Case Management ,Patient discussed with multidisciplinary team:,
 2,1,Case Management ,Current plan:,
 3,1,Case Management ,Medicaid application:,

@@ -2,7 +2,7 @@
 WITH
 "google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM mimic.gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
-"drug_exposure" AS (SELECT trim(drug || ' ' || prod_strength) as drug_source_value, subject_id, hadm_id, row_id,, dose_val_rx, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
+"drug_exposure" AS (SELECT trim(drug || ' ' || prod_strength) as drug_source_value, subject_id, hadm_id, row_id, dose_val_rx, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
 "omop_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'MIMIC Generated'),
@@ -19,9 +19,9 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, dose_val_rx as quantity --number of doses
+, null::numeric as quantity 
 , null::integer as days_supply
-, null::text as sig
+, dose_val_rx  as sig --workaround number of doses
 , route_concept_id
 , null::text as lot_number
 , null::integer as provider_id
@@ -94,6 +94,7 @@ SELECT
 , 38000180 AS drug_type_concept_id -- Inpatient administration
 --, 4112421 as route_concept_id -- intraveous
 , orderid = linkorderid as is_leader -- other input are linked to it/them
+, first_value(mimic_id) over(partition by orderid order by starttime ASC) = mimic_id as is_orderid_leader -- other input are linked to it/them
 , linkorderid
 , orderid
 , ordercategorydescription || ' (' || ordercategoryname || ')' AS route_source_value
@@ -130,7 +131,26 @@ DISTINCT
 , 44818791 AS relationship_concept_id -- Has temporal context [SNOMED]
 FROM inputevents_mv mv1
 LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.linkorderid AND mv2.is_leader IS TRUE)
-RETURNING *
+),
+"fact_relationship_order" AS (
+INSERT INTO omop.fact_relationship 
+(
+  domain_concept_id_1     
+, fact_id_1               
+, domain_concept_id_2     
+, fact_id_2               
+, relationship_concept_id 
+
+)
+SELECT
+DISTINCT 
+  13 As fact_id_1 --Drug
+,  mv2.drug_exposure_id AS domain_concept_id_1
+, 13 As fact_id_2 --Drug
+, mv1.drug_exposure_id AS domain_concept_id_2
+, 44818784 AS relationship_concept_id -- Has associated procedure [SNOMED]
+FROM inputevents_mv mv1
+LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.orderid AND mv2.is_orderid_leader IS TRUE)
 ),
 "row_to_insert" AS (
 SELECT
