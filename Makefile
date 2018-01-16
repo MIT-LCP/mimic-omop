@@ -1,5 +1,5 @@
 MIMIC_SCHEMA=mimic
-HOST_OMOP=192.168.0.10
+HOST_OMOP=localhost
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
 load: 

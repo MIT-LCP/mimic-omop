@@ -22,7 +22,7 @@ TRUNCATE TABLE  omop.note CASCADE;
 TRUNCATE TABLE  omop.note_nlp CASCADE;
 TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
---\i mimic/build-mimic/postgres_create_mimic_id.sql
+\i mimic/build-mimic/postgres_create_mimic_id.sql
 
 --\i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
 
