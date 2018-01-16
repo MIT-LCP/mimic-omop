@@ -1,9 +1,11 @@
+# URL to CommonDataModel
+- https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE
+
+# Source Tables
 The `cate_site` table contains:
 - hospital informations
 - ward informations
 - services informations
-
-# Source Tables
 
 ## Transfers
 
@@ -20,3 +22,4 @@ The `cate_site` table contains:
 ## gcpt_care_site
 
 - the table has been composed manually from documentaion
+
