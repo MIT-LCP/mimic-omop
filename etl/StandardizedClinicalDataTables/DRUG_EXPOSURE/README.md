@@ -8,7 +8,7 @@
 - omitted, rows which not have any `enddate`. They are only 5K on 4M. Since `drug_exposure_end_date` cannot be null.
 - mapped to RxNorm done by Paul Church Paul 
 - drug_type_concept_id` = 38000177
-- quantity is the number of doses
+- sig contains informations of doses (workaround)
 - visit_detail_id is not assigned; this is because there is no time information and therefore no sufficient precision
 
 ## inputevents_cv
