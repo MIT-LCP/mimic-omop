@@ -75,7 +75,7 @@ FROM row_to_insert;
 
 -- LABS from chartevents
 WITH
-"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'Enzymes','Chemistry') ) WHERE error IS NULL OR error= 0
+"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'CSF', 'Enzymes','Chemistry') ) WHERE error IS NULL OR error= 0
 ),
 "d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
@@ -94,7 +94,7 @@ WITH
 , CASE 
      WHEN category ILIKE 'blood gases'  THEN  2000000010
      WHEN lower(category) IN ('chemistry','enzymes')  THEN  2000000011
-     WHEN lower(category) IN ('hematology','heme/coag','enzymes') THEN  2000000009
+     WHEN lower(category) IN ('hematology','heme/coag','csf','coags') THEN  2000000009
      WHEN lower(category) IN ('labs') THEN coalesce(gcpt_labs_from_chartevents_to_concept.measurement_type_concept_id,44818702)
      ELSE 44818702 -- there no trivial way to classify
   END AS measurement_type_concept_id -- Lab result
@@ -329,17 +329,18 @@ SELECT
     FROM chartevents as c
     JOIN d_items as d 
     ON (d.itemid=c.itemid 
-	AND category IS DISTINCT FROM 'Labs'  
+	AND category IS DISTINCT FROM  'Labs'  
 	AND category IS DISTINCT FROM  'Blood Gases' 
 	AND category IS DISTINCT FROM  'Hematology' 
-	AND category IS DISTINCT FROM 'Chemistry' 
+	AND category IS DISTINCT FROM  'Chemistry' 
 	AND category IS DISTINCT FROM  'Heme/Coag' 
 	AND category IS DISTINCT FROM  'Coags' 
+	AND category IS DISTINCT FROM  'CSF' 
 	AND category IS DISTINCT FROM  'Enzymes' 
 	AND (      param_type IS DISTINCT FROM 'Text'
 		OR ( param_type = 'Text' AND label IN -- discreteous textual variables 
 		(
-			'Visual Disturbances'
+			 'Visual Disturbances'
 			, 'Tremor (CIWA)'
 			, 'Strength R Leg'
 			, 'Strength R Arm'
@@ -384,7 +385,7 @@ WHERE error IS NULL OR error= 0
 , coalesce(measurement_concept_id, 0) as measurement_concept_id      
 , measurement_datetime::date AS measurement_date              
 , measurement_datetime AS measurement_datetime          
-, 44818701 as measurement_type_concept_id 
+, 44818701 as measurement_type_concept_id  -- from physical examination
 , 4172703 AS operator_concept_id 
 , coalesce(valuenum_fromvalue, value_as_number) AS value_as_number               
 , value_as_concept_id AS value_as_concept_id           
@@ -528,16 +529,16 @@ with
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
-"gcpt_derived_to_concept" as (select measurement_source_value, itemid, mimic_id as measurement_source_concept_id from gcpt_derived_to_concept),
+"gcpt_derived_to_concept" as (select measurement_source_value, itemid, mimic_id as measurement_source_concept_id, concept_id as measurement_concept_id from gcpt_derived_to_concept),
 "row_to_insert" as (
 	SELECT
 	  nextval('mimic_id_seq') as measurement_id
 	, person_id
-	, 0 as measurement_concept_id --not yet mapped
+	, coalesce(measurement_concept_id, 0) as measurement_concept_id --not yet mapped
 	, charttime::date as measurement_date
 	, charttime::timestamp as measurement_datetime
 	, 45754907 as measurement_type_concept_id --derived value
-	, 4172703 as operator_concept_id
+	, 4172703 as operator_concept_id -- =
 	, valuenum as value_as_number
 	, CASE WHEN flag = 'abnormal' THEN  45878745 --abnormal
 	  ELSE NULL END as value_as_concept_id
@@ -591,3 +592,73 @@ OR -- last
 OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
 );
+
+-- TODO weight from inputevent_mv
+ 
+with
+"patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
+"admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
+"row_to_insert" as 
+(
+select
+          nextval('mimic_id_seq') as measurement_id
+        , person_id
+        , 3025315 as measurement_concept_id  --loinc weight
+        , starttime::date as measurement_date
+        , starttime as measurement_datetime
+        , 44818701 as measurement_type_concept_id -- from physical examination
+	, 4172703 as operator_concept_id
+        , patientweight as value_as_number
+        , null::integer as value_as_concept_id
+        , 9529 as unit_concept_id --kilogram
+	, null::numeric as range_low
+	, null::numeric as range_high
+        , caregivers.provider_id
+        , visit_occurrence_id
+        , null::text as measurement_source_value
+        , null::integer as measurement_source_concept_id
+        , null::text as unit_source_value
+        , null::text as value_source_value
+	FROM inputevents_mv
+        LEFT JOIN patients USING (subject_id)
+        LEFT JOIN caregivers USING (cgid)
+        LEFT JOIN admissions USING (hadm_id)
+	WHERE patientweight is not null
+)
+INSERT INTO omop.observation
+SELECT
+  row_to_insert.measurement_id
+, row_to_insert.person_id
+, row_to_insert.measurement_concept_id
+, row_to_insert.measurement_date
+, row_to_insert.measurement_datetime
+, row_to_insert.measurement_type_concept_id
+, row_to_insert.operator_concept_id
+, row_to_insert.value_as_number
+, row_to_insert.value_as_concept_id
+, row_to_insert.unit_concept_id
+, row_to_insert.range_low
+, row_to_insert.range_high
+, row_to_insert.provider_id
+, row_to_insert.visit_occurrence_id
+, visit_detail_assign.visit_detail_id
+, row_to_insert.measurement_source_value
+, row_to_insert.measurement_source_concept_id
+, row_to_insert.unit_source_value
+, row_to_insert.value_source_value
+FROM row_to_insert
+LEFT JOIN omop.visit_detail_assign 
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND row_to_insert.measurement_datetime IS NOT NULL
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
+)
+;
