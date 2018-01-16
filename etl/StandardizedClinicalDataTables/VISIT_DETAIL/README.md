@@ -23,6 +23,18 @@
 - `visit_type_concept_id` is equal to 45770670  (services and care)
 - it is then possible to know both where the patient is (from transfers) and whose take care of him (from services)
 
+## visit_detail_id assigning
+
+- Be careful when joining patient data based on visit_detail_id, there is no guaranty the link is actual
+- any link to visit_detail_id in the database is calculated (measurement, observation, drug_exposure...)
+- this is actually the case for mimiciii and icustays
+- the algorith is below:
+    - if the data has a visit_occurrence value
+    - if the data has a precise timestamp
+    - then assign to the visit_detail that cover that date and is linked to that visit_occurrence
+    - if the timestamp is before/after the first/last visit_detail
+    - then assign to the first/last visit_detail instance
+
 # Contrib
 
 Those fields have been added:
