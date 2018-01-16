@@ -1,0 +1,27 @@
+-- with a as (
+--         SELECT
+--         cols.column_name,cols.table_name,
+-- (
+--         SELECT
+--         pg_catalog.col_description(c.oid, cols.ordinal_position::int)
+--         FROM
+--         pg_catalog.pg_class c
+--         WHERE
+--         c.oid = (SELECT ('"' || cols.table_name || '"')::regclass::oid)
+--         AND c.relname = cols.table_name
+-- ) AS column_comment,
+-- CASE
+--    WHEN data_type ='integer' then 'INT'
+--    WHEN data_type = 'text' then 'STRING'
+--    WHEN data_type = 'date' then 'DATE'
+--    WHEN data_type = 'timestamp without time zone' then 'TIMESTAMP'
+--    ELSE data_type
+--         END as data_type
+-- FROM
+-- information_schema.columns cols
+-- WHERE
+-- cols.table_catalog    = 'mimic'
+-- AND cols.table_name   IN( 'person')
+-- AND cols.table_schema = 'omop')
+-- SELECT 'ALTER TABLE '|| table_name||' CHANGE '|| column_name||' '|| column_name||' '||data_type||' COMMENT '''|| column_comment ||''';'
+-- from a;

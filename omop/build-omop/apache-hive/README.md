@@ -19,3 +19,5 @@ TABLE COMMENT
 
 - `ALTER TABLE table_name SET TBLPROPERTIES ('comment' = new_comment);`
 - `// Add a comment to column a1 -- ALTER TABLE test_change CHANGE a1 a1 INT COMMENT 'this is column a1';`
+
+
