@@ -626,7 +626,7 @@ select
         LEFT JOIN admissions USING (hadm_id)
 	WHERE patientweight is not null
 )
-INSERT INTO omop.observation
+INSERT INTO omop.measurement
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id

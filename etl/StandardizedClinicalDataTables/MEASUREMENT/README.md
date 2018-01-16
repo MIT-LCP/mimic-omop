@@ -22,6 +22,12 @@
 
 - visit_detail_id is assigned
 
+## inputevent_mv
+
+- the patient weigth has a measurement_type_concept_id = 44818701 (from physical examination) and a concept_id = 3025315 (body weight)
+- this is similar to the weight comming from chartevents
+- visit_detail_id is assigned
+
 # Help
 
 ## charteevents
