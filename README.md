@@ -3,81 +3,112 @@ MIMIC-OMOP
 
 Mapping the MIMIC-III database to the OMOP schema
 
+- [MIMIC website](https://mimic.physionet.org/)
+- [OMOP wiki](https://github.com/OHDSI/CommonDataModel/wiki)
 
 OMOP TABLES LOADED
 ==================
 
 - [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE)
+  - [transfers](https://mimic.physionet.org/mimictables/transfers/)
+  - [service](https://mimic.physionet.org/mimictables/services/)
 - [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
+  - [caregivers](https://mimic.physionet.org/mimictables/caregivers/)
 - [PERSON](etl/StandardizedClinicalDataTables/PERSON)
+  - [patients](https://mimic.physionet.org/mimictables/patients/)
+  - [admissions](https://mimic.physionet.org/mimictables/admissions/)
 - [DEATH](etl/StandardizedClinicalDataTables/DEATH)
+  - [patients](https://mimic.physionet.org/mimictables/patients/)
+  - [admissions](https://mimic.physionet.org/mimictables/admissions/)
 - [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE)
+  - [admissions](https://mimic.physionet.org/mimictables/admissions/)
 - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
+  - [transfers](https://mimic.physionet.org/mimictables/transfers/)
+  - [service](https://mimic.physionet.org/mimictables/services/)
 - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
+  - [cptevents](https://mimic.physionet.org/mimictables/cptevents/)
+  - [procedureevents_mv](https://mimic.physionet.org/mimictables/procedureevents_mv/)
+  - [procedure_icd](https://mimic.physionet.org/mimictables/procedures_icd/)
 - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
+  - [admissions](https://mimic.physionet.org/mimictables/admissions/)
+  - [diagnosis_icd](https://mimic.physionet.org/mimictables/diagnoses_icd/)
 - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
+  - [admissions](https://mimic.physionet.org/mimictables/admissions/)
+  - [chartevents](https://mimic.physionet.org/mimictables/chartevents/)
+  - [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_mv/)
+  - [datetimeevents](https://mimic.physionet.org/mimictables/datetimeevents/)
+  - [drgcodes](https://mimic.physionet.org/mimictables/drgcodes/)
 - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
+  - [prescription](https://mimic.physionet.org/mimictables/prescriptions/)
+  - [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
+  - [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_mv/)
 - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+  - [chartevents](https://mimic.physionet.org/mimictables/chartevents/)
+  - [labevents](https://mimic.physionet.org/mimictables/labevents/)
+  - [microbiologyevents](https://mimic.physionet.org/mimictables/microbiologyevents/)
+  - [outputevents](https://mimic.physionet.org/mimictables/outputevents/)
 - [NOTE](etl/StandardizedClinicalDataTables/NOTE)
+  - [notevents](https://mimic.physionet.org/mimictables/noteevents/)
 - [NOTE_NLP](etl/StandardizedClinicalDataTables/NOTE_NLP)
+  - [notevents](https://mimic.physionet.org/mimictables/noteevents/)
 - [COHORT_DEFINITION](etl/StandardizedVocabularies/COHORT_DEFINITION)
 - [COHORT](etl/StandardizedDerivedElements/COHORT)
 - [COHORT_ATTRIBUTE](etl/StandardizedDerivedElements//COHORT_ATTRIBUTE)
+   - [callout](https://mimic.physionet.org/mimictables/callout/)
 - [ATTRIBUTE_DEFINITION](etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION)
 
 MIMIC TABLES EQUIVALENCE
 ========================
 
-- patients
+- [patients](https://mimic.physionet.org/mimictables/patients/)
   - [PERSON](etl/StandardizedClinicalDataTables/PERSON)
   - [DEATH](etl/StandardizedClinicalDataTables/DEATH)
-- admissions
+- [admissions](https://mimic.physionet.org/mimictables/admissions/)
   - [VISIT_OCCURRENCE](etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
   - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
-- transfers
+- [transfers](https://mimic.physionet.org/mimictables/transfers/)
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
-- services
+- [service](https://mimic.physionet.org/mimictables/services/)
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
-- icustays
+- [icustays](https://mimic.physionet.org/mimictables/icustays/)
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
-- callout
+- [callout](https://mimic.physionet.org/mimictables/callout/)
   - [COHORT_ATTRIBUTES](etl/StandardizedDerivedElements/COHORT_ATTRIBUTE)
-- prescriptions
+- [prescription](https://mimic.physionet.org/mimictables/prescriptions/)
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
-- inputevents_cv
+- [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
-- inputevents_mv
+- [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_mv/)
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
-- outputevents
+- [outputevents](https://mimic.physionet.org/mimictables/outputevents/)
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
-- labevents
+- [labevents](https://mimic.physionet.org/mimictables/labevents/)
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
-- microbiologyevents
+- [microbiologyevents](https://mimic.physionet.org/mimictables/microbiologyevents/)
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
   - [FACT_RELATIONSHIP](etl/StandardizedClinicalDataTables/FACT_RELATIONSHIP)
-- chartevents
+- [chartevents](https://mimic.physionet.org/mimictables/chartevents/)
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
-- drgcodes
+- [drgcodes](https://mimic.physionet.org/mimictables/drgcodes/)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
-- datetimeevents
+- [datetimeevents](https://mimic.physionet.org/mimictables/datetimeevents/)
   - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
-- procedure_icd
+- [procedure_icd](https://mimic.physionet.org/mimictables/procedures_icd/)
   - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
-- procedureevents
+- [procedureevents_mv](https://mimic.physionet.org/mimictables/procedureevents_mv/)
   - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
-- cptevents
+- [cptevents](https://mimic.physionet.org/mimictables/cptevents/)
   - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
-- diagnoses_icd
+- [diagnosis_icd](https://mimic.physionet.org/mimictables/diagnoses_icd/)
   - [CONDITION_OCCURRENCE](etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE)
-- noteevents
+- [notevents](https://mimic.physionet.org/mimictables/noteevents/)
   - [NOTE](etl/StandardizedClinicalDataTables/NOTE)
   - [NOTE_NLP](etl/StandardizedClinicalDataTables/NOTE_NLP)
-- caregivers
+- [caregivers](https://mimic.physionet.org/mimictables/caregivers/)
   - [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
-
 
 
 
