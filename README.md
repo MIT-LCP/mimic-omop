@@ -49,6 +49,7 @@ MIMIC TABLES EQUIVALENCE
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
 - inputevents_mv
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
+  - [OBSERVATION](etl/StandardizedClinicalDataTables/OBSERVATION)
 - outputevents
   - [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
 - labevents

@@ -21,6 +21,10 @@
 - Textual data from chartevents are stored here
 - categorical variables are note considered as free text and are then stored in the measurement table
 
+## inputeevent_mv 
+
+- weight informations are pushed into observation with kilogramm unit
+
 # Lookup Tables
 
 - `gcpt_insurance_to_concept`
