@@ -21,6 +21,7 @@ SELECT count(distinct person_id), count(distinct visit_occurrence_id) FROM omop.
 '
 SELECT count(distinct subject_id), count(distinct hadm_id) FROM noteevents;
 ' 
+,'visit occurrence nb'
 );
 
 -- 2. check_radiology count
@@ -31,8 +32,9 @@ SELECT count(1) from omop.note where note_type_concept_id = 44814641;
 '
 ,
 '
-SELECT count(1) from mimiciii.noteevents where category = 'Radiology';
+SELECT count(1) from noteevents where category = ''Radiology'';
 ' 
+,'check radio nb'
 );
 
 

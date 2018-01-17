@@ -20,6 +20,7 @@ and n.measurement_id IS  null;
 '
 select 0::integer as result;
 '
+,'culture / sensitiviy not well polullated'
 );
 
 SELECT * from finish();

@@ -9,9 +9,8 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 5 );
+SELECT plan ( 8 );
 
--- 1. religion checker -- 4052017
 SELECT results_eq
 (
 '
@@ -27,12 +26,12 @@ GROUP BY 1 ORDER BY 2, 1 DESC;
 SELECT cast(religion as text), count(1) 
 FROM admissions 
 WHERE religion is not null 
-and relegion != 'OTHER' and relegion != 'NOT SPECIFIED' and religion != 'UNOBTAINABLE'
+and religion != ''OTHER'' and religion != ''NOT SPECIFIED'' and religion != ''UNOBTAINABLE''
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 1. religion checker -- 4052017'
 );
 
--- 2. language checker -- 40758030
 SELECT results_eq
 (
 '
@@ -50,9 +49,9 @@ FROM admissions
 WHERE language is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 2. language checker -- 40758030'
 );
 
--- 3. marital checker -- 40766231
 SELECT results_eq
 (
 '
@@ -70,9 +69,9 @@ FROM admissions
 WHERE marital_status is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 3. marital checker -- 40766231'
 );
 
--- 4. insurance checker -- 46235654
 SELECT results_eq
 (
 '
@@ -90,10 +89,10 @@ FROM admissions
 WHERE insurance is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 4. insurance checker -- 46235654'
 );
 
 
--- 5. ethnicity checker -- 44803968
 SELECT results_eq
 (
 '
@@ -111,7 +110,42 @@ FROM admissions
 WHERE ethnicity is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 5. ethnicity checker -- 44803968'
 );
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.observation
+where observation_source_concept_id = 0;
+'
+,
+'source concept described'
+);
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+select count(1)::integer from (
+SELECT count(1)::integer
+FROM omop.observation
+group by observation_id
+having count(1) > 1) as t;
+'
+,
+'primary key checker'
+);
+
+SELECT pass( 'observation pass, w00t!' );
 
 SELECT * FROM finish();
 ROLLBACK;

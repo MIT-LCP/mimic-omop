@@ -1,6 +1,6 @@
 BEGIN;
 
-SELECT plan(3);
+SELECT plan(5);
 -- 1.checker global distribution labevents
 SELECT results_eq
 (
@@ -34,6 +34,7 @@ AND value_as_number is not null and operator_concept_id = 4172703
 GROUP BY concept_code
 ORDER BY concept_code, count(measurement_source_concept_id) desc;
 '
+,'global distrib labevent bad'
 );
 
 -- 2.checker distribution labevents / patients
@@ -69,6 +70,7 @@ AND value_as_number is not null and operator_concept_id  = 4172703
 GROUP BY person_id, concept_code
 ORDER BY person_id desc, concept_code desc, count(measurement_source_concept_id) limit 1000;
 '
+,'distib labevent/patient'
 );
 
 -- 3.checker distribution labevents charttime (2)
@@ -101,6 +103,8 @@ Where concept_code IN
 GROUP BY concept_code
 ORDER BY concept_code, count(measurement_source_concept_id) desc;
 '
+,
+'distrib labevent charttime'
 );
 
 
@@ -122,27 +126,43 @@ WHERE measurement_type_concept_id = 2000000007
 And value_as_concept_id is distinct from 9189
 Group by value_source_value order by 2, 1 desc;
 '
+,'distrib organisms bad'
 );
 
 -- 5. examen negatif
 SELECT results_eq
 (
 '
-SELECT count(*)
-FROM (
-        SELECT distinct on (hadm_id, spec_itemid, coalesce (charttime, chartdate)) *--, count(org_name)
-        from microbiologyevents where org_name is null
-) tmp;
+select 0::integer;
 '
 ,
 '
-
-SELECT count(*)
+SELECT count(1)::integer
 FROM omop.measurement 
-where measurement_type_concept_id = 2000000007 and value_as_concept_id = 9189;
+where measurement_source_concept_id = 0;
 '
+,
+'there is source concept in measurement not described'
 );
 
+SELECT pass( 'Measurement pass, w00t!' );
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+select count(1)::integer from (
+SELECT count(1)::integer
+FROM omop.measurement
+group by measurement_id
+having count(1) > 1) as t;
+'
+,
+'primary key checker'
+);
 
 SELECT * from finish();
 ROLLBACK;

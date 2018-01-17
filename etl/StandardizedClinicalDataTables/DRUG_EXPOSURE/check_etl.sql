@@ -22,45 +22,43 @@ where drug_type_concept_id = 38000177;
 ,
 '
 SELECT count(distinct subject_id), count(distinct hadm_id) 
-FROM prescriptions
-WHERE enddate is not null;
+FROM prescriptions;
 ' 
+,'nb patient with prescription'
 );
 
 -- 2.  principaux medicaments de prescripitoin
 SELECT results_eq
 (
 '
-SELECT trim(drug || ' ' || prod_strength), count(1)
+SELECT drug::text, count(1)
 from prescriptions 
-where enddate is not null group by trim(drug || ' ' || prod_strength) 
-ORDER by count(1) desc;
+group by drug 
+ORDER by 2,1 desc;
 '
 ,
 '
-SELECT drug_source_value, count(1) 
-from drug_exposure
+SELECT drug_source_value::text, count(1) 
+from omop.drug_exposure
 where drug_type_concept_id = 38000177 
-GROUP BY 1 ORDER BY count(1) desc;
+GROUP BY 1 ORDER BY 2,1 desc;
 ' 
+,'same drugs for prescrip'
 );
 
 -- 3.  principaux medicaments de prescripitoin
 SELECT results_eq
 (
 '
-SELECT trim(drug || ' ' || prod_strength), min(dose_val_rx::integer), avg(dose_val_rx::integer), max(dose_val_rx::integer)
-from prescriptions 
-where enddate is not null group by trim(drug || ' ' || prod_strength) 
-ORDER by count(1) desc;
+SELECT count(1)
+FROM omop.drug_exposure 
+where drug_source_concept_id = 0
 '
 ,
 '
-SELECT drug_source_value, count(1), min(quantity), avg(quantity), max(quantity)
-from drug_exposure
-where drug_type_concept_id = 38000177 
-GROUP BY 1 ORDER BY count(1) desc;
+SELECT 0::integer;
 ' 
+,'is concept source id full filled'
 );
 
 

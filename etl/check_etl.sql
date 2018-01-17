@@ -1,6 +1,6 @@
 set search_path to :'mimicschema';
 \set ECHO
-\set QUIET 1
+\set QUIET 0
 -- Turn off echo and keep things quiet.
 
 -- Format the output for nice TAP.

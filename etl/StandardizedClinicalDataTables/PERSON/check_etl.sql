@@ -10,7 +10,6 @@
 
 BEGIN;
 SELECT plan (3);
--- 1. number patients checker
 SELECT results_eq
 (
 '
@@ -22,9 +21,9 @@ FROM omop.person;
 SELECT COUNT(*) AS num_persons_count
 FROM patients;
 ' 
+,'-- 1. number patients checker'
 );
 
--- 2. race checker
 SELECT results_eq
 (
 '
@@ -41,9 +40,9 @@ FROM patients
 GROUP BY gender
 ORDER BY num_persons_count DESC;
 '
+,'-- 2. race checker'
 );
 
--- 3. distribution checker
 SELECT results_eq
 (
 '
@@ -107,6 +106,7 @@ SELECT percentile_25
     ) as percentile_table, omop.person
   GROUP BY percentile_25, median, percentile_75;
 '
+,'-- 3. distribution checker'
 );
 SELECT * FROM finish();
 ROLLBACK;

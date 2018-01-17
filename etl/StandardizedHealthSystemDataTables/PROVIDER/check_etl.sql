@@ -11,7 +11,6 @@
 BEGIN;
 SELECT plan ( 1 );
 
--- 1. count providers
 SELECT results_eq
 (
 '
@@ -21,6 +20,7 @@ SELECT count(*) from omop.provider;
 '
 SELECT count(*) from caregivers;
 ' 
+,'-- 1. count providers'
 );
 
 

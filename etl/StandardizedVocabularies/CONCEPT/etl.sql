@@ -81,7 +81,7 @@ FROM d_labitems;
 -- Generates LOCAL concepts for mimic drugs
 WITH tmp as 
 (
-select distinct
+select 
  'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'  as concept_name --this will be joined to the drug_exposure table
 , 'prescriptions'::text as domain_id
 , 'MIMIC Local Codes' as vocabulary_id
@@ -94,6 +94,7 @@ from prescriptions
 ),
 "row_to_insert" as (
 SELECT 
+distinct on (concept_name)
   nextval('mimic_id_concept_seq') as concept_id
 , concept_name
 , domain_id
