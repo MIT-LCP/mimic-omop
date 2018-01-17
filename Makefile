@@ -1,7 +1,9 @@
-MIMIC_SCHEMA=mimic
+MIMIC_SCHEMA=mimiciii
 HOST_OMOP=localhost
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
+sequence: 
+	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic postgres  -f etl/etl_sequence.sql 
 load: 
 	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic postgres  -f etl/etl.sql 
 check:
@@ -14,3 +16,4 @@ export:
 	cp etl/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/ &&\
 	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
+runetl: sequence concept load export
