@@ -19,18 +19,18 @@
 
 # Examples
 
+## Number of persons
 ``` sql
---  100 patients!!
+-- test done on 100 patients
 SELECT COUNT(person_id) AS num_persons_count
 FROM person;
 ```
-
 | num_persons_count |
 |-------------------|
 |               100|
 
+## Number of patients grouped by gender
 ``` sql
--- Number of patients grouped by gender
 SELECT  person.GENDER_CONCEPT_ID,
         concept.CONCEPT_NAME AS ethnicity_name,
         COUNT(person.person_ID) AS num_persons_count
@@ -38,14 +38,13 @@ FROM person
 INNER JOIN concept ON person.GENDER_concept_id = concept.CONCEPT_ID
 GROUP BY person.GENDER_CONCEPT_ID, concept.CONCEPT_NAME;
 ```
-
 | gender_concept_id | ethnicity_name | num_persons_count |
 |-------------------|----------------|-------------------|
 |              8507 | MALE           |                49|
 |              8532 | FEMALE         |                51|
 
+## Number of patients grouped by race
 ``` sql
--- Number of patients grouped by race
 SELECT  person.RACE_CONCEPT_ID,
         concept.CONCEPT_NAME AS race_name,
         COUNT(person.person_ID) AS num_persons_count
@@ -53,7 +52,6 @@ FROM person
 INNER JOIN concept ON person.RACE_CONCEPT_ID = concept.CONCEPT_ID
 GROUP BY person.RACE_CONCEPT_ID, concept.CONCEPT_NAME;
 ```
-
 | race_concept_id |            race_name            | num_persons_count |
 |-----------------|---------------------------------|-------------------|
 |            8515 | Asian                           |                 3|
@@ -67,22 +65,8 @@ GROUP BY person.RACE_CONCEPT_ID, concept.CONCEPT_NAME;
 |        38003599 | African American                |                 3|
 |        38003614 | European                        |                 1|
 
+## Distribution of year of birth
 ``` sql
--- Number of patients grouped by ethnicity
-SELECT  person.ETHNICITY_CONCEPT_ID,
-        concept.CONCEPT_NAME AS ethnicity_name,
-        COUNT(person.person_ID) AS num_persons_count
-FROM person
-INNER JOIN concept ON person.ETHNICITY_CONCEPT_ID = concept.CONCEPT_ID
-GROUP BY person.ETHNICITY_CONCEPT_ID, concept.CONCEPT_NAME;
-```
-
-| ethnicity_concept_id |   ethnicity_name    | num_persons_count |
-|----------------------|---------------------|-------------------|
-|                    0 | No matching concept |               100|
-
-``` sql
--- Distribution of year of birth
 SELECT percentile_25
      , median
      , percentile_75
@@ -112,7 +96,6 @@ FROM
 ) as percentile_table, person
 GROUP BY percentile_25, median, percentile_75;
 ```
-
 | percentile_25 | median | percentile_75 | minimum | maximum | mean |       stddev        |
 |---------------|--------|---------------|---------|---------|------|---------------------|
 |          2069 |   2100 |          2129 |    1817 |    2187 | 2090 | 72.9610903637733958|
