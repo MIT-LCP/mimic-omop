@@ -1,5 +1,5 @@
 # URL to CommonDataModel
-- https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL
+- https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE
 
 # Source Tables
 
@@ -22,7 +22,7 @@
 - when `condition_type_concept_id` = 42894222
 
 - Warning : only diagnoses that occur >= 10 times are mapped (= 31102 admissions)
-- Warning : one diagnosis in admissions.diangnosis may be mapped >= 2 concept.concept_id 
+- Warning : one diagnosis in admissions.diagnosis may be mapped >= 2 concept.concept_id 
 
 # Lookup Tables
 
