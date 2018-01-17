@@ -82,29 +82,66 @@ FROM d_labitems;
 WITH tmp as 
 (
 select distinct
- 'drug_type:['||coalesce(drug_type,'')||']'|| 'drug:['||coalesce(drug,'')||']'|| 'drug_name_poe:['||coalesce(drug_name_poe,'')||']'|| 'drug_name_generic:['||coalesce(drug_name_generic,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'|| 'gsn:['||coalesce(gsn,'')||']'|| 'ndc:['||coalesce(ndc,'')||']'  as concept_name --this will be joined to the drug_exposure table
+ 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'  as concept_name --this will be joined to the drug_exposure table
 , 'prescriptions'::text as domain_id
 , 'MIMIC Local Codes' as vocabulary_id
 , '' as concept_class_id
-, 'MIMIC Generated' as concept_code
+, 'gsn:['||coalesce(gsn,'')||']'|| 'ndc:['||coalesce(ndc,'')||']' as concept_code
+, drug_name_poe
+, drug_name_generic
+, drug
 from prescriptions
-)
-INSERT INTO omop.concept (
-concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
-) 
+),
+"row_to_insert" as (
 SELECT 
-distinct on (drug, prod_strength)
   nextval('mimic_id_concept_seq') as concept_id
 , concept_name
 , domain_id
 , vocabulary_id
 , concept_class_id
 ,  concept_code
+, drug_name_poe
+, drug_name_generic
+, drug
+FROM tmp
+), 
+"insert_synonym" as  (
+INSERT INTO omop.concept_synonym 
+(
+  concept_id           
+, concept_synonym_name 
+, language_concept_id  
+)
+select
+  concept_id
+, drug_name_poe
+, 0 
+from row_to_insert
+WHERE drug_name_poe is distinct from drug
+and drug_name_poe is not null
+UNION ALL
+select
+  concept_id
+, drug_name_generic
+, 0 
+from row_to_insert
+WHERE drug_name_generic is distinct from drug
+and drug_name_generic is not null
+)
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+  concept_id
+, concept_name
+, domain_id
+, vocabulary_id
+, concept_class_id
+, concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
-FROM tmp;
+FROM row_to_insert;
 
--- PROCEDURE  -- ICD
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
 ) 

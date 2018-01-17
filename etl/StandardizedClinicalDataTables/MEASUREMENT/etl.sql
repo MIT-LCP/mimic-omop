@@ -10,7 +10,7 @@ WITH
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "d_labitems" AS (SELECT itemid, label as measurement_source_value, loinc_code, category, mimic_id FROM d_labitems),
-"gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
+"gcpt_lab_label_to_concept" AS (SELECT label as measurement_source_value, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as loinc_code FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
@@ -48,7 +48,7 @@ LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN d_labitems USING (itemid)
 LEFT JOIN omop_loinc USING (loinc_code)
 LEFT JOIN omop_operator USING (operator_name)
-LEFT JOIN gcpt_lab_label_to_concept USING (label)
+LEFT JOIN gcpt_lab_label_to_concept USING (measurement_source_value)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value))
 INSERT INTO omop.measurement
 SELECT

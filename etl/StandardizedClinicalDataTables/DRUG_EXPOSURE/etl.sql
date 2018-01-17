@@ -4,11 +4,11 @@ WITH
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
 "drug_exposure" AS (
                               SELECT drug as drug_source_value
-                                   , 'drug_type:['||coalesce(drug_type,'')||']'|| 'drug:['||coalesce(drug,'')||']'|| 'drug_name_poe:['||coalesce(drug_name_poe,'')||']'|| 'drug_name_generic:['||coalesce(drug_name_generic,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'|| 'gsn:['||coalesce(gsn,'')||']'|| 'ndc:['||coalesce(ndc,'')||']' as concept_name
+                                   , 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']' as concept_name
                                    , subject_id
                                    , hadm_id
                                    , row_id
-                                   , form_val_disp
+                                   , dose_val_rx
                                    , mimic_id as drug_exposure_id
                                    , startdate as drug_exposure_start_datetime
                                    , enddate as drug_exposure_end_datetime
@@ -17,7 +17,7 @@ WITH
                    , 
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
-"omop_local_drug" AS (SELECT concept_name, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND concept_cod,e = 'MIMIC Generated'),
+"omop_local_drug" AS (SELECT concept_name, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC Local Codes'),
 "row_to_insert" AS (
 	SELECT 
   drug_exposure_id
@@ -31,7 +31,7 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, CASE when form_val_disp ~'^[0-9,.]+$' then regexp_replace(form_val_disp, '([0-9]*)([,]+)([0-9]*)', E'\\1.\\3','g')::numeric 
+, CASE when dose_val_rx ~'^[0-9,.]+$' then regexp_replace(dose_val_rx, '([0-9]*)([,]+)([0-9]*)', E'\\1.\\3','g')::numeric 
  ELSE null::numeric END as quantity --extract quantity from pure numeric
 , null::integer as days_supply
 , null::text  as sig 
