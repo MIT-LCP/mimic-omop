@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 3 );
+SELECT plan ( 5 );
 
 -- 1. condition_occurrence nb patients corresponding with icd9_code
 SELECT results_eq
@@ -62,6 +62,38 @@ SELECT diagnosis::text, count(1) from admissions group by 1 order by 2 desc
 'distrib diagnosis the same'
 );
 
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.condition_occurrence
+where condition_source_concept_id = 0;
+'
+,
+'there is source concept in measurement not described'
+);
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+select count(1)::integer from (
+SELECT count(1)::integer
+FROM omop.condition_occurrence
+group by condition_occurrence_id
+having count(1) > 1) as t;
+'
+,
+'primary key checker'
+);
+SELECT pass( 'Condition pass, w00t!' );
 
 SELECT * FROM finish();
 ROLLBACK;

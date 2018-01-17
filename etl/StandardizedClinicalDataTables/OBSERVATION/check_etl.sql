@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 5 );
+SELECT plan ( 8 );
 
 SELECT results_eq
 (
@@ -112,6 +112,40 @@ GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
 ,'-- 5. ethnicity checker -- 44803968'
 );
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.observation
+where observation_source_concept_id = 0;
+'
+,
+'source concept described'
+);
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+select count(1)::integer from (
+SELECT count(1)::integer
+FROM omop.observation
+group by observation_id
+having count(1) > 1) as t;
+'
+,
+'primary key checker'
+);
+
+SELECT pass( 'observation pass, w00t!' );
 
 SELECT * FROM finish();
 ROLLBACK;

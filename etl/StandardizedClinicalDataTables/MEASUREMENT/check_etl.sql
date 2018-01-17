@@ -1,6 +1,6 @@
 BEGIN;
 
-SELECT plan(3);
+SELECT plan(5);
 -- 1.checker global distribution labevents
 SELECT results_eq
 (
@@ -130,24 +130,39 @@ Group by value_source_value order by 2, 1 desc;
 );
 
 -- 5. examen negatif
---SELECT results_eq
---(
---'
---SELECT count(*)
---FROM (
---        SELECT distinct on (hadm_id, spec_itemid, coalesce (charttime, chartdate)) *--, count(org_name)
---        from microbiologyevents where org_name is null
---) tmp;
---'
---,
---'
---
---SELECT count(*)
---FROM omop.measurement 
---where measurement_type_concept_id = 2000000007 and value_as_concept_id = 9189;
---'
---);
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.measurement 
+where measurement_source_concept_id = 0;
+'
+,
+'there is source concept in measurement not described'
+);
 
+SELECT pass( 'Measurement pass, w00t!' );
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+select count(1)::integer from (
+SELECT count(1)::integer
+FROM omop.measurement
+group by measurement_id
+having count(1) > 1) as t;
+'
+,
+'primary key checker'
+);
 
 SELECT * from finish();
 ROLLBACK;
