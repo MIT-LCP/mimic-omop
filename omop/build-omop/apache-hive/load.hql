@@ -4,6 +4,44 @@ SET hive.enforce.bucketing=true;
 SET hive.enforce.sorting=true;
 
 --
+-- concept
+--
+
+-- MOUNT AVRO INTO HIVE
+DROP TABLE IF EXISTS avro_concept;
+CREATE EXTERNAL TABLE avro_concept ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/concept/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/concept.avsc');
+
+DROP TABLE IF EXISTS concept;
+CREATE TABLE concept ( concept_id        INT  , concept_name      STRING     , domain_id         STRING     , vocabulary_id     STRING     , concept_class_id  STRING     , standard_concept  STRING     , concept_code      STRING     , valid_start_date  DATE     , valid_end_date    DATE     , invalid_reason    STRING     ) 
+ STORED AS ORC
+ TBLPROPERTIES (
+ 'orc.compress'='SNAPPY',
+ 'orc.create.index'='true',
+ 'orc.bloom.filter.columns'='concept_id,domain_id,vocabulary_id',
+ 'orc.bloom.filter.fpp'='0.05',
+ 'orc.stripe.size'='268435456',
+ 'orc.row.index.stride'='10000') ;
+
+--PUSH AVRO DATA INTO ORC
+INSERT OVERWRITE TABLE concept
+SELECT
+ concept_id          
+, concept_name           
+, domain_id              
+, vocabulary_id          
+, concept_class_id       
+, standard_concept       
+, concept_code           
+, valid_start_date     
+, valid_end_date       
+, invalid_reason         
+FROM mimicomop.avro_concept
+ORDER BY concept_id,place_of_service_concept_id;
+
+--UPDATE STATISTICS
+ANALYZE TABLE concept COMPUTE STATISTICS;
+ANALYZE TABLE concept COMPUTE STATISTICS FOR COLUMNS;
+--
 -- care_site
 --
 
