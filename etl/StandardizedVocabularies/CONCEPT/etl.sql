@@ -142,6 +142,8 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM row_to_insert;
 
+--d_icd_procedures
+
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
 ) 
@@ -195,7 +197,7 @@ SELECT
 , 'Meas Value'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
 , 'Derived Value' as concept_class_id -- omop Lab Test
-, itemid as concept_code
+,  itemid as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
 FROM gcpt_derived_to_concept;

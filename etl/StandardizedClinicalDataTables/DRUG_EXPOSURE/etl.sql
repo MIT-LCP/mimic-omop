@@ -32,7 +32,7 @@ WITH
 , null::text as stop_reason
 , null::integer as refills
 , CASE when dose_val_rx ~'^[0-9,.]+$' then regexp_replace(dose_val_rx, '([0-9]*)([,]+)([0-9]*)', E'\\1.\\3','g')::numeric 
- ELSE null::numeric END as quantity --extract quantity from pure numeric
+ ELSE null::numeric END as quantity --extract quantity from pure numeric when possible
 , null::integer as days_supply
 , null::text  as sig 
 , route_concept_id
