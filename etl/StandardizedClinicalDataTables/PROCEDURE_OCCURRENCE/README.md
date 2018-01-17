@@ -3,7 +3,7 @@
 
 # Source Tables
 
-## ̀`mimic.procedure_icd`
+## ̀`mimic.procedures_icd`
 
 - `procedure_type_concept_id` = 38003622 (Procedure recorded as diagnostic code)
 - the ICD9 codes are transformed to match to omop.concept

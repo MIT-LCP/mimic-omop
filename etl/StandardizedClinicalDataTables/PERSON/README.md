@@ -1,13 +1,13 @@
-# link to CommonDataModel
+# Link to CommonDataModel
 - [PERSON](https://github.com/OHDSI/CommonDataModel/wiki/PERSON)
 
-# Source Tables
+# Source Tables (mimic)
 
-## mimic.patients
+## [patients](https://mimic.physionet.org/mimictables/patients/)
 
 - information about death are moved to `omop.death` table
 
-## mimic.admissions
+## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 
 - the ethicity comes from admissions, the first recorded value is put in the `omop.person` table 
 

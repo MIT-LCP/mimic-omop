@@ -1,4 +1,4 @@
-# URL to CommonDataModel
+# Link to CommonDataModel
 - [DEATH](https://github.com/OHDSI/CommonDataModel/wiki/DEATH)
 
 # Source Tables
