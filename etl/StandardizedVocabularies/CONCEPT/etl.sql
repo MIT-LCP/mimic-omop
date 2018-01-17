@@ -5,6 +5,7 @@ DELETE FROM omop.concept_synonym WHERE concept_id >= 200000000;
 ALTER TABLE omop.concept ENABLE TRIGGER ALL;
 
 --MIMIC-OMOP
+--concept_
 INSERT INTO omop.concept (
 concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, concept_code, valid_start_date, valid_end_date
 ) VALUES 
@@ -37,10 +38,10 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 ) 
 SELECT 
   mimic_id as concept_id
-, coalesce(label, 'UNKNOWN') as concept_name
-, 'Measurement'::text as domain_id
-, 'MIMIC Generated' as vocabulary_id
-, dbsource || ' ' ||coalesce(category, '') as concept_class_id
+, 'label:[' || coalesce(label,'') ||']dbsource:[' || coalesce(dbsource,'') || ']linksto:[' || coalesce(linksto,'') ||']unitname:[' || coalesce(unitname,'') || ']param_type:[' || coalesce(param_type,'') || ']'  as concept_name
+, 'd_items'::text as domain_id
+, 'MIMIC Local Codes' as vocabulary_id
+, coalesce(category, '') as concept_class_id
 , itemid as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
@@ -52,7 +53,7 @@ INSERT INTO omop.concept_synonym
 , language_concept_id  
 )
 select
-mimic_id
+  mimic_id
 , abbreviation
 , 0 
 from d_items
@@ -65,11 +66,11 @@ INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
 ) 
 SELECT 
-  mimic_id as concept_id
-, coalesce(label || '[' || fluid || '][' || category || ']', 'UNKNOWN') as concept_name
-, 'Measurement'::text as domain_id
-, 'MIMIC Generated' as vocabulary_id
-, 'Lab Test' as concept_class_id -- omop Lab Test
+  mimic_id as concept_id -- the d_items mimic_id
+, 'label:[' || coalesce(label,'') || ']fluid:[' || coalesce(fluid,'') || ']loinc:[' || coalesce(loinc_code,'') || ']' as concept_name
+, 'd_labitems'::text as domain_id
+, 'MIMIC Local Codes' as vocabulary_id
+, coalesce(category,'') as concept_class_id -- omop Lab Test
 , itemid as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
@@ -77,21 +78,30 @@ FROM d_labitems;
 
 -- DRUGS
 -- Generates LOCAL concepts for mimic drugs
+WITH tmp as 
+(
+select distinct
+ 'drug_type:['||coalesce(drug_type,'')||']'|| 'drug:['||coalesce(drug,'')||']'|| 'drug_name_poe:['||coalesce(drug_name_poe,'')||']'|| 'drug_name_generic:['||coalesce(drug_name_generic,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'|| 'gsn:['||coalesce(gsn,'')||']'|| 'ndc:['||coalesce(ndc,'')||']'  as concept_name --this will be joined to the drug_exposure table
+, 'prescriptions'::text as domain_id
+, 'MIMIC Local Codes' as vocabulary_id
+, '' as concept_class_id
+, 'MIMIC Generated' as concept_code
+from prescriptions
+)
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
 ) 
 SELECT 
 distinct on (drug, prod_strength)
   nextval('mimic_id_concept_seq') as concept_id
-, trim(drug || ' ' || prod_strength) as concept_name
-, 'Drug'::text as domain_id
-, 'MIMIC Generated' as vocabulary_id
-, drug_type as concept_class_id
-, coalesce(ndc,'') as concept_code
+, concept_name
+, domain_id
+, vocabulary_id
+, concept_class_id
+,  concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
-FROM prescriptions 
-WHERE trim(drug || ' ' || prod_strength) IS NOT NULL;
+FROM tmp;
 
 -- PROCEDURE  -- ICD
 INSERT INTO omop.concept (
@@ -100,8 +110,8 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 SELECT 
   mimic_id as concept_id
 , coalesce(long_title,short_title) as concept_name
-, 'Procedure'::text as domain_id
-, 'MIMIC ICD9Proc' as vocabulary_id
+, 'd_icd_procedures'::text as domain_id
+, 'MIMIC Local Codes' as vocabulary_id
 , '4-dig billing code' as concept_class_id 
 , icd9_code as concept_code
 , '1979-01-01' as valid_start_date
