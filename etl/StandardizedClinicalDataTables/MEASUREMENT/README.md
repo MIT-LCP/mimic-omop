@@ -54,11 +54,17 @@ FROM measurement
 JOIN concept ON measurement_type_concept_id = concept_id
 GROUP BY concept_name, concept_id ORDER BY COUNT(1) DESC;
 ```
-       concept_name        | concept_id | count
----------------------------+------------+-------
- Lab result                |   44818702 | 71884
- From physical examination |   44818701 | 40291
- Output Event              | 2000000003 | 10784
+        concept_name        | concept_id |   count
+----------------------------+------------+-----------
+ From physical examination  |   44818701 | 257715284
+ Labs - Chemistry           | 2000000011 |   7526424
+ Output Event               | 2000000003 |   4349218
+ Labs - Hemato              | 2000000009 |   3023959
+ Labs - Blood Gaz           | 2000000010 |   1161954
+ Derived value              |   45754907 |   1020531
+ Labs - Culture Organisms   | 2000000007 |    363506
+ Labs - Culture Sensitivity | 2000000008 |    267350
+ Lab result                 |   44818702 |      5032
 
 ```sql 
 -- !! different operator types
