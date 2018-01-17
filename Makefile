@@ -17,3 +17,4 @@ export:
 	cp omop/build-omop/postgresql/* etl/Result/ &&\
 	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
 runetl: sequence concept load export
+runetllight: concept load export

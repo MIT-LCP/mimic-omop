@@ -23,7 +23,7 @@ TRUNCATE TABLE  omop.note_nlp CASCADE;
 TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
 
---\i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
+\i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
 
 \i etl/pg_function.sql
 \i etl/StandardizedVocabularies/CONCEPT/etl.sql
@@ -36,13 +36,13 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/DEATH/etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE/etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_DETAIL/etl.sql
-\i etl/StandardizedClinicalDataTables/MEASUREMENT/etl.sql
-\i etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/etl.sql
-\i etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE/etl.sql
-\i etl/StandardizedClinicalDataTables/OBSERVATION/etl.sql
-\i etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/etl.sql
 \i etl/StandardizedClinicalDataTables/NOTE/etl.sql
 \i etl/StandardizedClinicalDataTables/NOTE_NLP/etl.sql
+\i etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/etl.sql
+\i etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE/etl.sql
+\i etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/etl.sql
+\i etl/StandardizedClinicalDataTables/OBSERVATION/etl.sql
+\i etl/StandardizedClinicalDataTables/MEASUREMENT/etl.sql
 
 \i omop/build-omop/postgresql/mimic-omop-enable-trigger.sql
 --COMMIT;
