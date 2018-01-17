@@ -27,7 +27,7 @@ GROUP BY 1 ORDER BY 2, 1 DESC;
 SELECT cast(religion as text), count(1) 
 FROM admissions 
 WHERE religion is not null 
-and relegion != 'OTHER' and relegion != 'NOT SPECIFIED' and religion != 'UNOBTAINABLE'
+and religion != ''OTHER'' and religion != ''NOT SPECIFIED'' and religion != ''UNOBTAINABLE''
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
 );

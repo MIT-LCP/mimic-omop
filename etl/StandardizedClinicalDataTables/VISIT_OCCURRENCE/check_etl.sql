@@ -33,7 +33,7 @@ SELECT cast(admission_type as TEXT) as visit_source_value, count(1) FROM admissi
 '
 ,
 '
-SELECT (cast visit_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
+SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
 '
 );
 
