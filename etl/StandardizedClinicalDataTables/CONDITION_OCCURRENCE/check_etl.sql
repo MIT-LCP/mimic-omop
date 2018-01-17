@@ -23,6 +23,7 @@ WHERE condition_type_concept_id != 42894222;
 '
 SELECT count(distinct subject_id), count(distinct hadm_id) FROM diagnoses_icd where icd9_code is not null;
 ' 
+,'nb icd'
 );
 
 -- 2. condition_occurrence nb patients corresponding with admissions
@@ -31,14 +32,15 @@ SELECT results_eq
 '
 WITH tmp as 
 (SELECT distinct on (visit_occurrence_id) * from omop.condition_occurrence where condition_type_concept_id = 42894222)
-SELECT condition_source_value, count(1) 
+SELECT condition_source_value::text, count(1) 
 FROM tmp  
 group by condition_source_value order by count(condition_source_value) desc;
 '
 ,
 '
-SELECT diagnosis, count(1) from admissions group by diagnosis order by count(1) desc;
+SELECT diagnosis::text, count(1) from admissions group by diagnosis order by count(1) desc;
 ' 
+,'diagnosis in admission same '
 );
 
 
@@ -48,14 +50,16 @@ SELECT results_eq
 '
 with tmp as 
 (SELECT distinct on (visit_occurrence_id) * from omop.condition_occurrence where condition_type_concept_id = 42894222)
-SELECT condition_source_value, count(1) 
+SELECT condition_source_value::text, count(1) 
 FROM tmp 
 group by condition_source_value order by count(condition_source_value) desc;
 '
 ,
 '
-SELECT diagnosis, count(1) from admissions group by 1 order by 2 desc
+SELECT diagnosis::text, count(1) from admissions group by 1 order by 2 desc
 ' 
+,
+'distrib diagnosis the same'
 );
 
 

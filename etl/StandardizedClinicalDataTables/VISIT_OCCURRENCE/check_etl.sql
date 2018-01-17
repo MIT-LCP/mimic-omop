@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 6 );
+SELECT plan ( 5 );
 
 -- 1. number admission checker
 SELECT results_eq
@@ -22,6 +22,7 @@ SELECT count(*) FROM admissions;
 '
 SELECT count(*) FROM omop.visit_occurrence;
 ' 
+,'same number admission'
 );
 
 
@@ -35,6 +36,7 @@ SELECT cast(admission_type as TEXT) as visit_source_value, count(1) FROM admissi
 '
 SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
 '
+,'same distribution adm'
 );
 
 -- 3. repartition admitting_source_value
@@ -47,6 +49,7 @@ SELECT cast(admission_location as TEXT) as admitting_source_value, count(1) FROM
 '
 SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
 '
+,'distribution admit source value'
 );
 
 -- 4. repartition discharge_to_source_value
@@ -59,10 +62,10 @@ SELECT cast(discharge_location as TEXT) as discharge_to_source_value, count(1) F
 '
 SELECT cast(discharge_to_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
 '
+,'-- 4. repartition discharge_to_source_value'
 );
 
 
--- 5.links checker (1)
 SELECT results_eq
 (
 '
@@ -72,19 +75,20 @@ SELECT count(visit_source_concept_id) FROM omop.visit_occurrence group by visit_
 '
 SELECT count(visit_source_value) FROM omop.visit_occurrence group by visit_source_value order by 1 desc;
 '
+,'-- 5.links checker (1)'
 );
 
--- 6.links checker (2)
-SELECT results_eq
-(
-'
-SELECT count(admitting_source_concept_id) FROM omop.visit_occurrence group by admitting_source_concept_id order by 1 desc;
-'
-,
-'
-SELECT count(admitting_source_value) FROM omop.visit_occurrence group by admitting_source_value order by 1 desc;
-'
-);
+--SELECT results_eq
+--(
+--'
+--SELECT count(admitting_source_concept_id) FROM omop.visit_occurrence group by admitting_source_concept_id order by 1 desc;
+--'
+--,
+--'
+--SELECT count(admitting_source_value) FROM omop.visit_occurrence group by admitting_source_value order by 1 desc;
+--'
+--,'-- 6.links checker (2)'
+--);
 
 SELECT * FROM finish();
 ROLLBACK;

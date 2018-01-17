@@ -11,7 +11,6 @@
 BEGIN;
 SELECT plan ( 5 );
 
--- 1. religion checker -- 4052017
 SELECT results_eq
 (
 '
@@ -30,9 +29,9 @@ WHERE religion is not null
 and religion != ''OTHER'' and religion != ''NOT SPECIFIED'' and religion != ''UNOBTAINABLE''
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 1. religion checker -- 4052017'
 );
 
--- 2. language checker -- 40758030
 SELECT results_eq
 (
 '
@@ -50,9 +49,9 @@ FROM admissions
 WHERE language is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 2. language checker -- 40758030'
 );
 
--- 3. marital checker -- 40766231
 SELECT results_eq
 (
 '
@@ -70,9 +69,9 @@ FROM admissions
 WHERE marital_status is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 3. marital checker -- 40766231'
 );
 
--- 4. insurance checker -- 46235654
 SELECT results_eq
 (
 '
@@ -90,10 +89,10 @@ FROM admissions
 WHERE insurance is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 4. insurance checker -- 46235654'
 );
 
 
--- 5. ethnicity checker -- 44803968
 SELECT results_eq
 (
 '
@@ -111,6 +110,7 @@ FROM admissions
 WHERE ethnicity is not null 
 GROUP BY 1 ORDER BY 2, 1 desc;
 ' 
+,'-- 5. ethnicity checker -- 44803968'
 );
 
 SELECT * FROM finish();

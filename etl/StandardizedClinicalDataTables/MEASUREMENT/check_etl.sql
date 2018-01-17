@@ -34,6 +34,7 @@ AND value_as_number is not null and operator_concept_id = 4172703
 GROUP BY concept_code
 ORDER BY concept_code, count(measurement_source_concept_id) desc;
 '
+,'global distrib labevent bad'
 );
 
 -- 2.checker distribution labevents / patients
@@ -69,6 +70,7 @@ AND value_as_number is not null and operator_concept_id  = 4172703
 GROUP BY person_id, concept_code
 ORDER BY person_id desc, concept_code desc, count(measurement_source_concept_id) limit 1000;
 '
+,'distib labevent/patient'
 );
 
 -- 3.checker distribution labevents charttime (2)
@@ -101,6 +103,8 @@ Where concept_code IN
 GROUP BY concept_code
 ORDER BY concept_code, count(measurement_source_concept_id) desc;
 '
+,
+'distrib labevent charttime'
 );
 
 
@@ -122,26 +126,27 @@ WHERE measurement_type_concept_id = 2000000007
 And value_as_concept_id is distinct from 9189
 Group by value_source_value order by 2, 1 desc;
 '
+,'distrib organisms bad'
 );
 
 -- 5. examen negatif
-SELECT results_eq
-(
-'
-SELECT count(*)
-FROM (
-        SELECT distinct on (hadm_id, spec_itemid, coalesce (charttime, chartdate)) *--, count(org_name)
-        from microbiologyevents where org_name is null
-) tmp;
-'
-,
-'
-
-SELECT count(*)
-FROM omop.measurement 
-where measurement_type_concept_id = 2000000007 and value_as_concept_id = 9189;
-'
-);
+--SELECT results_eq
+--(
+--'
+--SELECT count(*)
+--FROM (
+--        SELECT distinct on (hadm_id, spec_itemid, coalesce (charttime, chartdate)) *--, count(org_name)
+--        from microbiologyevents where org_name is null
+--) tmp;
+--'
+--,
+--'
+--
+--SELECT count(*)
+--FROM omop.measurement 
+--where measurement_type_concept_id = 2000000007 and value_as_concept_id = 9189;
+--'
+--);
 
 
 SELECT * from finish();
