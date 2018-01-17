@@ -76,6 +76,7 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM d_labitems;
 
+
 -- DRUGS
 -- Generates LOCAL concepts for mimic drugs
 WITH tmp as 
@@ -113,10 +114,23 @@ SELECT
 , 'd_icd_procedures'::text as domain_id
 , 'MIMIC Local Codes' as vocabulary_id
 , '4-dig billing code' as concept_class_id 
-, icd9_code as concept_code
+, coalesce(icd9_code,'') as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
 FROM d_icd_procedures;
+INSERT INTO omop.concept_synonym 
+(
+  concept_id           
+, concept_synonym_name 
+, language_concept_id  
+)
+select
+  mimic_id
+, short_title
+, 0 
+from d_icd_procedures
+where short_title is not null 
+and long_title IS NOT NULL;
 
 
 -- NOTE_NLP sections

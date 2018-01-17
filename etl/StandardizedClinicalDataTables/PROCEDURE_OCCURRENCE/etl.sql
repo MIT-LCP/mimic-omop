@@ -1,6 +1,6 @@
 WITH 
 "proc_icd" as (SELECT mimic_id as procedure_occurrence_id, subject_id, hadm_id, icd9_code as procedure_source_value, CASE WHEN length(cast(ICD9_CODE as text)) = 2 THEN cast(ICD9_CODE as text) ELSE concat(substr(cast(ICD9_CODE as text), 1, 2), '.', substr(cast(ICD9_CODE as text), 3)) END AS concept_code FROM procedures_icd),
-"local_proc_icd" AS (SELECT concept_id as procedure_source_concept_id, concept_code as procedure_source_value FROM omop.concept WHERE domain_id = 'Procedure' AND vocabulary_id = 'MIMIC ICD9Proc'),
+"local_proc_icd" AS (SELECT concept_id as procedure_source_concept_id, concept_code as procedure_source_value FROM omop.concept WHERE domain_id = 'd_icd_procedures' AND vocabulary_id = 'MIMIC Local Codes'),
 "concept_proc_icd9" as ( SELECT concept_id as procedure_concept_id, concept_code FROM omop.concept WHERE vocabulary_id = 'ICD9Proc'),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
@@ -20,7 +20,7 @@ WITH
      where cancelreason = 0 -- not cancelled
 ), 
 "gcpt_procedure_to_concept" as (SELECT item_id as itemid, concept_id as procedure_concept_id from gcpt_procedure_to_concept),
-"cpt_event" AS ( SELECT mimic_id as procedure_occurrence_id , subject_id , hadm_id , chartdate as procedure_datetime, cpt_cd, trim('[' || coalesce(costcenter,'') || '][' || coalesce(sectionheader,'') || '] ' || subsectionheader || ' ' || coalesce(description, '')) as procedure_source_value FROM cptevents),
+"cpt_event" AS ( SELECT mimic_id as procedure_occurrence_id , subject_id , hadm_id , chartdate as procedure_datetime, cpt_cd, subsectionheader as procedure_source_value FROM cptevents),
 "omop_cpt4" as (SELECT concept_id as procedure_source_concept_id, concept_code as cpt_cd FROM omop.concept where vocabulary_id = 'CPT4'),
 "standard_cpt4" as (
 	select distinct on (c1.concept_id) first_value(c2.concept_id) over(partition by c1.concept_id order by relationship_id ASC) as procedure_concept_id, c1.concept_code as cpt_cd --keep snomed in predilection

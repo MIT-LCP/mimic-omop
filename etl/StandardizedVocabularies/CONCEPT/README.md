@@ -10,31 +10,30 @@
 
 ## d_items
 
-- concept_name is label  or 'UNKNONW' when missing or empty
+- concept_name is a concatenation of main source table information
 - vocabulary_id is 'MIMIC Local Code'
 - concept_code is itemid
 - domain_id = 'd_items'
 - table concept_synonym contains abbreviation
-- table concept_relationship contains:
-    - dbsource (has_mimic_dbsource)
-    - unitname (has_mimic_unitname)
-    - param_type (has_mimic_param_type)
-    - linksto (has_mimic_linksto)
 
 ## d_labitems
 
-- label is concept_name
-- table concept_relationship contains:
-    - dbsource (has_mimic_fluid)
-    - category (has_mimic_category)
-    - loinc_code ('LOINC replaced by')
+- concept_name is a concatenation of main source table information
+- vocabulary_id is 'MIMIC Local Code'
+- concept_code is itemid
+- domain_id = 'd_labitems'
 
 ## drugs
 
 - from prescriptions attributes
+- concept_name is a concatenation of main source table information
 - from inputevents attributes
 
 ## Procedures
+
+- from prescriptions attributes
+- concept_name  the long title or the short title whn not exists
+- concept_synonyms tables contains the short title when the long title exists
 
 
 ## Note Sections
