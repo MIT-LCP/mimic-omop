@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 8 );
+SELECT plan ( 9 );
 
 SELECT results_eq
 (
@@ -145,6 +145,23 @@ having count(1) > 1) as t;
 'primary key checker'
 );
 
+SELECT results_eq
+(
+'
+select count(1)::integer
+from datetimeevents
+where 
+error is null OR error = 0;
+'
+,
+'
+select count(1)::integer
+from omop.observation
+where 4085802 = observation_concept_id ;
+'
+,
+'datetimeevents number'
+);
 SELECT pass( 'observation pass, w00t!' );
 
 SELECT * FROM finish();

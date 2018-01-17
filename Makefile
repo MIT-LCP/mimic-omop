@@ -14,7 +14,7 @@ export:
 	find etl/Result/ -name "*.sql" -delete &&\
 	psql -h $(HOST_OMOP) -d mimic postgres  -f etl/export_mimic_omop.sql &&\
 	cp etl/import_mimic_omop.sql etl/Result/ &&\
-	cp omop/build-omop/postgresql/* etl/Result/ &&\
-	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
+	cp omop/build-omop/postgresql/* etl/Result/
+#	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
 runetl: sequence concept load export
 runetllight: concept load export

@@ -1,5 +1,5 @@
  WITH 
-"datetimeevents" AS (SELECT subject_id, hadm_id, itemid, cgid, mimic_id as observation_id, coalesce(value,charttime)::date as observation_date, value as observation_datetime FROM datetimeevents),
+"datetimeevents" AS (SELECT subject_id, hadm_id, itemid, cgid, mimic_id as observation_id, coalesce(value,charttime)::date as observation_date, value as observation_datetime FROM datetimeevents where error is null or error = 0),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "caregivers" AS (SELECT cgid, mimic_id as provider_id FROM caregivers),
 "admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, insurance, marital_status, language, diagnosis, religion, ethnicity, admittime FROM admissions),
@@ -215,7 +215,6 @@ FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND observation_concept_id = 4085802 --other datetime comes from admissions admittime and are not relevant
-AND row_to_insert.observation_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)
