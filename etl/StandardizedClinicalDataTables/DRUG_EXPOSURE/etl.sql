@@ -2,10 +2,22 @@
 WITH
 "google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM mimic.gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
 "omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
-"drug_exposure" AS (SELECT trim(drug || ' ' || prod_strength) as drug_source_value, subject_id, hadm_id, row_id, form_val_disp, mimic_id as drug_exposure_id, startdate as drug_exposure_start_datetime, enddate as drug_exposure_end_datetime FROM prescriptions),
+"drug_exposure" AS (
+                              SELECT drug as drug_source_value
+                                   , 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']' as concept_name
+                                   , subject_id
+                                   , hadm_id
+                                   , row_id
+                                   , dose_val_rx
+                                   , mimic_id as drug_exposure_id
+                                   , startdate as drug_exposure_start_datetime
+                                   , enddate as drug_exposure_end_datetime
+                FROM prescriptions
+                     )
+                   , 
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
-"omop_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'MIMIC Generated'),
+"omop_local_drug" AS (SELECT concept_name, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC Local Codes'),
 "row_to_insert" AS (
 	SELECT 
   drug_exposure_id
@@ -19,8 +31,8 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, CASE when form_val_disp ~'^[0-9,.]+$' then regexp_replace(form_val_disp, '([0-9]*)([,]+)([0-9]*)', E'\\1.\\3','g')::numeric 
- ELSE null::numeric END as quantity --extract quantity from pure numeric
+, CASE when dose_val_rx ~'^[0-9,.]+$' then regexp_replace(dose_val_rx, '([0-9]*)([,]+)([0-9]*)', E'\\1.\\3','g')::numeric 
+ ELSE null::numeric END as quantity --extract quantity from pure numeric when possible
 , null::integer as days_supply
 , null::text  as sig 
 , route_concept_id
@@ -28,12 +40,12 @@ WITH
 , null::integer as provider_id
 , visit_occurrence_id
 , null::integer as visit_detail_id
-, drug_source_value
+, drug_exposure.drug_source_value
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
 FROM drug_exposure
-LEFT JOIN omop_local_drug USING (drug_source_value)
+LEFT JOIN omop_local_drug USING (concept_name)
 LEFT JOIN google_drug_table USING (row_id)
 LEFT JOIN omop_rxnorm USING (concept_code)
 LEFT JOIN patients USING (subject_id)

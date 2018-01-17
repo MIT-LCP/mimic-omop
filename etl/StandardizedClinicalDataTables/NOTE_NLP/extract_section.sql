@@ -114,3 +114,23 @@ from noteevents_section_count
 LEFT JOIN categories USING (category)
 where percent_avec_section >= 1 and count >=10 and  (length(label) >2 or label ~* '^[A-z]+:$') order by length(label) desc)
 TO '/tmp/ref_doc_section.csv' CSV QUOTE '"';
+
+with
+cat_name as (SELECT distinct category from mimiciii.noteevents ORDER BY 1),
+categories as ( SELECT category, row_number() over() as cat_id from cat_name)
+SELECT section_code as section_id, category_code as category_id, category, section_text as  label, '' as label_mapped
+FROM omop.tmp_note_nlp_concept
+left join categories on category_code = cat_id ;
+
+-- mapping label
+\copy (select 
+distinct on (section_id)
+ section_id      
+, category_id     
+, category        
+, label           
+, label_mapped    
+, first_value(note_nlp.lexical_variant) over(partition by section_id) as extrait
+from mimic.gcpt_note_section_to_concept a
+LEFT JOIN omop.note_nlp ON mimic_id = section_source_concept_id)
+TO '/tmp/ivan.csv' CSV HEADER FORCE QUOTE *;
