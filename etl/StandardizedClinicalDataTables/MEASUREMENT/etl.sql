@@ -427,7 +427,6 @@ SELECT
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
-AND row_to_insert.measurement_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)
@@ -454,6 +453,7 @@ WITH
 , mimic_id as measurement_id
 , charttime as measurement_datetime
 FROM outputevents
+where iserror is null
 ),
 "gcpt_output_label_to_concept" AS (SELECT item_id as itemid, concept_id as measurement_concept_id FROM gcpt_output_label_to_concept),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
@@ -476,7 +476,7 @@ FROM outputevents
 , caregivers.provider_id AS provider_id                   
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
-, null::text AS measurement_source_value      
+, d_items.label AS measurement_source_value      
 , d_items.mimic_id AS measurement_source_concept_id 
 , outputevents.unit_source_value AS unit_source_value             
 , null::text AS value_source_value            
@@ -511,7 +511,6 @@ SELECT
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
-AND row_to_insert.measurement_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)
@@ -581,7 +580,6 @@ SELECT
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
-WHERE row_to_insert.measurement_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)
@@ -650,7 +648,6 @@ SELECT
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
-AND row_to_insert.measurement_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)
