@@ -74,7 +74,6 @@ LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN gcpt_procedure_to_concept USING (itemid)
 LEFT JOIN omop.visit_detail_assign ON admissions.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
-AND proc_event.procedure_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)

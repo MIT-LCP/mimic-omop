@@ -388,7 +388,6 @@ SELECT
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign 
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
-AND row_to_insert.observation_datetime IS NOT NULL
 AND
 (--only one visit_detail
 (is_first IS TRUE AND is_last IS TRUE)
