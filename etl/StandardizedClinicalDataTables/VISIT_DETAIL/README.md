@@ -1,226 +1,242 @@
-# URL to CommonDataModel
-- https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL
+# Link to CommonDataModel
+- [VISIT_DETAIL](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL)
 
 # Source Tables
 
-## transfers
-- https://mimic.physionet.org/mimictables/services/
+## [transfers](https://mimic.physionet.org/mimictables/transfers/)
 
 - the room or bed movement have been removed so that only ward change are logged in the table
 - the emergency stays have been added in has conventional stays (may introduce strange gap in times)
+- `visit_type_concept_id` is equal to 2000000006  (Ward and physical location) and localize the patient
 - `visit_detail_concept_id` is equal to 8717 (Inpatient visit) for a non emergency stay
 - `visit_detail_concept_id` is equal to 581381 (Emergency room) for a emergency  stay
 - `visit_detail_concept_id` is equal to 581382  (Intensive Care Unit) for an ICU  stay
-- `visit_type_concept_id` is equal to 2000000006  Ward and physical location) and localize the patient
-- `visit_type_concept_id` is equal to  45770670 (Services and care) and lists services that a patient was admitted/transferred under
 - the callout delay has been added in the table has an omop contrib derived variable
 
-## services
-- https://mimic.physionet.org/mimictables/services/
+## [services](https://mimic.physionet.org/mimictables/services/)
 
 - the services table populates the `visit_detail` too
-- `visit_detail_concept_id` is always equal to 9201  (Inpatient visit) because service information does not cover emergency stays
-- `visit_type_concept_id` is equal to 45770670  (services and care)
+- `visit_type_concept_id` is equal to  45770670 (Services and care) and lists services that a patient was admitted/transferred under
+- `visit_detail_concept_id` is equal to 45763735 to identify medical patients
+- `visit_detail_concept_id` is equal to 4149152 to identify surgical patients
+- `visit_detail_concept_id` is equal to 4237225 to identify newborn patients
+- `visit_detail_concept_id` is equal to 4150859 to identigy psychiatric patients (only one!)
+
 - it is then possible to know both where the patient is (from transfers) and whose take care of him (from services)
 
 ## visit_detail_id assigning
 
-- Be careful when joining patient data based on visit_detail_id, there is no guaranty the link is actual
-- any link to visit_detail_id in the database is calculated (measurement, observation, drug_exposure...)
+- Be careful when joining patient data based on `visit_detail_id`, there is no guaranty the link is actual
+- WARNING : any link to `visit_detail_id` in the database is calculated (measurement, observation, drug_exposure...)
 - this is actually the case for mimiciii and icustays
 - the algorith is below:
     - if the data has a visit_occurrence value
     - if the data has a precise timestamp
-    - then assign to the visit_detail that cover that date and is linked to that visit_occurrence
+         - then assign to the visit_detail that cover that date and is linked to that visit_occurrence
     - if the timestamp is before/after the first/last visit_detail
-    - then assign to the first/last visit_detail instance
+         - then assign to the first/last visit_detail instance
 
-# Contrib
+# Mapping used
 
-Those fields have been added:
-- `discharge_delay`
-- `visit_detail_length`
-- omop concept 9204 has been introduced for ICU stays, it should be proposed to the OHSDI community
+## [visit_source_concept_id] (https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_type_to_concept.csv)
 
-# Lookup Tables
+- it maps mimic admission type to omop admission type
 
-## visit_source_concept_id
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_type_to_concept.csv
+## [admitting_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_location_to_concept.csv)
 
-## admitting_source_concept_id
-- made by google : https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_location_to_concept.csv
+- it maps mimic location admission type to omop location admission type
 
-## discharge_type_to_concept
-- made by google : https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/discharge_location_to_concept.csv
+## [discharge_type_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/discharge_location_to_concept.csv)
+
+- it maps mimic location discharge type to omop location discharge type
 
 # Example
+
+## explanation of `visit_type_concept_id`
+
 ``` sql
--- explanation of the visit_type_concept_id
--- 
 SELECT distinct concept_name, visit_type_concept_id  as concept_id
-From visit_detail v
-JOIN concept c on v.visit_type_concept_id = c.concept_id;
+FROM visit_detail v
+JOIN concept c ON v.visit_type_concept_id = c.concept_id;
 ```
-|        concept_name        | concept_id|
+|        concept_name        | concept_id |
 |----------------------------|------------|
 | Services and care          |   45770670|
 | Ward and physical location | 2000000006|
 
+## explanation of `visit_detail_concept_id`, distribution of type of care
+
 ``` sql
--- the distribution of ward types (physical location)
 SELECT concept_name, concept_id, count(1)
 FROM visit_detail
 JOIN concept ON visit_detail_concept_id = concept_id
-WHERE visit_type_concept_id = 2000000006                 -- concept.concept_name = 'Ward and physical location'
-GROUP BY 1, 2 ORDER BY 3 desc;
+WHERE visit_type_concept_id = 45770670                          -- concept.concept_name = 'Services and care'
+GROUP BY 1, 2 ORDER BY count(1) desc;
 ```
-             concept_name              | concept_id | count
----------------------------------------|------------|-------
- No matching concept                   |          0 |   187
- Inpatient Intensive Care Facility     |     581382 |   170
- Emergency Room Critical Care Facility |     581381 |    72
- Inpatient Hospital                    |       8717 |    15
+|      concept_name       | concept_id | count |
+|-------------------------|------------|-------|
+| General medical service |   45763735 | 88209|
+| Surgical service        |    4149152 | 73729|
+| Newborn care service    |    4237225 | 16718|
+| Psychiatry service      |    4150859 |     1|
 
+## explanation of `visit_detail_concept_id`, distribution of ward types (physical location)
 
 ``` sql
--- the distribution of type of care (medical vs surgical)
 SELECT concept_name, concept_id, count(1)
 FROM visit_detail
 JOIN concept ON visit_detail_concept_id = concept_id
-WHERE visit_type_concept_id = 45770670                -- concept.concept_name = 'Services and care'
-GROUP BY 1, 2 ORDER BY 3 desc;
+WHERE visit_type_concept_id = 2000000006                      -- concept.concept_name = 'Ward and physical location'
+GROUP BY 1, 2 ORDER BY count(1) desc;
 ```
-          concept_name           | concept_id | count
----------------------------------|------------|-------
- General medical service         |   45763735 |   178
- Surgical service                |    4149152 |   150
- Newborn care service            |    4237225 |    34
+|             concept_name              | concept_id | count |
+|---------------------------------------|------------|-------|
+| No matching concept                   |          0 | 87766|
+| Inpatient Intensive Care Facility     |     581382 | 71570|
+| Emergency Room Critical Care Facility |     581381 | 30877|
+| Inpatient Hospital                    |       8717 |  8237|
 
+## explanation of `care_site_id`, `transfers` table in non omop mimic
 
 ``` sql
--- explanation of care_site_id
--- -- transfers table (mimic)
+-- transfers table (mimic)
 SELECT place_of_service_source_value, count (1)
-FROM visit_detail JOIN care_site c USING (care_site_id) 
-WHERE visit_type_concept_id = 2000000006                 -- concept.concept_name = 'Ward and physical location'
+FROM visit_detail JOIN care_site c USING (care_site_id)
+WHERE visit_type_concept_id = 2000000006                        -- concept.concept_name = 'Ward and physical location'
 GROUP BY 1 ORDER BY count(1) DESC;
 ```
-     place_of_service_source_value     | count
----------------------------------------|-------
- Unknown service                       |   187
- Emergency Room Critical Care Facility |    72
- Medical intensive care unit           |    67
- Neonatal ward                         |    25
- Surgical intensive care unit          |    22
- Cardiac surgery recovery unit         |    21
- Neonatal intensive care unit          |    19
- Coronary care unit                    |    16
- Trauma/surgical intensive care unit   |    15
+|     place_of_service_source_value     | count |
+|---------------------------------------|-------|
+| Unknown Ward                          | 87766|
+| Emergency Room Critical Care Facility | 30877|
+| Medical intensive care unit           | 24289|
+| Cardiac surgery recovery unit         | 11818|
+| Surgical intensive care unit          | 10688|
+| Coronary care unit                    |  9005|
+| Neonatal intensive care unit          |  8472|
+| Neonatal ward                         |  8237|
+| Trauma/surgical intensive care unit   |  7298|
+
+## explanation of `care_site_id`, `service` table in non omop table
 
 ``` sql
--- explanation of care_site_id
--- -- service table (mimic) 
--- -- `visit_detail_concept_id` is always equal to 9201
 SELECT place_of_service_source_value, count (1)
-FROM visit_detail JOIN care_site c USING (care_site_id) 
-WHERE visit_type_concept_id = 45770670                      -- concept.concept_name = 'Services and care'
+FROM visit_detail JOIN care_site c USING (care_site_id)
+WHERE visit_type_concept_id = 45770670                           -- concept.concept_name = 'Services and care'
 GROUP BY 1 ORDER BY count(1) DESC;
 ```
-                               place_of_service_source_value                               | count
--------------------------------------------------------------------------------------------|-------
- Medical - general service for internal medicine                                           |    62
- Plastic - restortation/reconstruction of the human body (including cosmetic or aesthetic) |     1
- Newborn - infants born at the hospital                                                    |    15
- Thoracic Surgical - surgery on the thorax, located between the neck and the abdomen       |     4
- Orthopaedic medicine - non-surgical, relating to musculoskeletal system                   |     9
- Newborn baby - infants born at the hospital                                               |     2
- Surgical - general surgical service not classified elsewhere                              |     8
- Cardiac Surgery - for surgical cardiac admissions                                         |    19
- Neurologic Surgical - surgical, relating to the brain                                     |    11
- Cardiac Medical - for non-surgical cardiac related admissions                             |    16
- Trauma - injury or damage caused by physical harm from an external source                 |    12
- Neurologic Medical - non-surgical, relating to the brain                                  |     4
- Orthopaedic - surgical, relating to the musculoskeletal system                            |     1
+|                               place_of_service_source_value                               | count |
+|-------------------------------------------------------------------------------------------|-------|
+| Medical - general service for internal medicine                                           | 57032|
+| Cardiac Surgery - for surgical cardiac admissions                                         | 23775|
+| Cardiac Medical - for non-surgical cardiac related admissions                             | 20663|
+| Surgical - general surgical service not classified elsewhere                              | 16600|
+| Newborn - infants born at the hospital                                                    | 16258|
+| Neurologic Surgical - surgical, relating to the brain                                     | 10574|
+| Trauma - injury or damage caused by physical harm from an external source                 |  7034|
+| Neurologic Medical - non-surgical, relating to the brain                                  |  6395|
+| Vascular Surgical - surgery relating to the circulatory system                            |  5422|
+| Orthopaedic medicine - non-surgical, relating to musculoskeletal system                   |  4119|
+| Thoracic Surgical - surgery on the thorax, located between the neck and the abdomen       |  3974|
+| Orthopaedic - surgical, relating to the musculoskeletal system                            |  2911|
+| Genitourinary - reproductive organs/urinary system                                        |  1144|
+| Plastic - restortation/reconstruction of the human body (including cosmetic or aesthetic) |   775|
+| Gynecological - female reproductive systems and breasts                                   |   674|
+| Ear, nose, and throat - conditions primarily affecting these areas                        |   614|
+| Newborn baby - infants born at the hospital                                               |   460|
+| Obstetrics - conerned with childbirth and the care of women giving birth                  |   218|
+| Dental - for dental/jaw related admissions                                                |    14|
+| Psychiatric - mental disorders relating to mood, behaviour, cognition, or perceptions     |     1|
 
+## Number of patients in ICU
 
 ``` sql
--- Number of patients in ICU
 SELECT COUNT(person_id) AS num_totalstays_count
 FROM visit_detail
-WHERE visit_detail_concept_id = 581382                 -- concept.concept_name = 'Intensive Care Unit Visit'
-and visit_type_concept_id = 44818518;                -- concept.concept_name = 'Visit derived from EHR record'
+WHERE visit_detail_concept_id = 581382                              -- concept.concept_name = 'Inpatient Intensive Care Facility'
+AND visit_type_concept_id = 2000000006;                             -- concept.concept_name = 'Ward and physical location'
 ```
- dead_hospital_count
----------------------
-                   127
+| num_totalstays_count |
+|----------------------|
+|                71570|
+
+## Number of dead patients in ICU
 
 ``` sql
--- nb of dead patients in ICU
 SELECT count(person_id) AS dead_hospital_count
 FROM visit_detail
 JOIN concept ON visit_detail_concept_id = concept_id
-WHERE visit_detail_concept_id = 581382           --concept,concept_name = 'Intensive Care Unit Visit'
-and discharge_to_concept_id = 4216643;          --concept.concept_name = 'Patient died';
+WHERE visit_detail_concept_id = 581382                             -- concept.concept_name = 'Inpatient Intensive Care Facility'
+AND visit_type_concept_id = 2000000006                             -- concept.concept_name = 'Ward and physical location'
+AND discharge_to_concept_id = 4216643;                             -- concept.concept_name = 'Patient died'
 ```
- dead_hospital_count
----------------------
-                   9
+| dead_hospital_count |
+|---------------------|
+|                4559|
+
+## % of dead patients in ICU
 
 ``` sql
--- % of dead patients in icu
 WITH tmp AS
 (
   SELECT COUNT(distinct d.person_id) AS dead
        , COUNT(t.person_id) AS total
-  FROM visit_occurrence t
+  FROM visit_detail t
   LEFT JOIN
   (
         SELECT person_id
         FROM visit_detail
-        WHERE visit_detail_concept_id = 581382            -- concept.concept_name = 'Intensive Care Unit Visit'
-        and discharge_to_concept_id = 4216643          -- concept.concept_name = 'Patient died'
+        WHERE visit_detail_concept_id = 581382                    -- concept.concept_name = 'Inpatient Intensive Care Facility'
+        and visit_type_concept_id = 2000000006                    -- concept.concept_name = 'Ward and physical location' 
+        and discharge_to_concept_id = 4216643                     -- concept.concept_name = 'Patient died'
   ) d USING (person_id)
+  WHERE t.visit_detail_concept_id = 581382                        -- concept.concept_name = 'Inpatient Intensive Care Facility'
+  and t.visit_type_concept_id = 2000000006                        -- concept.concept_name = 'Ward and physical location'
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
 ```
- dead | total | percentage
-------|-------|------------
-    9 |   127 |          7
+| dead | total | percentage |
+|------|-------|------------|
+| 4558 | 71572 |          6|
 
+## Distribution of length of stay in ICU
 
 ``` sql
--- Distribution of length of stay in icu
 SELECT percentile_25
        , median
        , percentile_75
-       , MIN( EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0   )    AS minimum
-       , MAX( EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 )    AS maximum
-       , CAST(AVG(  EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 ) AS INTEGER)   AS mean
-       , STDDEV( EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0   ) AS stddev
+       , MIN( EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0    )    AS minimum
+       , MAX( EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0  )    AS maximum
+       , CAST(AVG(  EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0  ) AS INTEGER)   AS mean
+       , STDDEV( EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0    ) AS stddev
   FROM
-  (SELECT MAX( CASE WHEN( percentile = 1   ) THEN los END   ) AS percentile_25
-        , MAX( CASE WHEN( percentile = 2   ) THEN los END   ) AS median
-        , MAX( CASE WHEN( percentile = 3   ) THEN los END   ) AS percentile_75
+  (SELECT MAX( CASE WHEN( percentile = 1    ) THEN los END    ) AS percentile_25
+        , MAX( CASE WHEN( percentile = 2    ) THEN los END    ) AS median
+        , MAX( CASE WHEN( percentile = 3    ) THEN los END    ) AS percentile_75
     FROM
        ( SELECT counter.los, counter.nb_los
-              , FLOOR( CAST( SUM( nb_los   ) OVER( ORDER BY los ROWS UNBOUNDED PRECEDING   ) AS DECIMAL   )
-                     / CAST( SUM( nb_los  ) OVER( ORDER BY los ROWS BETWEEN UNBOUNDED PRECEDING
-                                                                        AND UNBOUNDED FOLLOWING   )  AS DECIMAL   )
+              , FLOOR( CAST( SUM( nb_los    ) OVER( ORDER BY los ROWS UNBOUNDED PRECEDING    ) AS DECIMAL    )
+                     / CAST( SUM( nb_los   ) OVER( ORDER BY los ROWS BETWEEN UNBOUNDED PRECEDING
+                                                                        AND UNBOUNDED FOLLOWING    )  AS DECIMAL    )
                      * 4
-                       ) + 1
+                        ) + 1
           as percentile
           FROM
              ( SELECT EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 as los, count(*) AS nb_los
                 FROM omop.visit_detail
-                WHERE visit_detail_concept_id = 581382 
-                GROUP BY EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0
-              ) as counter
-        ) as p
+                WHERE visit_detail_concept_id = 581382            -- concept.concept_name = 'Inpatient Intensive Care Facility'
+                AND visit_type_concept_id = 2000000006            -- concept.concept_name = 'Ward and physical location' 
+        	AND discharge_to_concept_id = 4216643             -- concept.concept_name = 'Patient died'
+                GROUP BY EXTRACT(EPOCH FROM visit_end_datetime - visit_start_datetime)/60.0/60.0/24.0
+               ) as counter
+         ) as p
      WHERE percentile <= 3
   ) as percentile_table, omop.visit_detail
-  WHERE visit_detail_concept_id = 581382     
+  WHERE visit_detail_concept_id = 581382                          -- concept.concept_name = 'Inpatient Intensive Care Facility' 
+  AND visit_type_concept_id = 2000000006                          -- concept.concept_name = 'Ward and physical location' 
+  AND discharge_to_concept_id = 4216643                           -- concept.concept_name = 'Patient died'
   GROUP BY percentile_25, median, percentile_75;
 ```
-   percentile_25   |      median      |  percentile_75   |       minimum       |     maximum      | mean |      stddev
--------------------|------------------|------------------|---------------------|------------------|------|------------------
- 0.857523148148148 | 1.68177083333333 | 3.78398148148148 | 0.00148148148148148 | 52.8522685185185 |    4 | 6.90513258308583
+|  percentile_25   |     median      |  percentile_75   |       minimum        |     maximum      | mean |      stddev      |
+|------------------|-----------------|------------------|----------------------|------------------|------|------------------|
+| 1.10337962962963 | 2.9274537037037 | 7.34994212962963 | 0.000150462962962963 | 117.335115740741 |    6 | 7.97150673927668|

@@ -17,15 +17,17 @@
 # Examples
 
 ## Number of dead patients in the dataset
+
 ``` sql
 SELECT COUNT(person_id) AS num_deaths_count
 FROM death;
 ```
 | num_deaths_count |
 |------------------|
-|               38|
+|            14849|
 
 ## distinct `death_type_concept_id` dead patients in the database
+
 ``` sql
 SELECT distinct concept_name, death_type_concept_id  as concept_id
 FROM death d
@@ -42,29 +44,29 @@ JOIN concept c ON d.death_type_concept_id = c.concept_id;
 SELECT FLOOR (percentile_25) AS percentile_25
        , FLOOR(median) AS median
        , FLOOR(percentile_75) AS percentile_75
-       , FLOOR (MIN( cast(death.death_datetime as date) - cast(person.birth_datetime as date) )  / 365.242  )    AS minimum
-       , FLOOR (MAX( cast(death.death_datetime as date) - cast(person.birth_datetime as date) )  / 365.242  )    AS maximum
+       , FLOOR (MIN( cast(death.death_datetime as date) - cast(person.birth_datetime as date)  )  / 365.242  )    AS minimum
+       , FLOOR (MAX( cast(death.death_datetime as date) - cast(person.birth_datetime as date)  )  / 365.242  )    AS maximum
        , CAST(FLOOR (AVG(cast(death.death_datetime as date) - cast(person.birth_datetime as date))  / 365.242 ) AS INTEGER)   AS mean
-       , FLOOR(STDDEV( cast(death.death_datetime as date) - cast(person.birth_datetime as date) )  / 365.242  ) AS stddev
+       , FLOOR(STDDEV( cast(death.death_datetime as date) - cast(person.birth_datetime as date)  )  / 365.242  ) AS stddev
   FROM
-  (SELECT MAX( CASE WHEN( percentile = 1   ) THEN age_deaths END   ) AS percentile_25
-        , MAX( CASE WHEN( percentile = 2   ) THEN age_deaths END   ) AS median
-        , MAX( CASE WHEN( percentile = 3   ) THEN age_deaths END   ) AS percentile_75
+  (SELECT MAX( CASE WHEN( percentile = 1    ) THEN age_deaths END    ) AS percentile_25
+        , MAX( CASE WHEN( percentile = 2    ) THEN age_deaths END    ) AS median
+        , MAX( CASE WHEN( percentile = 3    ) THEN age_deaths END    ) AS percentile_75
     FROM
        ( SELECT counter.age_deaths, counter.deaths
-              , FLOOR( CAST( SUM( age_deaths   ) OVER( ORDER BY age_deaths ROWS UNBOUNDED PRECEDING   ) AS DECIMAL   )
-                     / CAST( SUM( age_deaths   ) OVER( ORDER BY age_deaths ROWS BETWEEN UNBOUNDED PRECEDING
-                                                                        AND UNBOUNDED FOLLOWING   )  AS DECIMAL   )
+              , FLOOR( CAST( SUM( age_deaths    ) OVER( ORDER BY age_deaths ROWS UNBOUNDED PRECEDING    ) AS DECIMAL    )
+                     / CAST( SUM( age_deaths    ) OVER( ORDER BY age_deaths ROWS BETWEEN UNBOUNDED PRECEDING
+                                                                        AND UNBOUNDED FOLLOWING    )  AS DECIMAL    )
                      * 4
-                       ) | 1
+                        ) + 1
           as percentile
           FROM
              ( SELECT FLOOR (cast(death.death_datetime as date) - cast(person.birth_datetime as date))  / 365.242 as age_deaths, count(*) AS deaths
                 FROM omop.death as death
 		INNER JOIN omop.person as person USING (person_id)
                 GROUP BY FLOOR (cast(death.death_datetime as date) - cast(person.birth_datetime as date))
-               ) as counter
-        ) as p
+                ) as counter
+         ) as p
      WHERE percentile <= 3
   ) as percentile_table, omop.death
   INNER JOIN omop.person as person USING (person_id)
@@ -72,4 +74,4 @@ SELECT FLOOR (percentile_25) AS percentile_25
 ```
 | percentile_25 | median | percentile_75 | minimum | maximum | mean | stddev |
 |---------------|--------|---------------|---------|---------|------|--------|
-|            65 |     76 |            88 |      29 |     301 |   87 |     64|
+|            67 |     79 |            90 |       0 |     310 |   91 |     68|
