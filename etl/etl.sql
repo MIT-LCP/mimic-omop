@@ -1,4 +1,4 @@
-BEGIN;
+--BEGIN;
 \set ON_ERROR_STOP true
 set search_path to :'mimicschema';
 \timing
@@ -46,4 +46,4 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
 --\i omop/build-omop/postgresql/mimic-omop-enable-trigger.sql
 --ROLLBACK;
-COMMIT;
+--COMMIT;
