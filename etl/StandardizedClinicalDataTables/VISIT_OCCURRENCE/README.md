@@ -35,7 +35,7 @@
 ## Number of admissions
 
 ``` sql
-SELECT COUNT(distinct visit_occurence_id) AS num_admission_count
+SELECT COUNT(distinct visit_occurrence_id) AS num_admission_count
 FROM visit_occurrence;
 ```
 | num_admission_count |
@@ -114,12 +114,13 @@ JOIN concept c ON v.admitting_source_concept_id = c.concept_id;
 | TRANSFER FROM HOSP/EXTRAM | Inpatient Hospital        |       8717|
 | TRANSFER FROM SKILLED NUR | Skilled Nursing Facility  |       8863|
 | EMERGENCY ROOM ADMIT      | Emergency Room - Hospital |       8870|
+| DEAD/EXPIRED              | Patient died              |    4216643|    -- organ donor
 | CLINIC REFERRAL/PREMATURE | Office                    |       8940|
 | HMO REFERRAL/SICK         | Office                    |       8940|
 | PHYS REFERRAL/NORMAL DELI | Office                    |       8940|
 | TRSF WITHIN THIS FACILITY | Inpatient Hospital        |       8717|
 | TRANSFER FROM OTHER HEALT | Other Inpatient Care      |       8892|
-| DEAD/EXPIRED              | Patient died              |    4216643|     -- organ donor 
+| DEAD/EXPIRED              | Patient died              |    4216643|
 
 ## explanation of the `discharge_to_concept_id`
 
@@ -145,7 +146,7 @@ JOIN concept c ON v.discharge_to_concept_id = c.concept_id;
 | SNF-MEDICAID ONLY CERTIF  | Skilled Nursing Facility                      |       8863|
 | HOSPICE-HOME              | Hospice                                       |       8546|
 | LEFT AGAINST MEDICAL ADVI | Patient self-discharge against medical advice |    4021968|
-|                           | Organ Donor                                   |    4022058| -- a check
+| ORGAN DONOR ACCOUNT       | Organ donor                                   |    4022058|
 
 ## Distribution of length of stay in hospital
 ``` sql
