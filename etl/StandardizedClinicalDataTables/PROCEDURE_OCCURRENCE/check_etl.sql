@@ -11,7 +11,7 @@
 BEGIN;
 
 
-SELECT plan (3);
+SELECT plan (4);
 
 -- procedureevents_mv --
 SELECT results_eq
@@ -108,6 +108,26 @@ group by procedure_source_value order by count(1) desc;
 ' 
 ,'-- 5. label repartition'
 );
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.drug_exposure
+LEFT JOIN omop.concept ON drug_concept_id = concept_id
+WHERE 
+drug_concept_id != 0
+AND standard_concept != ''S'';
+'
+,
+'Standard concept checker'
+);
+
+SELECT pass( 'drug_exposure pass, w00t!' );
 
 SELECT * FROM finish();
 ROLLBACK;

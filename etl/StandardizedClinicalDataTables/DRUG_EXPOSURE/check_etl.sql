@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 1 );
+SELECT plan ( 8 );
 
 -- 1. visit_occurrence_nb
 SELECT results_eq
@@ -50,9 +50,9 @@ GROUP BY 1 ORDER BY 2,1 desc;
 SELECT results_eq
 (
 '
-SELECT count(1)
+SELECT count(1)::integer
 FROM omop.drug_exposure 
-where drug_source_concept_id = 0
+where drug_source_concept_id = 0;
 '
 ,
 '
@@ -61,6 +61,23 @@ SELECT 0::integer;
 ,'is concept source id full filled'
 );
 
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.measurement
+LEFT JOIN omop.concept ON measurement_concept_id = concept_id
+WHERE 
+measurement_concept_id != 0
+AND standard_concept != ''S'';
+'
+,
+'Standard concept checker'
+);
 
 SELECT * FROM finish();
 ROLLBACK;

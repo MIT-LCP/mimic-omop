@@ -8,8 +8,6 @@
 -- http://pgtap.org/
 -- --------------------------------------------------
 
-SET search_path to mimiciii;
-
 BEGIN;
 
 SELECT plan ( 2  );

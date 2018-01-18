@@ -1,6 +1,6 @@
 BEGIN;
 
-SELECT plan(5);
+SELECT plan(6);
 -- 1.checker global distribution labevents
 SELECT results_eq
 (
@@ -144,7 +144,6 @@ where measurement_source_concept_id = 0;
 'there is source concept in measurement not described'
 );
 
-SELECT pass( 'Measurement pass, w00t!' );
 
 SELECT results_eq
 (
@@ -162,6 +161,26 @@ having count(1) > 1) as t;
 ,
 'primary key checker'
 );
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.measurement
+LEFT JOIN omop.concept ON measurement_concept_id = concept_id
+WHERE 
+measurement_concept_id != 0
+AND standard_concept != ''S'';
+'
+,
+'Standard concept checker'
+);
+
+SELECT pass( 'Measurement pass, w00t!' );
 
 SELECT * from finish();
 ROLLBACK;

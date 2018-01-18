@@ -1,4 +1,4 @@
-MIMIC_SCHEMA=mimiciii
+MIMIC_SCHEMA=mimic
 HOST_OMOP=localhost
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
@@ -17,4 +17,4 @@ export:
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
 runetl: sequence concept load export
-runetllight: concept load export
+runetllight: concept load 

@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 1 );
+SELECT plan ( 2 );
 
 -- 1. visit_occurrence_nb
 SELECT results_eq

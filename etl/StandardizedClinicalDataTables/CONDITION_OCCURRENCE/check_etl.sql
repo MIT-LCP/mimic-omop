@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 5 );
+SELECT plan ( 6 );
 
 -- 1. condition_occurrence nb patients corresponding with icd9_code
 SELECT results_eq
@@ -92,6 +92,24 @@ having count(1) > 1) as t;
 '
 ,
 'primary key checker'
+);
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.condition_occurrence
+LEFT JOIN omop.concept ON condition_concept_id = concept_id
+WHERE 
+condition_concept_id != 0
+AND standard_concept != ''S'';
+'
+,
+'Standard concept checker'
 );
 SELECT pass( 'Condition pass, w00t!' );
 

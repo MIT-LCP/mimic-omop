@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 9 );
+SELECT plan ( 10 );
 
 SELECT results_eq
 (
@@ -161,6 +161,24 @@ where 4085802 = observation_concept_id ;
 '
 ,
 'datetimeevents number'
+);
+
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.observation
+LEFT JOIN omop.concept ON observation_concept_id = concept_id
+WHERE 
+observation_concept_id != 0
+AND standard_concept != ''S'';
+'
+,
+'Standard concept checker'
 );
 SELECT pass( 'observation pass, w00t!' );
 
