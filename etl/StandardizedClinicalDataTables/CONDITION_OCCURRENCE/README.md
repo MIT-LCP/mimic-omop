@@ -1,10 +1,9 @@
 # URL to CommonDataModel
-- https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE
+- [CONDITION_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE)
 
 # Source Tables
 
-## diagnosis_icd
-
+## [diagnosis_icd](https://mimic.physionet.org/mimictables/diagnoses_icd/)
 - omop standard code is SNOMED
 - omoo provides a mapping from icd9 to SNOMED
 - all icd9 codes are found into omop
@@ -15,8 +14,7 @@
 - google mention some codes are not condition but observation or procedure. Not sure to understand 
 - because snomed-icd9 mapping produces multiple snomed code for one icd9, OMOP spec says we should duplicate rows in the table. The main concern is how to generate condition_occurrence_id and should be adressed elegantly soon
 
-## admissions
-- https://mimic.physionet.org/mimictables/admissions/
+## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 
 - the chief complaint admissions diagnosis column
 - when `condition_type_concept_id` = 42894222
