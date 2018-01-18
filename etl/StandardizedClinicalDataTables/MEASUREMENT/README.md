@@ -262,7 +262,7 @@ GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 | Bacteroides fragilis group         |             4213634 |
 | Corynebacterium                    |             4299363 |
 
-## resistance profile resitance for staoh. aureus
+## resistance profile for Staph. Aureus
 
 ``` sql
 SELECT measurement_source_value, value_as_concept_id, concept_name
