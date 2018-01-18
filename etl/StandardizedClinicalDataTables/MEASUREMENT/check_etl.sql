@@ -129,7 +129,6 @@ Group by value_source_value order by 2, 1 desc;
 ,'distrib organisms bad'
 );
 
--- 5. examen negatif
 SELECT results_eq
 (
 '

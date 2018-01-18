@@ -78,17 +78,5 @@ SELECT count(visit_source_value) FROM omop.visit_occurrence group by visit_sourc
 ,'-- 5.links checker (1)'
 );
 
---SELECT results_eq
---(
---'
---SELECT count(admitting_source_concept_id) FROM omop.visit_occurrence group by admitting_source_concept_id order by 1 desc;
---'
---,
---'
---SELECT count(admitting_source_value) FROM omop.visit_occurrence group by admitting_source_value order by 1 desc;
---'
---,'-- 6.links checker (2)'
---);
-
 SELECT * FROM finish();
 ROLLBACK;

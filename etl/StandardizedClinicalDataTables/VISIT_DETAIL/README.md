@@ -151,19 +151,20 @@ GROUP BY 1 ORDER BY count(1) DESC;
 ## Number of patients in ICU
 
 ``` sql
-SELECT COUNT(person_id) AS num_totalstays_count
+SELECT COUNT(distinct visit_detail_id) AS num_totalstays_count
 FROM visit_detail
-WHERE visit_detail_concept_id = 581382                              -- concept.concept_name = 'Inpatient Intensive Care Facility'
-AND visit_type_concept_id = 2000000006;                             -- concept.concept_name = 'Ward and physical location'
+WHERE visit_detail_concept_id = 581382                             -- concept.concept_name = 'Inpatient Intensive Care Facility'
+AND visit_type_concept_id = 2000000006;                            -- concept.concept_name = 'Ward and physical location'
 ```
 | num_totalstays_count |
 |----------------------|
 |                71570|
 
+
 ## Number of dead patients in ICU
 
 ``` sql
-SELECT count(person_id) AS dead_hospital_count
+SELECT count(distinct visit_detail_id) AS dead_hospital_count
 FROM visit_detail
 JOIN concept ON visit_detail_concept_id = concept_id
 WHERE visit_detail_concept_id = 581382                             -- concept.concept_name = 'Inpatient Intensive Care Facility'
@@ -179,25 +180,27 @@ AND discharge_to_concept_id = 4216643;                             -- concept.co
 ``` sql
 WITH tmp AS
 (
-  SELECT COUNT(distinct d.person_id) AS dead
-       , COUNT(t.person_id) AS total
+  SELECT COUNT(distinct d.visit_detail_id) AS dead
+       , COUNT(distinct t.visit_detail_id) AS total
   FROM visit_detail t
   LEFT JOIN
   (
-        SELECT person_id
+        SELECT visit_detail_id
         FROM visit_detail
-        WHERE visit_detail_concept_id = 581382                    -- concept.concept_name = 'Inpatient Intensive Care Facility'
-        and visit_type_concept_id = 2000000006                    -- concept.concept_name = 'Ward and physical location' 
-        and discharge_to_concept_id = 4216643                     -- concept.concept_name = 'Patient died'
-  ) d USING (person_id)
-  WHERE t.visit_detail_concept_id = 581382                        -- concept.concept_name = 'Inpatient Intensive Care Facility'
-  and t.visit_type_concept_id = 2000000006                        -- concept.concept_name = 'Ward and physical location'
+        WHERE visit_detail_concept_id = 581382
+        and visit_type_concept_id = 2000000006
+        and discharge_to_concept_id = 4216643
+  
+  ) d USING (visit_detail_id)
+  WHERE t.visit_detail_concept_id = 581382
+  and t.visit_type_concept_id = 2000000006
+
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
 ```
 | dead | total | percentage |
 |------|-------|------------|
-| 4558 | 71572 |          6|
+| 4559 | 71570 |          6|
 
 ## Distribution of length of stay in ICU
 
@@ -226,7 +229,6 @@ SELECT percentile_25
                 FROM omop.visit_detail
                 WHERE visit_detail_concept_id = 581382            -- concept.concept_name = 'Inpatient Intensive Care Facility'
                 AND visit_type_concept_id = 2000000006            -- concept.concept_name = 'Ward and physical location' 
-        	AND discharge_to_concept_id = 4216643             -- concept.concept_name = 'Patient died'
                 GROUP BY EXTRACT(EPOCH FROM visit_end_datetime - visit_start_datetime)/60.0/60.0/24.0
                ) as counter
          ) as p
@@ -234,9 +236,8 @@ SELECT percentile_25
   ) as percentile_table, omop.visit_detail
   WHERE visit_detail_concept_id = 581382                          -- concept.concept_name = 'Inpatient Intensive Care Facility' 
   AND visit_type_concept_id = 2000000006                          -- concept.concept_name = 'Ward and physical location' 
-  AND discharge_to_concept_id = 4216643                           -- concept.concept_name = 'Patient died'
   GROUP BY percentile_25, median, percentile_75;
 ```
-|  percentile_25   |     median      |  percentile_75   |       minimum        |     maximum      | mean |      stddev      |
-|------------------|-----------------|------------------|----------------------|------------------|------|------------------|
-| 1.10337962962963 | 2.9274537037037 | 7.34994212962963 | 0.000150462962962963 | 117.335115740741 |    6 | 7.97150673927668|
+|   percentile_25   |     median      |  percentile_75   |       minimum        |     maximum      | mean |      stddev      |
+|-------------------|-----------------|------------------|----------------------|------------------|------|------------------|
+| 0.958622685185185 | 1.8746412037037 | 3.87761574074074 | 1.15740740740741e-05 | 171.622650462963 |    4 | 8.67445796806052|

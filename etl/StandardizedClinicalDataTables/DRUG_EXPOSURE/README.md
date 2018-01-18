@@ -1,9 +1,9 @@
-# URL to CommonDataModel
-- https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE
+# Link to CommonDataModel
+- [DRUG_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE)
 
 # Source Tables
 
-## prescriptions
+## [prescriptions](https://mimic.physionet.org/mimictables/prescriptions/)
 
 - omitted, rows which not have any `enddate`. They are only 5K on 4M. Since `drug_exposure_end_date` cannot be null.
 - mapped to RxNorm done by Paul Church Paul 
@@ -11,37 +11,31 @@
 - sig contains informations of doses (workaround)
 - visit_detail_id is not assigned; this is because there is no time information and therefore no sufficient precision
 
-## inputevents_cv
+## [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
 - `drug_type_concept_id` = 38000180
 - `drug_exposure_end_datetime` is always null (because there is no end charttime in inputevents_cv)
 - visit_detail_id is assigned
 
-## inputevents_mv
+## [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
 - `drug_type_concept_id` = 38000180
 - row with cancelled have not been exported from mimic 
 - visit_detail_id is assigned
 
 # Example
-``` sql
--- explanation of the drug_type_concept_id
+
+## explanation of `drug_type_concept_id`
 SELECT concept_name, drug_type_concept_id, count(1) 
 FROM drug_exposure 
 JOIN concept ON drug_type_concept_id = concept_id 
 GROUP BY concept_name, drug_type_concept_id ORDER BY count(1) desc;
-```
-       concept_name       | drug_type_concept_id |  count
---------------------------+----------------------+----------
- Inpatient administration |             38000180 | 21146926
- Prescription written     |             38000177 |  4151052
-``` sql
--- explanation of the drug_type_concept_id
+
+## explanation of the `route_concept_id`
 SELECT distinct(concept_name) 
 FROM drug_exposure 
 JOIN concept ON route_concept_id = concept_id;
 ```
-SELECT distinct(concept_name) from drug_exposure JOIN concept ON route_concept_id = concept_id
 ;
                     concept_name
 ----------------------------------------------------
