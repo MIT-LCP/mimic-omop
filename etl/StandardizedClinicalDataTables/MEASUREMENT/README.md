@@ -115,6 +115,18 @@ WHERE measurement_type_concept_id = 44818701                      		-- concept_n
 GROUP BY concept_name, concept_code ORDER BY count(concept_name) DESC
 LIMIT 10;
 ```
+|            concept_name             | concept_id |   count|
+|-------------------------------------|------------|--------|
+| Heart Rate                          |        211 | 5180809|
+| calprevflg                          |        742 | 3464326|
+| SpO2                                |        646 | 3418917|
+| Respiratory Rate                    |        618 | 3386719|
+| Heart Rhythm                        |        212 | 3303151|
+| Ectopy Type                         |        161 | 3236350|
+| Code Status                         |        128 | 3216866|
+| Precautions                         |        550 | 3205052|
+| Service Type                        |       1125 | 2955851|
+| Heart Rate                          |     220045 | 2762225|
 
 ### weights, by using omop `measurement_concept_id`
 
@@ -207,7 +219,8 @@ FROM concept
 WHERE concept_id IN
 	 (SELECT distinct measurement_concept_id
          FROM omop.measurement
-         WHERE measurement_type_concept_id = 2000000007);                       -- concept.concept_name = 'Labs - Culture Organisms'
+         WHERE measurement_type_concept_id = 2000000007)                       -- concept.concept_name = 'Labs - Culture Organisms'
+LIMIT 10;
 ```
 |                                                            concept_name                                                            | concept_id |
 |------------------------------------------------------------------------------------------------------------------------------------|------------|
@@ -222,19 +235,6 @@ WHERE concept_id IN
 | Cytomegalovirus IgG Ab [Presence] in Serum                                                                                         |    3016816|
 | Bacteria identified in Cerebral spinal fluid by Culture                                                                            |    3016914|
 | Bacteria identified in Sputum by Culture                                                                                           |    3023419|
-| Bacteria identified in Pleural fluid by Culture                                                                                    |    3024194|
-| Epstein Barr virus capsid IgG and IgM panel - Serum                                                                                |    3024836|
-| Influenza virus A/B Ag [Presence] in Unspecified specimen                                                                          |    3024891|
-| Bacteria identified in Peritoneal fluid by Culture                                                                                 |    3025037|
-| Bacteria identified in Stool by Culture                                                                                            |    3025941|
-| Bacteria identified in Urine by Culture                                                                                            |    3026008|
-| Methicillin resistant Staphylococcus aureus (MRSA) DNA [Presence] in Unspecified specimen by Probe and target amplification method |    3033966|
-| Bacteria identified in Aspirate by Culture                                                                                         |    3043614|
-| Bacteria identified in Tissue by Culture                                                                                           |    3044495|
-| Bacteria identified in Bronchoalveolar lavage by Aerobe culture                                                                    |    3045360|
-| Respiratory pathogens DNA and RNA identified in Respiratory specimen by Probe and target amplification method                      |   21493881|
-| Chromosome analysis.interphase [Interpretation] in Blood or Marrow by FISH Narrative                                               |   40760911|
-| Bacteria identified in Blood product unit.autologous by Culture                                                                    |   46235217|
 
 ###  most frequent microorganisms in blood culture
 
@@ -247,7 +247,6 @@ And value_as_concept_id != 9189                       				-- concept.concept_nam
 AND measurement_concept_id = 46235217                 				-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture'
 GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 ```
-
 |            concept_name            | value_as_concept_id |
 |------------------------------------|---------------------|
 | Staphylococcus, coagulase negative |             4020318 |
@@ -259,9 +258,9 @@ GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 | Bacteroides fragilis group         |             4213634 |
 | Corynebacterium                    |             4299363 |
 
+## resistance profile resitance for staoh. aureus
 
-### resistance profile resitance for staoh. aureus
-
+``` sql
 SELECT measurement_source_value, value_as_concept_id, concept_name
 FROM measurement
 JOIN concept resistance ON value_as_concept_id = concept_id
@@ -274,35 +273,5 @@ JOIN
 	AND value_as_concept_id = 4149419                     			-- concept.concept_name = 'staph aureus coag +'
 	AND measurement_concept_id = 46235217               			-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture';
 ) staph ON id_is_staph = fact_id_1;
-
-### %  of MRSA
-WITH tmp as
-(
-  SELECT COUNT(DISTINCT sarm.measurement_id) AS SARM
-	, COUNT(DISTINCT m.measurement_id) AS total
-  FROM omop.measurement m
-  LEFT JOIN
-  (
-	SELECT measurement_id
-	FROM measurement
-	JOIN concept resistance ON value_as_concept_id = concept_id
-	JOIN fact_relationship ON measurement_id =  fact_id_2
-	JOIN
-	(
-		SELECT measurement_id AS id_is_staph
-		FROM omop.measurement m
-		WHERE measurement_type_concept_id = 2000000007        		-- concept.concept_name = 'Labs - Culture Organisms'
-		AND value_as_concept_id = 4149419                            	-- concept.concept_name = 'staph aureus coag +'
-		AND measurement_concept_id = 46235217                         	-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture';
-	
-	) staph ON id_is_staph = fact_id_1
-	WHERE measurement_concept_id = 3008504    	                        -- concept.concept_name = 'Vancomycin [Susceptibility] by Disk diffusion (KB)'
-	and value_as_concept_id = 4148441                                       -- concept.concept_name = 'Resistant'
-  
-  ) sarm USING (measurement_id)
-  WHERE measurement_type_concept_id = 2000000007        			-- concept.concept_name = 'Labs - Culture Organisms'
-  AND value_as_concept_id = 4149419                                  		-- concept.concept_name = 'staph aureus coag +'
-  AND measurement_concept_id = 46235217                         		-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture';
-
-)
-SELECT SARM, total, SARM * 100 / total as percentage from tmp;
+WHERE measurement_type_concept_id = 2000000008        			        -- concept.concept_name = 'Labs - Culture Sensitivity'
+```
