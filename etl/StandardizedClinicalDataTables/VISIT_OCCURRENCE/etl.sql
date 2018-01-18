@@ -1,5 +1,5 @@
 WITH 
-"admissions_emerged" AS (SELECT subject_id, admission_location, discharge_location, mimic_id, coalesce(edregtime, admittime) AS admittime, dischtime, admission_type, edregtime FROM admissions ),
+"admissions_emerged" AS (SELECT subject_id, admission_location, discharge_location, mimic_id, coalesce(edregtime, admittime) AS admittime, dischtime, admission_type, edregtime, diagnosis FROM admissions ),
 "admissions" AS (
                            SELECT subject_id
                                 , admission_location
@@ -14,6 +14,7 @@ WITH
                                 , admission_type as visit_source_value
                                 , admission_location as admitting_source_value
                                 , discharge_location as discharge_to_source_value
+				, diagnosis
                                 , LAG(mimic_id) OVER ( PARTITION BY subject_id ORDER BY admittime ASC) as preceding_visit_occurrence_id
              FROM admissions_emerged
                   )
@@ -56,11 +57,15 @@ WITH
       , gcpt_admission_type_to_concept.visit_source_value
       , gcpt_admission_type_to_concept.visit_source_concept_id
 
-      , gcpt_admission_location_to_concept.admitting_source_concept_id
-      , gcpt_admission_location_to_concept.admission_location
+      , CASE WHEN diagnosis ~* 'organ donor' THEN  4216643 -- DEAD/EXPIRED
+	     ELSE gcpt_admission_location_to_concept.admitting_source_concept_id END AS admitting_source_concept_id --
+      , CASE WHEN diagnosis ~* 'organ donor' THEN 'DEAD/EXPIRED'
+	     ELSE gcpt_admission_location_to_concept.admission_location END AS admission_location --
 
-      , gcpt_discharge_location_to_concept.discharge_to_concept_id
-      , gcpt_discharge_location_to_concept.discharge_location
+      , CASE WHEN diagnosis ~* 'organ donor' THEN 4022058 --ORGAN DONOR
+	     ELSE gcpt_discharge_location_to_concept.discharge_to_concept_id END AS discharge_to_concept_id --
+      ,CASE WHEN diagnosis ~* 'organ donor' THEN diagnosis
+	    ELSE gcpt_discharge_location_to_concept.discharge_location END AS  discharge_location --
 
       , admissions.preceding_visit_occurrence_id
       , care_site.care_site_id
