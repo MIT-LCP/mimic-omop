@@ -3,10 +3,7 @@ MIMIC-OMOP
 
 Mapping the MIMIC-III database to the OMOP schema
 
-[![OMOP](https://github.com/MIT-LCP/mimic-omop/blob/master/images/ohdsi.png)](https://github.com/OHDSI/CommonDataModel/wiki)
-
-[![MIMIC](https://github.com/MIT-LCP/mimic-omop/blob/master/images/mimic.png)](https://mimic.physionet.org/)
-
+[![OMOP](https://github.com/MIT-LCP/mimic-omop/blob/master/images/ohdsi.png | width = 250)](https://github.com/OHDSI/CommonDataModel/wiki)
 
 OMOP TABLES LOADED
 ==================
@@ -58,6 +55,8 @@ OMOP TABLES LOADED
 - [COHORT_ATTRIBUTE](etl/StandardizedDerivedElements//COHORT_ATTRIBUTE)
    - [callout](https://mimic.physionet.org/mimictables/callout/)
 - [ATTRIBUTE_DEFINITION](etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION)
+
+[![MIMIC](https://github.com/MIT-LCP/mimic-omop/blob/master/images/mimic.png)](https://mimic.physionet.org/)
 
 MIMIC TABLES EQUIVALENCE
 ========================
