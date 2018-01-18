@@ -255,7 +255,9 @@ GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 | Corynebacterium                    |             4299363 |
 
 
--- resistance profile resitance for staoh. aureus
+## resistance profile resitance for staoh. aureus
+
+``` sql
 SELECT measurement_source_value, value_as_concept_id, concept_name
 FROM measurement
 JOIN concept resistance ON value_as_concept_id = concept_id
@@ -269,3 +271,4 @@ JOIN
 	AND measurement_concept_id = 46235217               			-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture';
 ) staph ON id_is_staph = fact_id_1;
 WHERE measurement_type_concept_id = 2000000008        			        -- concept.concept_name = 'Labs - Culture Sensitivity'
+```
