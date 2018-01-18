@@ -164,9 +164,14 @@ LIMIT 10;
  
 ### white blood cells values by using LOINC classification, ie 804-5 or 26464-8
 
+``` sql
 SELECT MIN(value_as_number), AVG(value_as_number), MAX(value_as_number)
 FROM measurement 
 WHERE measurement_source_value = '804-5' OR measurement_source_value = '26464-8';
+```
+| min |        avg         | max  |
+|-----|--------------------|------|
+| 2.2 | 8.2142857142857143 | 23.5|
 
 ### white blood cells value by non omop mimic items
 
@@ -219,7 +224,7 @@ WHERE concept_id IN
 | Bacteria identified in Sputum by Culture                                                                                           |    3023419|
 | Bacteria identified in Pleural fluid by Culture                                                                                    |    3024194|
 | Epstein Barr virus capsid IgG and IgM panel - Serum                                                                                |    3024836|
-| Influenza virus A|B Ag [Presence] in Unspecified specimen                                                                          |    3024891|
+| Influenza virus A/B Ag [Presence] in Unspecified specimen                                                                          |    3024891|
 | Bacteria identified in Peritoneal fluid by Culture                                                                                 |    3025037|
 | Bacteria identified in Stool by Culture                                                                                            |    3025941|
 | Bacteria identified in Urine by Culture                                                                                            |    3026008|
@@ -255,7 +260,8 @@ GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 | Corynebacterium                    |             4299363 |
 
 
--- resistance profile resitance for staoh. aureus
+### resistance profile resitance for staoh. aureus
+
 SELECT measurement_source_value, value_as_concept_id, concept_name
 FROM measurement
 JOIN concept resistance ON value_as_concept_id = concept_id
