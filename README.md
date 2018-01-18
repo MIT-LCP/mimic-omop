@@ -3,9 +3,9 @@ MIMIC-OMOP
 
 Mapping the MIMIC-III database to the OMOP schema
 
-[OMOP]()
+![OMOP](https://github.com/MIT-LCP/mimic-omop/blob/master/images/mimic.png)
 
-[MIMIC]()
+![MIMIC](https://github.com/MIT-LCP/mimic-omop/blob/master/images/mimic.png)
 
 - [MIMIC website](https://mimic.physionet.org/)
 - [OMOP wiki](https://github.com/OHDSI/CommonDataModel/wiki)
