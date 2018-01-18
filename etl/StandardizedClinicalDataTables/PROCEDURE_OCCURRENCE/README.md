@@ -78,7 +78,7 @@ LIMIT 10;
 
 ``` sql
 SELECT concept_name, count(1)
-FROM omop.procedure_occurrence
+FROM procedure_occurrence
 JOIN concept ON concept_id = procedure_source_concept_id
 WHERE procedure_type_concept_id = 38003622
 GROUP BY concept_name ORDER BY count(1) DESC
@@ -99,7 +99,7 @@ LIMIT 10;
 
 ``` sql
 SELECT procedure_source_value, count(1)
-FROM omop.procedure_occurrence
+FROM procedure_occurrence
 WHERE procedure_type_concept_id = 257
 GROUP BY procedure_source_value ORDER BY count(1) DESC
 LIMIT 10;

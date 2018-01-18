@@ -63,14 +63,14 @@ SELECT FLOOR (percentile_25) AS percentile_25
           as percentile
           FROM
              ( SELECT FLOOR (cast(death.death_datetime as date) - cast(person.birth_datetime as date))  / 365.242 as age_deaths, count(*) AS deaths
-                FROM omop.death as death
-		INNER JOIN omop.person as person USING (person_id)
+                FROM death as death
+		INNER JOIN person as person USING (person_id)
                 GROUP BY FLOOR (cast(death.death_datetime as date) - cast(person.birth_datetime as date))
                 ) as counter
          ) as p
      WHERE percentile <= 3
-  ) as percentile_table, omop.death
-  INNER JOIN omop.person as person USING (person_id)
+  ) as percentile_table, death
+  INNER JOIN person as person USING (person_id)
   GROUP BY percentile_25, median, percentile_75;
 ```
 | percentile_25 | median | percentile_75 | minimum | maximum | mean | stddev |

@@ -20,8 +20,8 @@
 
 ``` sql
 SELECT concept_name, section_source_concept_id, count(1)
-FROM omop.note_nlp
-JOIN omop.concept ON section_source_concept_id = concept_id
+FROM note_nlp
+JOIN concept ON section_source_concept_id = concept_id
 GROUP by 1, 2 ORDER BY 3 desc LIMIT 20;
 ```
 |     concept_name      | section_source_concept_id | count |

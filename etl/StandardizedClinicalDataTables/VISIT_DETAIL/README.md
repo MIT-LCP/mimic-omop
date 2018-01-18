@@ -226,14 +226,14 @@ SELECT percentile_25
           as percentile
           FROM
              ( SELECT EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 as los, count(*) AS nb_los
-                FROM omop.visit_detail
+                FROM visit_detail
                 WHERE visit_detail_concept_id = 581382            -- concept.concept_name = 'Inpatient Intensive Care Facility'
                 AND visit_type_concept_id = 2000000006            -- concept.concept_name = 'Ward and physical location' 
                 GROUP BY EXTRACT(EPOCH FROM visit_end_datetime - visit_start_datetime)/60.0/60.0/24.0
                ) as counter
          ) as p
      WHERE percentile <= 3
-  ) as percentile_table, omop.visit_detail
+  ) as percentile_table, visit_detail
   WHERE visit_detail_concept_id = 581382                          -- concept.concept_name = 'Inpatient Intensive Care Facility' 
   AND visit_type_concept_id = 2000000006                          -- concept.concept_name = 'Ward and physical location' 
   GROUP BY percentile_25, median, percentile_75;

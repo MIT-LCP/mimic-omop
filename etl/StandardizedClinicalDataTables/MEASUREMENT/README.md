@@ -71,8 +71,8 @@ GROUP BY concept_name, concept_id ORDER BY COUNT(1) DESC;
 
 ``` sql
 SELECT distinct operator_concept_id, concept_name
-FROM omop.measurement
-JOIN omop.concept on operator_concept_id = concept_id;
+FROM measurement
+JOIN concept on operator_concept_id = concept_id;
 ```
 | operator_concept_id | concept_name|
 |---------------------|--------------|
@@ -88,8 +88,8 @@ JOIN omop.concept on operator_concept_id = concept_id;
 
 ``` sql
 SELECT concept_name, concept_id, count (1)
-FROM omop.measurement
-JOIN omop.concept ON measurement_concept_id = concept_id
+FROM measurement
+JOIN concept ON measurement_concept_id = concept_id
 WHERE measurement_type_concept_id = 44818701                      		-- concept_name = 'From physical examination'
 GROUP BY concept_name, concept_id ORDER BY count(concept_name) DESC
 LIMIT 10;
@@ -111,8 +111,8 @@ LIMIT 10;
 
 ``` sql
 SELECT concept_name, concept_code, count (1)
-FROM omop.measurement
-JOIN omop.concept ON measurement_source_concept_id = concept_id
+FROM measurement
+JOIN concept ON measurement_source_concept_id = concept_id
 WHERE measurement_type_concept_id = 44818701                      		-- concept_name = 'From physical examination'
 GROUP BY concept_name, concept_code ORDER BY count(concept_name) DESC
 LIMIT 10;
@@ -207,7 +207,7 @@ WHERE measurement_type_concept_id = 2000000009                                  
 
 ```sql
 SELECT count(1)
-FROM omop.measurement
+FROM measurement
 where measurement_type_concept_id = 2000000007   				-- concept.concept_name = 'Labs - Culture Organisms'
 and value_as_concept_id = 9189;                  				-- concept.concept_name = 'Negative'
 ```
@@ -222,7 +222,7 @@ SELECT concept_name, concept_id
 FROM concept
 WHERE concept_id IN
 	 (SELECT distinct measurement_concept_id
-         FROM omop.measurement
+         FROM measurement
          WHERE measurement_type_concept_id = 2000000007)                       -- concept.concept_name = 'Labs - Culture Organisms'
 LIMIT 10;
 ```
@@ -244,8 +244,8 @@ LIMIT 10;
 
 ``` sql
 SELECT concept_name, value_as_concept_id
-FROM omop.measurement m
-JOIN omop.concept c on c.concept_id = m.value_as_concept_id
+FROM measurement m
+JOIN concept c on c.concept_id = m.value_as_concept_id
 WHERE measurement_type_concept_id = 2000000007        				-- concept.concept_name = 'Labs - Culture Organisms'
 And value_as_concept_id != 9189                       				-- concept.concept_name = 'Negative'
 AND measurement_concept_id = 46235217                 				-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture'
@@ -272,7 +272,7 @@ JOIN fact_relationship ON measurement_id =  fact_id_2
 JOIN
 (
 	SELECT measurement_id AS id_is_staph
-	FROM omop.measurement m
+	FROM measurement m
 	WHERE measurement_type_concept_id = 2000000007        			-- concept.concept_name = 'Labs - Culture Organisms'
 	AND value_as_concept_id = 4149419                     			-- concept.concept_name = 'staph aureus coag +'
 	AND measurement_concept_id = 46235217               			-- concept.concept_name = 'Bacteria identified in Blood product unit.autologous by Culture';

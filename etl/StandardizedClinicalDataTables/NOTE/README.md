@@ -37,7 +37,7 @@ GROUP BY concept_name, note_type_concept_id ORDER BY count(1) desc;
 ``` sql
 -- = type of note in non standard mimic concept
 SELECT note_source_value, count(1)
-FROM omop.note
+FROM note
 GROUP by note_source_value ORDER BY count(1) desc
 LIMIT 10;
 ```

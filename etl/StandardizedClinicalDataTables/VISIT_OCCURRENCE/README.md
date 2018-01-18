@@ -171,12 +171,12 @@ SELECT percentile_25
           as percentile
           FROM
              ( SELECT EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 as los, count(*) AS nb_los
-                FROM omop.visit_occurrence
+                FROM visit_occurrence
                 GROUP BY EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0
                ) as counter
          ) as p
      WHERE percentile <= 3
-  ) as percentile_table, omop.visit_occurrence
+  ) as percentile_table, visit_occurrence
   GROUP BY percentile_25, median, percentile_75;
 ```
 | percentile_25 | median  |  percentile_75   |      minimum       |     maximum      | mean |      stddev      |
