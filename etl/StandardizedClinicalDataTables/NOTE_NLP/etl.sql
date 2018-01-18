@@ -4,6 +4,7 @@ with
 select 
   noteevents.mimic_id as note_id
 , nextval('mimic_id_seq') as note_nlp_id
+, coalesce(concept.concept_id, 0) as section_concept_id         
 , section_begin as offset_begin
 , section_end as offset_end
 , section_text as lexical_variant
@@ -15,6 +16,7 @@ select
 from omop.tmp_note_nlp
 join noteevents using (row_id)
 left join gcpt_note_section_to_concept ON section_code = section_id
+left join omop.concept on label_mapped = concept_name AND concept_code = 'MIMIC Generated' AND domain_id = 'Note Nlp'
 WHERE iserror IS NULL
 )
 INSERT INTO omop.note_nlp
@@ -40,7 +42,7 @@ INSERT INTO omop.note_nlp
 SELECT
   note_nlp_id         
 , note_id                    
-, 0 as section_concept_id         
+, section_concept_id         
 , null::text as snippet                    
 , lexical_variant            
 , 4307844 as note_nlp_concept_id  --document section

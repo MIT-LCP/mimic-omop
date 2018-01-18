@@ -188,6 +188,21 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM gcpt_note_section_to_concept;
 
+-- NOTE_NLP mapped sections
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+  nextval('mimic_id_concept_seq') as concept_id
+, label_mapped as concept_name
+, 'Note Nlp'::text as domain_id
+,  category as vocabulary_id
+, 'Section' as concept_class_id -- omop Lab Test
+, 'MIMIC Generated' as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM gcpt_note_section_to_concept;
+
 -- Derived values
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date

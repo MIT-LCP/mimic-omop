@@ -43,6 +43,20 @@ where section_source_concept_id = 0;
 'source concept described'
 );
 
+SELECT results_eq
+(
+'
+select 0::integer;
+'
+,
+'
+SELECT count(1)::integer
+FROM omop.note_nlp
+where section_concept_id = 0;
+'
+,
+'source concept described'
+);
 SELECT pass( 'Note Nlp pass, w00t!' );
 
 SELECT * FROM finish();

@@ -8,9 +8,10 @@
 
 ## noteevents
 
-- source category goes into value_source_value
 - sections have not been yet mapped to a standard terminology. CDO (standard from loinc) recently gave up (see https://github.com/MIT-LCP/mimic-omop/issues/13)
 - extracted section covers automatically extracted section that present at least 1% in the notes
+- the resulting section have been manualy mapped together by Ivan Lerner (section_concept_id)
+- the detailed level is left into section_source_concept_id
 - notes in error in mimic were note extracted
 
 
