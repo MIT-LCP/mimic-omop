@@ -1,6 +1,8 @@
 # Link to CommonDataModel
 - [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)
 
+# You must filter your queries with data types !
+
 # Source Tables
 
 - when measures are mapped to standard concepts (SMOMED) measurement_concept_id != 0
@@ -153,33 +155,35 @@ AND measurement_type_concept_id = 44818701;                                     
 
 ## From labs
 
-### the most frequent items, by using omop `measurement_concept_id`
+### the most frequent items
 ``` sql
-SELECT concept_name, concept_code, count (1)
-FROM omop.measurement
-JOIN omop.concept ON measurement_source_concept_id = concept_id
-WHERE measurement_type_concept_id = 44818702                      		-- concept_name = 'Lab results'
-GROUP BY concept_name, concept_code ORDER BY count(concept_name) DESC
+SELECT measurement_source_value, count (1)
+FROM measurement
+WHERE measurement_type_concept_id = 2000000009                                  -- concept_name = 'Labs - Hemato'
+GROUP BY measurement_source_value ORDER BY count(1) desc 
 LIMIT 10;
 ```
-|------------------------------------------------------------------------------------------------------------------------------|--------------|-------|
-| label:[FK506]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]                          | 227462       |  2159|
-| label:[Brain Natiuretic Peptide (BNP)]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag] | 227446       |  1141|
-| label:[Phenobarbital]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]                  | 227460       |   251|
-| label:[Gentamicin (Trough)]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]            | 227449       |   244|
-| label:[Gentamicin (Random)]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]            | 227447       |   223|
-| label:[Tobramycin (Random)]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]            | 227451       |   216|
-| label:[Tobramycin (Trough)]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]            | 227452       |   192|
-| label:[LDL measured]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]                   | 227441       |   143|
-| label:[Phenytoin (Free)]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric]                        | 226504       |   122|
-| label:[Thrombin]dbsource:[metavision]linksto:[chartevents]unitname:[None]param_type:[Numeric with tag]                       | 227469       |   115|
- 
+| measurement_source_value | count |
+|--------------------------|-------|
+| Hematocrit               |  2710|
+| Hemoglobin               |  2559|
+| Platelet Count           |  2096|
+| White Blood Cells        |  1736|
+| MCHC                     |  1728|
+| MCH                      |  1727|
+| Red Blood Cells          |  1727|
+| MCV                      |  1727|
+| RDW                      |  1726|
+| PTT                      |  1315|
+
 ### white blood cells values by using LOINC classification, ie 804-5 or 26464-8
 
 ``` sql
 SELECT MIN(value_as_number), AVG(value_as_number), MAX(value_as_number)
 FROM measurement 
-WHERE measurement_source_value = '804-5' OR measurement_source_value = '26464-8';
+JOIN concept ON measurement_source_concept_id = concept_id
+WHERE concept_name ILIKE '%loinc:[804-5]' OR concept_name ILIKE '%loinc:[26464-8]'
+WHERE measurement_type_concept_id = 2000000009                                  -- concept_name = 'Labs - Hemato'
 ```
 | min |        avg         | max  |
 |-----|--------------------|------|
@@ -191,7 +195,7 @@ WHERE measurement_source_value = '804-5' OR measurement_source_value = '26464-8'
 SELECT MIN(value_as_number), AVG(value_as_number), MAX(value_as_number)
 FROM measurement JOIN concept on measurement_source_concept_id = concept_id
 WHERE concept_code = '51300' or concept_code = '51301'
-AND measurement_type_concept_id = 44818702;
+WHERE measurement_type_concept_id = 2000000009                                  -- concept_name = 'Labs - Hemato'
 ```
 | min |        avg         | max  |
 |-----|--------------------|------|
@@ -275,3 +279,19 @@ JOIN
 ) staph ON id_is_staph = fact_id_1;
 WHERE measurement_type_concept_id = 2000000008        			        -- concept.concept_name = 'Labs - Culture Sensitivity'
 ```
+| measurement_source_value | value_as_concept_id | concept_name |
+|--------------------------|---------------------|--------------|
+| ERYTHROMYCIN             |             4148441 | Resistant|
+| ERYTHROMYCIN             |             4148441 | Resistant|
+| LEVOFLOXACIN             |             4148441 | Resistant|
+| OXACILLIN                |             4148441 | Resistant|
+| PENICILLIN               |             4148441 | Resistant|
+| PENICILLIN               |             4148441 | Resistant|
+| OXACILLIN                |             4038110 | Susceptible|
+| RIFAMPIN                 |             4038110 | Susceptible|
+| TETRACYCLINE             |             4038110 | Susceptible|
+| VANCOMYCIN               |             4038110 | Susceptible|
+| CLINDAMYCIN              |             4038110 | Susceptible|
+| GENTAMICIN               |             4038110 | Susceptible|
+| GENTAMICIN               |             4038110 | Susceptible|
+| LEVOFLOXACIN             |             4038110 | Susceptible|
