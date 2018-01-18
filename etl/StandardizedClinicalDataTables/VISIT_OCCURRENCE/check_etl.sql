@@ -30,11 +30,11 @@ SELECT count(*) FROM omop.visit_occurrence;
 SELECT results_eq
 (
 '
-SELECT cast(admission_type as TEXT) as visit_source_value, count(1) FROM admissions group by 1 ORDER BY 2 DESC;
+SELECT cast(admission_type as TEXT) as visit_source_value, count(1) FROM admissions group by 1 ORDER BY 2,1 DESC;
 '
 ,
 '
-SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
+SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
 '
 ,'same distribution adm'
 );
@@ -43,11 +43,11 @@ SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence gr
 SELECT results_eq
 (
 '
-SELECT cast(admission_location as TEXT) as admitting_source_value, count(1) FROM admissions group by 1 ORDER BY 2 DESC;
+SELECT cast(admission_location as TEXT) as admitting_source_value, count(1) FROM admissions group by 1 ORDER BY 2,1 DESC;
 '
 ,
 '
-SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
+SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
 '
 ,'distribution admit source value'
 );
@@ -56,11 +56,11 @@ SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence
 SELECT results_eq
 (
 '
-SELECT cast(discharge_location as TEXT) as discharge_to_source_value, count(1) FROM admissions group by 1 ORDER BY 2 DESC;
+SELECT cast(discharge_location as TEXT) as discharge_to_source_value, count(1) FROM admissions group by 1 ORDER BY 2,1 DESC;
 '
 ,
 '
-SELECT cast(discharge_to_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2 DESC;
+SELECT cast(discharge_to_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
 '
 ,'-- 4. repartition discharge_to_source_value'
 );

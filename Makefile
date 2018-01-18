@@ -1,4 +1,4 @@
-MIMIC_SCHEMA=mimic
+MIMIC_SCHEMA=mimiciii
 HOST_OMOP=localhost
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
