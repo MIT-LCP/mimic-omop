@@ -14,6 +14,28 @@ host="$1"
 user="$2"
 password="$3"
 hdfs dfs -rm -r -f mimic-omop-avro && 
+
+
+#concept_ancestor
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --num-mappers 4 --username "$user" --password "$password" --query "SELECT * FROM omop.concept_ancestor WHERE \$CONDITIONS" --target-dir mimic-omop-avro/concept_ancestor/ --split-by ancestor_concept_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/concept_ancestor/part-m-00000.avro > concept_ancestor.avsc && hdfs dfs -put concept_ancestor.avsc mimic-omop-avro/ 
+#vocabulary
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.vocabulary WHERE \$CONDITIONS" --target-dir mimic-omop-avro/vocabulary/ --split-by vocabulary_concept_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/vocabulary/part-m-00000.avro > vocabulary.avsc && hdfs dfs -put vocabulary.avsc mimic-omop-avro/ 
+#domain
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.domain WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by domain_concept_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+ #concept_class +
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.concept_class WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by concept_class_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+ #relationship +
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.relationship WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by relationship_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+ #drug_strength +
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.drug_strength WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by drug_concept_id  --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+ #concept +
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --num-mapper 4 --query "SELECT * FROM omop.concept WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by concept_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+ #concept_synonym +
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.concept_synonym WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by concept_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+ #concept_relationship +
+ sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.concept_relationship WHERE \$CONDITIONS" --target-dir mimic-omop-avro/domain/ --split-by concept_id_1 --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/domain/part-m-00000.avro > domain.avsc && hdfs dfs -put domain.avsc mimic-omop-avro/
+
+
  #care_site +
  sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.care_site WHERE \$CONDITIONS" --target-dir mimic-omop-avro/care_site/ --split-by location_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/care_site/part-m-00000.avro > care_site.avsc && hdfs dfs -put care_site.avsc mimic-omop-avro/ &&
  #cohort +
@@ -68,3 +90,7 @@ hdfs dfs -rm -r -f mimic-omop-avro &&
  sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.visit_detail WHERE \$CONDITIONS" --target-dir mimic-omop-avro/visit_detail/ --split-by visit_detail_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/visit_detail/part-m-00000.avro > visit_detail.avsc && hdfs dfs -put visit_detail.avsc mimic-omop-avro/ &&
  #visit_occurrence +
  sqoop import -Dmapreduce.job.user.classpath.first=true --connect "jdbc:postgresql://$host/edsr" --username "$user" --password "$password" --query "SELECT * FROM omop.visit_occurrence WHERE \$CONDITIONS" --target-dir mimic-omop-avro/visit_occurrence/ --split-by visit_occurrence_id --as-avrodatafile --append -- --schema eds && hadoop jar app/lib/avro-tools-1.8.2.jar getschema mimic-omop-avro/visit_occurrence/part-m-00000.avro > visit_occurrence.avsc && hdfs dfs -put visit_occurrence.avsc mimic-omop-avro/ 
+
+
+
+
