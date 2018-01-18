@@ -24,7 +24,7 @@
 
 - it is then possible to know both where the patient is (from transfers) and whose take care of him (from services)
 
-## visit_detail_id assigning
+## `visit_detail_id` assigning
 
 - Be careful when joining patient data based on `visit_detail_id`, there is no guaranty the link is actual
 - WARNING : any link to `visit_detail_id` in the database is calculated (measurement, observation, drug_exposure...)
@@ -38,7 +38,7 @@
 
 # Mapping used
 
-## [visit_source_concept_id] (https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_type_to_concept.csv)
+## [visit_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_type_to_concept.csv)
 
 - it maps mimic admission type to omop admission type
 
