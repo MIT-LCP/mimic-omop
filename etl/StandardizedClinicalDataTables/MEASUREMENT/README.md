@@ -1,11 +1,13 @@
 # Link to CommonDataModel
 - [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)
 
-# You must filter your queries with data types  = `measurement_type_concept_id` !
+# You must filter your queries with data types  
+- ie the `measurement_type_concept_id` column!
 
 # Source Tables (mimic)
 
-- when measures are mapped to standard concepts (SMOMED) measurement_concept_id != 0
+- when measures are mapped to standard concepts (SMOMED) `measurement_concept_id`
+ != 0
   you may use the non-omop mimic itemid
 - else `measurement_concept_id` = 0
   you have to select measures with non-omop mimic itemid : `measurement_source_concept_id`

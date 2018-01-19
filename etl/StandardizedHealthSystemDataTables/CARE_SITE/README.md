@@ -7,9 +7,9 @@ The `cate_site` table contains:
 - ward informations
 - services informations
 
-## [transfers]()https://mimic.physionet.org/mimictables/transfers/)
+## [transfers](https://mimic.physionet.org/mimictables/transfers/)
 
-- values taken from the column `curr_carunit`
+- values taken from the column `curr_careunit`
 - the labels comes from the online documentation (https://mimic.physionet.org/mimictables/transfers/)
 
 ## [services](https://mimic.physionet.org/mimictables/services/)

@@ -1,5 +1,5 @@
 # Link to CommonDataModel
-- [VISIT_OCCURRENCE(https://github.com/OHDSI/CommonDataModel/wiki/VISIT_OCCURRENCE)
+- [VISIT_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_OCCURRENCE)
 
 # Source Tables (mimic)
 
