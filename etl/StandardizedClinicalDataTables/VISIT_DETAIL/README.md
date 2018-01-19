@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [VISIT_DETAIL](https://github.com/OHDSI/CommonDataModel/wiki/VISIT_DETAIL)
 
-# Source Tables
+# Source Tables(mimic)
 
 ## [transfers](https://mimic.physionet.org/mimictables/transfers/)
 

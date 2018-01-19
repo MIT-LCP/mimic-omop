@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [NOTE](https://github.com/OHDSI/CommonDataModel/wiki/NOTE)
 
-# Source Tables
+# Source Tables (mimic)
 
 ## [noteevents](https://mimic.physionet.org/mimictables/noteevents/)
 
@@ -12,7 +12,7 @@
 - notes categories have been mapped to omop standard concepts
     - https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/note_category_to_concept.csv
 
-# Example
+# Examples
 
 ## explanation of the `note_type_concept_id`
 

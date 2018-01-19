@@ -3,18 +3,11 @@ MIMIC-OMOP
 
 Mapping the MIMIC-III database to the OMOP schema
 
-[![OMOP](https://github.com/MIT-LCP/mimic-omop/blob/master/images/ohdsi.png | width=200)](https://github.com/OHDSI/CommonDataModel/wiki)
+[![OMOP](https://github.com/MIT-LCP/mimic-omop/blob/master/images/ohdsi.png)](https://github.com/OHDSI/CommonDataModel/wiki)
 
-
-![test](https://github.com/favicon.ico | width=48)
 OMOP TABLES LOADED
 ==================
 
-- [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE)
-  - [transfers](https://mimic.physionet.org/mimictables/transfers/)
-  - [service](https://mimic.physionet.org/mimictables/services/)
-- [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
-  - [caregivers](https://mimic.physionet.org/mimictables/caregivers/)
 - [PERSON](etl/StandardizedClinicalDataTables/PERSON)
   - [patients](https://mimic.physionet.org/mimictables/patients/)
   - [admissions](https://mimic.physionet.org/mimictables/admissions/)
@@ -26,6 +19,11 @@ OMOP TABLES LOADED
 - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
   - [transfers](https://mimic.physionet.org/mimictables/transfers/)
   - [service](https://mimic.physionet.org/mimictables/services/)
+- [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
+  - [chartevents](https://mimic.physionet.org/mimictables/chartevents/)
+  - [labevents](https://mimic.physionet.org/mimictables/labevents/)
+  - [microbiologyevents](https://mimic.physionet.org/mimictables/microbiologyevents/)
+  - [outputevents](https://mimic.physionet.org/mimictables/outputevents/)
 - [PROCEDURE_OCCURRENCE](etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE)
   - [cptevents](https://mimic.physionet.org/mimictables/cptevents/)
   - [procedureevents_mv](https://mimic.physionet.org/mimictables/procedureevents_mv/)
@@ -43,11 +41,6 @@ OMOP TABLES LOADED
   - [prescription](https://mimic.physionet.org/mimictables/prescriptions/)
   - [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
   - [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_mv/)
-- [MEASUREMENT](etl/StandardizedClinicalDataTables/MEASUREMENT)
-  - [chartevents](https://mimic.physionet.org/mimictables/chartevents/)
-  - [labevents](https://mimic.physionet.org/mimictables/labevents/)
-  - [microbiologyevents](https://mimic.physionet.org/mimictables/microbiologyevents/)
-  - [outputevents](https://mimic.physionet.org/mimictables/outputevents/)
 - [NOTE](etl/StandardizedClinicalDataTables/NOTE)
   - [notevents](https://mimic.physionet.org/mimictables/noteevents/)
 - [NOTE_NLP](etl/StandardizedClinicalDataTables/NOTE_NLP)
@@ -57,6 +50,11 @@ OMOP TABLES LOADED
 - [COHORT_ATTRIBUTE](etl/StandardizedDerivedElements//COHORT_ATTRIBUTE)
    - [callout](https://mimic.physionet.org/mimictables/callout/)
 - [ATTRIBUTE_DEFINITION](etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION)
+- [CARE_SITE](etl/StandardizedHealthSystemDataTables/CARE_SITE)
+  - [transfers](https://mimic.physionet.org/mimictables/transfers/)
+  - [service](https://mimic.physionet.org/mimictables/services/)
+- [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
+  - [caregivers](https://mimic.physionet.org/mimictables/caregivers/)
 
 [![MIMIC](https://github.com/MIT-LCP/mimic-omop/blob/master/images/mimic.png)](https://mimic.physionet.org/)
 
@@ -76,8 +74,6 @@ MIMIC TABLES EQUIVALENCE
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
 - [icustays](https://mimic.physionet.org/mimictables/icustays/)
   - [VISIT_DETAIL](etl/StandardizedClinicalDataTables/VISIT_DETAIL)
-- [callout](https://mimic.physionet.org/mimictables/callout/)
-  - [COHORT_ATTRIBUTES](etl/StandardizedDerivedElements/COHORT_ATTRIBUTE)
 - [prescription](https://mimic.physionet.org/mimictables/prescriptions/)
   - [DRUG_EXPOSURE](etl/StandardizedClinicalDataTables/DRUG_EXPOSURE)
 - [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
@@ -112,7 +108,8 @@ MIMIC TABLES EQUIVALENCE
   - [NOTE_NLP](etl/StandardizedClinicalDataTables/NOTE_NLP)
 - [caregivers](https://mimic.physionet.org/mimictables/caregivers/)
   - [PROVIDER](etl/StandardizedHealthSystemDataTables/PROVIDER)
-
+- [callout](https://mimic.physionet.org/mimictables/callout/)
+  - [COHORT_ATTRIBUTES](etl/StandardizedDerivedElements/COHORT_ATTRIBUTE)
 
 
 REMARKS

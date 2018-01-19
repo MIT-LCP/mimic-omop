@@ -1,7 +1,7 @@
 # URL to CommonDataModel
 - [CONDITION_OCCURRENCE](https://github.com/OHDSI/CommonDataModel/wiki/CONDITION_OCCURRENCE)
 
-# Source Tables
+# Source Tables (mimic)
 
 ## [diagnosis_icd](https://mimic.physionet.org/mimictables/diagnoses_icd/)
 - omop standard code is SNOMED
@@ -35,7 +35,7 @@
 - it represent 50% of admissions diagnosis mapped
 - a manual a and collaborativ method should be done for the other unmapped code
 
-# Example
+# Examples
 
 ## explanation of the `visit_type_concept_id`
 

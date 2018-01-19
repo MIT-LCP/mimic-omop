@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [DRUG_EXPOSURE](https://github.com/OHDSI/CommonDataModel/wiki/DRUG_EXPOSURE)
 
-# Source Tables
+# Source Tables (mimic)
 
 ## [prescriptions](https://mimic.physionet.org/mimictables/prescriptions/)
 
@@ -23,7 +23,21 @@
 - row with cancelled have not been exported from mimic 
 - `visit_detail_id` is assigned
 
-# Example
+# Mapping used
+
+## [continue_unit_carevue](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/continuous_unit_carevue.csv)
+
+- add good format to units
+
+## [inputevents_drug](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/inputevents_drug_to_concept.csv)
+
+- it maps common drugs from inputevents
+
+## [route](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/map_route_to_concept.csv)
+
+- it maps common route of drugs from inputevents
+
+# Examples
 
 ## explanation of `drug_type_concept_id`
 

@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [VISIT_OCCURRENCE(https://github.com/OHDSI/CommonDataModel/wiki/VISIT_OCCURRENCE)
 
-# Source Tables
+# Source Tables (mimic)
 
 ## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 

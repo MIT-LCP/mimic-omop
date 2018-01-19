@@ -24,7 +24,7 @@
 - `procedure_type_concept_id` = 257 ("Hospitalization Cost Record")
 - the procedure date is the chardate when absent substitued with admission start date
 
-# Lookup Tables
+# Mapping used
 
 ## [cpt4_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/cpt4_to_concept.csv)
 

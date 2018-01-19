@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [DEATH](https://github.com/OHDSI/CommonDataModel/wiki/DEATH)
 
-# Source Tables
+# Source Tables (mimic)
 
 ## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 

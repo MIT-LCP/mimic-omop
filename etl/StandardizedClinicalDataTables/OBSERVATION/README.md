@@ -1,14 +1,14 @@
 # Link to CommonDataModel
 - [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION)
 
-# Source Tables
+# Source Tables (mimic)
 
-## datetimeevents
+## [datetimeevents](https://mimic.physionet.org/mimictables/datetimeevents/)
 
 - `observation_concept_id` is equal to 4085802 ("Referred by nurse")
 - `visit_detail_id` is assigned
 
-## admissions
+## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 
 - `observation_concept_id` is equal to 4052017  ("Religious affiliation")
 - `observation_concept_id` is equal to 40758030 ("Language.preferred")
@@ -16,7 +16,7 @@
 - `observation_concept_id` is equal to 44803968 ("Ethnicity - National Public Health Classification")
 - `observation_concept_id` is equal to 46235654 ("Primary insurance")
 
-## chartevents
+## [chartevents](https://mimic.physionet.org/mimictables/chartevents/)
 
 - Textual data from chartevents are stored here
 - Categorical variables are note considered as free text and are then stored in the measurement table
@@ -39,7 +39,7 @@
 
 - it maps marital_status in standard concept 
 
-# Example
+# Examples
 
 ## Repartition of different concepts in `observation` table
 

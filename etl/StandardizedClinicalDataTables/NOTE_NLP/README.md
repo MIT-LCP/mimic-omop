@@ -4,7 +4,7 @@
 - is a contribution table
 - `note_id` is a foreign key to `note` table
 
-# Source Tables
+# Source Tables (mimic)
 
 ## [noteevents](https://mimic.physionet.org/mimictables/noteevents/)
 
@@ -14,7 +14,7 @@
 - the detailed level is left into `section_source_concept_id`
 - notes in error in mimic were note extracted
 
-# Example
+# Examples
 
 ## explanation of `section_source_concept_id`
 
