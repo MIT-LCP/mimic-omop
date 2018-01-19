@@ -59,39 +59,39 @@ SELECT distinct(concept_name)
 FROM drug_exposure 
 JOIN concept ON route_concept_id = concept_id;
 ```
-                    concept_name
-----------------------------------------------------
- Intraocular
- Infusion, intravenous catheter, continuous
- Subcutaneous
- Injection, intravenous, rapid push
- Nasal
- No matching concept
- Sublingual
- Buccal
- Oral
- Intrathecal
- Intraperitoneal
- Rectal
- Endotracheopulmonary
- Intracerebroventricular
- Genitourinary therapy
- Auricular
- Administration of substance via oral route
- Intramuscular
- Administration of substance via subcutaneous route
- Intravenous injection
- Regional perfusion
- Intraarticular
- Intravaginal
- Inhalation
- Haemodialysis
- Intraventricular cardiac
- Transdermal
- Epidural
- Topical
- Intravenous
- Intrapleural
+|                    concept_name|
+|----------------------------------------------------|
+| Intraocular|
+| Infusion, intravenous catheter, continuous|
+| Subcutaneous|
+| Injection, intravenous, rapid push|
+| Nasal|
+| No matching concept|
+| Sublingual|
+| Buccal|
+| Oral|
+| Intrathecal|
+| Intraperitoneal|
+| Rectal|
+| Endotracheopulmonary|
+| Intracerebroventricular|
+| Genitourinary therapy|
+| Auricular|
+| Administration of substance via oral route|
+| Intramuscular|
+| Administration of substance via subcutaneous route|
+| Intravenous injection|
+| Regional perfusion|
+| Intraarticular|
+| Intravaginal|
+| Inhalation|
+| Haemodialysis|
+| Intraventricular cardiac|
+| Transdermal|
+| Epidural|
+| Topical|
+| Intravenous|
+| Intrapleural|
 
 ## repartition of drug, with non omop mimic labels
 
