@@ -142,6 +142,7 @@ GROUP BY 1, 2 ORDER BY count(1) desc limit 10;
 
 ```sql
 -- two levels of links to represent linkorderid and orderid in mimic
+-- Warning fact_id_1 or fact_id_2 may be the solution or the main drug
 SELECT drug_1.drug_source_value as drug_1, drug_2.drug_source_value as drug_2
 FROM
 (
@@ -151,27 +152,29 @@ FROM
 	(
                 SELECT drug_exposure_id
                 FROM drug_exposure
-                WHERE drug_type_concept_id = 38000180 				-- concept.concept_name = 'Inpatient administration'
- 
+                WHERE drug_type_concept_id = 38000180                 -- concept.concept_name = 'Inpatient administration'
 	)
+
 ) as couple
 JOIN drug_exposure drug_1 ON drug_1.drug_exposure_id = fact_id_1
 JOIN drug_exposure drug_2 ON drug_2.drug_exposure_id = fact_id_2
-WHERE drug_1 != drug_2
-limit 10;
+WHERE drug_1.drug_source_value != drug_2.drug_source_value
+AND drug_1.drug_source_value is not null
+AND drug_2.drug_source_value is not null
+LIMIT 10;
 ```
-|         drug_1         |         drug_2|
-|------------------------|------------------------|
-| Nitroglycerin          | Nitroglycerin|
-| Fentanyl (Concentrate) | Fentanyl (Concentrate)|
-| Fentanyl (Concentrate) | Solution|
-| Midazolam (Versed)     | Midazolam (Versed)|
-| Calcium Gluconate      | Piggyback|
-| Fentanyl (Concentrate) | Solution|
-| Norepinephrine         | Norepinephrine|
-| Vancomycin             | Dextrose 5%|
-| Phenylephrine          | NaCl 0.9%|
-| Propofol               | Solution|
+|          drug_1          |         drug_2|
+|--------------------------|-------------------------|
+| Cefazolin                | NaCl 0.9%|
+| Norepinephrine           | NaCl 0.9%|
+| Potassium Chloride       | KCL (Bolus)|
+| Solution                 | Propofol|
+| NaCl 0.9%                | Pantoprazole (Protonix)|
+| NaCl 0.9%                | Norepinephrine|
+| Solution                 | Famotidine (Pepcid)|
+| Levofloxacin             | Dextrose 5%|
+| Calcium Gluconate (CRRT) | Dextrose 5%|
+| NaCl 0.9%                | Norepinephrine|
 
 ##  to extract only the non omop mimic id from inputevents_cv
 

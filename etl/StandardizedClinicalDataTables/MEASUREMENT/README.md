@@ -278,6 +278,7 @@ GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 ## resistance profile for Staph. Aureus
 
 ``` sql
+-- fact_id_1 is always the organisms and fact_id_2 the antibiotics tested
 SELECT measurement_source_value, value_as_concept_id, concept_name
 FROM measurement
 JOIN concept resistance ON value_as_concept_id = concept_id
