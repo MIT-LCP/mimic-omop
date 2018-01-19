@@ -1,3 +1,5 @@
+set search_path to mimiciii;
+truncate table omop.note_nlp;
 with
 "note_section"  as 
 (
@@ -16,7 +18,7 @@ select
 from omop.tmp_note_nlp
 join noteevents using (row_id)
 left join gcpt_note_section_to_concept ON section_code = section_id
-left join omop.concept on label_mapped = concept_name AND concept_code = 'MIMIC Generated' AND domain_id = 'Note Nlp'
+left join omop.concept on label = concept_name AND concept_code = 'MIMIC Generated' AND domain_id = 'Note Nlp' and concept.vocabulary_id = noteevents.category
 WHERE iserror IS NULL
 )
 INSERT INTO omop.note_nlp
