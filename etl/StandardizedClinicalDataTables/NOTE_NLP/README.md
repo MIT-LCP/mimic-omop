@@ -50,7 +50,7 @@ GROUP by 1, 2 ORDER BY 3 desc LIMIT 20;
 ## how to access to one section
 
 ``` sql
--- the 20 first section
+-- the 5 first section
 SELECT lexical_variant
 FROM note_nlp
 WHERE section_source_concept_id = 2001067155                      -- concept.concept_name = 'Allergies'

@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)
 
-# You must filter your queries with data types !
+# You must filter your queries with data types  = `measurement_type_concept_id` !
 
 # Source Tables (mimic)
 
@@ -52,7 +52,11 @@
 
 # Derived value
 
-- calculated values, should be populated with time
+- derived values, should be populated with time
+- the following have already been done 
+    - corrected calcemia, kaliemia, P/F ratio, corrected osmolarity from chartevents and labevents
+    - Weight, height, LVEF from noteevents
+    - BMI from chartevents and noteevents
 - [derived_values](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/derived_to_concept.csv)
 
 # Examples

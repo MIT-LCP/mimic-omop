@@ -16,11 +16,11 @@
 
 ## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 
-- the chief complaint admissions diagnosis column
+- the chief complaint `admissions` diagnosis column
 - when `condition_type_concept_id` = 42894222
 
 - Warning : only diagnoses that occur >= 10 times are mapped (= 31102 admissions)
-- Warning : one diagnosis in admissions.diagnosis may be mapped >= 2 concept.concept_id 
+- Warning : one diagnosis in `admissions.diagnosis` may be mapped >= 2 `concept.concept_id`
 
 # Mapping used
 

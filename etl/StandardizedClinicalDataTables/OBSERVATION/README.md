@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION)
 
-# Source Tables (mimic)
+# Source Tables (mimic)
 
 ## [datetimeevents](https://mimic.physionet.org/mimictables/datetimeevents/)
 
@@ -47,7 +47,7 @@
 SELECT observation_concept_id, concept_name, count(1) 
 FROM observation 
 JOIN concept on observation_concept_id = concept_id 
-group by observation_concept_id, concept_name order by count(1) desc;
+GROUP BY observation_concept_id, concept_name ORDER BY count(1) desc;
 ```
 | observation_concept_id |                   concept_name                    | count|
 |------------------------|---------------------------------------------------|--------|

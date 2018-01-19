@@ -7,19 +7,19 @@
 
 - omitted, rows which not have any `enddate`. They are only 5K on 4M. Since `drug_exposure_end_date` cannot be null.
 - mapped to RxNorm done by Paul Church 
-- drug_type_concept_id` = 38000177
+- `drug_type_concept_id` = 38000177 ("Prescription written")
 - sig contains informations of doses (workaround)
 - visit_detail_id is not assigned; this is because there is no time information and therefore no sufficient precision
 
 ## [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
-- `drug_type_concept_id` = 38000180
+- `drug_type_concept_id` = 38000180 ("Inpatient administration")
 - `drug_exposure_end_datetime` is always null (because there is no end charttime in inputevents_cv)
 - `visit_detail_id` is assigned
 
 ## [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
-- `drug_type_concept_id` = 38000180
+- `drug_type_concept_id` = 38000180 ("Inpatient administration")
 - row with cancelled have not been exported from mimic 
 - `visit_detail_id` is assigned
 
@@ -142,7 +142,7 @@ GROUP BY 1, 2 ORDER BY count(1) desc limit 10;
 
 ```sql
 -- two levels of links to represent linkorderid and orderid in mimic
--- Warning fact_id_1 or fact_id_2 may be the solution or the main drug
+-- Warning : fact_id_1 and fact_id_2 may be the solution or the main drug
 SELECT drug_1.drug_source_value as drug_1, drug_2.drug_source_value as drug_2
 FROM
 (
@@ -206,7 +206,7 @@ WHERE drug_source_concept_id IN
 AND drug_type_concept_id = 38000180; 						-- concept.concept_name = 'Inpatient administration'
 ```
 
-##  to find drug IV, continuous in rate 
+##  to find IV continuous drugs recorded in rate 
 
 ``` sql
 SELECT distinct on (drug_source_value) quantity, dose_unit_source_value, drug_source_value, drug_source_concept_id, drug_exposure_start_datetime, drug_exposure_end_datetime
@@ -229,7 +229,7 @@ LIMIT 10;
 | 0.2001280807 | mcg/kg/hour            | Dexmedetomidine (Precedex) |             2001030569 | 2133-11-15 03:00:00          | 2133-11-14 20:25:00|
 |          150 | mL/hour                | Dextrose 5%                |             2001030526 | 2101-06-02 02:49:00          | 2101-06-01 20:10:00|
 
-##  to find drug IV, continuous in amount
+##  to find IV continuous drugs recorded in amount
 
 ``` sql
 SELECT distinct on (drug_source_value) quantity, dose_unit_source_value, drug_source_value, drug_source_concept_id, drug_exposure_start_datetime, drug_exposure_end_datetime

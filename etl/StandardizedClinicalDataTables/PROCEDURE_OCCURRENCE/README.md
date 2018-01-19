@@ -54,7 +54,7 @@ GROUP BY concept_name, concept_id ORDER BY count(1) DESC;
 | EHR order list entry                  |   38000275 | 250284|
 | Procedure recorded as diagnostic code |   38003622 | 240095|
 
-## Some interesting recorded procedures
+## Some interesting record procedures
 
 ``` sql
 SELECT procedure_source_value, count(1)
