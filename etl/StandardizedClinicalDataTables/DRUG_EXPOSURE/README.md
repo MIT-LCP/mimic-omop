@@ -160,18 +160,18 @@ JOIN drug_exposure drug_2 ON drug_2.drug_exposure_id = fact_id_2
 WHERE drug_1 != drug_2
 limit 10;
 ```
-         drug_1         |         drug_2
-------------------------+------------------------
- Nitroglycerin          | Nitroglycerin
- Fentanyl (Concentrate) | Fentanyl (Concentrate)
- Fentanyl (Concentrate) | Solution
- Midazolam (Versed)     | Midazolam (Versed)
- Calcium Gluconate      | Piggyback
- Fentanyl (Concentrate) | Solution
- Norepinephrine         | Norepinephrine
- Vancomycin             | Dextrose 5%
- Phenylephrine          | NaCl 0.9%
- Propofol               | Solution
+|         drug_1         |         drug_2|
+|------------------------|------------------------|
+| Nitroglycerin          | Nitroglycerin|
+| Fentanyl (Concentrate) | Fentanyl (Concentrate)|
+| Fentanyl (Concentrate) | Solution|
+| Midazolam (Versed)     | Midazolam (Versed)|
+| Calcium Gluconate      | Piggyback|
+| Fentanyl (Concentrate) | Solution|
+| Norepinephrine         | Norepinephrine|
+| Vancomycin             | Dextrose 5%|
+| Phenylephrine          | NaCl 0.9%|
+| Propofol               | Solution|
 
 ##  to extract only the non omop mimic id from inputevents_cv
 
