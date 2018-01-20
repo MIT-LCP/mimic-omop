@@ -192,7 +192,7 @@ WHERE drug_source_concept_id IN
 AND drug_type_concept_id = 38000180; 						-- concept.concept_name = 'Inpatient administration'
 ```
 
-##  to extract only the non omop mimic id from inputevents_cv
+##  to extract only the non omop mimic id from inputevents_mv
 
 ``` sql
 SELECT *
