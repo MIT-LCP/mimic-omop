@@ -100,8 +100,8 @@ SELECT
 , hadm_id
 , itemid
 , cgid
-, starttime as drug_exposure_end_datetime
-, endtime as drug_exposure_start_datetime
+, starttime as drug_exposure_start_datetime
+, endtime as drug_exposure_end_datetime
 , CASE WHEN rate IS NOT NULL THEN rate WHEN amount IS NOT NULL THEN amount ELSE NULL END AS quantity
 , CASE WHEN rate IS NOT NULL THEN rateuom WHEN amount IS NOT NULL THEN amountuom ELSE NULL END AS dose_unit_source_value
 , 38000180 AS drug_type_concept_id -- Inpatient administration

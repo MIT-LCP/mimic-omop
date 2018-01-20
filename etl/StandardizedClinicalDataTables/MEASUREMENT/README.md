@@ -325,12 +325,13 @@ FROM
     SELECT fact_id_1, fact_id_2 from fact_relationship where fact_id_1 IN 
     (
         SELECT measurement_id 
-        FROM measurement_full3
+        FROM measurement
         WHERE measurement_type_concept_id = 2000000007
         AND value_as_concept_id != 9189
     )
 ) as fact
-JOIN measurement_full3 org ON org.measurement_id = fact.fact_id_1 and org.measurement_type_concept_id = 2000000007
-JOIN measurement_full3 atb ON atb.measurement_id = fact.fact_id_2 and atb.measurement_type_concept_id = 2000000008
-JOIN concept resistance ON resistance.concept_id = atb.value_as_concept_id;
+JOIN measurement org ON org.measurement_id = fact.fact_id_1 and org.measurement_type_concept_id = 2000000007
+JOIN measurement atb ON atb.measurement_id = fact.fact_id_2 and atb.measurement_type_concept_id = 2000000008
+JOIN concept resistance ON resistance.concept_id = atb.value_as_concept_id
+LIMIT 10;
 ```

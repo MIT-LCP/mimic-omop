@@ -187,13 +187,12 @@ WITH tmp AS
   (
         SELECT visit_detail_id
         FROM visit_detail
-        WHERE visit_detail_concept_id = 581382
-        and visit_type_concept_id = 2000000006
-        and discharge_to_concept_id = 4216643
-  
+	WHERE visit_detail_concept_id = 581382                    -- concept.concept_name = 'Inpatient Intensive Care Facility'
+	AND visit_type_concept_id = 2000000006                    -- concept.concept_name = 'Ward and physical location'
+	AND discharge_to_concept_id = 4216643                     -- concept.concept_name = 'Patient died'
   ) d USING (visit_detail_id)
   WHERE t.visit_detail_concept_id = 581382
-  and t.visit_type_concept_id = 2000000006
+  AND t.visit_type_concept_id = 2000000006
 
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;
