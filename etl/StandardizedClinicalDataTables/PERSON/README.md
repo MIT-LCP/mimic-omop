@@ -119,7 +119,8 @@ GROUP BY percentile_25, median, percentile_75;
 |---------------|--------|---------------|---------|---------|------|---------------------|
 |          2062 |   2095 |          2123 |    1800 |    2201 | 2088 | 64.2736336370628481|
 
-## Help query to show demographic variables
+
+## Help query to show demographic variables - to use in presto !!
 
 ``` sql
 SELECT vd.person_id
