@@ -6,11 +6,10 @@
 
 # Source Tables (mimic)
 
-- when measures are mapped to standard concepts (SMOMED) `measurement_concept_id`
- != 0
-  you may use the non-omop mimic itemid
-- else `measurement_concept_id` = 0
-  you have to select measures with non-omop mimic itemid : `measurement_source_concept_id`
+- when measures are mapped to standard concepts (SMOMED) `measurement_concept_id
+ != 0`, and you may use the non-omop mimic itemid
+- else `measurement_concept_id` = 0, and you should select measures with: `measurement_source_concept_id`
+- you can determine the `measurement_source_concept_id` by looking in the `concept` table, where `concept_code` is the MIMIC `itemid`
 
 - when `visit_detail_id` is assigned, this is a calculated value!
 
