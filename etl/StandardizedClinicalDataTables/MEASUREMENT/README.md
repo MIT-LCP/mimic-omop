@@ -36,13 +36,13 @@
 
 ## charteevents
 
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/chart_label_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/chart_label_to_concept.csv
 
 ## labevents
 
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_label_to_concept.csv
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_unit_to_concept.csv
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_value_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/lab_label_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/lab_unit_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/lab_value_to_concept.csv
 
 ## microbiologyevents
 
