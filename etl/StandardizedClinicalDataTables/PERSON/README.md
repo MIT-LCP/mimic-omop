@@ -120,7 +120,7 @@ GROUP BY percentile_25, median, percentile_75;
 |          2062 |   2095 |          2123 |    1800 |    2201 | 2088 | 64.2736336370628481|
 
 
-## Help query to show demographic variables - to use in presto !!
+## Help query to show demographic variables - to use with presto (date_diff() fonction)!!
 
 ``` sql
 SELECT vd.person_id
@@ -136,20 +136,10 @@ SELECT vd.person_id
         , date_diff('day', vo.visit_start_datetime, vo.visit_end_datetime) as los_adm
         , diag.adm_diagnosis
         , diag.disch_diagnosis
-        , CASE WHEN services_name.concept_name is NULL THEN 'New born care service' ELSE services_name.concept_name END as service_type
         , CASE
                 WHEN vd.discharge_to_concept_id = 4216643 then 1
                 ELSE 0 END AS dead_icu
 FROM visit_detail vd
-LEFT JOIN
-(
-        SELECT visit_detail_parent_id, min(visit_detail_concept_id) as services_id
-        FROM visit_detail
-        WHERE visit_detail_concept_id IN (45763735, 4149152)
-        GROUP BY 1
-    
-) AS services ON vd.visit_detail_id = services.visit_detail_parent_id
-        LEFT JOIN concept services_name ON services_name.concept_id = services.services_id
 LEFT JOIN visit_occurrence vo USING (visit_occurrence_id)
    LEFT JOIN concept adm ON vo.visit_source_concept_id = adm.concept_id
    LEFT JOIN concept disch ON vo.discharge_to_concept_id = disch.concept_id
@@ -169,18 +159,9 @@ LEFT JOIN
     
     ) AS adm ON co.visit_occurrence_id = adm.visit_occurrence_id
         JOIN concept adm_name ON adm_name.concept_id = adm.adm_id
-    LEFT JOIN
-    (
-        SELECT visit_occurrence_id, max(condition_concept_id) as dischar_id
-        FROM condition_occurrence
-        WHERE condition_type_concept_id = 38000184
-        GROUP BY visit_occurrence_id
-    
-    ) AS disch ON co.visit_occurrence_id = disch.visit_occurrence_id
-        JOIN concept disch_name ON disch_name.concept_id = disch.dischar_id
-    
-)
-    diag ON diag.visit_occurrence_id = vd.visit_occurrence_id
+    LEFT JOIN condition_occurrence disch ON co.visit_occurrence_id = disch.visit_occurrence_id and disch.condition_type_concept_id = 38000184
+        JOIN concept disch_name ON disch_name.concept_id = disch.condition_concept_id
+) diag ON diag.visit_occurrence_id = vd.visit_occurrence_id
 WHERE vd.visit_type_concept_id = 2000000006
-and vd.visit_detail_concept_id = 581382;
+AND vd.visit_detail_concept_id = 581382;
 ```
