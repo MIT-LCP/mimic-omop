@@ -23,19 +23,19 @@
 
 # Mapping used
 
-## [insurance_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/insurance_to_concept.csv)
+## [insurance_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/insurance_to_concept.csv)
 
 - it maps insurance in standard concept 
 
-## [ethnicity_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/ethnicity_to_concept.csv)
+## [ethnicity_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/ethnicity_to_concept.csv)
 
 - it maps ethnicity in standard concept 
 
-## [religion_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/religion_to_concept.csv)
+## [religion_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/religion_to_concept.csv)
 
 - it maps religion in standard concept 
 
-## [marital_status_to_concept](github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/marital_status_to_concept.csv)
+## [marital_status_to_concept](github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/marital_status_to_concept.csv)
 
 - it maps marital_status in standard concept 
 
