@@ -18,15 +18,15 @@
 
 # Mapping used
 
-## [visit_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_type_to_concept.csv)
+## [visit_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/admission_type_to_concept.csv)
 
 - it maps mimic admission type to omop admission type
 
-## [admitting_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_location_to_concept.csv)
+## [admitting_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/admission_location_to_concept.csv)
 
 - it maps mimic location admission type to omop location admission type
 
-## [discharge_type_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/discharge_location_to_concept.csv)
+## [discharge_type_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/discharge_location_to_concept.csv)
 
 - it maps mimic location discharge type to omop location discharge type
 
