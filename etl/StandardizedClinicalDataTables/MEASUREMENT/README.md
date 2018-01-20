@@ -315,3 +315,24 @@ WHERE measurement_type_concept_id = 2000000008        			        -- concept.conc
 | GENTAMICIN               |             4038110 | Susceptible|
 | GENTAMICIN               |             4038110 | Susceptible|
 | LEVOFLOXACIN             |             4038110 | Susceptible|
+
+## organism and antibiotic resistance
+
+``` sql
+SELECT org.value_source_value, atb.measurement_source_value, resistance.concept_name
+FROM
+(
+    SELECT fact_id_1, fact_id_2 from fact_relationship where fact_id_1 IN 
+    (
+        SELECT measurement_id 
+        FROM measurement_full3
+        WHERE measurement_type_concept_id = 2000000007
+        AND value_as_concept_id != 9189
+    
+    )
+
+) as fact
+JOIN measurement_full3 org ON org.measurement_id = fact.fact_id_1 and org.measurement_type_concept_id = 2000000007
+JOIN measurement_full3 atb ON atb.measurement_id = fact.fact_id_2 and atb.measurement_type_concept_id = 2000000008
+JOIN concept resistance ON resistance.concept_id = atb.value_as_concept_id;
+```
