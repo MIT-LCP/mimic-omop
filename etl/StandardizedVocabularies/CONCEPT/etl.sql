@@ -22,6 +22,7 @@ concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, concept_co
 , (2000000010,'Labs - Blood Gaz','Type Concept','','Meas Type','MIMIC Generated','1979-01-01','2099-01-01')
 , (2000000011,'Labs - Chemistry','Type Concept','','Meas Type','MIMIC Generated','1979-01-01','2099-01-01')
 , (2000000012,'Visit Detail','Metadata','Domain','Domain','MIMIC Generated','1979-01-01','2099-01-01')
+, (2000000013,'Unwkown Ward','Visit Detail','Visit Detail','Visit_detail','MIMIC Generated','1979-01-01','2099-01-01')
 ;
 
 -- INSERT INTO omop.concept_relationship()

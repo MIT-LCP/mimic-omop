@@ -7,7 +7,7 @@
  SELECT 
       nextval('mimic_id_seq') as care_site_id
     , CASE 
-      WHEN wardid.curr_careunit IS NOT NULL THEN care_site_name || ' ward n°' || coalesce(curr_wardid::text, '?') 
+      WHEN wardid.curr_careunit IS NOT NULL THEN care_site_name || ' ward #' || coalesce(curr_wardid::text, '?') 
       ELSE care_site_name end as care_site_name
     , place_of_service_concept_id as place_of_service_concept_id
     , care_site_name as care_site_source_value
