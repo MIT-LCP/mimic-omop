@@ -22,6 +22,9 @@ SELECT
 , max_levels_of_separation 
 
 FROM mimicomop.avro_concept_ancestor;
+--UPDATE STATISTICS
+ANALYZE TABLE concept_ancestor COMPUTE STATISTICS;
+ANALYZE TABLE concept_ancestor COMPUTE STATISTICS FOR COLUMNS;
 --
 -- vocabulary
 --
@@ -41,6 +44,9 @@ SELECT
 , vocabulary_version    
 , vocabulary_concept_id 
 FROM mimicomop.avro_vocabulary;
+--UPDATE STATISTICS
+ANALYZE TABLE vocabulary COMPUTE STATISTICS;
+ANALYZE TABLE vocabulary COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- domain
@@ -59,6 +65,9 @@ SELECT
 , domain_name       
 , domain_concept_id 
 FROM mimicomop.avro_domain;
+--UPDATE STATISTICS
+ANALYZE TABLE domain COMPUTE STATISTICS;
+ANALYZE TABLE domain COMPUTE STATISTICS FOR COLUMNS;
 --
 -- relationship
 --
@@ -79,6 +88,9 @@ SELECT
 , reverse_relationship_id 
 , relationship_concept_id 
 FROM mimicomop.avro_relationship;
+--UPDATE STATISTICS
+ANALYZE TABLE relationship COMPUTE STATISTICS;
+ANALYZE TABLE relationship COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -86,13 +98,29 @@ FROM mimicomop.avro_relationship;
 --
 
 -- MOUNT AVRO INTO HIVE
-DROP TABLE IF EXISTS avro_drug_strengh;
-CREATE EXTERNAL TABLE avro_drug_strengh ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/drug_strengh/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/drug_strengh.avsc');
+DROP TABLE IF EXISTS avro_drug_strength;
+CREATE EXTERNAL TABLE avro_drug_strength ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/drug_strength/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/drug_strength.avsc');
 
-DROP TABLE IF EXISTS drug_strengh;
+DROP TABLE IF EXISTS drug_strength;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE drug_strengh STORED AS ORC AS
+CREATE TABLE drug_strength 
+ (
+ drug_concept_id               int        
+, ingredient_concept_id         int                  
+, amount_value                  string               
+, amount_unit_concept_id        int                  
+, numerator_value               string               
+, numerator_unit_concept_id     int                  
+, denominator_value             string               
+, denominator_unit_concept_id   int                  
+, box_size                      int                  
+, valid_start_date              date               
+, valid_end_date                date
+, invalid_reason                string 
+)
+STORED AS ORC ;
+INSERT OVERWRITE TABLE drug_strength
 SELECT
   drug_concept_id            
 , ingredient_concept_id      
@@ -106,7 +134,10 @@ SELECT
 , from_unixtime(CAST(valid_start_date           /1000 as BIGINT), 'yyyy-MM-dd') AS valid_start_date           
 , from_unixtime(CAST(valid_end_date             /1000 as BIGINT), 'yyyy-MM-dd') AS valid_end_date             
 , invalid_reason            
-FROM mimicomop.avro_drug_strengh;
+FROM mimicomop.avro_drug_strength;
+--UPDATE STATISTICS
+ANALYZE TABLE drug_strength COMPUTE STATISTICS;
+ANALYZE TABLE drug_strength COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- concept_synonym
@@ -125,6 +156,9 @@ SELECT
 , concept_synonym_name 
 , language_concept_id  
 FROM mimicomop.avro_concept_synonym;
+--UPDATE STATISTICS
+ANALYZE TABLE concept_synonym COMPUTE STATISTICS;
+ANALYZE TABLE concept_synonym COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- concept_relationship
@@ -137,15 +171,33 @@ CREATE EXTERNAL TABLE avro_concept_relationship ROW FORMAT SERDE 'org.apache.had
 DROP TABLE IF EXISTS concept_relationship;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE concept_relationship STORED AS ORC AS
+CREATE TABLE concept_relationship 
+(
+  concept_id_1       int                  
+, concept_id_2       int                  
+, relationship_id    string               
+, valid_start_date   date               
+, valid_end_date     date               
+, invalid_reason     string     
+)
+STORED AS ORC 
+  TBLPROPERTIES (
+  'orc.compress'='ZLIB',
+  'orc.create.index'='true',
+  'orc.bloom.filter.columns'='concept_id_1,concept_id_2'
+);
+INSERT OVERWRITE TABLE concept_relationship 
 SELECT
   concept_id_1     
 , concept_id_2     
 , relationship_id  
 , from_unixtime(CAST(valid_start_date /1000 as BIGINT), 'yyyy-MM-dd') AS valid_start_date 
-, valid_end_date   
+, from_unixtime(CAST(valid_end_date   /1000 as BIGINT), 'yyyy-MM-dd') AS valid_end_date   
 , invalid_reason   
 FROM mimicomop.avro_concept_relationship;
+--UPDATE STATISTICS
+ANALYZE TABLE concept_relationship COMPUTE STATISTICS;
+ANALYZE TABLE concept_relationship COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- concept_class
@@ -164,6 +216,9 @@ SELECT
 , concept_class_name       
 , concept_class_concept_id 
 FROM mimicomop.avro_concept_class;
+--UPDATE STATISTICS
+ANALYZE TABLE concept_class COMPUTE STATISTICS;
+ANALYZE TABLE concept_class COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- concept
@@ -176,7 +231,26 @@ CREATE EXTERNAL TABLE avro_concept ROW FORMAT SERDE 'org.apache.hadoop.hive.serd
 DROP TABLE IF EXISTS concept;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE concept STORED AS ORC AS
+CREATE TABLE concept 
+(
+  concept_id         int                  
+, concept_name       string               
+, domain_id          string               
+, vocabulary_id      string               
+, concept_class_id   string               
+, standard_concept   string               
+, concept_code       string               
+, valid_start_date   date         
+, valid_end_date     date               
+, invalid_reason     string 
+)
+STORED AS ORC 
+  TBLPROPERTIES (
+  'orc.compress'='ZLIB',
+  'orc.create.index'='true',
+  'orc.bloom.filter.columns'='concept_id,concept_code'
+);
+INSERT OVERWRITE TABLE concept
 SELECT
   concept_id          
 , concept_name           
@@ -189,6 +263,9 @@ SELECT
 , from_unixtime(CAST(valid_end_date       /1000 as BIGINT), 'yyyy-MM-dd') AS valid_end_date       
 , invalid_reason         
 FROM mimicomop.avro_concept;
+--UPDATE STATISTICS
+ANALYZE TABLE concept COMPUTE STATISTICS;
+ANALYZE TABLE concept COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- care_site
@@ -210,7 +287,39 @@ SELECT
 , care_site_source_value			
 , place_of_service_source_value		
 FROM mimicomop.avro_care_site;
+--UPDATE STATISTICS
+ANALYZE TABLE care_site COMPUTE STATISTICS;
+ANALYZE TABLE care_site COMPUTE STATISTICS FOR COLUMNS;
 
+--
+-- cohort
+--
+
+-- MOUNT AVRO INTO HIVE
+DROP TABLE IF EXISTS avro_cohort;
+CREATE EXTERNAL TABLE avro_cohort ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/cohort/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/cohort.avsc');
+
+DROP TABLE IF EXISTS cohort;
+
+--PUSH AVRO DATA INTO ORC
+CREATE TABLE cohort 
+(
+ cohort_definition_id   int      
+, subject_id             int      
+, cohort_start_date      date      
+, cohort_end_date        date  
+)
+STORED AS ORC ;
+INSERT OVERWRITE TABLE cohort
+SELECT
+  cohort_definition_id 
+, subject_id           
+, from_unixtime(CAST(cohort_start_date    /1000 as BIGINT), 'yyyy-MM-dd') AS cohort_start_date    
+, from_unixtime(CAST(cohort_end_date      /1000 as BIGINT), 'yyyy-MM-dd') AS cohort_end_date      
+FROM mimicomop.avro_cohort;
+--UPDATE STATISTICS
+ANALYZE TABLE cohort COMPUTE STATISTICS;
+ANALYZE TABLE cohort COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- cohort_definition
@@ -220,10 +329,21 @@ FROM mimicomop.avro_care_site;
 DROP TABLE IF EXISTS avro_cohort_definition;
 CREATE EXTERNAL TABLE avro_cohort_definition ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/cohort_definition/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/cohort_definition.avsc');
 
-DROP TABLE IF EXISTS corhort_definition;
+DROP TABLE IF EXISTS cohort_definition;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE cohort_definition STORED AS ORC AS
+CREATE TABLE cohort_definition 
+(
+ cohort_definition_id            int                  
+, cohort_definition_name          string               
+, cohort_definition_description   string               
+, definition_type_concept_id      int                  
+, cohort_definition_syntax        string               
+, subject_concept_id              int                  
+, cohort_initiation_date          date
+)
+STORED AS ORC;
+INSERT OVERWRITE TABLE cohort_definition
 SELECT
   cohort_definition_id		
 , cohort_definition_name	
@@ -233,6 +353,9 @@ SELECT
 , subject_concept_id		
 , from_unixtime(CAST(cohort_initiation_date	/1000 as BIGINT), 'yyyy-MM-dd') AS cohort_initiation_date	
 FROM mimicomop.avro_cohort_definition;
+--UPDATE STATISTICS
+ANALYZE TABLE cohort_definition COMPUTE STATISTICS;
+ANALYZE TABLE cohort_definition COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- cohort_attribute
@@ -256,6 +379,9 @@ SELECT
 , value_as_number 
 , value_as_concept_id 
 FROM mimicomop.avro_cohort_attribute;
+--UPDATE STATISTICS
+ANALYZE TABLE cohort_attribute COMPUTE STATISTICS;
+ANALYZE TABLE cohort_attribute COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -277,6 +403,9 @@ SELECT
 ,  attribute_type_concept_id		
 ,  attribute_syntax			
 FROM mimicomop.avro_attribute_definition;
+--UPDATE STATISTICS
+ANALYZE TABLE attribute_definition COMPUTE STATISTICS;
+ANALYZE TABLE attribute_definition COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -290,7 +419,28 @@ CREATE EXTERNAL TABLE avro_person ROW FORMAT SERDE 'org.apache.hadoop.hive.serde
 DROP TABLE IF EXISTS person;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE person  STORED AS ORC AS
+CREATE TABLE person 
+(
+| person_id                    | int        |          |
+| gender_concept_id            | int        |          |
+| year_of_birth                | int        |          |
+| month_of_birth               | int        |          |
+| day_of_birth                 | int        |          |
+| birth_datetime               | timestamp  |          |
+| race_concept_id              | int        |          |
+| ethnicity_concept_id         | int        |          |
+| location_id                  | int        |          |
+| provider_id                  | int        |          |
+| care_site_id                 | int        |          |
+| person_source_value          | string     |          |
+| gender_source_value          | string     |          |
+| gender_source_concept_id     | int        |          |
+| race_source_value            | string     |          |
+| race_source_concept_id       | int        |          |
+| ethnicity_source_value       | string     |          |
+| ethnicity_source_concept_id  | int 
+)  STORED AS ORC ;
+INSERT OVERWRITE TABLE person
 SELECT
   person_id
 , gender_concept_id
@@ -311,6 +461,9 @@ SELECT
 , ethnicity_source_value
 , ethnicity_source_concept_id
 FROM mimicomop.avro_person;
+--UPDATE STATISTICS
+ANALYZE TABLE person COMPUTE STATISTICS;
+ANALYZE TABLE person COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -324,7 +477,18 @@ CREATE EXTERNAL TABLE avro_death ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2
 DROP TABLE IF EXISTS death;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE death STORED AS ORC AS
+CREATE TABLE death (
+  person_id                 int                  
+, death_date                date
+, death_datetime            timestamp         
+, death_type_concept_id     int                  
+, cause_concept_id          int                  
+, cause_source_value        string               
+, cause_source_concept_id   int                  
+
+)STORED AS ORC ;
+
+INSERT OVERWRITE TABLE death
 SELECT
   person_id					
 , from_unixtime(CAST(death_date					/1000 as BIGINT), 'yyyy-MM-dd') AS death_date					
@@ -334,6 +498,9 @@ SELECT
 , cause_source_value				
 , cause_source_concept_id		
 FROM mimicomop.avro_death ;
+--UPDATE STATISTICS
+ANALYZE TABLE death  COMPUTE STATISTICS;
+ANALYZE TABLE death  COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -347,7 +514,28 @@ CREATE EXTERNAL TABLE avro_visit_occurrence ROW FORMAT SERDE 'org.apache.hadoop.
 DROP TABLE IF EXISTS visit_occurrence;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE visit_occurrence STORED AS ORC AS
+CREATE TABLE visit_occurrence 
+(
+ visit_occurrence_id             int                  
+, person_id                      int                  
+, visit_concept_id               int                  
+, visit_start_date               date    
+, visit_start_datetime           timestamp               
+, visit_end_date                 date               
+, visit_end_datetime             timestamp
+, provider_id                    int                  
+, care_site_id                   int                  
+, visit_source_value             string               
+, visit_source_concept_id        int                  
+, admitting_source_concept_id    int                  
+, admitting_source_value         string               
+, discharge_to_concept_id        int                  
+, discharge_to_source_value      string               
+, preceding_visit_occurrence_id  int                  
+, visit_type_concept_id          int      
+)
+STORED AS ORC;
+INSERT OVERWRITE TABLE visit_occurrence
 SELECT
   visit_occurrence_id			
 , person_id					
@@ -367,6 +555,9 @@ SELECT
 , preceding_visit_occurrence_id		
 , visit_type_concept_id			
 FROM mimicomop.avro_visit_occurrence ;
+--UPDATE STATISTICS
+ANALYZE TABLE visit_occurrence  COMPUTE STATISTICS;
+ANALYZE TABLE visit_occurrence  COMPUTE STATISTICS FOR COLUMNS;
 
 
 
@@ -381,7 +572,30 @@ CREATE EXTERNAL TABLE avro_visit_detail ROW FORMAT SERDE 'org.apache.hadoop.hive
 DROP TABLE IF EXISTS visit_detail;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE visit_detail STORED AS ORC AS 
+CREATE TABLE visit_detail 
+(
+ visit_detail_id                int        
+, person_id                     int        
+, visit_detail_concept_id       int        
+, visit_start_date              date
+, visit_start_datetime          timestamp
+, visit_end_date                date
+, visit_end_datetime            timestamp     
+, visit_type_concept_id         int        
+, provider_id                   int        
+, care_site_id                  int        
+, visit_source_value            string     
+, visit_source_concept_id       int        
+, admitting_source_concept_id   int        
+, admitting_source_value        string     
+, discharge_to_concept_id       int        
+, discharge_to_source_value     string     
+, preceding_visit_detail_id     int        
+, visit_detail_parent_id        int        
+, visit_occurrence_id           int 
+)
+STORED AS ORC ;
+INSERT OVERWRITE TABLE visit_detail
 SELECT
   visit_detail_id				
 , person_id					
@@ -403,6 +617,9 @@ SELECT
 , visit_detail_parent_id			
 , visit_occurrence_id			
 FROM mimicomop.avro_visit_detail;
+--UPDATE STATISTICS
+ANALYZE TABLE visit_detail COMPUTE STATISTICS;
+ANALYZE TABLE visit_detail COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -416,7 +633,25 @@ CREATE EXTERNAL TABLE avro_procedure_occurrence ROW FORMAT SERDE 'org.apache.had
 DROP TABLE IF EXISTS procedure_occurrence;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE procedure_occurrence STORED AS ORC AS
+CREATE TABLE procedure_occurrence
+(
+  procedure_occurrence_id       int                  
+, person_id                     int                  
+, procedure_concept_id          int                  
+, procedure_date                date              
+, procedure_datetime            timestamp              
+, modifier_concept_id           int                  
+, quantity                      int                  
+, provider_id                   int                  
+, visit_occurrence_id           int                  
+, visit_detail_id               int                  
+, procedure_source_value        string               
+, procedure_source_concept_id   int                  
+, qualifier_source_value        string               
+, procedure_type_concept_id     int                
+)
+STORED AS ORC;
+INSERT OVERWRITE TABLE procedure_occurrence
 SELECT
   procedure_occurrence_id		
 , person_id				
@@ -433,6 +668,9 @@ SELECT
 , qualifier_source_value		
 , procedure_type_concept_id		
 FROM mimicomop.avro_procedure_occurrence;
+--UPDATE STATISTICS
+ANALYZE TABLE procedure_occurrence COMPUTE STATISTICS;
+ANALYZE TABLE procedure_occurrence COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -462,6 +700,9 @@ SELECT
 , gender_source_value  
 , gender_source_concept_id 
 FROM mimicomop.avro_provider;
+--UPDATE STATISTICS
+ANALYZE TABLE provider COMPUTE STATISTICS;
+ANALYZE TABLE provider COMPUTE STATISTICS FOR COLUMNS;
 
 
 
@@ -476,7 +717,27 @@ CREATE EXTERNAL TABLE avro_condition_occurrence ROW FORMAT SERDE 'org.apache.had
 DROP TABLE IF EXISTS condition_occurrence;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE condition_occurrence  STORED AS ORC AS
+CREATE TABLE condition_occurrence 
+(
+  condition_occurrence_id         int        
+, person_id                       int        
+, condition_concept_id            int        
+, condition_start_date            date
+, condition_start_datetime        timestamp
+, condition_end_date              date
+, condition_end_datetime          timestamp   
+, stop_reason                     string     
+, provider_id                     int        
+, visit_occurrence_id             int        
+, visit_detail_id                 int        
+, condition_source_value          string     
+, condition_source_concept_id     int        
+, condition_status_source_value   string     
+, condition_status_concept_id     int        
+, condition_type_concept_id       int        
+)
+STORED AS ORC ;
+INSERT OVERWRITE TABLE condition_occurrence
 SELECT
   condition_occurrence_id		
 , person_id				
@@ -495,20 +756,49 @@ SELECT
 , condition_status_concept_id	
 , condition_type_concept_id
 FROM mimicomop.avro_condition_occurrence;
+--UPDATE STATISTICS
+ANALYZE TABLE condition_occurrence COMPUTE STATISTICS;
+ANALYZE TABLE condition_occurrence COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
 -- observation
 --
 
--- MOUNT AVRO INTO HIVE
-DROP TABLE IF EXISTS avro_observation;
+-- MOUNT AVRO INTO HIVcTABLE IF EXISTS avro_observation;
 CREATE EXTERNAL TABLE avro_observation ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/observation/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/observation.avsc');
 
 DROP TABLE IF EXISTS observation;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE observation  STORED AS ORC AS 
+CREATE TABLE observation  
+(
+ observation_id                   int                  
+, person_id                       int                  
+, observation_concept_id          int                  
+, observation_date                date
+, observation_datetime            timestamp
+, value_as_number                 string               
+, value_as_string                 string               
+, value_as_concept_id             int                  
+, qualifier_concept_id            int                  
+, unit_concept_id                 int                  
+, provider_id                     int                  
+, visit_occurrence_id             int                  
+, visit_detail_id                 int                  
+, observation_source_value        string               
+, observation_source_concept_id   int                  
+, unit_source_value               string               
+, qualifier_source_value          string               
+, observation_type_concept_id     int                  
+)
+STORED AS ORC 
+  TBLPROPERTIES (
+  'orc.compress'='ZLIB',
+  'orc.create.index'='true',
+  'orc.bloom.filter.columns'='observation_concept_id,observation_source_concept_id,value_as_number,visit_occurrence_id,visit_detail_id,patient_id'
+);
+INSERT OVERWRITE TABLE observation 
 SELECT
   observation_id			
 , person_id				
@@ -529,6 +819,9 @@ SELECT
 , qualifier_source_value			
 , observation_type_concept_id		
 FROM mimicomop.avro_observation;
+--UPDATE STATISTICS
+ANALYZE TABLE observation COMPUTE STATISTICS;
+ANALYZE TABLE observation COMPUTE STATISTICS FOR COLUMNS;
 
 
 
@@ -543,15 +836,46 @@ CREATE EXTERNAL TABLE avro_drug_exposure ROW FORMAT SERDE 'org.apache.hadoop.hiv
 DROP TABLE IF EXISTS drug_exposure;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE TABLE drug_exposure  STORED AS ORC AS
+CREATE TABLE TABLE drug_exposure  
+(
+  drug_exposure_id               int                      
+, person_id                      int                      
+, drug_concept_id                int                      
+, drug_exposure_start_date       date                     
+, drug_exposure_start_datetime   timestamp                
+, drug_exposure_end_date         date                     
+, drug_exposure_end_datetime     timestamp                
+, verbatim_end_date              date                     
+, stop_reason                    string                   
+, refills                        int                      
+, quantity                       decimal(10,0)            
+, days_supply                    int                      
+, sig                            string                   
+, route_concept_id               int                      
+, lot_number                     string                   
+, provider_id                    int                      
+, visit_occurrence_id            int                      
+, visit_detail_id                int                      
+, drug_source_value              string                   
+, drug_source_concept_id         int                      
+, route_source_value             string                   
+, dose_unit_source_value         string                   
+, drug_type_concept_id           int                      
+)STORED AS ORC 
+  TBLPROPERTIES (
+  'orc.compress'='ZLIB',
+  'orc.create.index'='true',
+  'orc.bloom.filter.columns'='drug_concept_id,drug_source_concept_id,visit_occurrence_id,patient_id'
+);
+INSERT OVERWRITE TABLE drug_exposure
 SELECT
   drug_exposure_id			
 , person_id				
 , drug_concept_id			
-, from_unixtime(CAST(drug_exposure_start_date		/1000 as BIGINT), 'yyyy-MM-dd') AS drug_exposure_start_date		
-, from_unixtime(CAST(drug_exposure_start_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS drug_exposure_start_datetime	
-, from_unixtime(CAST(drug_exposure_end_date		/1000 as BIGINT), 'yyyy-MM-dd') AS drug_exposure_end_date		
-, from_unixtime(CAST(drug_exposure_end_datetime		/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS drug_exposure_end_datetime		
+, CASE WHEN drug_exposure_id >= 23526197 and drug_exposure_id <=27145187 then from_unixtime(CAST(drug_exposure_end_date		/1000 as BIGINT), 'yyyy-MM-dd') else from_unixtime(CAST(drug_exposure_start_date		/1000 as BIGINT), 'yyyy-MM-dd') end AS drug_exposure_start_date		
+, CASE WHEN drug_exposure_id >= 23526197 and drug_exposure_id <=27145187 then from_unixtime(CAST(drug_exposure_end_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') else from_unixtime(CAST(drug_exposure_start_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') END AS drug_exposure_start_datetime	
+, CASE WHEN drug_exposure_id >= 23526197 and drug_exposure_id <=27145187 then from_unixtime(CAST(drug_exposure_start_date		/1000 as BIGINT), 'yyyy-MM-dd') else from_unixtime(CAST(drug_exposure_end_date		/1000 as BIGINT), 'yyyy-MM-dd') end AS drug_exposure_end_date		
+, CASE WHEN drug_exposure_id >= 23526197 and drug_exposure_id <=27145187 then from_unixtime(CAST(drug_exposure_start_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') else from_unixtime(CAST(drug_exposure_end_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') END AS drug_exposure_end_datetime	
 , from_unixtime(CAST(verbatim_end_date			/1000 as BIGINT), 'yyyy-MM-dd') AS verbatim_end_date			
 , stop_reason			
 , refills				
@@ -569,6 +893,9 @@ SELECT
 , dose_unit_source_value		
 , drug_type_concept_id		
 FROM mimicomop.avro_drug_exposure;
+--UPDATE STATISTICS
+ANALYZE TABLE drug_exposure COMPUTE STATISTICS;
+ANALYZE TABLE drug_exposure COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -580,30 +907,39 @@ DROP TABLE IF EXISTS avro_measurement;
 CREATE EXTERNAL TABLE avro_measurement ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/measurement/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/measurement.avsc');
 
 DROP TABLE IF EXISTS measurement;
+CREATE TABLE measurement ( measurement_id INT , person_id INT , measurement_concept_id INT , measurement_type_concept_id INT, measurement_date DATE , measurement_datetime TIMESTAMP , operator_concept_id INT , value_as_number DECIMAL , value_as_concept_id INT , unit_concept_id INT , range_low DECIMAL , range_high DECIMAL , provider_id INT , visit_occurrence_id INT , visit_detail_id INT , measurement_source_value STRING , measurement_source_concept_id INT , unit_source_value STRING , value_source_value STRING) 
+STORED AS ORC
+ TBLPROPERTIES (
+ 'orc.compress'='ZLIB',
+ 'orc.create.index'='true',
+ 'orc.bloom.filter.columns'='measurement_concept_id,measurement_source_concept_id,measurement_source_value,value_as_number,visit_detail_id,visit_occurrence_id,patient_id'
+) ;
 
---PUSH AVRO DATA INTO ORC
-CREATE TABLE measurement  STORED AS ORC AS
+INSERT OVERWRITE TABLE measurement
 SELECT
-  measurement_id			
-, person_id				
-, measurement_concept_id		
-, from_unixtime(CAST(measurement_date			/1000 as BIGINT), 'yyyy-MM-dd') AS measurement_date			
-, from_unixtime(CAST(measurement_datetime		/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS measurement_datetime		
-, operator_concept_id			
-, value_as_number		
-, value_as_concept_id			
-, unit_concept_id				
-, range_low					 
-, range_high					 
-, provider_id				
-, visit_occurrence_id			
-, visit_detail_id		        	
-, measurement_source_value			 
-, measurement_source_concept_id		
-, unit_source_value				
-, value_source_value				
+  measurement_id
+, person_id
+, measurement_concept_id
 , measurement_type_concept_id
+, from_unixtime(CAST(measurement_date			/1000 as BIGINT), 'yyyy-MM-dd') AS measurement_date
+, from_unixtime(CAST(measurement_datetime		/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS measurement_datetime
+, operator_concept_id
+, value_as_number
+, value_as_concept_id
+, unit_concept_id
+, range_low
+, range_high
+, provider_id
+, visit_occurrence_id
+, visit_detail_id
+, measurement_source_value
+, measurement_source_concept_id
+, unit_source_value
+, value_source_value
 FROM mimicomop.avro_measurement;
+--UPDATE STATISTICS
+ANALYZE TABLE measurement COMPUTE STATISTICS;
+ANALYZE TABLE measurement COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -617,7 +953,25 @@ CREATE EXTERNAL TABLE avro_note ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.
 DROP TABLE IF EXISTS note;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE note  STORED AS ORC AS
+CREATE TABLE note  
+(
+  note_id                 int        
+, person_id               int        
+, note_date               date    
+, note_datetime           timestamp     
+, note_type_concept_id    int        
+, note_class_concept_id   int        
+, note_title              string     
+, note_text               string     
+, encoding_concept_id     int        
+, language_concept_id     int        
+, provider_id             int        
+, visit_occurrence_id     int        
+, note_source_value       string     
+, visit_detail_id         int        
+)
+STORED AS ORC;
+INSERT OVERWRITE TABLE note
 SELECT
   note_id					 
 , person_id					
@@ -634,6 +988,9 @@ SELECT
 , note_source_value				
 , visit_detail_id				
 FROM mimicomop.avro_note;
+--UPDATE STATISTICS
+ANALYZE TABLE note COMPUTE STATISTICS;
+ANALYZE TABLE note COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -647,7 +1004,28 @@ CREATE EXTERNAL TABLE avro_note_nlp ROW FORMAT SERDE 'org.apache.hadoop.hive.ser
 DROP TABLE IF EXISTS note_nlp;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE note_nlp  STORED AS ORC AS
+CREATE TABLE note_nlp  
+(
+  note_nlp_id                  bigint     
+, note_id                      int        
+, section_concept_id           int        
+, snippet                      string     
+, lexical_variant              string     
+, note_nlp_concept_id          int        
+, note_nlp_source_concept_id   int        
+, nlp_system                   string     
+, nlp_date                     date
+, nlp_datetime                 timestamp
+, term_exists                  string     
+, term_temporal                string     
+, term_modifiers               string     
+, offset_begin                 int        
+, offset_end                   int        
+, section_source_value         string     
+, section_source_concept_id    int        
+)
+STORED AS ORC;
+INSERT OVERWRITE TABLE note_nlp 
 SELECT
   note_nlp_id                           
 , note_id                              
@@ -667,6 +1045,9 @@ SELECT
 , section_source_value                        
 , section_source_concept_id                   
 FROM mimicomop.avro_note_nlp;
+--UPDATE STATISTICS
+ANALYZE TABLE note_nlp COMPUTE STATISTICS;
+ANALYZE TABLE note_nlp COMPUTE STATISTICS FOR COLUMNS;
 
 
 --
@@ -674,13 +1055,19 @@ FROM mimicomop.avro_note_nlp;
 --
 
 -- MOUNT AVRO INTO HIVE
-DROP TABLE IF EXISTS avro_fact_relationship;
+DROP TABLE IF EXISTS avro_fact_elationship;
 CREATE EXTERNAL TABLE avro_fact_relationship ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/fact_relationship/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/fact_relationship.avsc');
 
 DROP TABLE IF EXISTS fact_relationship;
 
 --PUSH AVRO DATA INTO ORC
-CREATE TABLE fact_relationship  STORED AS ORC AS 
+CREATE TABLE fact_relationship  STORED AS ORC 
+  TBLPROPERTIES (
+  'orc.compress'='ZLIB',
+  'orc.create.index'='true',
+  'orc.bloom.filter.columns'='fact_id_1,fact_id_2'
+)
+AS 
 SELECT
   domain_concept_id_1			
 , fact_id_1					
@@ -688,3 +1075,6 @@ SELECT
 , fact_id_2					
 , relationship_concept_id
 FROM mimicomop.avro_fact_relationship;
+--UPDATE STATISTICS
+ANALYZE TABLE fact_relationship COMPUTE STATISTICS;
+ANALYZE TABLE fact_relationship COMPUTE STATISTICS FOR COLUMNS;
