@@ -1,5 +1,3 @@
-USE mimiciii;
-TRUNCATE TABE omop.cohort;
 INSERT INTO omop.cohort 
 (
   cohort_definition_id 
