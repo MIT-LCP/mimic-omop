@@ -1,7 +1,7 @@
 # Link to CommonDataModel
 - [OBSERVATION](https://github.com/OHDSI/CommonDataModel/wiki/OBSERVATION)
 
-# Source Tables (mimic)
+# Source Tables (mimic)
 
 ## [datetimeevents](https://mimic.physionet.org/mimictables/datetimeevents/)
 
@@ -23,19 +23,19 @@
 
 # Mapping used
 
-## [insurance_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/insurance_to_concept.csv)
+## [insurance_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/insurance_to_concept.csv)
 
 - it maps insurance in standard concept 
 
-## [ethnicity_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/ethnicity_to_concept.csv)
+## [ethnicity_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/ethnicity_to_concept.csv)
 
 - it maps ethnicity in standard concept 
 
-## [religion_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/religion_to_concept.csv)
+## [religion_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/religion_to_concept.csv)
 
 - it maps religion in standard concept 
 
-## [marital_status_to_concept](github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/marital_status_to_concept.csv)
+## [marital_status_to_concept](github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/marital_status_to_concept.csv)
 
 - it maps marital_status in standard concept 
 
@@ -47,7 +47,7 @@
 SELECT observation_concept_id, concept_name, count(1) 
 FROM observation 
 JOIN concept on observation_concept_id = concept_id 
-group by observation_concept_id, concept_name order by count(1) desc;
+GROUP BY observation_concept_id, concept_name ORDER BY count(1) desc;
 ```
 | observation_concept_id |                   concept_name                    | count|
 |------------------------|---------------------------------------------------|--------|

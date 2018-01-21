@@ -38,15 +38,15 @@
 
 # Mapping used
 
-## [visit_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_type_to_concept.csv)
+## [visit_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/admission_type_to_concept.csv)
 
 - it maps mimic admission type to omop admission type
 
-## [admitting_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/admission_location_to_concept.csv)
+## [admitting_source_concept_id](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/admission_location_to_concept.csv)
 
 - it maps mimic location admission type to omop location admission type
 
-## [discharge_type_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/discharge_location_to_concept.csv)
+## [discharge_type_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/discharge_location_to_concept.csv)
 
 - it maps mimic location discharge type to omop location discharge type
 
@@ -187,13 +187,12 @@ WITH tmp AS
   (
         SELECT visit_detail_id
         FROM visit_detail
-        WHERE visit_detail_concept_id = 581382
-        and visit_type_concept_id = 2000000006
-        and discharge_to_concept_id = 4216643
-  
+	WHERE visit_detail_concept_id = 581382                    -- concept.concept_name = 'Inpatient Intensive Care Facility'
+	AND visit_type_concept_id = 2000000006                    -- concept.concept_name = 'Ward and physical location'
+	AND discharge_to_concept_id = 4216643                     -- concept.concept_name = 'Patient died'
   ) d USING (visit_detail_id)
   WHERE t.visit_detail_concept_id = 581382
-  and t.visit_type_concept_id = 2000000006
+  AND t.visit_type_concept_id = 2000000006
 
 )
 SELECT dead, total, dead * 100 / total as percentage FROM tmp;

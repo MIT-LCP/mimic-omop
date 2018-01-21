@@ -79,12 +79,13 @@ WITH
                               select t1.*
                                    , sum(group_flag) over ( partition by hadm_id order by intime) as grp
                                 from (
-                                              select *
+                                              select  transfers.row_id , transfers.subject_id , transfers.hadm_id , transfers.icustay_id , transfers.dbsource , transfers.eventtype , transfers.prev_careunit , transfers.curr_careunit , transfers.prev_wardid , transfers.curr_wardid , transfers.intime , coalesce(transfers.outtime,dischtime) as outtime , transfers.los , transfers.mimic_id 
                                                    , case when lag(curr_wardid) over ( partition by hadm_id order by intime) = curr_wardid
 						then null 
 					        else 1 end as group_flag
                                 from transfers
-				WHERE outtime IS NOT NULL
+				left join admissions USING (hadm_id)
+                                where eventtype!= 'discharge'
                      ) t1
 ),
 "transfers_no_bed" as(
@@ -133,7 +134,7 @@ INSERT INTO omop.visit_detail
 SELECT
   visit_detail_id
 , person_id
-, coalesce(gcpt_care_site.visit_detail_concept_id, 0) as visit_detail_concept_id
+, coalesce(gcpt_care_site.visit_detail_concept_id, 2000000013) as visit_detail_concept_id --unknown
 , visit_start_date
 , visit_start_datetime
 , visit_end_date
@@ -163,7 +164,7 @@ ELSE discharge_to_concept_id
 , null::integer visit_detail_parent_id
 , visit_occurrence_id
 FROM visit_detail_ward
-LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit ||' ward n°' || coalesce(curr_wardid::text,'?'))
+LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit ||' ward #' || coalesce(curr_wardid::text,'?'))
 ),
 "callout_delay" as (
 	SELECT 

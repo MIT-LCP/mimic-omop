@@ -7,19 +7,19 @@
 
 - omitted, rows which not have any `enddate`. They are only 5K on 4M. Since `drug_exposure_end_date` cannot be null.
 - mapped to RxNorm done by Paul Church 
-- drug_type_concept_id` = 38000177
+- `drug_type_concept_id` = 38000177 ("Prescription written")
 - sig contains informations of doses (workaround)
 - visit_detail_id is not assigned; this is because there is no time information and therefore no sufficient precision
 
 ## [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
-- `drug_type_concept_id` = 38000180
+- `drug_type_concept_id` = 38000180 ("Inpatient administration")
 - `drug_exposure_end_datetime` is always null (because there is no end charttime in inputevents_cv)
 - `visit_detail_id` is assigned
 
 ## [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
-- `drug_type_concept_id` = 38000180
+- `drug_type_concept_id` = 38000180 ("Inpatient administration")
 - row with cancelled have not been exported from mimic 
 - `visit_detail_id` is assigned
 
@@ -59,39 +59,39 @@ SELECT distinct(concept_name)
 FROM drug_exposure 
 JOIN concept ON route_concept_id = concept_id;
 ```
-                    concept_name
-----------------------------------------------------
- Intraocular
- Infusion, intravenous catheter, continuous
- Subcutaneous
- Injection, intravenous, rapid push
- Nasal
- No matching concept
- Sublingual
- Buccal
- Oral
- Intrathecal
- Intraperitoneal
- Rectal
- Endotracheopulmonary
- Intracerebroventricular
- Genitourinary therapy
- Auricular
- Administration of substance via oral route
- Intramuscular
- Administration of substance via subcutaneous route
- Intravenous injection
- Regional perfusion
- Intraarticular
- Intravaginal
- Inhalation
- Haemodialysis
- Intraventricular cardiac
- Transdermal
- Epidural
- Topical
- Intravenous
- Intrapleural
+|                    concept_name|
+|----------------------------------------------------|
+| Intraocular|
+| Infusion, intravenous catheter, continuous|
+| Subcutaneous|
+| Injection, intravenous, rapid push|
+| Nasal|
+| No matching concept|
+| Sublingual|
+| Buccal|
+| Oral|
+| Intrathecal|
+| Intraperitoneal|
+| Rectal|
+| Endotracheopulmonary|
+| Intracerebroventricular|
+| Genitourinary therapy|
+| Auricular|
+| Administration of substance via oral route|
+| Intramuscular|
+| Administration of substance via subcutaneous route|
+| Intravenous injection|
+| Regional perfusion|
+| Intraarticular|
+| Intravaginal|
+| Inhalation|
+| Haemodialysis|
+| Intraventricular cardiac|
+| Transdermal|
+| Epidural|
+| Topical|
+| Intravenous|
+| Intrapleural|
 
 ## repartition of drug, with non omop mimic labels
 
@@ -142,6 +142,7 @@ GROUP BY 1, 2 ORDER BY count(1) desc limit 10;
 
 ```sql
 -- two levels of links to represent linkorderid and orderid in mimic
+-- Warning : fact_id_1 and fact_id_2 may be the solution or the main drug
 SELECT drug_1.drug_source_value as drug_1, drug_2.drug_source_value as drug_2
 FROM
 (
@@ -151,27 +152,29 @@ FROM
 	(
                 SELECT drug_exposure_id
                 FROM drug_exposure
-                WHERE drug_type_concept_id = 38000180 				-- concept.concept_name = 'Inpatient administration'
- 
+                WHERE drug_type_concept_id = 38000180                 -- concept.concept_name = 'Inpatient administration'
 	)
+
 ) as couple
 JOIN drug_exposure drug_1 ON drug_1.drug_exposure_id = fact_id_1
 JOIN drug_exposure drug_2 ON drug_2.drug_exposure_id = fact_id_2
-WHERE drug_1 != drug_2
-limit 10;
+WHERE drug_1.drug_source_value != drug_2.drug_source_value
+AND drug_1.drug_source_value is not null
+AND drug_2.drug_source_value is not null
+LIMIT 10;
 ```
-         drug_1         |         drug_2
-------------------------+------------------------
- Nitroglycerin          | Nitroglycerin
- Fentanyl (Concentrate) | Fentanyl (Concentrate)
- Fentanyl (Concentrate) | Solution
- Midazolam (Versed)     | Midazolam (Versed)
- Calcium Gluconate      | Piggyback
- Fentanyl (Concentrate) | Solution
- Norepinephrine         | Norepinephrine
- Vancomycin             | Dextrose 5%
- Phenylephrine          | NaCl 0.9%
- Propofol               | Solution
+|          drug_1          |         drug_2|
+|--------------------------|-------------------------|
+| Cefazolin                | NaCl 0.9%|
+| Norepinephrine           | NaCl 0.9%|
+| Potassium Chloride       | KCL (Bolus)|
+| Solution                 | Propofol|
+| NaCl 0.9%                | Pantoprazole (Protonix)|
+| NaCl 0.9%                | Norepinephrine|
+| Solution                 | Famotidine (Pepcid)|
+| Levofloxacin             | Dextrose 5%|
+| Calcium Gluconate (CRRT) | Dextrose 5%|
+| NaCl 0.9%                | Norepinephrine|
 
 ##  to extract only the non omop mimic id from inputevents_cv
 
@@ -189,7 +192,7 @@ WHERE drug_source_concept_id IN
 AND drug_type_concept_id = 38000180; 						-- concept.concept_name = 'Inpatient administration'
 ```
 
-##  to extract only the non omop mimic id from inputevents_cv
+##  to extract only the non omop mimic id from inputevents_mv
 
 ``` sql
 SELECT *
@@ -203,7 +206,7 @@ WHERE drug_source_concept_id IN
 AND drug_type_concept_id = 38000180; 						-- concept.concept_name = 'Inpatient administration'
 ```
 
-##  to find drug IV, continuous in rate 
+##  to find IV continuous drugs recorded in rate 
 
 ``` sql
 SELECT distinct on (drug_source_value) quantity, dose_unit_source_value, drug_source_value, drug_source_concept_id, drug_exposure_start_datetime, drug_exposure_end_datetime
@@ -226,7 +229,7 @@ LIMIT 10;
 | 0.2001280807 | mcg/kg/hour            | Dexmedetomidine (Precedex) |             2001030569 | 2133-11-15 03:00:00          | 2133-11-14 20:25:00|
 |          150 | mL/hour                | Dextrose 5%                |             2001030526 | 2101-06-02 02:49:00          | 2101-06-01 20:10:00|
 
-##  to find drug IV, continuous in amount
+##  to find IV continuous drugs recorded in amount
 
 ``` sql
 SELECT distinct on (drug_source_value) quantity, dose_unit_source_value, drug_source_value, drug_source_concept_id, drug_exposure_start_datetime, drug_exposure_end_datetime

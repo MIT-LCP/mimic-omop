@@ -1,14 +1,15 @@
 # Link to CommonDataModel
 - [MEASUREMENT](https://github.com/OHDSI/CommonDataModel/wiki/MEASUREMENT)
 
-# You must filter your queries with data types !
+# You must filter your queries with data types  
+- ie the `measurement_type_concept_id` column!
 
 # Source Tables (mimic)
 
-- when measures are mapped to standard concepts (SMOMED) measurement_concept_id != 0
-  you may use the non-omop mimic itemid
-- else `measurement_concept_id` = 0
-  you have to select measures with non-omop mimic itemid : `measurement_source_concept_id`
+- when measures are mapped to standard concepts (SMOMED) `measurement_concept_id
+ != 0`, and you may use the non-omop mimic itemid
+- else `measurement_concept_id` = 0, and you should select measures with: `measurement_source_concept_id`
+- you can determine the `measurement_source_concept_id` by looking in the `concept` table, where `concept_code` is the MIMIC `itemid`
 
 - when `visit_detail_id` is assigned, this is a calculated value!
 
@@ -34,13 +35,13 @@
 
 ## charteevents
 
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/chart_label_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/chart_label_to_concept.csv
 
 ## labevents
 
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_label_to_concept.csv
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_unit_to_concept.csv
-- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/google/concept/lab_value_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/lab_label_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/lab_unit_to_concept.csv
+- https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/lab_value_to_concept.csv
 
 ## microbiologyevents
 
@@ -52,7 +53,11 @@
 
 # Derived value
 
-- calculated values, should be populated with time
+- derived values, should be populated with time
+- the following have already been done 
+    - corrected calcemia, kaliemia, P/F ratio, corrected osmolarity from chartevents and labevents
+    - Weight, height, LVEF from noteevents
+    - BMI from chartevents and noteevents
 - [derived_values](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/derived_to_concept.csv)
 
 # Examples
@@ -278,6 +283,7 @@ GROUP BY concept_name, value_as_concept_id order by count(1) desc;
 ## resistance profile for Staph. Aureus
 
 ``` sql
+-- fact_id_1 is always the organisms and fact_id_2 the antibiotics tested
 SELECT measurement_source_value, value_as_concept_id, concept_name
 FROM measurement
 JOIN concept resistance ON value_as_concept_id = concept_id
@@ -308,3 +314,23 @@ WHERE measurement_type_concept_id = 2000000008        			        -- concept.conc
 | GENTAMICIN               |             4038110 | Susceptible|
 | GENTAMICIN               |             4038110 | Susceptible|
 | LEVOFLOXACIN             |             4038110 | Susceptible|
+
+## organism and antibiotic resistance
+
+``` sql
+SELECT org.value_source_value, atb.measurement_source_value, resistance.concept_name
+FROM
+(
+    SELECT fact_id_1, fact_id_2 from fact_relationship where fact_id_1 IN 
+    (
+        SELECT measurement_id 
+        FROM measurement
+        WHERE measurement_type_concept_id = 2000000007
+        AND value_as_concept_id != 9189
+    )
+) as fact
+JOIN measurement org ON org.measurement_id = fact.fact_id_1 and org.measurement_type_concept_id = 2000000007
+JOIN measurement atb ON atb.measurement_id = fact.fact_id_2 and atb.measurement_type_concept_id = 2000000008
+JOIN concept resistance ON resistance.concept_id = atb.value_as_concept_id
+LIMIT 10;
+```

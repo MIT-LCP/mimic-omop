@@ -1,9 +1,16 @@
 MIMIC-OMOP
 ==========
 
-Mapping the MIMIC-III database to the OMOP schema
-
 [![OMOP](https://github.com/MIT-LCP/mimic-omop/blob/master/images/ohdsi.png)](https://github.com/OHDSI/CommonDataModel/wiki)
+
+This repository contains an Extract-Transform-Load (ETL) process for mapping the [MIMIC-III database](mimic.physionet.org) to the [OMOP Common Data Model](https://github.com/OHDSI/CommonDataModel). This process involves both transforming the structure of the database (i.e. the relational schema), but also standardizing the many concepts in the MIMIC-III database to a standard vocabulary (primarily the [Athena Vocabulary](https://www.ohdsi.org/analytic-tools/athena-standardized-vocabularies/), which you can explore [here](athena.ohdsi.org)).
+
+"WHERE IS ..."
+===================================================
+
+Below in the README, we provide two sections. The first section, *OMOP TABLES LOADED*, lists the OMOP tables which have been populated from MIMIC-III. You can use this section to figure out what data generated each OMOP TABLE. For example, we can see that the OMOP CDM table *person* was populated using data from the *patients* and *admissions* table in MIMIC-III.
+
+The second section, *MIMIC TABLES EQUIVALENCE*, lists all the tables in MIMIC-III, and shows where the data now exists in the OMOP CDM. For example, we can see that the MIMIC-III table *patients* was used to populate the OMOP CDM tables *person* and *death*.
 
 OMOP TABLES LOADED
 ==================
@@ -121,22 +128,3 @@ REMARKS
 	1. [omop](omop/doc/schemaspy/index.html)
 
 
-ROADMAP
-=======
-
-- [x] create a postgresql OMOP5.3 empty instance
-- [x] create a postgresql MIMIC3  subset instance (100 patients)
-- [x] give JDBC access to collaborators with DUA, to the two above schema
-- [ ] describe all MIMIC3->OMOP5.3 mapping into a spreadsheet file
-- [x] choose the ETL technology [SQL, TALEND, R, Python, other] based on mapping description experience and time remaining
-- [ ] extend omop with new columns such mimic contrib or specific icu concepts
-- [ ] load the OMOP5.3 tables with existing data (standard concepts...)
-- [ ] implement the MIMIC3->OMOP5.3 ETL and test it on the MIMIC3 subset
-- [ ] ?use existing ATHENA concept-mapping to map MIMIC3 terminologies to OMOP5.3 standard concepts?
-- [ ] test USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
-- [ ] extend USAGI for mapping MIMIC3 terminologies to OMOP5.3 standard concepts
-
-DEADLINE
-========
-
-- January, 15th 2018

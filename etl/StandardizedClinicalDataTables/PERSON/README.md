@@ -84,6 +84,7 @@ GROUP BY person.RACE_CONCEPT_ID, concept.CONCEPT_NAME;
 |        38003591 | Thai                                      |                 3|
 
 ## Distribution of year of birth
+
 ``` sql
 SELECT percentile_25
      , median
@@ -117,3 +118,50 @@ GROUP BY percentile_25, median, percentile_75;
 | percentile_25 | median | percentile_75 | minimum | maximum | mean |       stddev        |
 |---------------|--------|---------------|---------|---------|------|---------------------|
 |          2062 |   2095 |          2123 |    1800 |    2201 | 2088 | 64.2736336370628481|
+
+
+## Help query to show demographic variables - to use with presto (date_diff() fonction)!!
+
+``` sql
+SELECT vd.person_id
+        , vd.visit_occurrence_id
+        , vd.visit_detail_id
+        , vd.visit_start_datetime
+        , race.concept_name as race
+        , gender.concept_name as gender
+        , date_diff('year', person.birth_datetime, vd.visit_start_datetime) as age
+        , adm.concept_name as admission
+        , disch.concept_name as discharge
+        , date_diff('day', vd.visit_start_datetime, vd.visit_end_datetime) as los_icu
+        , date_diff('day', vo.visit_start_datetime, vo.visit_end_datetime) as los_adm
+        , diag.adm_diagnosis
+        , diag.disch_diagnosis
+        , CASE
+                WHEN vd.discharge_to_concept_id = 4216643 then 1
+                ELSE 0 END AS dead_icu
+FROM visit_detail vd
+LEFT JOIN visit_occurrence vo USING (visit_occurrence_id)
+   LEFT JOIN concept adm ON vo.visit_source_concept_id = adm.concept_id
+   LEFT JOIN concept disch ON vo.discharge_to_concept_id = disch.concept_id
+JOIN person ON person.person_id = vd.person_id
+   LEFT JOIN concept race ON person.race_concept_id = race.concept_id
+   LEFT JOIN concept gender ON person.gender_concept_id = gender.concept_id
+LEFT JOIN
+(
+    SELECT distinct(co.visit_occurrence_id), adm_name.concept_name as adm_diagnosis, disch_name.concept_name as disch_diagnosis
+    FROM condition_occurrence co
+    LEFT JOIN
+    (
+        SELECT visit_occurrence_id, max(condition_concept_id) as adm_id
+        FROM condition_occurrence
+        WHERE condition_type_concept_id = 42894222
+        GROUP BY visit_occurrence_id
+    
+    ) AS adm ON co.visit_occurrence_id = adm.visit_occurrence_id
+        JOIN concept adm_name ON adm_name.concept_id = adm.adm_id
+    LEFT JOIN condition_occurrence disch ON co.visit_occurrence_id = disch.visit_occurrence_id and disch.condition_type_concept_id = 38000184
+        JOIN concept disch_name ON disch_name.concept_id = disch.condition_concept_id
+) diag ON diag.visit_occurrence_id = vd.visit_occurrence_id
+WHERE vd.visit_type_concept_id = 2000000006
+AND vd.visit_detail_concept_id = 581382;
+```
