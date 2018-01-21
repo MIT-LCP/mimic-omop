@@ -1,5 +1,3 @@
-set search_path to mimiciii;
-truncate table omop.note_nlp;
 with
 "note_section"  as 
 (

@@ -1,6 +1,6 @@
 -- LABS FROM labevents
 WITH
-"labs_value_purif" as (SELECT *, regexp_replace(regexp_replace(trim(value), 'LE[SE]S THAN ','<'),'GREATER TH[AE]N ','>') as value_purif from mimic.labevents),
+"labs_value_purif" as (SELECT *, regexp_replace(regexp_replace(trim(value), 'LE[SE]S THAN ','<'),'GREATER TH[AE]N ','>') as value_purif from labevents),
 "labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, flag, value as value_source_value,
         CASE WHEN value_purif ~ '^[+-]*[0-9.,]+$' THEN  '=' ELSE substring(value_purif,'^(<=|>=|<|>)') END as operator_name,
                 CASE WHEN value_purif ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$'
