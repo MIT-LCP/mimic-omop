@@ -778,7 +778,7 @@ CREATE TABLE observation
 , observation_concept_id          int                  
 , observation_date                date
 , observation_datetime            timestamp
-, value_as_number                 string               
+, value_as_number                 decimal               
 , value_as_string                 string               
 , value_as_concept_id             int                  
 , qualifier_concept_id            int                  
