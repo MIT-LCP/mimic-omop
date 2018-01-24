@@ -2,7 +2,7 @@
 - [CARE_SITE](https://github.com/OHDSI/CommonDataModel/wiki/CARE_SITE)
 
 # Source Tables
-The `cate_site` table contains:
+The `care_site` table contains:
 - hospital informations
 - ward informations
 - services informations
@@ -21,5 +21,5 @@ The `cate_site` table contains:
 
 ## [care_site](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/care_site.csv)
 
-- the table has been composed manually from documentaion
-
+- the table has been composed manually from documentation
+- the table contains two identifiers:
