@@ -74,5 +74,24 @@ SELECT count(admitting_source_value) FROM omop.visit_detail group by admitting_s
 'not same admitting source/concept_id'
 );
 
+-- 4.check same_number patients visit_detail /icustays
+SELECT results_eq
+(
+'
+SELECT COUNT(distinct subject_id), COUNT(distinct hadm_id)
+FROM icustays;
+
+'
+,
+'
+SELECT COUNT(distinct person_id), COUNT(distinct visit_occurrence_id)
+FROM omop.visit_detail
+WHERE visit_detail_concept_id = 581382                             -- concept.concept_name = 'Inpatient Intensive Care Facility'
+AND visit_type_concept_id = 2000000006;
+'
+,
+'not same patients number in visit_detail/icustays'
+);
+
 SELECT * FROM finish();
 ROLLBACK;
