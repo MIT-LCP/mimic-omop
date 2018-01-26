@@ -120,7 +120,6 @@ JOIN concept c ON v.admitting_source_concept_id = c.concept_id;
 | PHYS REFERRAL/NORMAL DELI | Office                    |       8940|
 | TRSF WITHIN THIS FACILITY | Inpatient Hospital        |       8717|
 | TRANSFER FROM OTHER HEALT | Other Inpatient Care      |       8892|
-| DEAD/EXPIRED              | Patient died              |    4216643|
 
 ## explanation of the `discharge_to_concept_id`
 
@@ -167,7 +166,7 @@ SELECT percentile_25
                      / CAST( SUM( nb_los   ) OVER( ORDER BY los ROWS BETWEEN UNBOUNDED PRECEDING
                                                                         AND UNBOUNDED FOLLOWING    )  AS DECIMAL    )
                      * 4
-                        ) | 1
+                        ) + 1
           as percentile
           FROM
              ( SELECT EXTRACT(EPOCH FROM visit_end_datetime  - visit_start_datetime)/60.0/60.0/24.0 as los, count(*) AS nb_los
