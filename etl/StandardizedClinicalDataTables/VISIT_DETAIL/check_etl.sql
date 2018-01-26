@@ -11,8 +11,8 @@
 
 BEGIN;
 
-SELECT plan(3);
--- 1. Should run 0 lines
+SELECT plan( 6 );
+
 SELECT results_eq
 (
 '
@@ -44,9 +44,11 @@ WHERE v.visit_type_concept_id = 4079617
 group by 1 order by 2 desc
 ;'
 ,
-'not same number transfers'
+'Visit_detail table -- not same number transfers'
 );
--- 2.links checker (1)
+
+
+
 SELECT results_eq
 (
 '
@@ -57,10 +59,11 @@ SELECT count(visit_source_concept_id) FROM omop.visit_detail group by visit_sour
 SELECT count(visit_source_value) FROM omop.visit_detail group by visit_source_value order by 1 desc;
 '
 ,
-'not same visit source/concept_id'
+'Visit_detail table -- not same visit source/concept_id'
 );
 
--- 3.links checker (2)
+
+
 SELECT results_eq
 (
 '
@@ -71,10 +74,11 @@ SELECT count(admitting_source_concept_id) FROM omop.visit_detail group by admitt
 SELECT count(admitting_source_value) FROM omop.visit_detail group by admitting_source_value order by 1 desc;
 '
 ,
-'not same admitting source/concept_id'
+'Visit_detail table -- not same admitting source/concept_id'
 );
 
--- 4.check same_number patients visit_detail /icustays
+
+
 SELECT results_eq
 (
 '
@@ -90,7 +94,47 @@ WHERE visit_detail_concept_id = 581382                             -- concept.co
 AND visit_type_concept_id = 2000000006;
 '
 ,
-'not same patients number in visit_detail/icustays'
+'Visit_detail table -- not same patients number in visit_detail/icustays'
+);
+
+
+
+SELECT results_eq
+(
+ '
+select 0::integer;
+'
+,
+'
+WITH tmp AS
+(
+        SELECT visit_detail_id, visit_occurrence_id, CASE WHEN visit_end_datetime < visit_start_datetime THEN 1 ELSE 0 END AS abnormal
+        FROM omop.visit_detail
+)
+SELECT max(abnormal) FROM tmp;
+'
+,
+'Visit_detail table -- start_datetime > end_datetime'
+);
+
+
+
+SELECT results_eq
+(
+ '
+select 0::integer;
+'
+,
+'
+WITH tmp AS
+(
+        SELECT visit_detail_id, visit_occurrence_id, CASE WHEN visit_end_date < visit_start_date THEN 1 ELSE 0 END AS abnormal
+        FROM omop.visit_detail
+)
+SELECT max(abnormal) FROM tmp;
+'
+,
+'Visit_detail table -- start_date > end_date'
 );
 
 SELECT * FROM finish();

@@ -11,7 +11,6 @@
 BEGIN;
 SELECT plan ( 5 );
 
--- 1. number admission checker
 SELECT results_eq
 (
 '
@@ -22,11 +21,11 @@ SELECT count(*) FROM admissions;
 '
 SELECT count(*) FROM omop.visit_occurrence;
 ' 
-,'same number admission'
+,
+'Visit_occurrence table -- same number admission'
 );
 
 
--- 2. repartition visit_source_value
 SELECT results_eq
 (
 '
@@ -36,10 +35,11 @@ SELECT cast(admission_type as TEXT) as visit_source_value, count(1) FROM admissi
 '
 SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
 '
-,'same distribution adm'
+,
+'Visit_occurrence table -- same distribution adm'
 );
 
--- 3. repartition admitting_source_value
+
 SELECT results_eq
 (
 '
@@ -49,10 +49,11 @@ SELECT cast(admission_location as TEXT) as admitting_source_value, count(1) FROM
 '
 SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
 '
-,'distribution admit source value'
+,
+'Visit_occurrence table -- distribution admit source value'
 );
 
--- 4. repartition discharge_to_source_value
+
 SELECT results_eq
 (
 '
@@ -62,7 +63,8 @@ SELECT cast(discharge_location as TEXT) as discharge_to_source_value, count(1) F
 '
 SELECT cast(discharge_to_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
 '
-,'-- 4. repartition discharge_to_source_value'
+,
+'Visit_occurrence table -- repartition discharge_to_source_value'
 );
 
 
@@ -75,7 +77,28 @@ SELECT count(visit_source_concept_id) FROM omop.visit_occurrence group by visit_
 '
 SELECT count(visit_source_value) FROM omop.visit_occurrence group by visit_source_value order by 1 desc;
 '
-,'-- 5.links checker (1)'
+,
+'Visit_occurrence table -- links checker'
+);
+
+-- the same check with timestamp is wrong even before ETL 
+SELECT results_eq
+(
+ '
+select 0::integer;
+'
+,
+'
+WITH tmp AS
+(
+        SELECT visit_occurrence_id, CASE WHEN visit_end_date < visit_start_date THEN 1 ELSE 0 END AS abnormal
+        FROM omop.visit_occurrence
+
+)
+SELECT max(abnormal) FROM tmp;
+'
+,
+'Visit_occurrence table -- start_date > end_date'
 );
 
 SELECT * FROM finish();

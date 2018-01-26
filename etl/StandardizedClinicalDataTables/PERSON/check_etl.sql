@@ -9,7 +9,7 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan (3);
+SELECT plan ( 4 );
 SELECT results_eq
 (
 '
@@ -21,7 +21,7 @@ FROM omop.person;
 SELECT COUNT(*) AS num_persons_count
 FROM patients;
 ' 
-,'-- 1. number patients checker'
+,'Death table -- number patients checker'
 );
 
 SELECT results_eq
@@ -40,7 +40,7 @@ FROM patients
 GROUP BY gender
 ORDER BY num_persons_count DESC;
 '
-,'-- 2. race checker'
+,'Death table -- race checker'
 );
 
 SELECT results_eq
@@ -106,7 +106,29 @@ SELECT percentile_25
     ) as percentile_table, omop.person
   GROUP BY percentile_25, median, percentile_75;
 '
-,'-- 3. distribution checker'
+,'Death table -- distribution checker'
 );
+
+SELECT results_eq
+(
+'
+SELECT 0::integer;
+'
+,
+'
+WITH tmp AS
+(
+        SELECT person_id
+             , CASE when death.death_datetime < person.birth_datetime THEN 1 ELSE 0 END AS abnormal
+        FROM omop.person
+        JOIN omop.death USING (person_id)
+
+)
+SELECT max(abnormal) FROM tmp;
+' 
+,'-- death table : birth after death'
+);
+
+
 SELECT * FROM finish();
 ROLLBACK;
