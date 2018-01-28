@@ -560,6 +560,41 @@ ANALYZE TABLE visit_occurrence  COMPUTE STATISTICS;
 ANALYZE TABLE visit_occurrence  COMPUTE STATISTICS FOR COLUMNS;
 
 
+--
+-- observation_period
+--
+
+-- MOUNT AVRO INTO HIVE
+DROP TABLE IF EXISTS avro_observation_period;
+CREATE EXTERNAL TABLE avro_observation_period ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/observation_period/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/observation_period.avsc');
+
+DROP TABLE IF EXISTS observation_period;
+
+--PUSH AVRO DATA INTO ORC
+CREATE TABLE observation_period 
+(
+  observation_period_id			int		
+, person_id				int		
+, observation_period_start_date		date		
+, observation_period_start_datetime	timestamp	
+, observation_period_end_date		date		
+, observation_period_end_datetime	timestamp	
+, period_type_concept_id		int		
+)
+STORED AS ORC;
+INSERT OVERWRITE TABLE observation_period
+SELECT
+  observation_period_id			
+, person_id				
+, from_unixtime(CAST(observation_period_start_date	/1000 as BIGINT), 'yyyy-MM-dd') AS observation_period_start_date
+, from_unixtime(CAST(observation_period_start_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS observation_period_start_datetime
+, from_unixtime(CAST(observation_period_end_date	/1000 as BIGINT), 'yyyy-MM-dd') AS observation_period_end_date
+, from_unixtime(CAST(observation_period_end_datetime	/1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS observation_period_end_datetime
+, period_type_concept_id		
+FROM mimicomop.avro_observation_period ;
+--UPDATE STATISTICS
+ANALYZE TABLE observation_period  COMPUTE STATISTICS;
+ANALYZE TABLE observation_period  COMPUTE STATISTICS FOR COLUMNS;
 
 --
 -- visit_detail

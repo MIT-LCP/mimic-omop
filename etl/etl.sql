@@ -11,6 +11,7 @@ TRUNCATE TABLE  omop.attribute_definition CASCADE;
 TRUNCATE TABLE  omop.person CASCADE;
 TRUNCATE TABLE  omop.death CASCADE;
 TRUNCATE TABLE  omop.visit_occurrence CASCADE;
+TRUNCATE TABLE  omop.observation_period CASCADE;
 TRUNCATE TABLE  omop.visit_detail CASCADE;
 TRUNCATE TABLE  omop.procedure_occurrence CASCADE;
 TRUNCATE TABLE  omop.provider CASCADE;
@@ -35,6 +36,7 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/PERSON/etl.sql
 \i etl/StandardizedClinicalDataTables/DEATH/etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE/etl.sql
+\i etl/StandardizedClinicalDataTables/OBSERVATION_PERIOD/etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_DETAIL/etl.sql
 \i etl/StandardizedClinicalDataTables/NOTE/etl.sql
 \i etl/StandardizedClinicalDataTables/NOTE_NLP/etl.sql
