@@ -21,6 +21,8 @@
 - Textual data from chartevents are stored here
 - Categorical variables are note considered as free text and are then stored in the measurement table
 
+## [drgcodes](https://mimic.physionet.org/mimictables/drgcodes/)
+
 # Mapping used
 
 ## [insurance_to_concept](https://github.com/MIT-LCP/mimic-omop/blob/master/extras/concept/insurance_to_concept.csv)
@@ -40,6 +42,18 @@
 - it maps marital_status in standard concept 
 
 # Examples
+
+## different date types
+``` sql
+SELECT observation_type_concept_id, concept_name, count(1)
+FROM observation
+JOIN concept on observation_type_concept_id = concept_id
+GROUP BY observation_type_concept_id, concept_name ORDER BY count(1) desc;
+```
+ observation_type_concept_id |         concept_name          |  count
+-----------------------------+-------------------------------+----------
+                      581413 | Observation from Measurement  | 69367755
+                    38000280 | Observation recorded from EHR |  4847060
 
 ## Repartition of different concepts in `observation` table
 

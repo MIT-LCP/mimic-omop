@@ -34,7 +34,8 @@ AND value_as_number is not null and operator_concept_id = 4172703
 GROUP BY concept_code
 ORDER BY concept_code, count(measurement_source_concept_id) desc;
 '
-,'global distrib labevent bad'
+,
+'Measurement table -- global distrib labevent bad'
 );
 
 -- 2.checker distribution labevents / patients
@@ -70,7 +71,8 @@ AND value_as_number is not null and operator_concept_id  = 4172703
 GROUP BY person_id, concept_code
 ORDER BY person_id desc, concept_code desc, count(measurement_source_concept_id) limit 1000;
 '
-,'distib labevent/patient'
+,
+'Measurement table -- distib labevent/patient'
 );
 
 -- 3.checker distribution labevents charttime (2)
@@ -104,7 +106,7 @@ GROUP BY concept_code
 ORDER BY concept_code, count(measurement_source_concept_id) desc;
 '
 ,
-'distrib labevent charttime'
+'Measurement table -- distrib labevent charttime'
 );
 
 
@@ -126,7 +128,8 @@ WHERE measurement_type_concept_id = 2000000007
 And value_as_concept_id is distinct from 9189
 Group by value_source_value order by 2, 1 desc;
 '
-,'distrib organisms bad'
+,
+'Measurement table -- distrib organisms bad'
 );
 
 SELECT results_eq
@@ -141,7 +144,7 @@ FROM omop.measurement
 where measurement_source_concept_id = 0;
 '
 ,
-'there is source concept in measurement not described'
+'Measurement table -- there is source concept in measurement not described'
 );
 
 
@@ -159,7 +162,7 @@ group by measurement_id
 having count(1) > 1) as t;
 '
 ,
-'primary key checker'
+'Measurement table -- primary key checker'
 );
 
 SELECT results_eq
@@ -177,7 +180,81 @@ measurement_concept_id != 0
 AND standard_concept != ''S'';
 '
 ,
-'Standard concept checker'
+'Measurement table -- standard concept checker'
+);
+
+SELECT results_eq
+(
+'
+WITH omop_measure AS
+(
+        SELECT concept_code::integer as itemid, count(*)
+        FROM omop.measurement
+        JOIN omop.concept ON measurement_source_concept_id = concept_id
+        WHERE measurement_type_concept_id IN (44818701, 44818702, 2000000003, 2000000009, 2000000010, 2000000011)
+        group by 1 order by 1 asc
+
+),
+omop_observation AS
+(
+        SELECT concept_code::integer as itemid, count(*)
+        FROM omop.observation
+        JOIN omop.concept ON observation_source_concept_id = concept_id
+        WHERE observation_type_concept_id = 581413
+        group by 1 order by 1 asc
+
+),
+omop_result AS
+(
+        SELECT * from omop_measure
+        UNION
+        SELECT * from omop_observation
+)
+SELECT itemid, count
+FROM omop_result 
+ORDER BY 1 asc;
+'
+,
+'
+WITH mimic_chartevents as
+(
+	SELECT itemid, count(*)
+	from chartevents
+	WHERE error is null or error = 0
+	group by 1 order by 1 asc
+
+),
+mimic_labevents AS
+(
+	SELECT itemid, count(*)
+	from labevents
+	group by 1 order by 1 asc
+),
+mimic_output AS
+(
+	SELECT itemid, count(*)
+	FROM outputevents
+	WHERE iserror is null
+	group by 1 order by 1 asc
+
+),
+mimic_result AS
+(
+	SELECT *
+	from mimic_chartevents
+	UNION
+	SELECT *
+	from mimic_labevents
+	UNION
+	SELECT *
+	FROM mimic_output
+)
+SELECT itemid, count
+FROM mimic_result 
+ORDER BY 1 asc;
+'
+,
+'Measurement table -- check number of insert row'
 );
 
 SELECT pass( 'Measurement pass, w00t!' );
