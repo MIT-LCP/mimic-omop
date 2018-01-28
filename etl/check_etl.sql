@@ -21,6 +21,7 @@ set search_path to :'mimicschema';
 \i etl/StandardizedClinicalDataTables/PERSON/check_etl.sql
 \i etl/StandardizedClinicalDataTables/DEATH/check_etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_OCCURRENCE/check_etl.sql
+\i etl/StandardizedClinicalDataTables/OBSERVATION_PERIOD/check_etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_DETAIL/check_etl.sql
 \i etl/StandardizedClinicalDataTables/MEASUREMENT/check_etl.sql
 \i etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/check_etl.sql
