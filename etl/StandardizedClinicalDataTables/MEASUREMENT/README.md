@@ -19,8 +19,8 @@
 
 ## [labevents](https://mimic.physionet.org/mimictables/labevents/)
 
-- when flag is abnormal then `value_as_concept_id` refers to LOINC code for " abnormal", else "non abnormal" and null when unknown
 - logical Observation Identifiers Names and Codes (LOINC) = database and universal standard for identifying medical laboratory observations loinc.csv
+- abnormal values from labevents do not have any equivalent in OMOP. The ranges should be prefered, but are not yet provided in MIMICt 
 
 ## [microbiologyevents](https://mimic.physionet.org/mimictables/microbiologyevents/)
 
