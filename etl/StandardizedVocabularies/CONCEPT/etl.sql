@@ -40,10 +40,15 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 SELECT 
   mimic_id as concept_id
 , 'label:[' || coalesce(label,'') ||']dbsource:[' || coalesce(dbsource,'') || ']linksto:[' || coalesce(linksto,'') ||']unitname:[' || coalesce(unitname,'') || ']param_type:[' || coalesce(param_type,'') || ']'  as concept_name
-, 'd_items'::text as domain_id
-, 'MIMIC Local Codes' as vocabulary_id
+, CASE WHEN itemid IN 
+(
+	  -10 -- example
+	, -11
+) THEN 'Observation'::Text 
+  ELSE 'Measurement'::Text END as domain_id
+, 'MIMIC d_items' as vocabulary_id
 , coalesce(category, '') as concept_class_id
-, itemid as concept_code
+, itemid::Text as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
 FROM d_items;
@@ -62,6 +67,36 @@ where label != abbreviation
 and abbreviation is not null;
 
 
+--	(
+--		  'Visual Disturbances'
+--		, 'Tremor (CIWA)'
+--		, 'Strength R Leg'
+--		, 'Strength R Arm'
+--		, 'Strength L Leg'
+--		, 'Strength L Arm'
+--		, 'Riker-SAS Scale'
+--		, 'Richmond-RAS Scale'
+--		, 'Pressure Ulcer Stage #2'
+--		, 'Pressure Ulcer Stage #1'
+--		, 'PAR-Respiration'
+--		, 'Paroxysmal Sweats'
+--		, 'PAR-Oxygen saturation'
+--		, 'PAR-Consciousness'
+--		, 'PAR-Circulation'
+--		, 'PAR-Activity'
+--		, 'Pain Level Response'
+--		, 'Pain Level'
+--		, 'Nausea and Vomiting (CIWA)'
+--		, 'Headache'
+--		, 'Goal Richmond-RAS Scale'
+--		, 'GCS - Verbal Response'
+--		, 'GCS - Motor Response'
+--		, 'GCS - Eye Opening'
+--		, 'Braden Sensory Perception'
+--		, 'Braden Nutrition'
+--		, 'Braden Moisture'
+--		, 'Braden Mobility'
+--	)
 --LABS
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
@@ -69,10 +104,10 @@ concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,va
 SELECT 
   mimic_id as concept_id -- the d_items mimic_id
 , 'label:[' || coalesce(label,'') || ']fluid:[' || coalesce(fluid,'') || ']loinc:[' || coalesce(loinc_code,'') || ']' as concept_name
-, 'd_labitems'::text as domain_id
-, 'MIMIC Local Codes' as vocabulary_id
+, 'Measurement'::text as domain_id
+, 'MIMIC d_labitems' as vocabulary_id
 , coalesce(category,'') as concept_class_id -- omop Lab Test
-, itemid as concept_code
+, itemid::Text as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
 FROM d_labitems;
@@ -101,7 +136,7 @@ distinct on (concept_name)
 , domain_id
 , vocabulary_id
 , concept_class_id
-,  concept_code
+, concept_code
 , drug_name_poe
 , drug_name_generic
 , drug

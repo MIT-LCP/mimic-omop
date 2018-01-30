@@ -75,17 +75,45 @@ FROM row_to_insert;
 
 -- LABS from chartevents
 WITH
-"chartevents_lab" AS ( SELECT chartevents.itemid, chartevents.mimic_id as measurement_id , subject_id , hadm_id ,charttime as measurement_datetime,  value as value_source_value , substring(value,'^(<=|>=|<|>)') as operator_name , CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , valueuom AS unit_source_value FROM chartevents JOIN d_items ON (d_items.itemid=chartevents.itemid AND category IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'CSF', 'Enzymes','Chemistry') ) WHERE error IS NULL OR error= 0
+"chartevents_lab" AS ( 
+	SELECT 
+	  chartevents.itemid
+	, chartevents.mimic_id as measurement_id
+	, subject_id
+	, hadm_id
+	, charttime as measurement_datetime
+	, value as value_source_value
+	, substring(value,'^(<=|>=|<|>)') as operator_name
+	, CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
+	  THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision 
+          ELSE null::double precision 
+          END as value_as_number
+	, valueuom AS unit_source_value 
+	FROM chartevents 
+        JOIN omop.concept -- concept driven dispatcher
+        ON (    concept_code  = itemid::Text 
+            AND domain_id     = 'Measurement' 
+            AND vocabulary_id = 'MIMIC d_items' 
+            AND concept_class_id IN ( 'Labs', 'Blood Gases', 'Hematology', 'Heme/Coag', 'Coags', 'CSF', 'Enzymes','Chemistry') 
+ 
+           )
+	WHERE error IS NULL OR error= 0
 ),
 "d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
-"omop_loinc" AS (SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement' AND standard_concept = 'S'),
+"omop_loinc" AS (
+	SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label 
+	FROM omop.concept 
+	WHERE vocabulary_id = 'LOINC' 
+	AND domain_id = 'Measurement' 
+	AND standard_concept = 'S'),
 "gcpt_lab_label_to_concept" AS (SELECT label, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
 "gcpt_labs_from_chartevents_to_concept" AS (SELECT label, category, measurement_type_concept_id from gcpt_labs_from_chartevents_to_concept),
-"row_to_insert" AS (SELECT 
+"row_to_insert" AS (
+	SELECT 
   chartevents_lab.measurement_id                 
 , patients.person_id                     
 , coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id     
@@ -274,17 +302,17 @@ SELECT
       c.valuenum as value_as_number,
       v.concept_id as value_as_concept_id,
       m.unit_concept_id as unit_concept_id,
-      d.mimic_id as measurement_source_concept_id,
+      concept.concept_id as measurement_source_concept_id,
       c.valueuom as unit_source_value, 
       CASE
-	WHEN d.category = 'Text' THEN valuenum -- discreteous variable
+	WHEN d_items.category   = 'Text' THEN valuenum -- discreteous variable
         WHEN m.label_type = 'systolic_bp' AND value ~ '[0-9]+/[0-9]+' THEN regexp_replace(value,'([0-9]+)/[0-9]*',E'\\1','g')::double precision 
         WHEN m.label_type = 'diastolic_bp' AND value ~ '[0-9]+/[0-9]+' THEN regexp_replace(value,'[0-9]*/([0-9]+)',E'\\1','g')::double precision 
         WHEN m.label_type = 'map_bp' AND value ~ '[0-9]+/[0-9]+' THEN map_bp_calc(value)
         WHEN m.label_type = 'fio2' AND c.valuenum between 0 AND 1 THEN c.valuenum * 100
 	WHEN m.label_type = 'temperature' AND c.VALUENUM > 85 THEN (c.VALUENUM - 32)*5/9
 	WHEN m.label_type = 'pain_level' THEN CASE 
-		WHEN d.LABEL ~* 'level' THEN CASE
+		WHEN d_items.LABEL ~* 'level' THEN CASE
 		      WHEN c.VALUE ~* 'unable' THEN NULL
 		      WHEN c.VALUE ~* 'none' AND NOT c.VALUE ~* 'mild' THEN 0
 		      WHEN c.VALUE ~* 'none' AND c.VALUE ~* 'mild' THEN 1
@@ -301,7 +329,7 @@ SELECT
 		WHEN c.VALUE ~* 'yes' THEN  1
 	        END
         WHEN m.label_type = 'sas_rass'  THEN CASE 
-                WHEN d.LABEL ~ '^Riker' THEN CASE 
+                WHEN d_items.LABEL ~ '^Riker' THEN CASE 
                       WHEN c.VALUE = 'Unarousable' THEN 1
                       WHEN c.VALUE = 'Very Sedated' THEN 2
                       WHEN c.VALUE = 'Sedated' THEN 3
@@ -313,8 +341,8 @@ SELECT
                 END
         END
 	WHEN m.label_type = 'height_weight'  THEN CASE
-		WHEN d.LABEL ~ 'W' THEN CASE
-	           WHEN d.LABEL ~* 'lb' THEN 0.453592 * c.VALUENUM
+		WHEN d_items.LABEL ~ 'W' THEN CASE
+	           WHEN d_items.LABEL ~* 'lb' THEN 0.453592 * c.VALUENUM
 		   ELSE NULL
 		   END
 		ELSE 0.0254 * c.VALUENUM
@@ -324,57 +352,29 @@ SELECT
       c.value as value_source_value, 
       m.value_lb as value_lb,
       m.value_ub as value_ub,
-      d.label AS measurement_source_value,
-      m.label_type
+      concept.concept_code AS measurement_source_value 
     FROM chartevents as c
-    JOIN d_items as d 
-    ON (d.itemid=c.itemid 
-	AND category IS DISTINCT FROM  'Labs'  
-	AND category IS DISTINCT FROM  'Blood Gases' 
-	AND category IS DISTINCT FROM  'Hematology' 
-	AND category IS DISTINCT FROM  'Chemistry' 
-	AND category IS DISTINCT FROM  'Heme/Coag' 
-	AND category IS DISTINCT FROM  'Coags' 
-	AND category IS DISTINCT FROM  'CSF' 
-	AND category IS DISTINCT FROM  'Enzymes' 
-	AND (      param_type IS DISTINCT FROM 'Text'
-		OR ( param_type = 'Text' AND label IN -- discreteous textual variables 
-		(
-			 'Visual Disturbances'
-			, 'Tremor (CIWA)'
-			, 'Strength R Leg'
-			, 'Strength R Arm'
-			, 'Strength L Leg'
-			, 'Strength L Arm'
-			, 'Riker-SAS Scale'
-			, 'Richmond-RAS Scale'
-			, 'Pressure Ulcer Stage #2'
-			, 'Pressure Ulcer Stage #1'
-			, 'PAR-Respiration'
-			, 'Paroxysmal Sweats'
-			, 'PAR-Oxygen saturation'
-			, 'PAR-Consciousness'
-			, 'PAR-Circulation'
-			, 'PAR-Activity'
-			, 'Pain Level Response'
-			, 'Pain Level'
-			, 'Nausea and Vomiting (CIWA)'
-			, 'Headache'
-			, 'Goal Richmond-RAS Scale'
-			, 'GCS - Verbal Response'
-			, 'GCS - Motor Response'
-			, 'GCS - Eye Opening'
-			, 'Braden Sensory Perception'
-			, 'Braden Nutrition'
-			, 'Braden Moisture'
-			, 'Braden Mobility'
-		) ) )
-
-)  -- remove the labs, because done before ; Text are put into observation unless they are discreteous
+    JOIN omop.concept -- concept driven dispatcher
+    ON (    concept_code  = c.itemid::Text 
+	AND domain_id     = 'Measurement' 
+	AND vocabulary_id = 'MIMIC d_items' 
+	AND concept_class_id IS DISTINCT FROM 'Labs'  
+	AND concept_class_id IS DISTINCT FROM 'Blood Gases' 
+	AND concept_class_id IS DISTINCT FROM 'Hematology' 
+	AND concept_class_id IS DISTINCT FROM 'Chemistry' 
+	AND concept_class_id IS DISTINCT FROM 'Heme/Coag' 
+	AND concept_class_id IS DISTINCT FROM 'Coags' 
+	AND concept_class_id IS DISTINCT FROM 'CSF' 
+	AND concept_class_id IS DISTINCT FROM 'Enzymes' 
+       )  -- remove the labs, because done before 
+    LEFT JOIN d_items USING (itemid)
     LEFT JOIN gcpt_chart_label_to_concept as m ON (label = d_label)
-    LEFT JOIN (SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type FROM gcpt_heart_rhythm_to_concept) as v 
-      ON m.label_type = v.label_type AND c.value = v.mimic_name
-WHERE error IS NULL OR error= 0
+    LEFT JOIN 
+       (
+	SELECT mimic_name, concept_id, 'heart_rhythm'::text AS label_type 
+	FROM gcpt_heart_rhythm_to_concept
+       ) as v  ON m.label_type = v.label_type AND c.value = v.mimic_name
+    WHERE error IS NULL OR error= 0
   ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
