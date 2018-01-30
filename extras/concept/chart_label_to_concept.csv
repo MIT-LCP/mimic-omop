@@ -254,28 +254,36 @@ Tidal Volume (set),vent_settings,50,1000,21490854,44818701,8587
 Tidal Volume (spontaneous),vent_settings,50,1000,3017594,44818701,8587
 Tidal Volume (Spont),vent_settings,50,1000,3017594,44818701,8587
 Vt [Spontaneous],vent_settings,50,1000,3017594,44818701,8587
-ICP,hemodynamic,,,4353953,44818701,8876
-Intra Cranial Pressure,hemodynamic,,,4353953,44818701,8876
-ICP Alarm [High],hemodynamic,,,4353953,44818701,8876
-ICP Alarm [Low],hemodynamic,,,4353953,44818701,8876
-Intra Cranial Pressure Alarm - Low,hemodynamic,,,4353953,44818701,8876
-Intra Cranial Pressure Alarm - High,hemodynamic,,,4353953,44818701,8876
-Intra Cranial Pressure #2,hemodynamic,,,4353953,44818701,8876
-ICP LEFT,hemodynamic,,,4353953,44818701,8876
-RIGHT VENT ICP,hemodynamic,,,4353953,44818701,8876
-VENT ICP,hemodynamic,,,4353953,44818701,8876
-Intra Cranial Pressure #2 Alarm - Low,hemodynamic,,,4353953,44818701,8876
-Intra Cranial Pressure #2 Alarm - High,hemodynamic,,,4353953,44818701,8876
-icp left,hemodynamic,,,4353953,44818701,8876
-ICP-ventriculostomuy,hemodynamic,,,4353953,44818701,8876
-R ICP,hemodynamic,,,4353953,44818701,8876
-CPP WITH CAMINO ICP,hemodynamic,,,4353953,44818701,8876
-ICP ventricle,hemodynamic,,,4353953,44818701,8876
-icp,hemodynamic,,,4353953,44818701,8876
-ICP  Right,hemodynamic,,,4353953,44818701,8876
-Rt ICP,hemodynamic,,,4353953,44818701,8876
-ICP Camino,hemodynamic,,,4353953,44818701,8876
-L ICP,hemodynamic,,,4353953,44818701,8876
-left icp,hemodynamic,,,4353953,44818701,8876
-ICP Right,hemodynamic,,,4353953,44818701,8876
-ventriculostomy icp,hemodynamic,,,4353953,44818701,8876
+ICP,hemodynamic,,,21490653,44818701,8876
+Intra Cranial Pressure,hemodynamic,,,21490653,44818701,8876
+ICP Alarm [High],hemodynamic,,,21490653,44818701,8876
+ICP Alarm [Low],hemodynamic,,,21490653,44818701,8876
+Intra Cranial Pressure Alarm - Low,hemodynamic,,,21490653,44818701,8876
+Intra Cranial Pressure Alarm - High,hemodynamic,,,21490653,44818701,8876
+Intra Cranial Pressure #2,hemodynamic,,,21490653,44818701,8876
+ICP LEFT,hemodynamic,,,21490653,44818701,8876
+RIGHT VENT ICP,hemodynamic,,,21490653,44818701,8876
+VENT ICP,hemodynamic,,,21490653,44818701,8876
+Intra Cranial Pressure #2 Alarm - Low,hemodynamic,,,21490653,44818701,8876
+Intra Cranial Pressure #2 Alarm - High,hemodynamic,,,21490653,44818701,8876
+icp left,hemodynamic,,,21490653,44818701,8876
+ICP-ventriculostomuy,hemodynamic,,,21490653,44818701,8876
+R ICP,hemodynamic,,,21490653,44818701,8876
+ICP ventricle,hemodynamic,,,21490653,44818701,8876
+icp,hemodynamic,,,21490653,44818701,8876
+ICP  Right,hemodynamic,,,21490653,44818701,8876
+Rt ICP,hemodynamic,,,21490653,44818701,8876
+ICP Camino,hemodynamic,,,21490653,44818701,8876
+L ICP,hemodynamic,,,21490653,44818701,8876
+left icp,hemodynamic,,,21490653,44818701,8876
+ICP Right,hemodynamic,,,21490653,44818701,8876
+ventriculostomy icp,hemodynamic,,,21490653,44818701,8876
+Cerebral Perfusion Pressure Alarm - Low,hemodynamic,,,21490695,44818701,8876
+Cerebral Perfusion Pressure Alarm - High,hemodynamic,,,21490695,44818701,8876
+Cerebral Perfusion Pressure,hemodynamic,,,21490695,44818701,8876
+CPP,hemodynamic,,,21490695,44818701,8876
+cpp,hemodynamic,,,21490695,44818701,8876
+VENT CPP,hemodynamic,,,21490695,44818701,8876
+Vent CPP,hemodynamic,,,21490695,44818701,8876
+Camino CPP,hemodynamic,,,21490695,44818701,8876
+CPP WITH CAMINO ICP,hemodynamic,,,21490695,44818701,8876
