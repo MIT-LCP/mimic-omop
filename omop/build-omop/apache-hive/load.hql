@@ -1113,3 +1113,42 @@ FROM mimicomop.avro_fact_relationship;
 --UPDATE STATISTICS
 ANALYZE TABLE fact_relationship COMPUTE STATISTICS;
 ANALYZE TABLE fact_relationship COMPUTE STATISTICS FOR COLUMNS;
+
+--
+-- specimen
+--
+
+-- MOUNT AVRO INTO HIVE
+DROP TABLE IF EXISTS avro_fact_elationship;
+CREATE EXTERNAL TABLE avro_specimen ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe' STORED as INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat' LOCATION '/user/edsdev/mimic-omop-avro/specimen/' TBLPROPERTIES ('avro.schema.url'='/user/edsdev/mimic-omop-avro/specimen.avsc');
+
+DROP TABLE IF EXISTS specimen;
+
+--PUSH AVRO DATA INTO ORC
+CREATE TABLE specimen  STORED AS ORC 
+  TBLPROPERTIES (
+  'orc.compress'='ZLIB',
+  'orc.create.index'='true',
+  'orc.bloom.filter.columns'=''
+)
+AS 
+SELECT
+  specimen_id		    
+, person_id		    
+, specimen_concept_id	    
+, specimen_type_concept_id   
+, from_unixtime(CAST(specimen_date                             /1000 as BIGINT), 'yyyy-MM-dd') AS specimen_date                             
+, from_unixtime(CAST(specimen_datetime                         /1000 as BIGINT), 'yyyy-MM-dd HH:mm:dd') AS specimen_datetime
+, quantity		    
+, unit_concept_id	    
+, anatomic_site_concept_id   
+, disease_status_concept_id  
+, specimen_source_id	    
+, specimen_source_value	    
+, unit_source_value	    
+, anatomic_site_source_value 
+, disease_status_source_value
+FROM mimicomop.avro_specimen;
+--UPDATE STATISTICS
+ANALYZE TABLE specimen COMPUTE STATISTICS;
+ANALYZE TABLE specimen COMPUTE STATISTICS FOR COLUMNS;

@@ -19,6 +19,7 @@ TRUNCATE TABLE  omop.condition_occurrence CASCADE;
 TRUNCATE TABLE  omop.observation CASCADE;
 TRUNCATE TABLE  omop.drug_exposure CASCADE;
 TRUNCATE TABLE  omop.measurement CASCADE;
+TRUNCATE TABLE  omop.specimen CASCADE;
 TRUNCATE TABLE  omop.note CASCADE;
 TRUNCATE TABLE  omop.note_nlp CASCADE;
 TRUNCATE TABLE  omop.fact_relationship CASCADE;
@@ -27,7 +28,7 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
 
 \i etl/pg_function.sql
-\i etl/StandardizedVocabularies/CONCEPT/etl.sql
+\i etl/StandardizedVocabularies/CONCEPT/etl.sql -- SHALL be first loaded table
 \i etl/StandardizedVocabularies/COHORT_DEFINITION/etl.sql
 \i etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION/etl.sql
 \i etl/StandardizedDerivedElements/COHORT_ATTRIBUTE/etl.sql
@@ -45,6 +46,7 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/etl.sql
 \i etl/StandardizedClinicalDataTables/OBSERVATION/etl.sql
 \i etl/StandardizedClinicalDataTables/MEASUREMENT/etl.sql
+\i etl/StandardizedClinicalDataTables/SPECIMEN/etl.sql
 
 --\i omop/build-omop/postgresql/mimic-omop-enable-trigger.sql
 --ROLLBACK;
