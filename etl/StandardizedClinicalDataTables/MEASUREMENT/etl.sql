@@ -27,11 +27,9 @@ SELECT
      WHEN category ILIKE 'hematology' THEN  2000000009
      ELSE 44818702 --labs
   END AS measurement_type_concept_id -- Lab result
-, operator_concept_id AS operator_concept_id -- = operator
+, operator_concept_id AS operator_concept_id -- =, >, ... operator
 , labevents.value_as_number AS value_as_number               
-, CASE 
-   WHEN flag IS NOT NULL THEN 45878745 -- abnormal
-   ELSE 45877847 END AS value_as_concept_id       -- no abnormalities    
+, 0::integer AS value_as_concept_id    
 , gcpt_lab_unit_to_concept.unit_concept_id               
 , null::double precision AS range_low                     
 , null::double precision AS range_high                    
@@ -184,7 +182,9 @@ WITH
 	WHERE dilution_text IS NOT NULL
 ), 
 "fact_relationship" AS (
-	SELECT culture.measurement_id as fact_id_1, resistance.measurement_id AS fact_id_2 
+	SELECT 
+	  culture.measurement_id as fact_id_1
+	, resistance.measurement_id AS fact_id_2 
 	FROM resistance 
 	LEFT JOIN culture ON (
 		resistance.subject_id = culture.subject_id 
@@ -195,16 +195,86 @@ WITH
 ),
 "insert_fact_relationship" AS (
     INSERT INTO omop.fact_relationship
-    SELECT 
+    (SELECT 
       21 AS domain_concept_id_1 -- Measurement
     , fact_id_1
     , 21 AS domain_concept_id_2 -- Measurement
     , fact_id_2 
-    , 44818757 as relationship_concept_id -- Has interpretation (SNOMED)
+    , 44818757 as relationship_concept_id -- Has interpretation (SNOMED) TODO find a better predicate
     FROM fact_relationship 
-    RETURNING *),
+UNION ALL
+    SELECT 
+      21 AS domain_concept_id_1 -- Measurement
+    , fact_id_2 as fact_id_1
+    , 21 AS domain_concept_id_2 -- Measurement
+    , fact_id_1 as  fact_id_2 
+    , 44818855  as relationship_concept_id --  Interpretation of (SNOMED) TODO find a better predicate
+    FROM fact_relationship 
+    )
+),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
+"specimen_culture" AS ( --generated specimen
+SELECT
+  nextval('mimic_id_seq') as specimen_id    -- non NULL
+, patients.person_id                         -- non NULL
+, 0::integer as specimen_concept_id         -- non NULL
+, 0::integer as specimen_type_concept_id    -- non NULL
+, culture.measurement_date as specimen_date               -- this is not really the specimen date but better than nothing
+, culture.measurement_datetime as specimen_datetime            
+, null::double precision as quantity                     
+, null::integer unit_concept_id              
+, null::integer anatomic_site_concept_id     
+, null::integer disease_status_concept_id    
+, null::integer specimen_source_id           
+, null::text specimen_source_value        
+, null::text unit_source_value            
+, null::text anatomic_site_source_value   
+, null::text disease_status_source_value  
+, culture.measurement_id -- usefull for fact_relationship
+FROM culture
+LEFT JOIN patients USING (subject_id)
+),
+"insert_specimen_culture" AS (
+INSERT INTO omop.specimen
+SELECT
+  specimen_id    -- non NULL
+, person_id                         -- non NULL
+, specimen_concept_id         -- non NULL
+, specimen_type_concept_id    -- non NULL
+, specimen_date               -- this is not really the specimen date but better than nothing
+, specimen_datetime            
+, quantity                     
+, unit_concept_id              
+, anatomic_site_concept_id     
+, disease_status_concept_id    
+, specimen_source_id           
+, specimen_source_value        
+, unit_source_value            
+, anatomic_site_source_value   
+, disease_status_source_value  
+FROM specimen_culture
+RETURNING *
+),
+"insert_fact_relationship_specimen_measurement" AS (
+    INSERT INTO omop.fact_relationship
+    (SELECT 
+      36 AS domain_concept_id_1 -- Specimen
+    , specimen_id as fact_id_1
+    , 21 AS domain_concept_id_2 -- Measurement
+    , measurement_id as fact_id_2 
+    , 44818854 as relationship_concept_id -- Specimen of (SNOMED)
+    FROM specimen_culture
+    UNION ALL
+    SELECT 
+      21 AS domain_concept_id_1 -- Measurement
+    , measurement_id as fact_id_1 
+    , 36 AS domain_concept_id_2 -- Specimen
+    , specimen_id as fact_id_2
+    , 44818756 as relationship_concept_id -- Has specimen (SNOMED)
+    FROM specimen_culture
+    )
+),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_resistance_to_concept" AS (SELECT * FROM gcpt_resistance_to_concept),
 "gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')),
@@ -264,7 +334,8 @@ LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
 LEFT JOIN gcpt_atb_to_concept USING (measurement_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
-LEFT JOIN omop_operator USING (operator_name))
+LEFT JOIN omop_operator USING (operator_name)
+)
 INSERT INTO omop.measurement
 SELECT
   row_to_insert.measurement_id
@@ -591,7 +662,7 @@ OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.measurement_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.measurement_datetime <= visit_detail_assign.visit_end_datetime)
 );
 
--- TODO weight from inputevent_mv
+-- weight from inputevent_mv
  
 with
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
