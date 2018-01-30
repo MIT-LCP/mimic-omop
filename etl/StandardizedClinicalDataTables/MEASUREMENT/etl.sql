@@ -47,7 +47,68 @@ LEFT JOIN d_labitems USING (itemid)
 LEFT JOIN omop_loinc USING (loinc_code)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (measurement_source_value)
-LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value))
+LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value)
+),
+"specimen_lab" AS ( --generated specimen: each lab measurement is associated with a fictive specimen
+SELECT
+  nextval('mimic_id_seq') as specimen_id    -- non NULL
+, person_id                                 -- non NULL
+, 0::integer as specimen_concept_id         -- non NULL
+, 581378 as specimen_type_concept_id    -- non NULL
+, measurement_date as specimen_date
+, measurement_datetime as specimen_datetime            
+, null::double precision as quantity                     
+, null::integer unit_concept_id              
+, null::integer anatomic_site_concept_id     
+, null::integer disease_status_concept_id    
+, null::integer specimen_source_id           
+, null::text specimen_source_value        
+, null::text unit_source_value            
+, null::text anatomic_site_source_value   
+, null::text disease_status_source_value  
+, row_to_insert.measurement_id -- usefull for fact_relationship
+FROM row_to_insert
+),
+"insert_specimen_lab" AS (
+INSERT INTO omop.specimen
+SELECT
+  specimen_id    -- non NULL
+, person_id                         -- non NULL
+, specimen_concept_id         -- non NULL
+, specimen_type_concept_id    -- non NULL
+, specimen_date           
+, specimen_datetime            
+, quantity                     
+, unit_concept_id              
+, anatomic_site_concept_id     
+, disease_status_concept_id    
+, specimen_source_id           
+, specimen_source_value        
+, unit_source_value            
+, anatomic_site_source_value   
+, disease_status_source_value  
+FROM specimen_lab
+RETURNING *
+),
+"insert_fact_relationship_specimen_measurement" AS (
+    INSERT INTO omop.fact_relationship
+    (SELECT 
+      36 AS domain_concept_id_1 -- Specimen
+    , specimen_id as fact_id_1
+    , 21 AS domain_concept_id_2 -- Measurement
+    , measurement_id as fact_id_2 
+    , 44818854 as relationship_concept_id -- Specimen of (SNOMED)
+    FROM specimen_lab
+    UNION ALL
+    SELECT 
+      21 AS domain_concept_id_1 -- Measurement
+    , measurement_id as fact_id_1 
+    , 36 AS domain_concept_id_2 -- Specimen
+    , specimen_id as fact_id_2
+    , 44818756 as relationship_concept_id -- Has specimen (SNOMED)
+    FROM specimen_lab
+    )
+)
 INSERT INTO omop.measurement
 SELECT
   row_to_insert.measurement_id
@@ -79,7 +140,8 @@ WITH
 	, chartevents.mimic_id as measurement_id
 	, subject_id
 	, hadm_id
-	, charttime as measurement_datetime
+	, storetime as measurement_datetime --according to Alistair, storetime is the result time
+	, charttime as specimen_datetime                -- according to Alistair, charttime is the specimen time
 	, value as value_source_value
 	, substring(value,'^(<=|>=|<|>)') as operator_name
 	, CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
@@ -137,6 +199,7 @@ WITH
 , d_items.mimic_id AS measurement_source_concept_id 
 , gcpt_lab_unit_to_concept.unit_source_value             
 , chartevents_lab.value_source_value            
+, specimen_datetime
   FROM chartevents_lab
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -145,7 +208,68 @@ LEFT JOIN omop_loinc USING (label)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (label)
 LEFT JOIN gcpt_labs_from_chartevents_to_concept USING (category, label)
-LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value))
+LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value)
+),
+"specimen_lab" AS ( --generated specimen: each lab measurement is associated with a fictive specimen
+SELECT
+  nextval('mimic_id_seq') as specimen_id    -- non NULL
+, person_id                                 -- non NULL
+, 0::integer as specimen_concept_id         -- non NULL
+, 581378 as specimen_type_concept_id    -- non NULL
+, specimen_datetime::date as specimen_date
+, specimen_datetime as specimen_datetime            
+, null::double precision as quantity                     
+, null::integer unit_concept_id              
+, null::integer anatomic_site_concept_id     
+, null::integer disease_status_concept_id    
+, null::integer specimen_source_id           
+, null::text specimen_source_value        
+, null::text unit_source_value            
+, null::text anatomic_site_source_value   
+, null::text disease_status_source_value  
+, row_to_insert.measurement_id -- usefull for fact_relationship
+FROM row_to_insert
+),
+"insert_specimen_lab" AS (
+INSERT INTO omop.specimen
+SELECT
+  specimen_id    -- non NULL
+, person_id                         -- non NULL
+, specimen_concept_id         -- non NULL
+, specimen_type_concept_id    -- non NULL
+, specimen_date           
+, specimen_datetime            
+, quantity                     
+, unit_concept_id              
+, anatomic_site_concept_id     
+, disease_status_concept_id    
+, specimen_source_id           
+, specimen_source_value        
+, unit_source_value            
+, anatomic_site_source_value   
+, disease_status_source_value  
+FROM specimen_lab
+RETURNING *
+),
+"insert_fact_relationship_specimen_measurement" AS (
+    INSERT INTO omop.fact_relationship
+    (SELECT 
+      36 AS domain_concept_id_1 -- Specimen
+    , specimen_id as fact_id_1
+    , 21 AS domain_concept_id_2 -- Measurement
+    , measurement_id as fact_id_2 
+    , 44818854 as relationship_concept_id -- Specimen of (SNOMED)
+    FROM specimen_lab
+    UNION ALL
+    SELECT 
+      21 AS domain_concept_id_1 -- Measurement
+    , measurement_id as fact_id_1 
+    , 36 AS domain_concept_id_2 -- Specimen
+    , specimen_id as fact_id_2
+    , 44818756 as relationship_concept_id -- Has specimen (SNOMED)
+    FROM specimen_lab
+    )
+)
 INSERT INTO omop.measurement
 SELECT
   row_to_insert.measurement_id
@@ -219,7 +343,7 @@ SELECT
   nextval('mimic_id_seq') as specimen_id    -- non NULL
 , patients.person_id                         -- non NULL
 , 0::integer as specimen_concept_id         -- non NULL
-, 0::integer as specimen_type_concept_id    -- non NULL
+, 581378 as specimen_type_concept_id    -- non NULL
 , culture.measurement_date as specimen_date               -- this is not really the specimen date but better than nothing
 , culture.measurement_datetime as specimen_datetime            
 , null::double precision as quantity                     
