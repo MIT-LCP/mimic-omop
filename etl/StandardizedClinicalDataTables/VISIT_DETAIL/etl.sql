@@ -39,8 +39,7 @@ WITH
             , visit_detail_concept_id
        FROM omop.care_site
        left join gcpt_care_site on gcpt_care_site.care_site_name = care_site.care_site_source_value
-                      )
-                    , 
+), 
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
@@ -121,14 +120,16 @@ SELECT
     WHEN is_first IS FALSE THEN 'transfer'
     ELSE admission_location
   END AS admitting_source_value
+, null::integer as admitting_source_concept_id
 , CASE 
     WHEN is_last IS FALSE THEN 4030023
-ELSE discharge_to_concept_id
+    ELSE discharge_to_concept_id
   END AS discharge_to_concept_id
 , CASE 
     WHEN is_last IS FALSE THEN 'transfer'
     ELSE discharge_location
   END AS discharge_to_source_value
+, null::integer as discharge_to_source_concept_id
 , preceding_visit_detail_id
 , null::integer visit_detail_parent_id
 , visit_occurrence_id
@@ -178,80 +179,69 @@ LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit ||' ward #' || coale
 	)/3600/24 AS  value_as_number
 	, 0 value_as_concept_id     
 	FROM visit_detail_ward
+)
+SELECT 1;
+
+
+-- SERVICES information
+WITH
+"patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
+"gcpt_care_site" AS (
+	       SELECT 
+	   care_site.care_site_name
+	 , care_site.care_site_id
+	 , visit_detail_concept_id
+	      FROM omop.care_site
+	      LEFT JOIN gcpt_care_site on gcpt_care_site.care_site_name = care_site.care_site_source_value
 ),
+"admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
 "serv_tmp" as (
-       SELECT services.*
-	    , visit_occurrence_id
-            , lead(services.row_id) OVER ( PARTITION BY services.hadm_id ORDER BY transfertime) as next
-            , lag(services.row_id) OVER ( PARTITION BY services.hadm_id ORDER BY transfertime) as prev
-            , admittime
-            , dischtime
-         FROM services
-         LEFT JOIN admissions USING (hadm_id)
+	SELECT services.*
+	, visit_occurrence_id
+	, lead(services.row_id) OVER ( PARTITION BY services.hadm_id ORDER BY transfertime) as next
+	, lag(services.row_id) OVER ( PARTITION BY services.hadm_id ORDER BY transfertime) as prev
+	, admittime
+	, dischtime
+	FROM services
+	LEFT JOIN admissions USING (hadm_id)
 ), 
 "serv" as (
-     SELECT 
-	    serv_tmp.visit_occurrence_id
-	  , serv_tmp.mimic_id as visit_detail_id
-          , serv_tmp.subject_id
-          , serv_tmp.hadm_id
-          , serv_tmp.curr_service
-          , serv_adm_prev.mimic_id as preceding_visit_detail_id
-          , serv_tmp.transfertime as visit_start_datetime
-          , CASE 
-                WHEN serv_tmp.prev IS NULL AND serv_tmp.next IS NOT NULL THEN serv_adm_next.transfertime 
-                WHEN serv_tmp.prev IS NULL AND serv_tmp.next IS NULL THEN serv_tmp.dischtime 
-                WHEN serv_tmp.prev IS NOT NULL AND serv_tmp.next IS NULL THEN serv_tmp.dischtime 
-                WHEN serv_tmp.prev IS NOT NULL AND serv_tmp.next IS NOT NULL THEN serv_adm_next.transfertime 
-            END as visit_end_datetime 
-	FROM serv_tmp
-       LEFT JOIN serv_tmp as serv_adm_prev ON (serv_tmp.prev = serv_adm_prev.row_id)
-       LEFT JOIN serv_tmp as serv_adm_next ON (serv_tmp.next = serv_adm_next.row_id)
-            ),
-"serv_linked_ward" AS (
 	SELECT 
-	  visit_detail_ward.visit_detail_id as visit_detail_parent_id
-	, serv.visit_detail_id
-	, visit_detail_ward.visit_occurrence_id
-	, visit_detail_ward.person_id
-	, serv.curr_service
-	, serv.preceding_visit_detail_id
-        , 4204503 as discharge_to_concept_id -- transfer of care
-	, CASE WHEN visit_detail_ward.visit_start_datetime >= serv.visit_start_datetime THEN visit_detail_ward.visit_start_datetime
-	      WHEN visit_detail_ward.visit_start_datetime <= serv.visit_start_datetime THEN serv.visit_start_datetime 
-	  END as visit_start_datetime
-	, CASE WHEN visit_detail_ward.visit_end_datetime <= serv.visit_end_datetime THEN visit_detail_ward.visit_end_datetime
-	      WHEN visit_detail_ward.visit_end_datetime >= serv.visit_end_datetime THEN serv.visit_end_datetime 
-	  END as visit_end_datetime
-	FROM visit_detail_ward 
-	LEFT JOIN serv
-	ON serv.hadm_id = visit_detail_ward.hadm_id 
-	AND (
-	   serv.visit_start_datetime >= visit_detail_ward.visit_start_datetime AND serv.visit_end_datetime <= visit_detail_ward.visit_end_datetime  -- service covered or equal
-	   OR visit_detail_ward.visit_start_datetime > serv.visit_start_datetime AND visit_detail_ward.visit_start_datetime < serv.visit_end_datetime  -- ward begin covered
- 	OR visit_detail_ward.visit_end_datetime > serv.visit_start_datetime AND visit_detail_ward.visit_end_datetime < serv.visit_end_datetime  -- ward end covered
-) 
-        ORDER BY visit_start_datetime
+	serv_tmp.visit_occurrence_id
+	, serv_tmp.mimic_id as visit_detail_id
+	, serv_tmp.subject_id
+	, serv_tmp.hadm_id
+	, serv_tmp.curr_service
+	, serv_adm_prev.mimic_id as preceding_visit_detail_id
+	, serv_tmp.transfertime as visit_start_datetime
+	, CASE WHEN serv_tmp.prev IS NULL AND serv_tmp.next IS NOT NULL THEN serv_adm_next.transfertime	
+               WHEN serv_tmp.prev IS NULL AND serv_tmp.next IS NULL THEN serv_tmp.dischtime 
+               WHEN serv_tmp.prev IS NOT NULL AND serv_tmp.next IS NULL THEN serv_tmp.dischtime
+               WHEN serv_tmp.prev IS NOT NULL AND serv_tmp.next IS NOT NULL THEN serv_adm_next.transfertime
+          END as visit_end_datetime
+	FROM serv_tmp
+	LEFT JOIN serv_tmp as serv_adm_prev ON (serv_tmp.prev = serv_adm_prev.row_id)
+	LEFT JOIN serv_tmp as serv_adm_next ON (serv_tmp.next = serv_adm_next.row_id)
 ),
 "visit_detail_service" AS (
-	SELECT
-       nextval('mimic_id_seq') as visit_detail_id
+        SELECT
+        nextval('mimic_id_seq') as visit_detail_id
       , person_id
-      , coalesce(gcpt_care_site.visit_detail_concept_id, 0) as visit_detail_concept_id -- [athena] 
-      , serv_linked_ward.visit_start_datetime::date as visit_start_date
-      , serv_linked_ward.visit_start_datetime
-      , serv_linked_ward.visit_end_datetime::date as visit_end_date
-      , serv_linked_ward.visit_end_datetime
-      , 45770670 as visit_type_concept_id -- [Athena] Service of care 
+      , coalesce(gcpt_care_site.visit_detail_concept_id, 0) as visit_detail_concept_id 
+      , serv.visit_start_datetime::date as visit_start_date
+      , serv.visit_start_datetime
+      , serv.visit_end_datetime::date as visit_end_date
+      , serv.visit_end_datetime
+      , 45770670 as visit_type_concept_id 
       , gcpt_care_site.care_site_id
       , null::integer preceding_visit_detail_id
-      , visit_detail_parent_id
-	FROM serv_linked_ward
+      , null::integer visit_detail_parent_id
+        FROM serv
 	LEFT JOIN gcpt_care_site ON (care_site_name = curr_service)
-),
-"insert_visit_detail_service" AS (
-INSERT INTO omop.visit_detail
-SELECT
+	LEFT JOIN patients using (subject_id)
+)
+INSERT INTO OMOP.visit_detail -- SERVICE INFORMATIONS
+SELECT 
   visit_detail_id
 , person_id
 , visit_detail_concept_id
@@ -266,29 +256,32 @@ SELECT
 , null::integer visit_source_concept_id
 , null::integer admitting_concept_id
 , null::text admitting_source_value
+, null::integer admitting_source_concept_id
 , null::integer discharge_to_concept_id
 , null::text discharge_to_source_value
+, null::integer discharge_to_source_concept_id
 , null::integer preceding_visit_detail_id
 , visit_detail_parent_id
 , null::integer visit_occurrence_id
-FROM visit_detail_service
-WHERE visit_end_date IS NOT NULL  -- trick to remove emergency services that does not actually exist
-)
-SELECT 1;
+FROM visit_detail_service;
+
 
 -- first draft of icustay assignation table 
+-- the way of assigning is quite simple right now
+-- but simple error is better than complicate error
+-- meaning, those links are artificial watever we do
  DROP TABLE IF EXISTS omop.visit_detail_assign;
  CREATE TABLE omop.visit_detail_assign AS 
  SELECT
    visit_detail_id
  , visit_occurrence_id
- , visit_start_datetime
- , visit_end_datetime
- , visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC ) AS  is_first
- , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following) AS is_last
+ , visit_detail_start_datetime as visit_start_datetime
+ , visit_detail_end_datetime as visit_end_datetime
+ , visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_detail_start_datetime ASC ) AS  is_first
+ , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_detail_start_datetime ASC range between current row and unbounded following) AS is_last
  , visit_detail_concept_id = 581382 AS is_icu
  , visit_detail_concept_id = 581381 AS is_emergency
  FROM  omop.visit_detail 
- WHERE visit_type_concept_id = 2000000006 -- only ward kind 
+ WHERE visit_detail_type_concept_id = 2000000006 -- only ward kind 
  ;
  

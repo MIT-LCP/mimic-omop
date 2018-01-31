@@ -9,7 +9,7 @@
 drop schema if exists omop cascade;
 create schema omop;
 set search_path to omop;
-\i 'OMOP CDM ddl - PostgreSQL.sql'
+\i 'omop_cdm_ddl.sql'
 \i 'mimic-omop-alter.sql'
 
 \copy omop.provider FROM PROGRAM 'gzip -dc provider.csv.gz' CSV HEADER NULL '' QUOTE '"';

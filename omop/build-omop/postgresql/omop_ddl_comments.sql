@@ -318,10 +318,12 @@ CREATE UNLOGGED TABLE visit_occurrence
      care_site_id				INTEGER			NULL, 
      visit_source_value				VARCHAR(50)		NULL,
      visit_source_concept_id			INTEGER			NULL ,
-     admitting_concept_id		INTEGER			NULL ,
+     admitting_concept_id		        INTEGER			NULL ,
      admitting_source_value			VARCHAR(50)		NULL ,
+     admitting_source_concept_id	        INTEGER			NULL ,
      discharge_to_concept_id			INTEGER			NULL ,
      discharge_to_source_value			VARCHAR(50)		NULL ,
+     discharge_to_source_concept_id		INTEGER			NULL ,
      preceding_visit_occurrence_id		INTEGER			NULL
     ) 
 ;
@@ -333,22 +335,24 @@ CREATE UNLOGGED TABLE visit_detail
      visit_detail_id				INTEGER			NOT NULL , 
      person_id					INTEGER			NOT NULL , 
      visit_detail_concept_id			INTEGER			NOT NULL , 
-     visit_start_date				DATE			NOT NULL , 
-     visit_start_datetime			TIMESTAMP		NULL ,
-     visit_end_date				DATE			NOT NULL ,
-     visit_end_datetime				TIMESTAMP		NULL ,
-     visit_type_concept_id			INTEGER			NOT NULL ,
+     visit_detail_start_date			DATE			NOT NULL , 
+     visit_detail_start_datetime		TIMESTAMP		NULL ,
+     visit_detail_end_date			DATE			NOT NULL ,
+     visit_detail_end_datetime			TIMESTAMP		NULL ,
+     visit_detail_type_concept_id		INTEGER			NOT NULL ,
      provider_id				INTEGER			NULL,
      care_site_id				INTEGER			NULL, 
-     visit_source_value				VARCHAR(50)		NULL,
-     visit_source_concept_id			INTEGER			NULL ,
-     admitting_concept_id		INTEGER			NULL ,
+     visit_detail_source_value			VARCHAR(50)		NULL,
+     visit_detail_source_concept_id		INTEGER			NULL ,
+     admitting_concept_id		        INTEGER			NULL ,
      admitting_source_value			VARCHAR(50)		NULL ,
+     admitting_source_concept_id		INTEGER			NULL ,
      discharge_to_concept_id			INTEGER			NULL ,
      discharge_to_source_value			VARCHAR(50)		NULL ,
+     discharge_to_source_concept_id		INTEGER			NULL ,
      preceding_visit_detail_id			INTEGER			NULL ,
      visit_detail_parent_id			INTEGER			NULL ,
-     visit_occurrence_id				INTEGER			NULL 
+     visit_occurrence_id			INTEGER			NULL 
     ) 
 ;
 
