@@ -2,7 +2,6 @@
 -- 'ALTER TABLE '|| table_name||' DISABLE TRIGGER ALL;'
 -- FROM information_schema.tables WHERE table_schema = 'omop' ;
 
-ALTER TABLE omop.visit_detail_assign DISABLE TRIGGER ALL;
 ALTER TABLE omop.cdm_source DISABLE TRIGGER ALL;
 ALTER TABLE omop.attribute_definition DISABLE TRIGGER ALL;
 ALTER TABLE omop.vocabulary DISABLE TRIGGER ALL;
