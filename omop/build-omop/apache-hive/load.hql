@@ -527,7 +527,7 @@ CREATE TABLE visit_occurrence
 , care_site_id                   int                  
 , visit_source_value             string               
 , visit_source_concept_id        int                  
-, admitting_source_concept_id    int                  
+, admitting_concept_id    int                  
 , admitting_source_value         string               
 , discharge_to_concept_id        int                  
 , discharge_to_source_value      string               
@@ -548,7 +548,7 @@ SELECT
 , care_site_id				
 , visit_source_value				
 , visit_source_concept_id			
-, admitting_source_concept_id		
+, admitting_concept_id		
 , admitting_source_value			
 , discharge_to_concept_id			
 , discharge_to_source_value			
@@ -621,7 +621,7 @@ CREATE TABLE visit_detail
 , care_site_id                  int        
 , visit_source_value            string     
 , visit_source_concept_id       int        
-, admitting_source_concept_id   int        
+, admitting_concept_id   int        
 , admitting_source_value        string     
 , discharge_to_concept_id       int        
 , discharge_to_source_value     string     
@@ -644,7 +644,7 @@ SELECT
 , care_site_id				
 , visit_source_value				
 , visit_source_concept_id			
-, admitting_source_concept_id		
+, admitting_concept_id		
 , admitting_source_value			
 , discharge_to_concept_id			
 , discharge_to_source_value			

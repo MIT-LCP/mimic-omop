@@ -326,7 +326,7 @@ ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_care_site FOREIGN KEY (car
 
 ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_concept_s FOREIGN KEY (visit_source_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (admitting_source_concept_id) REFERENCES concept (concept_id);
+ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (admitting_concept_id) REFERENCES concept (concept_id);
 
 ALTER TABLE visit_occurrence ADD CONSTRAINT fpk_visit_discharge FOREIGN KEY (discharge_to_concept_id) REFERENCES concept (concept_id);
 
@@ -343,7 +343,7 @@ ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_care_site FOREIGN KEY (care_si
 
 ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_concept_s FOREIGN KEY (visit_source_concept_id)  REFERENCES concept (concept_id);
 
-ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (admitting_source_concept_id) REFERENCES concept (concept_id);
+ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_admitting_s FOREIGN KEY (admitting_concept_id) REFERENCES concept (concept_id);
 
 ALTER TABLE visit_detail ADD CONSTRAINT fpk_visit_discharge FOREIGN KEY (discharge_to_concept_id) REFERENCES concept (concept_id);
 

@@ -15,7 +15,7 @@ COMMENT ON COLUMN visit_occurrence.provider_id IS 'A foreign key to the provider
 COMMENT ON COLUMN visit_occurrence.care_site_id IS 'A foreign key to the care site in the care site table that was visited.';
 COMMENT ON COLUMN visit_occurrence.visit_source_value IS 'The source code for the visit as it appears in the source data.';
 COMMENT ON COLUMN visit_occurrence.visit_source_concept_id IS 'A foreign key to a Concept that refers to the code used in the source.';
-COMMENT ON COLUMN visit_occurrence.admitting_source_concept_id IS 'A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.';
+COMMENT ON COLUMN visit_occurrence.admitting_concept_id IS 'A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.';
 COMMENT ON COLUMN visit_occurrence.admitting_source_value  IS 'The source code for the admitting source as it appears in the source data.';
 COMMENT ON COLUMN visit_occurrence.discharge_to_concept_id IS 'A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.';
 COMMENT ON COLUMN visit_occurrence.discharge_to_source_value IS 'The source code for the discharge disposition as it appears in the source data.';
@@ -147,7 +147,7 @@ COMMENT ON COLUMN VISIT_DETAIL.care_site_id IS 'A foreign key to the care site i
 COMMENT ON COLUMN VISIT_DETAIL.visit_source_value IS 'The source code for the visit as it appears in the source data.';
 COMMENT ON COLUMN VISIT_DETAIL.visit_source_concept_id IS 'A foreign key to a Concept that refers to the code used in the source.';
 COMMENT ON COLUMN VISIT_DETAIL.admitting_source_value  IS 'The source code for the admitting source as it appears in the source data.';
-COMMENT ON COLUMN VISIT_DETAIL.admitting_source_concept_id  IS 'A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.';
+COMMENT ON COLUMN VISIT_DETAIL.admitting_concept_id  IS 'A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the admitting source for a visit.';
 COMMENT ON COLUMN VISIT_DETAIL.discharge_to_source_value IS 'The source code for the discharge disposition as it appears in the source data.';
 COMMENT ON COLUMN VISIT_DETAIL.discharge_to_concept_id IS 'A foreign key to the predefined concept in the Place of Service Vocabulary reflecting the discharge disposition for a visit.';
 COMMENT ON COLUMN VISIT_DETAIL.preceding_visit_detail_id  IS 'A foreign key to the VISIT_DETAIL table of the visit immediately preceding this visit';

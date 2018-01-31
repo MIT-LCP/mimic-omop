@@ -254,3 +254,31 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM gcpt_derived_to_concept;
 
+--visit_occurrence_admitting
+INSERT INTO omop.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+) 
+SELECT 
+  mimic_id as concept_id
+, measurement_source_value as concept_name
+, 'Place of Service'::text as domain_id
+, 'MIMIC admissions' as vocabulary_id
+, 'Place of Service' as concept_class_id 
+, '' as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM gcpt_admission_location_to_concept;
+
+
+--visit_occurrence_discharge
+INSERT INTO omop.concept  
+SELECT 
+  mimic_id as concept_id
+, measurement_source_value as concept_name
+, 'Place of Service'::text as domain_id
+, 'MIMIC admissions' as vocabulary_id
+, 'Place of Service' as concept_class_id 
+, '' as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM gcpt_discharge_location_to_concept;
