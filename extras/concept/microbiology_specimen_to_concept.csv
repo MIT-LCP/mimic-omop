@@ -1,0 +1,89 @@
+label,specimen_concept_id,concept_name
+ABSCESS,4001183,Specimen from abscess
+ANORECTAL/VAGINAL CULTURE,0,
+ARTHROPOD,0,
+ASPIRATE,0,
+BILE,4001061,Bile specimen
+BIOPSY,4121220,Biopsy sample
+BLOOD,4001225,Blood specimen
+BLOOD BAG FLUID,4001225,Blood specimen
+BLOOD CULTURE,4001225,Blood specimen
+BLOOD CULTURE ( MYCO/F LYTIC BOTTLE),4001225,Blood specimen
+BLOOD CULTURE (POST-MORTEM),4001225,Blood specimen
+BLOOD CULTURE - NEONATE,4001225,Blood specimen
+BONE MARROW,4000623,Bone marrow specimen
+BONE MARROW - CYTOGENETICS,4000623,Bone marrow specimen
+BRONCHIAL BRUSH,4204953,Bronchial brushings sample
+BRONCHIAL BRUSH - PROTECTED,4204953,Bronchial brushings sample
+BRONCHIAL WASHINGS,4048961,Specimen from lung obtained by bronchial washing procedure
+BRONCHOALVEOLAR LAVAGE,40481307,Specimen obtained by bronchioloalveolar lavage procedure
+Blood (CMV AB),4001225,Blood specimen
+Blood (EBV),4001225,Blood specimen
+Blood (Malaria),4001225,Blood specimen
+Blood (Toxo),4001225,Blood specimen
+"C, E, & A Screening",0,
+CATHETER TIP-IV,4001349,Catheter specimen
+CORNEAL EYE SCRAPINGS,4119388,Corneal scraping sample
+CRE Screen,0,
+CSF;SPINAL FLUID,4124259,Cerebrospinal fluid sample
+DIALYSIS FLUID,4000624,Dialysis fluid specimen
+DIRECT ANTIGEN TEST FOR VARICELLA-ZOSTER VIRUS,0,
+Direct Antigen Test for Herpes Simplex Virus Types 1 & 2,0,
+EAR,40491350,Body substance specimen from ear
+EYE,4001190,Specimen from eye
+FECAL SWAB,4124279,Anal swab
+FLUID RECEIVED IN BLOOD CULTURE BOTTLES,4122251,Fluid sample
+FLUID WOUND,4046837,Fluid specimen from wound
+"FLUID,OTHER",4122251,Fluid sample
+FOOT CULTURE,43531265,Specimen from skin
+FOREIGN BODY,40490923,Foreign body submitted as specimen
+GASTRIC ASPIRATE,4057279,Gastric aspirate sample
+IMMUNOLOGY,0,
+Immunology (CMV),0,
+Influenza A/B by DFA,0,
+Influenza A/B by DFA - Bronch Lavage,40481307,Specimen obtained by bronchioloalveolar lavage procedure
+Influenza A/B by DFA - Bronch Wash,4048961,Specimen from lung obtained by bronchial washing procedure
+Isolate,0,
+JOINT FLUID,4331823,Joint fluid specimen
+MRSA SCREEN,0,
+Mini-BAL,40481307,Specimen obtained by bronchioloalveolar lavage procedure
+NAIL SCRAPINGS,40490916,Specimen from nail obtained by scraping
+NEOPLASTIC BLOOD,4001225,Blood specimen
+NOSE,40491357,Specimen from nose
+PERIPHERAL BLOOD LYMPHOCYTES,4001225,Blood specimen
+PERITONEAL FLUID,4043942,Peritoneal fluid sample
+PLEURAL FLUID,4302933,Pleural fluid specimen
+POST-MORTEM VIRAL CULTURE,0,
+POSTMORTEM CULTURE,0,
+RAPID RESPIRATORY VIRAL ANTIGEN TEST,0,
+RECTAL - R/O GC,0,
+Rapid Respiratory Viral Screen & Culture,0,
+SCOTCH TAPE PREP/PADDLE,0,
+SEROLOGY/BLOOD,4001225,Blood specimen
+SKIN SCRAPINGS,40490358,Specimen from skin obtained by scraping
+SPUTUM,4002876,Sputum specimen
+STERILITY CULTURE,0,
+STOOL,4002879,Stool specimen
+STOOL (RECEIVED IN TRANSPORT SYSTEM),4002879,Stool specimen
+SWAB,4120698,Swab
+SWAB - R/O YEAST,4120698,Swab
+"SWAB, R/O GC",4120698,Swab
+Staph aureus Screen,0,
+Stem Cell - Blood Culture,4001225,Blood specimen
+THROAT,4002893,Specimen from throat
+THROAT CULTURE,4002893,Specimen from throat
+THROAT FOR STREP,4002893,Specimen from throat
+TISSUE,4002890,Tissue specimen
+TRACHEAL ASPIRATE,4119387,Transtracheal aspirate sample
+TRANSTRACHEAL ASPIRATE,4119387,Transtracheal aspirate sample
+Touch Prep/Sections,0,
+URINE,4046280,Urine specimen
+"URINE,KIDNEY",4046280,Urine specimen
+"URINE,PROSTATIC MASSAGE",4046280,Urine specimen
+"URINE,SUPRAPUBIC ASPIRATE",4046280,Urine specimen
+VARICELLA-ZOSTER CULTURE,0,
+VIRAL CULTURE: R/O CYTOMEGALOVIRUS,0,
+VIRAL CULTURE:R/O HERPES SIMPLEX VIRUS,0,
+WORM,45767301,Parasitic worm specimen
+XXX,0,
+,0,
