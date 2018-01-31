@@ -1,35 +1,4 @@
 -- visit occurrence
--- concept_id Inpatient
--- care_site ddiaconese
--- type_concept_id derived from ehr
--- discharge / admitting emergency, deadHOME...
--- 
--- visit detail / ward
--- concept_id Observation  4021520 'Accident and Emergency department'       /   4148981 | Intensive care unit  OU 0
--- care_site (WARD, micu.. , unknown) TODO: mapping
--- type_concept_id Ward
--- discharge / admitting : emergency from visit_occurrence
-
--- Patient transfer
--- concept_id   | 4030023
--- 
--- 
---  Transfer of care
--- concept_id   | 4204503
-
-
--- visit detail / service
--- concept_id Observation  
--- care_site : services SNOMED 'service$'
--- type_concept_id Service 
--- discharge / admitting 
-
--- Newborn care service | 4237225
--- Psychiatry service | 4150859
--- Surgical service | 4149152
--- General medical service | 45763735
-
---INSERT INTO visit_length, callout_delay
 
 -- WITH
 
@@ -147,7 +116,7 @@ SELECT
 , CASE 
     WHEN is_first IS FALSE THEN 4030023
     ELSE admitting_source_concept_id
-  END AS admitting_source_concept_id
+  END AS admitting_concept_id
 , CASE 
     WHEN is_first IS FALSE THEN 'transfer'
     ELSE admission_location
@@ -295,7 +264,7 @@ SELECT
 , care_site_id
 , null::text visit_source_value
 , null::integer visit_source_concept_id
-, null::integer admitting_source_concept_id
+, null::integer admitting_concept_id
 , null::text admitting_source_value
 , null::integer discharge_to_concept_id
 , null::text discharge_to_source_value
