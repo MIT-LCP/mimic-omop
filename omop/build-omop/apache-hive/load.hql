@@ -421,24 +421,24 @@ DROP TABLE IF EXISTS person;
 --PUSH AVRO DATA INTO ORC
 CREATE TABLE person 
 (
-| person_id                    | int        |          |
-| gender_concept_id            | int        |          |
-| year_of_birth                | int        |          |
-| month_of_birth               | int        |          |
-| day_of_birth                 | int        |          |
-| birth_datetime               | timestamp  |          |
-| race_concept_id              | int        |          |
-| ethnicity_concept_id         | int        |          |
-| location_id                  | int        |          |
-| provider_id                  | int        |          |
-| care_site_id                 | int        |          |
-| person_source_value          | string     |          |
-| gender_source_value          | string     |          |
-| gender_source_concept_id     | int        |          |
-| race_source_value            | string     |          |
-| race_source_concept_id       | int        |          |
-| ethnicity_source_value       | string     |          |
-| ethnicity_source_concept_id  | int 
+  person_id                     int        
+, gender_concept_id             int        
+, year_of_birth                 int        
+, month_of_birth                int        
+, day_of_birth                  int        
+, birth_datetime                timestamp  
+, race_concept_id               int        
+, ethnicity_concept_id          int        
+, location_id                   int        
+, provider_id                   int        
+, care_site_id                  int        
+, person_source_value           string     
+, gender_source_value           string     
+, gender_source_concept_id      int        
+, race_source_value             string     
+, race_source_concept_id        int        
+, ethnicity_source_value        string     
+, ethnicity_source_concept_id   int 
 )  STORED AS ORC ;
 INSERT OVERWRITE TABLE person
 SELECT
