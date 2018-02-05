@@ -1,12 +1,19 @@
 -- LABS FROM labevents
 WITH
-"labs_value_purif" as (SELECT *, regexp_replace(regexp_replace(trim(value), 'LE[SE]S THAN ','<'),'GREATER TH[AE]N ','>') as value_purif from labevents),
-"labevents" AS (SELECT mimic_id as measurement_id, subject_id, charttime as measurement_datetime, hadm_id , itemid, valueuom as unit_source_value, flag, value as value_source_value,
-        CASE WHEN value_purif ~ '^[+-]*[0-9.,]+$' THEN  '=' ELSE substring(value_purif,'^(<=|>=|<|>)') END as operator_name,
-                CASE WHEN value_purif ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$'
-                        THEN regexp_replace(regexp_replace(value_purif,'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision
-                ELSE null::double precision END as value_as_number
-                        FROM labs_value_purif),
+"labevents" AS (
+	SELECT 
+	mimic_id as measurement_id
+	, subject_id
+	, charttime as measurement_datetime
+	, hadm_id
+	, itemid
+	, valueuom as unit_source_value
+	, flag
+	, value as value_source_value
+	, extract_operator(value) as operator_name
+	, extract_value(value) as value_as_number
+	FROM labevents
+),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "d_labitems" AS (SELECT itemid, label as measurement_source_value, loinc_code, category, mimic_id FROM d_labitems),
@@ -143,12 +150,9 @@ WITH
 	, storetime as measurement_datetime --according to Alistair, storetime is the result time
 	, charttime as specimen_datetime                -- according to Alistair, charttime is the specimen time
 	, value as value_source_value
-	, substring(value,'^(<=|>=|<|>)') as operator_name
-	, CASE WHEN trim(value) ~ '^(>=|<=|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' 
-	  THEN regexp_replace(regexp_replace(trim(value),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]*)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision 
-          ELSE null::double precision 
-          END as value_as_number
-	, valueuom AS unit_source_value 
+	, extract_operator(value) as operator_name
+	, extract_value(value)    as value_as_number
+	, coalesce(valueuom, extract_unit(value)) AS unit_source_value 
 	FROM chartevents 
         JOIN omop.concept -- concept driven dispatcher
         ON (    concept_code  = itemid::Text 
@@ -301,7 +305,20 @@ WITH
 	FROM microbiologyevents 
 ),
 "resistance" AS (
-	SELECT spec_itemid, ab_itemid, nextval('mimic_id_seq') as measurement_id, chartdate as measurement_date , charttime as measurement_datetime , subject_id , hadm_id , CASE WHEN dilution_comparison = '=>' THEN '>=' ELSE dilution_comparison END as operator_name ,CASE WHEN trim(dilution_text) ~ '^(<=|=>|>|<){0,1}[+-]*([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*)$' THEN regexp_replace(regexp_replace(trim(dilution_text),'[^0-9+-.]*([+-]*[0-9.]+)', E'\\1','g'),'([0-9]+)([,]+)([0-9]*)',E'\\1.\\3','g')::double precision ELSE null::double precision END as value_as_number , ab_name as measurement_source_value , interpretation , dilution_text as value_source_value, org_name 
+	SELECT 
+	spec_itemid
+	, ab_itemid
+	, nextval('mimic_id_seq') as measurement_id
+	, chartdate as measurement_date
+	, charttime as measurement_datetime
+	, subject_id
+	, hadm_id
+	, extract_operator(dilution_comparison) as operator_name
+	, extract_value(dilution_comparison) as value_as_number
+	, ab_name as measurement_source_value
+	, interpretation
+	, dilution_text as value_source_value
+	, org_name 
 	FROM microbiologyevents 
 	WHERE dilution_text IS NOT NULL
 ), 
@@ -734,8 +751,8 @@ with
 	, 45754907 as measurement_type_concept_id --derived value
 	, 4172703 as operator_concept_id -- =
 	, valuenum as value_as_number
-	, CASE WHEN flag = 'abnormal' THEN  45878745 --abnormal
-	  ELSE NULL END as value_as_concept_id
+	, CASE WHEN flag = 'abnormal' THEN  45878745 --abnormal 
+	  ELSE NULL END as value_as_concept_id      -- this shouldn't actually be here, no way to put this information into range too
 	, unit_concept_id
 	, null::numeric as range_low
 	, null::numeric as range_high

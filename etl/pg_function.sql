@@ -35,3 +35,92 @@ BEGIN
  END
 $BODY$
 LANGUAGE plpgsql;
+
+
+
+-- test wether the string looks like a value
+DROP FUNCTION IF EXISTS looks_like_value(text);
+CREATE FUNCTION looks_like_value(value_text text) RETURNS boolean AS
+$BODY$
+DECLARE
+operator text;
+signe    text;
+value    text;
+unit     text; 
+pattern  text; 
+BEGIN
+	operator := '(=|>=|=>|<=|>|<){0,1} ?';
+	signe    := '[+-]{0,1} ?';
+	value    := '([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*) ?';
+	unit     := '(ml\/hr|ml\/h|cc\/h|cc\/hr|\/h|mg\/h|mg\/hr|g\/h|g\/hr|mcg\/h|mcg\/hr|U\/hr|U\/h|lpm|g|gram|grams|gm|gms|grm|mg|meq|mcg|kg|liter|l|ppm|s|sec|min|min\.|minutes|minute|mins|hour|hr|hrs|in|inch|cm|mm|m|meters|ml|mmHg|cs|wks|weeks|week|French|fr|gauge|degrees|%|cc){0,1}';
+	pattern  := '^' || operator || signe || value || unit || '$';
+
+    value_text := trim(regexp_replace(regexp_replace(value_text, 'LE[SE]S TH[AE]N', '<'), 'GRE[EA]TER TH[AE]N', '>'));
+
+    IF trim(value_text) ~* pattern THEN
+        RETURN true;
+    END IF;
+
+    RETURN false;
+ END
+$BODY$
+LANGUAGE plpgsql;
+
+-- extract operator
+-- when looks like a value
+-- if no operator, then assume this is equals (=)
+DROP FUNCTION IF EXISTS extract_operator(text);
+CREATE FUNCTION extract_operator(value_text text) RETURNS text AS
+$BODY$
+DECLARE
+operator text;
+signe    text;
+value    text;
+unit     text; 
+pattern  text; 
+BEGIN
+    value_text := trim(regexp_replace(regexp_replace(value_text, 'LE[SE]S TH[AE]N', '<'), 'GRE[EA]TER TH[AE]N', '>'));
+    IF looks_like_value(value_text) THEN
+        RETURN coalesce(substring(replace(value_text, '=>', '>=') from '^(<=|>=|<|>)'), '=');
+    END IF;
+
+    RETURN null::text ;
+ END
+$BODY$
+LANGUAGE plpgsql;
+
+-- extract unit
+-- when looks like a value
+DROP FUNCTION IF EXISTS extract_unit(text);
+CREATE FUNCTION extract_unit(value_text text) RETURNS text AS
+$BODY$
+DECLARE
+operator text;
+signe    text;
+value    text;
+unit     text; 
+pattern  text; 
+BEGIN
+    IF looks_like_value(value_text) THEN
+	RETURN substring(value_text from '(ml\/hr|ml\/h|cc\/h|cc\/hr|\/h|mg\/h|mg\/hr|g\/h|g\/hr|mcg\/h|mcg\/hr|U\/hr|U\/h|lpm|g|gram|grams|gm|gms|grm|mg|meq|mcg|kg|liter|l|ppm|s|sec|min|min\.|minutes|minute|mins|hour|hr|hrs|in|inch|cm|mm|m|meters|ml|mmHg|cs|wks|weeks|week|French|fr|gauge|degrees|%|cc){0,1}$');
+    END IF;
+
+    RETURN null::text ;
+ END
+$BODY$
+LANGUAGE plpgsql;
+
+-- extract value
+-- when looks like a value
+DROP FUNCTION IF EXISTS extract_value(text);
+CREATE FUNCTION extract_value(value_text text) RETURNS double precision AS
+$BODY$
+BEGIN
+    IF looks_like_value(value_text) THEN
+        RETURN replace(substring(value_text from '[0-9]*[,.]{0,1}[0-9]+'), ',', '.')::double precision;
+    END IF;
+
+    RETURN null::double precision;
+ END
+$BODY$
+LANGUAGE plpgsql;
