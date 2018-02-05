@@ -7,7 +7,7 @@ WITH
 	, charttime as measurement_datetime
 	, hadm_id
 	, itemid
-	, valueuom as unit_source_value
+	, coalesce(valueuom, extract_unit(value)) as unit_source_value
 	, flag
 	, value as value_source_value
 	, extract_operator(value) as operator_name
