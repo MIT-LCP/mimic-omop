@@ -42,8 +42,63 @@ SELECT
 , 'label:[' || coalesce(label,'') ||']dbsource:[' || coalesce(dbsource,'') || ']linksto:[' || coalesce(linksto,'') ||']unitname:[' || coalesce(unitname,'') || ']param_type:[' || coalesce(param_type,'') || ']'  as concept_name
 , CASE WHEN itemid IN 
 (
-	  -10 -- example
-	, -11
+  225175 --See chart for initial patient assessment
+, 225209 --Cash amount
+, 225811 --CV - past medical history
+, 225813 --Baseline pain level
+, 226179 --No wallet / money
+, 226180 --Sexuality / reproductive problems
+, 227687 --Tobacco Use History
+, 227688 --Smoking Cessation Info Offered through BIDMC Inpatient Guide
+, 228236 --Insulin pump
+, 225067 --Is the spokesperson the Health Care Proxy
+, 225070 --Unable to assess psychological
+, 225072 --Living situation
+, 225074 --Any fear in relationships
+, 225076 --Emotional / physical / sexual harm by partner or close relation
+, 225078 --Social work consult
+, 225082 --Pregnant
+, 225083 --Pregnancy due date
+, 225085 --Post menopausal
+, 225086 --Unable to assess cognitive / perceptual
+, 225087 --Visual / hearing deficit
+, 225090 --Interpreter
+, 225091 --Unable to assess activity / mobility
+, 225092 --Self ADL
+, 225094 --History of slips / falls
+, 225097 --Balance
+, 225099 --Judgement
+, 225101 --Use of assistive devices
+, 225103 --Intravenous  / IV access prior to admission
+, 225105 --Unable to assess habits
+, 225106 --ETOH
+, 225108 --Tobacco use
+, 225110 --Recreational drug use
+, 225112 --Unable to assess pain
+, 225113 --Currently experiencing pain
+, 225117 --Unable to assess nutrition / education
+, 225118 --Difficulty swallowing
+, 225120 --Appetite
+, 225122 --Special diet
+, 225124 --Unintentional weight loss >10 lbs.
+, 225126 --Dialysis patient
+, 225128 --Last dialysis
+, 225129 --Unable to assess teaching / learning needs
+, 225131 --Teaching directed toward
+, 225133 --Discharge needs
+, 225135 --Consults
+, 225137 --Patient valuables
+, 225142 --Money given to hospital cashier
+, 226719 --Last menses
+, 225279 --Date of Admission to Hospital
+, 225059 --Past medical history
+, 916 --Allergy 1
+, 927 --Allergy 2
+, 935 --Allergy 3
+, 925 --Marital Status
+, 226381 --Marital Status
+, 926 --Religion
+, 226543 --Religion
 ) THEN 'Observation'::Text 
   ELSE 'Measurement'::Text END as domain_id
 , 'MIMIC d_items' as vocabulary_id
