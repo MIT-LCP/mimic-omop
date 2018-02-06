@@ -1,4 +1,3 @@
-
 ALTER TABLE omop.concept DISABLE TRIGGER ALL;
 DELETE FROM omop.concept WHERE concept_id >= 200000000;
 DELETE FROM omop.concept_synonym WHERE concept_id >= 200000000;
@@ -152,6 +151,7 @@ and abbreviation is not null;
 --		, 'Braden Moisture'
 --		, 'Braden Mobility'
 --	)
+
 --LABS
 INSERT INTO omop.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date

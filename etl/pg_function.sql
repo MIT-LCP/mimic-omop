@@ -124,3 +124,15 @@ BEGIN
  END
 $BODY$
 LANGUAGE plpgsql;
+
+
+-- format wards
+DROP FUNCTION IF EXISTS format_ward(text, integer);
+CREATE FUNCTION format_ward(ward text, wardid integer) RETURNS text AS
+$BODY$
+BEGIN
+
+    RETURN coalesce(ward,'UNKNOWN') || ' ward #' || coalesce(wardid::text, '?');
+ END
+$BODY$
+LANGUAGE plpgsql;

@@ -6,7 +6,7 @@ NICU,Neonatal intensive care unit,4231410,581382
 SICU,Surgical intensive care unit,4305366,581382
 TSICU,Trauma/surgical intensive care unit,4305366,581382
 NWARD,Neonatal ward,4160140,8717
-EMERGENCY,Emergency Room Critical Care Facility,4021520,581381
+EMERGENCY ward #?,Emergency Room Critical Care Facility,4021520,581381
 CMED,Cardiac Medical - for non-surgical cardiac related admissions,45765807,45763735
 CSURG,Cardiac Surgery - for surgical cardiac admissions,45765807,4149152
 DENT,Dental - for dental/jaw related admissions,40489497,4149152

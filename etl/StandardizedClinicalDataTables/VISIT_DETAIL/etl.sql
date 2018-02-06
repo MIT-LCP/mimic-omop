@@ -71,7 +71,6 @@ UNION ALL
 	       , patients.person_id
 	       , admissions.visit_occurrence_id
 	       , hadm_id
-	       , curr_wardid
 	       , coalesce(curr_careunit,'UNKNOWN') as curr_careunit -- most of ward are unknown
 	       , intime_real::date as visit_start_date
 	       , intime_real as visit_start_datetime
@@ -85,6 +84,7 @@ UNION ALL
 	       , discharge_to_concept_id
 	       , admission_location
 	       , discharge_location
+	       , format_ward(curr_careunit, curr_wardid) as care_site_name
 	FROM transfers_no_bed
 	LEFT JOIN patients USING (subject_id)
 	LEFT JOIN admissions USING (hadm_id) 
@@ -128,7 +128,7 @@ SELECT
 , null::integer visit_detail_parent_id
 , visit_occurrence_id
 FROM visit_detail_ward
-LEFT JOIN gcpt_care_site ON (care_site_name = curr_careunit ||' ward #' || coalesce(curr_wardid::text,'?'))
+LEFT JOIN gcpt_care_site USING (care_site_name)
 ),
 "callout_delay" as (
 	SELECT 

@@ -11,7 +11,7 @@
 
 BEGIN;
 
-SELECT plan( 6 );
+SELECT plan( 7 );
 
 SELECT results_eq
 (
@@ -136,6 +136,13 @@ SELECT max(abnormal) FROM tmp;
 ,
 'Visit_detail table -- start_date > end_date'
 );
+
+select results_eq
+(
+	'select count(*) as res from omop.visit_detail where care_site_id IS NULL;'
+	,'select 0::integer as res;'
+	, 'all join to care site'
+)
 
 SELECT * FROM finish();
 ROLLBACK;
