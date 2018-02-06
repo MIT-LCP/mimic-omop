@@ -2,7 +2,6 @@
 \set ON_ERROR_STOP true
 set search_path to :'mimicschema';
 \timing
-\i mimic/build-mimic/postgres_update_mimic.sql
 
 TRUNCATE TABLE  omop.care_site CASCADE;
 TRUNCATE TABLE  omop.cohort_definition CASCADE;

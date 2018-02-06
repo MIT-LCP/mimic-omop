@@ -1,37 +1,32 @@
--- visit occurrence
-
--- WITH
-
--- PRINCIPLE:
--- =========
--- TRANSFERS:
--- 
--- visit_start_datetime | visit_end_datetime  
--- ----------------------+---------------------
---  2130-07-05 00:16:17  | 2130-07-05 17:41:52
---  2130-07-05 17:41:52  | 2130-07-05 19:32:40
---  2130-07-05 19:32:40  | 2130-07-06 20:51:50
---  2130-07-06 20:51:50  | 2130-07-07 12:10:06
--- 
--- SERVICES:
--- 
---   visit_start_datetime | visit_end_datetime  
--- -----------------------+---------------------
---   2130-07-05 00:16:17  | 2130-07-05 19:32:40
---   2130-07-05 19:32:40  | 2130-07-06 20:51:50
---   2130-07-06 20:51:50  | 2130-07-07 12:09:00
--- 
--- VISIT_DETAIL:
--- 		TRANSFERS		     |               SERVICES
--- | visit_start_datetime | visit_end_datetime  | visit_start_datetime | visit_end_datetime  
--- +----------------------+---------------------+----------------------+---------------------
--- | 2130-07-05 00:16:17  | 2130-07-05 17:41:52 | 2130-07-05 00:16:17  | 2130-07-05 17:41:52
--- | 2130-07-05 17:41:52  | 2130-07-05 19:32:40 | 2130-07-05 17:41:52  | 2130-07-05 19:32:40
--- | 2130-07-05 19:32:40  | 2130-07-06 20:51:50 | 2130-07-05 19:32:40  | 2130-07-06 20:51:50
--- | 2130-07-06 20:51:50  | 2130-07-07 12:10:06 | 2130-07-06 20:51:50  | 2130-07-07 12:09:00
-
+-- visit detail 
 
 WITH
+"transfers" AS ( -- including  emergency
+    SELECT
+      subject_id    
+    , hadm_id       
+    , curr_careunit 
+    , curr_wardid   
+    , intime        
+    , outtime       
+    , mimic_id      
+    FROM transfers
+    WHERE eventtype!= 'discharge' -- these are not useful
+UNION ALL
+    SELECT DISTINCT ON (hadm_id)
+           admissions.subject_id
+         , admissions.hadm_id
+         , 'EMERGENCY' as curr_careunit
+	 , null::integer as curr_wardid
+         , edregtime as intime
+         , min(intime) OVER(PARTITION BY hadm_id) as dischtime 
+    -- the end of the emergency is considered the begin of the the admission 
+    -- the admittime is sometime after the first transfer
+	 , nextval('mimic_id_seq') as mimic_id	
+     FROM admissions
+     LEFT JOIN transfers USING (hadm_id)
+     WHERE edregtime IS NOT NULL -- only those having a emergency timestamped
+),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "gcpt_care_site" AS (
        SELECT care_site.care_site_name
@@ -44,42 +39,41 @@ WITH
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
 "transfers_chained" AS (
-                              select t1.*
-                                   , sum(group_flag) over ( partition by hadm_id order by intime) as grp
-                                from (
-                                              select  transfers.row_id , transfers.subject_id , transfers.hadm_id , transfers.icustay_id , transfers.dbsource , transfers.eventtype , transfers.prev_careunit , transfers.curr_careunit , transfers.prev_wardid , transfers.curr_wardid , transfers.intime , coalesce(transfers.outtime,dischtime) as outtime , transfers.los , transfers.mimic_id 
-                                                   , case when lag(curr_wardid) over ( partition by hadm_id order by intime) = curr_wardid
-						then null 
-					        else 1 end as group_flag
-                                from transfers
-				left join admissions USING (hadm_id)
-                                where eventtype!= 'discharge'
-                     ) t1
+            select t1.*
+                 , sum(group_flag) over ( partition by hadm_id order by intime) as grp
+              from (
+                select 
+			  transfers.subject_id
+			, transfers.hadm_id
+			, transfers.curr_careunit
+			, transfers.curr_wardid
+			, transfers.intime 
+			, coalesce(transfers.outtime,dischtime) as outtime
+			, transfers.mimic_id 
+			, case 
+			    when lag(curr_wardid) over ( partition by hadm_id order by intime) = curr_wardid then null 
+		            else 1 end as group_flag
+               from transfers --ie including emergency
+               left join admissions USING (hadm_id)
+   ) t1
 ),
-"transfers_no_bed" as(
-                                SELECT distinct
-                                    on (hadm_id, grp) transfers_chained.*
-                                     , min(intime) OVER ( PARTITION BY hadm_id , grp) as intime_real
-                                     , max(outtime) OVER ( PARTITION BY hadm_id , grp) as outtime_real
-                                  FROM transfers_chained
-                                 ORDER BY hadm_id, grp, intime
+"transfers_no_bed" as (
+   SELECT DISTINCT ON (hadm_id, grp) 
+          transfers_chained.*
+        , min(intime) OVER (PARTITION BY hadm_id, grp) as intime_real
+        , max(outtime) OVER (PARTITION BY hadm_id, grp) as outtime_real
+     FROM transfers_chained
+    ORDER BY hadm_id, grp, intime
 ),
 "visit_detail_ward" AS (
 	 SELECT 
-	
 		 mimic_id as visit_detail_id
 	       , patients.person_id
 	       , admissions.visit_occurrence_id
 	       , hadm_id
-	       , eventtype
 	       , curr_wardid
 	       , coalesce(curr_careunit,'UNKNOWN') as curr_careunit -- most of ward are unknown
-	       --, CASE 
-	--	    WHEN curr_careunit = 'EMERGENCY' THEN 9203 
-	--	    WHEN curr_careunit != 'UNKNOWN' THEN 4148981 -- intensive care unit
-	--	    ELSE 9201 
-	--	 END as visit_detail_concept_id
-	       , transfers_no_bed.intime_real::date as visit_start_date
+	       , intime_real::date as visit_start_date
 	       , intime_real as visit_start_datetime
 	       , outtime_real::date as visit_end_date
 	       , outtime_real as visit_end_datetime
