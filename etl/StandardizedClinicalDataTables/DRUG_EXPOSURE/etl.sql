@@ -11,12 +11,14 @@ WITH
 	, prescriptions.mimic_id as drug_exposure_id
 	, startdate as drug_exposure_start_datetime
 	, enddate as drug_exposure_end_datetime
-	, concept.concept_id as drug_concept_id
+	, c2.concept_id as drug_concept_id
 	, gcpt_route_to_concept.concept_id as route_concept_id
 	, route as route_source_value --TODO: add route as local concept
 	, dose_unit_rx as dose_unit_source_value --TODO: add unit as local concept
 	FROM prescriptions
-	left join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping
+	left join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
+	join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'  
+	join omop.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
 	LEFT JOIN gcpt_route_to_concept using (route)
 ), 
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
