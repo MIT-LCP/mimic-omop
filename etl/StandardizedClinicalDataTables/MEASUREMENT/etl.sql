@@ -16,7 +16,7 @@ WITH
 ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"d_labitems" AS (SELECT itemid, label as measurement_source_value, loinc_code, category, mimic_id FROM d_labitems),
+"d_labitems" AS (SELECT itemid, label as measurement_source_value, fluid, loinc_code, category, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label as measurement_source_value, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
 "omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as loinc_code FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
 "omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
@@ -43,10 +43,11 @@ SELECT
 , null::bigint AS provider_id                   
 , admissions.visit_occurrence_id AS visit_occurrence_id           
 , null::bigint As visit_detail_id               
-, d_labitems.measurement_source_value AS measurement_source_value      
+, d_labitems.itemid::text AS measurement_source_value       -- this might be linked to concept.concept_code
 , d_labitems.mimic_id AS measurement_source_concept_id 
 , gcpt_lab_unit_to_concept.unit_source_value             
 , labevents.value_source_value            
+, specimen_concept_id
 FROM labevents
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -55,12 +56,13 @@ LEFT JOIN omop_loinc USING (loinc_code)
 LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (measurement_source_value)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value)
+LEFT JOIN gcpt_labs_specimen_to_concept ON (d_labitems.fluid =  gcpt_labs_specimen_to_concept.label)
 ),
-"specimen_lab" AS ( --generated specimen: each lab measurement is associated with a fictive specimen
+"specimen_lab" AS ( --generated specimen: each lab is associated with a fictive specimen
 SELECT
   nextval('mimic_id_seq') as specimen_id    -- non NULL
 , person_id                                 -- non NULL
-, 0::integer as specimen_concept_id         -- non NULL
+, coalesce(specimen_concept_id, 0 ) as specimen_concept_id 
 , 581378 as specimen_type_concept_id    -- non NULL
 , measurement_date as specimen_date
 , measurement_datetime as specimen_datetime            
@@ -214,12 +216,12 @@ LEFT JOIN gcpt_lab_label_to_concept USING (label)
 LEFT JOIN gcpt_labs_from_chartevents_to_concept USING (category, label)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value)
 ),
-"specimen_lab" AS ( --generated specimen: each lab measurement is associated with a fictive specimen
+"specimen_lab" AS ( -- generated specimen: each lab measurement is associated with a fictive specimen
 SELECT
-  nextval('mimic_id_seq') as specimen_id    -- non NULL
-, person_id                                 -- non NULL
-, 0::integer as specimen_concept_id         -- non NULL
-, 581378 as specimen_type_concept_id    -- non NULL
+  nextval('mimic_id_seq') as specimen_id    
+, person_id                                 
+, 0::integer as specimen_concept_id         -- no information right now about any specimen provenance
+, 581378 as specimen_type_concept_id    
 , specimen_datetime::date as specimen_date
 , specimen_datetime as specimen_datetime            
 , null::double precision as quantity                     
@@ -301,8 +303,23 @@ FROM row_to_insert;
 -- NOTICE: the number of culture is complicated to determine (the distinct on (coalesce).. is a result)
 WITH 
 "culture" AS (
-	SELECT DISTINCT ON (subject_id, hadm_id, coalesce(charttime,chartdate), coalesce(spec_itemid,0), coalesce(org_name,'')) spec_itemid,  mimic_id as measurement_id, chartdate as measurement_date , charttime as measurement_datetime , subject_id , hadm_id, org_name, spec_type_desc as measurement_source_value 
+	SELECT 
+	        DISTINCT ON (subject_id, hadm_id, coalesce(charttime,chartdate)
+		, coalesce(spec_itemid,0)
+		, coalesce(org_name,'')) spec_itemid
+	        , microbiologyevents.mimic_id as measurement_id
+		, chartdate as measurement_date
+		, charttime as measurement_datetime
+		, subject_id
+		, hadm_id
+		, org_name
+		, spec_type_desc as measurement_source_value 
+		, spec_itemid as specimen_source_value -- TODO: add the specimen type local concepts
+		--, specimen_source_id --TODO: wait for next mimic release that will ship the specimen details
+		, specimen_concept_id
 	FROM microbiologyevents 
+	LEFT JOIN gcpt_microbiology_specimen_to_concept ON (label = spec_type_desc)
+	
 ),
 "resistance" AS (
 	SELECT 
@@ -357,18 +374,18 @@ UNION ALL
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "specimen_culture" AS ( --generated specimen
 SELECT
-  nextval('mimic_id_seq') as specimen_id    -- non NULL
-, patients.person_id                         -- non NULL
-, 0::integer as specimen_concept_id         -- non NULL
-, 581378 as specimen_type_concept_id    -- non NULL
+  nextval('mimic_id_seq') as specimen_id    
+, patients.person_id                         
+, coalesce(specimen_concept_id,  0) as specimen_concept_id         -- found manually 
+, 581378 as specimen_type_concept_id    
 , culture.measurement_date as specimen_date               -- this is not really the specimen date but better than nothing
 , culture.measurement_datetime as specimen_datetime            
 , null::double precision as quantity                     
 , null::integer unit_concept_id              
 , null::integer anatomic_site_concept_id     
 , null::integer disease_status_concept_id    
-, null::integer specimen_source_id           
-, null::text specimen_source_value        
+, null::integer specimen_source_id            --TODO: wait for next mimic release that will ship the specimen details
+, specimen_source_value as specimen_source_value
 , null::text unit_source_value            
 , null::text anatomic_site_source_value   
 , null::text disease_status_source_value  
