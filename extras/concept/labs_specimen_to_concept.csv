@@ -1,0 +1,18 @@
+label,specimen_concept_id,concept_name
+Blood,4001225,Blood specimen
+BLOOD,4001225,Blood specimen
+JOINT FLUID,4331823,Joint fluid specimen
+Joint Fluid,4331823,Joint fluid specimen
+Pleural,4302933,Pleural fluid specimen
+Urine,4046280,Urine specimen
+URINE,4046280,Urine specimen
+Ascites,4206413,Ascitic fluid sample
+ASCITES,4206413,Ascitic fluid sample
+Bone Marrow,4000623,Bone marrow specimen
+CSF,4124259,Cerebrospinal fluid sample
+Cerebrospinal Fluid (CSF),4124259,Cerebrospinal fluid sample
+STOOL,4002879,Stool specimen
+Stool,4002879,Stool specimen
+OTHER BODY FLUID,4122251,Fluid sample
+Other Body Fluid,4122251,Fluid sample
+,0,
