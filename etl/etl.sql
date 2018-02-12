@@ -36,7 +36,6 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/OBSERVATION_PERIOD/etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_DETAIL/etl.sql
 \i etl/StandardizedClinicalDataTables/NOTE/etl.sql
-\i etl/StandardizedClinicalDataTables/NOTE_NLP/etl.sql
 \i etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/etl.sql
 \i etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE/etl.sql
 \i etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/etl.sql
