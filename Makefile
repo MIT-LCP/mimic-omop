@@ -1,4 +1,4 @@
-MIMIC_SCHEMA=mimic
+MIMIC_SCHEMA=mimicdemo
 HOST_OMOP=localhost
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
@@ -6,6 +6,8 @@ sequence:
 	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic postgres  -f etl/etl_sequence.sql 
 load: 
 	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic postgres  -f etl/etl.sql 
+contrib: 
+	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic postgres  -f etl/etl_contrib.sql 
 check:
 	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic postgres  -f etl/check_etl.sql 
 export:
@@ -16,5 +18,6 @@ export:
 	cp etl/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
-runetl: sequence concept load export
+runetl: sequence concept load export 
+runetlwithcontrib: sequence concept load contrib export 
 runetllight: concept load 

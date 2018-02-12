@@ -28,9 +28,6 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
 \i etl/pg_function.sql
 \i etl/StandardizedVocabularies/CONCEPT/etl.sql -- SHALL be first loaded table
-\i etl/StandardizedVocabularies/COHORT_DEFINITION/etl.sql
-\i etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION/etl.sql
-\i etl/StandardizedDerivedElements/COHORT_ATTRIBUTE/etl.sql
 \i etl/StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i etl/StandardizedHealthSystemDataTables/PROVIDER/etl.sql
 \i etl/StandardizedClinicalDataTables/PERSON/etl.sql

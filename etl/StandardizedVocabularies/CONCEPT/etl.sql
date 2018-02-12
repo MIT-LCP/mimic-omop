@@ -91,12 +91,12 @@ SELECT
 , 226719 --Last menses
 , 225279 --Date of Admission to Hospital
 , 225059 --Past medical history
-, 916 --Allergy 1
-, 927 --Allergy 2
-, 935 --Allergy 3
-, 925 --Marital Status
+, 916    --Allergy 1
+, 927    --Allergy 2
+, 935    --Allergy 3
+, 925    --Marital Status
 , 226381 --Marital Status
-, 926 --Religion
+, 926    --Religion
 , 226543 --Religion
 ) THEN 'Observation'::Text 
   ELSE 'Measurement'::Text END as domain_id
