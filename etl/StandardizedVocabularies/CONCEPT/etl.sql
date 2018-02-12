@@ -174,8 +174,8 @@ WITH tmp as
 (
 select 
  'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'  as concept_name --this will be joined to the drug_exposure table
-, 'prescriptions'::text as domain_id
-, 'MIMIC Local Codes' as vocabulary_id
+, 'Drug_exposure'::text as domain_id
+, 'MIMIC prescriptions' as vocabulary_id
 , '' as concept_class_id
 , 'gsn:['||coalesce(gsn,'')||']'|| 'ndc:['||coalesce(ndc,'')||']' as concept_code
 , drug_name_poe
