@@ -36,6 +36,35 @@ BEGIN
 $BODY$
 LANGUAGE plpgsql;
 
+
+-- test whether the string looks like a value
+DROP FUNCTION IF EXISTS looks_like_value_original(text);
+CREATE FUNCTION looks_like_value_original(value_text text) RETURNS boolean AS
+$BODY$
+DECLARE
+operator text;
+signe    text;
+value    text;
+unit     text;
+pattern  text;
+BEGIN
+	operator := '(=|>=|=>|<=|>|<){0,1} ?';
+	signe    := '[+-]{0,1} ?';
+	value    := '([.,]{1}[0-9]+|[0-9]+[,.]{0,1}[0-9]*) ?';
+	unit     := '(ml\/hr|ml\/h|cc\/h|cc\/hr|\/h|mg\/h|mg\/hr|g\/h|g\/hr|mcg\/h|mcg\/hr|U\/hr|U\/h|lpm|g|gram|grams|gm|gms|grm|mg|meq|mcg|kg|liter|l|ppm|s|sec|min|min\.|minutes|minute|mins|hour|hr|hrs|in|inch|cm|mm|m|meters|ml|mmHg|cs|wks|weeks|week|French|fr|gauge|degrees|%|cc){0,1}';
+	pattern  := '^' || operator || signe || value || unit || '$';
+
+    value_text := trim(regexp_replace(regexp_replace(value_text, 'LE[SE]S TH[AE]N', '<'), 'GRE[EA]TER TH[AE]N', '>'));
+
+    IF trim(value_text) ~* pattern THEN
+        RETURN true;
+    END IF;
+
+    RETURN false;
+ END
+$BODY$
+LANGUAGE plpgsql;
+
 -- test whether the string looks like a value
 DROP FUNCTION IF EXISTS looks_like_value(text);
 CREATE FUNCTION looks_like_value(value_text text) RETURNS boolean AS
@@ -118,7 +147,7 @@ CREATE FUNCTION extract_value_comma_decimal(value_text text) RETURNS double prec
 $BODY$
 BEGIN
     IF looks_like_value(value_text) THEN
-        RETURN replace(substring( replace(replace(value_text,'.',''),' ','') from '[0-9]*[,.]{0,1}[0-9]+'), ',', '.')::double precision;
+        RETURN replace(substring( replace(replace(value_text,'.',''),' ','') from '[+-]{0,1}[0-9]*[,.]{0,1}[0-9]+'), ',', '.')::double precision;
     END IF;
 
     RETURN null::double precision;
@@ -136,7 +165,7 @@ CREATE FUNCTION extract_value_period_decimal(value_text text) RETURNS double pre
 $BODY$
 BEGIN
     IF looks_like_value(value_text) THEN
-        RETURN substring( replace(replace(value_text,',',''),' ','') from '[0-9]*[.]{0,1}[0-9]+')::double precision;
+        RETURN substring( replace(replace(value_text,',',''),' ','') from '[+-]{0,1}[0-9]*[.]{0,1}[0-9]+')::double precision;
     END IF;
 
     RETURN null::double precision;
