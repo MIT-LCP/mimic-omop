@@ -11,7 +11,7 @@ WITH
 	, flag
 	, value as value_source_value
 	, extract_operator(value) as operator_name
-	, extract_value(value) as value_as_number
+	, extract_value_period_decimal(value) as value_as_number
 	FROM labevents
 ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
@@ -153,7 +153,7 @@ WITH
 	, charttime as specimen_datetime                -- according to Alistair, charttime is the specimen time
 	, value as value_source_value
 	, extract_operator(value) as operator_name
-	, extract_value(value)    as value_as_number
+	, extract_value_period_decimal(value)    as value_as_number
 	, coalesce(valueuom, extract_unit(value)) AS unit_source_value
 	FROM chartevents
         JOIN omop.concept -- concept driven dispatcher
@@ -331,7 +331,7 @@ WITH
 	, subject_id
 	, hadm_id
 	, extract_operator(dilution_comparison) as operator_name
-	, extract_value(dilution_comparison) as value_as_number
+	, extract_value_period_decimal(dilution_comparison) as value_as_number
 	, ab_name as measurement_source_value
 	, interpretation
 	, dilution_text as value_source_value

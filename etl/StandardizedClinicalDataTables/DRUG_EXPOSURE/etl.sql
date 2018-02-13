@@ -37,7 +37,7 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, extract_value(dose_val_rx) as quantity --extract quantity from pure numeric when possible
+, extract_value_period_decimal(dose_val_rx) as quantity --extract quantity from pure numeric when possible
 , null::integer as days_supply
 , null::text  as sig
 , route_concept_id
