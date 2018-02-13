@@ -59,6 +59,32 @@ SELECT ok(
 );
 
 SELECT ok(
+	looks_like_value('1,000')
+      , 'number with commas as thousandths separator, no period'
+);
+SELECT ok(
+	looks_like_value('1,000.5')
+      , 'number with commas as thousandths separator, period as decimal separator'
+);
+SELECT ok(
+	looks_like_value('1,000,000,000')
+      , 'number with commas as thousandths separator, multiple commas'
+);
+SELECT ok(
+	looks_like_value('1.000')
+      , 'number with period as thousandths separator, no comma'
+);
+SELECT ok(
+	looks_like_value('1.000,5')
+      , 'number with period as thousandths separator, comma as decimal separator'
+);
+SELECT ok(
+	looks_like_value('1.000.000.000')
+      , 'number with period as thousandths separator, multiple period'
+);
+
+-- tests which should not match
+SELECT ok(
         NOT looks_like_value('a') AND NOT looks_like_value('a1')
       , 'should not match '
 );
