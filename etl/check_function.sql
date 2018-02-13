@@ -12,49 +12,49 @@ BEGIN;
 SELECT plan ( 11 );
 
 SELECT ok(
-	looks_like_value('1') 
-	AND looks_like_value('.1209') 
-	AND looks_like_value(',192 ') 
-	AND looks_like_value('1.') 
-	AND looks_like_value('1,0') 
+	looks_like_value('1')
+	AND looks_like_value('.1209')
+	AND looks_like_value(',192 ')
+	AND looks_like_value('1.')
+	AND looks_like_value('1,0')
       , 'simple value'
 );
 
 SELECT ok(
-	looks_like_value('+1') 
+	looks_like_value('+1')
       , 'simple value'
 );
 SELECT ok(
-	looks_like_value('-.1209') 
+	looks_like_value('-.1209')
       , 'simple value'
 );
 SELECT ok(
-	looks_like_value('+ ,192') 
+	looks_like_value('+ ,192')
       , 'simple value'
 );
 SELECT ok(
-	looks_like_value(' +1,0') 
+	looks_like_value(' +1,0')
       , 'simple value'
 );
 SELECT ok(
-	looks_like_value(' > +1,0 ') 
+	looks_like_value(' > +1,0 ')
       , 'simple value'
 );
 
 SELECT ok(
-	looks_like_value('=+1,0') 
+	looks_like_value('=+1,0')
       , 'simple value operator and sign'
 );
 SELECT ok(
-	looks_like_value('LESS THAN+1,0') 
+	looks_like_value('LESS THAN+1,0')
       , 'simple value operator and sign'
 );
 SELECT ok(
-	looks_like_value('=+1,0meters') 
+	looks_like_value('=+1,0meters')
       , 'simple value operator and sign and unit'
 );
 SELECT ok(
-	looks_like_value('1m') 
+	looks_like_value('1m')
       , 'simple value operator and sign and unit'
 );
 
