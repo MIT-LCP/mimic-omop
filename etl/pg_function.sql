@@ -118,7 +118,7 @@ CREATE FUNCTION extract_value_comma_decimal(value_text text) RETURNS double prec
 $BODY$
 BEGIN
     IF looks_like_value(value_text) THEN
-        RETURN replace(substring( replace(replace(value_text,'.',''),' ','') from '[+-]{0,1}[0-9]*[,.]{0,1}[0-9]+'), ',', '.')::double precision;
+        RETURN replace(substring( replace(replace(value_text,'.',''),' ','') from '[+-]{0,1} ?[0-9]*[,.]{0,1}[0-9]+'), ',', '.')::double precision;
     END IF;
 
     RETURN null::double precision;
@@ -136,7 +136,7 @@ CREATE FUNCTION extract_value_period_decimal(value_text text) RETURNS double pre
 $BODY$
 BEGIN
     IF looks_like_value(value_text) THEN
-        RETURN substring( replace(replace(value_text,',',''),' ','') from '[+-]{0,1}[0-9]*[.]{0,1}[0-9]+')::double precision;
+        RETURN substring( replace(replace(value_text,',',''),' ','') from '[+-]{0,1} ?[0-9]*[.]{0,1}[0-9]+')::double precision;
     END IF;
 
     RETURN null::double precision;
