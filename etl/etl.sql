@@ -28,9 +28,6 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
 \i etl/pg_function.sql
 \i etl/StandardizedVocabularies/CONCEPT/etl.sql -- SHALL be first loaded table
-\i etl/StandardizedVocabularies/COHORT_DEFINITION/etl.sql
-\i etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION/etl.sql
-\i etl/StandardizedDerivedElements/COHORT_ATTRIBUTE/etl.sql
 \i etl/StandardizedHealthSystemDataTables/CARE_SITE/etl.sql
 \i etl/StandardizedHealthSystemDataTables/PROVIDER/etl.sql
 \i etl/StandardizedClinicalDataTables/PERSON/etl.sql
@@ -39,7 +36,6 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/OBSERVATION_PERIOD/etl.sql
 \i etl/StandardizedClinicalDataTables/VISIT_DETAIL/etl.sql
 \i etl/StandardizedClinicalDataTables/NOTE/etl.sql
-\i etl/StandardizedClinicalDataTables/NOTE_NLP/etl.sql
 \i etl/StandardizedClinicalDataTables/PROCEDURE_OCCURRENCE/etl.sql
 \i etl/StandardizedClinicalDataTables/CONDITION_OCCURRENCE/etl.sql
 \i etl/StandardizedClinicalDataTables/DRUG_EXPOSURE/etl.sql

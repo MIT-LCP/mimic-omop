@@ -122,3 +122,10 @@ REMARKS
 - take a look at the schemaspy website describing both
 	1. [mimic](mimic/doc/schemaspy/index.html)
 	1. [omop](omop/doc/schemaspy/index.html)
+
+INSTALLATION
+=============
+
+- postgresql > 9
+- R
+  - rpostgres

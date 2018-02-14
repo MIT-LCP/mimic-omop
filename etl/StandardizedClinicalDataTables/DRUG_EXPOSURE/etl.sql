@@ -1,25 +1,31 @@
 -- from drug_exposure
+-- mapping is 85% done from gsn coding
 WITH
-"google_drug_table" AS (SELECT drug_exposure_id as row_id, drug_concept_id::text as concept_code, route_concept_id, route_source_value, effective_drug_dose, dose_unit_concept_id, dose_unit_source_value FROM mimic.gcpt_gdata_drug_exposure JOIN prescriptions ON (drug_exposure_id = row_id)),
-"omop_rxnorm" AS (SELECT concept_id as drug_concept_id, concept_code FROM  omop.concept WHERE domain_id = 'Drug' AND vocabulary_id = 'RxNorm'),
 "drug_exposure" AS (
-                              SELECT drug as drug_source_value
-                                   , 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']' as concept_name
-                                   , subject_id
-                                   , hadm_id
-                                   , row_id
-                                   , dose_val_rx
-                                   , mimic_id as drug_exposure_id
-                                   , startdate as drug_exposure_start_datetime
-                                   , enddate as drug_exposure_end_datetime
-                FROM prescriptions
-                     )
-                   , 
+	SELECT
+	   drug as drug_source_value
+	, 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']' as concept_name
+	, subject_id
+	, hadm_id
+	, dose_val_rx
+	, prescriptions.mimic_id as drug_exposure_id
+	, startdate as drug_exposure_start_datetime
+	, enddate as drug_exposure_end_datetime
+	, c2.concept_id as drug_concept_id
+	, gcpt_route_to_concept.concept_id as route_concept_id
+	, route as route_source_value --TODO: add route as local concept
+	, dose_unit_rx as dose_unit_source_value --TODO: add unit as local concept
+	FROM prescriptions
+	left join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
+	join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
+	join omop.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
+	LEFT JOIN gcpt_route_to_concept using (route)
+),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
 "omop_local_drug" AS (SELECT concept_name, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC Local Codes'),
 "row_to_insert" AS (
-	SELECT 
+	SELECT
   drug_exposure_id
 , person_id
 , coalesce(drug_concept_id, 0) as drug_concept_id
@@ -31,10 +37,9 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, CASE when dose_val_rx ~ '^[0-9]*[,.]{0,1}[0-9]+$' then regexp_replace(dose_val_rx, '([0-9]*)([,]+)([0-9]*)', E'\\1.\\3','g')::numeric 
- ELSE null::numeric END as quantity --extract quantity from pure numeric when possible
+, extract_value_period_decimal(dose_val_rx) as quantity --extract quantity from pure numeric when possible
 , null::integer as days_supply
-, null::text  as sig 
+, null::text  as sig
 , route_concept_id
 , null::text as lot_number
 , null::integer as provider_id
@@ -46,8 +51,6 @@ WITH
 , dose_unit_source_value
 FROM drug_exposure
 LEFT JOIN omop_local_drug USING (concept_name)
-LEFT JOIN google_drug_table USING (row_id)
-LEFT JOIN omop_rxnorm USING (concept_code)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 )
@@ -92,9 +95,9 @@ FROM row_to_insert;
 -- quality_concept_id : when 1 then cancel else ok. --> infered from data.
 -- when orderid then fact_relationship with 44818791 -- Has temporal context [SNOMED]
 -- weight into observation/measurement
-WITH 
+WITH
 "inputevents_mv" AS (
-SELECT 
+SELECT
   mimic_id AS drug_exposure_id
 , subject_id
 , hadm_id
@@ -117,7 +120,9 @@ SELECT
 FROM inputevents_mv
 WHERE cancelreason = 0
 ),
-"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+--"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+"rxnorm_map" AS (-- exploit the mapping based on ndc
+select distinct drug_concept_id, concept_name as drug_source_value from omop.drug_exposure left join omop.concept on drug_concept_id = concept_id where drug_concept_id != 0),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
@@ -126,17 +131,17 @@ WHERE cancelreason = 0
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
 "d_items" AS (SELECT itemid, label as drug_source_value, mimic_id as drug_source_concept_id FROM d_items),
 "fact_relationship" AS (
-INSERT INTO omop.fact_relationship 
+INSERT INTO omop.fact_relationship
 (
-  domain_concept_id_1     
-, fact_id_1               
-, domain_concept_id_2     
-, fact_id_2               
-, relationship_concept_id 
+  domain_concept_id_1
+, fact_id_1
+, domain_concept_id_2
+, fact_id_2
+, relationship_concept_id
 
 )
 SELECT
-DISTINCT 
+DISTINCT
   13 As fact_id_1 --Drug
 ,  mv2.drug_exposure_id AS domain_concept_id_1
 , 13 As fact_id_2 --Drug
@@ -146,17 +151,17 @@ FROM inputevents_mv mv1
 LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.linkorderid AND mv2.is_leader IS TRUE)
 ),
 "fact_relationship_order" AS (
-INSERT INTO omop.fact_relationship 
+INSERT INTO omop.fact_relationship
 (
-  domain_concept_id_1     
-, fact_id_1               
-, domain_concept_id_2     
-, fact_id_2               
-, relationship_concept_id 
+  domain_concept_id_1
+, fact_id_1
+, domain_concept_id_2
+, fact_id_2
+, relationship_concept_id
 
 )
 SELECT
-DISTINCT 
+DISTINCT
   13 As fact_id_1 --Drug
 ,  mv2.drug_exposure_id AS domain_concept_id_1
 , 13 As fact_id_2 --Drug
@@ -201,7 +206,7 @@ LEFT JOIN d_items USING (itemid)
 LEFT JOIN rxnorm_map USING (drug_source_value)
 )
 INSERT INTO omop.drug_exposure
-SELECT 
+SELECT
   drug_exposure_id
 , person_id
 , drug_concept_id
@@ -226,7 +231,7 @@ SELECT
 , route_source_value
 , dose_unit_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign 
+LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -240,7 +245,7 @@ OR -- middle
 );
 
 -- inputevent_cv
--- when rate chattime -> start 
+-- when rate chattime -> start
 -- when amount charttime  -> end
 -- stopped as is -> stop_reason
 -- concept_id gcpt_inputevents_drug_to_concept, gcpt_mv_input_label_to_concept, gcpt_cv_input_label_to_concept
@@ -261,7 +266,7 @@ SELECT
 , 38000180 AS drug_type_concept_id -- Inpatient administration
 --, 4112421 as route_concept_id -- intraveous
 , orderid = linkorderid as is_leader -- other input are linked to it/them
-, orderid 
+, orderid
 , linkorderid
 , originalroute
 , stopped as stop_reason
@@ -269,7 +274,9 @@ FROM inputevents_cv
 ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+--"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM .gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+"rxnorm_map" AS (-- exploit the mapping based on ndc
+select distinct drug_concept_id, concept_name as drug_source_value from omop.drug_exposure left join omop.concept on drug_concept_id = concept_id where drug_concept_id != 0),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
 "gcpt_cv_input_label_to_concept" AS (SELECT DISTINCT ON (item_id) item_id as itemid, concept_id as drug_concept_id FROM gcpt_mv_input_label_to_concept),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
@@ -279,13 +286,13 @@ FROM inputevents_cv
 	select dose_unit_source_value, dose_unit_source_value_new
  from gcpt_continuous_unit_carevue),
 "fact_relationship" AS (
-INSERT INTO omop.fact_relationship 
+INSERT INTO omop.fact_relationship
 (
-  domain_concept_id_1     
-, fact_id_1               
-, domain_concept_id_2     
-, fact_id_2               
-, relationship_concept_id 
+  domain_concept_id_1
+, fact_id_1
+, domain_concept_id_2
+, fact_id_2
+, relationship_concept_id
 )
 SELECT
 DISTINCT
@@ -336,7 +343,7 @@ LEFT JOIN gcpt_map_route_to_concept USING (originalroute)
 LEFT JOIN gcpt_continuous_unit_carevue USING (dose_unit_source_value)
 )
 INSERT INTO omop.drug_exposure
-SELECT 
+SELECT
   drug_exposure_id
 , person_id
 , drug_concept_id
@@ -361,7 +368,7 @@ SELECT
 , route_source_value
 , dose_unit_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign 
+LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -373,4 +380,3 @@ OR -- last
 OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.drug_exposure_start_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.drug_exposure_start_datetime <= visit_detail_assign.visit_end_datetime)
 );
-
