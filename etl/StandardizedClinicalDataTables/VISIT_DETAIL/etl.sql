@@ -106,24 +106,11 @@ SELECT
 , care_site_id
 , null::text visit_source_value
 , null::integer visit_source_concept_id
-, CASE 
-    WHEN is_first IS FALSE THEN 4030023
-    ELSE admitting_source_concept_id
-  END AS admitting_concept_id
-, CASE 
-    WHEN is_first IS FALSE THEN 'transfer'
-    ELSE admission_location
-  END AS admitting_source_value
-, null::integer as admitting_source_concept_id
-, CASE 
-    WHEN is_last IS FALSE THEN 4030023
-    ELSE discharge_to_concept_id
-  END AS discharge_to_concept_id
-, CASE 
-    WHEN is_last IS FALSE THEN 'transfer'
-    ELSE discharge_location
-  END AS discharge_to_source_value
-, null::integer as discharge_to_source_concept_id
+, null::integer admitting_concept_id
+, null::text admitting_source_value
+, null::integer admitting_source_concept_id
+, null::integer discharge_to_concept_id
+, null::text discharge_to_source_value
 , preceding_visit_detail_id
 , null::integer visit_detail_parent_id
 , visit_occurrence_id
