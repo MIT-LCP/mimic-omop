@@ -20,7 +20,7 @@ WITH
 	join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
 	join omop.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
 	LEFT JOIN gcpt_route_to_concept using (route)
-	LEFT JOIN gcpt_prescriptions_ndcisnullzero_to_concept as c3 ON coalesce(drug, drug_name_poe, drug_name_generic,'') || ' ' || coalesce(prod_strength, '') = c3.label
+	LEFT JOIN gcpt_prescriptions_ndcisnullzero_to_concept as c3 ON coalesce(drug, drug_name_poe, drug_name_generic,'') || ' ' || coalesce(prod_strength, '') = c3.label -- this improve to 85% mapping and save most of ndc = 0
 ),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
