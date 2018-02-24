@@ -1,5 +1,6 @@
-load_vars:
-	etl/export.sh
+MIMIC_SCHEMA=mimic
+HOST_OMOP=localhost
+PG_USER=postgres
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
 sequence: 
@@ -18,6 +19,6 @@ export:
 	cp etl/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
-runetl: export sequence concept load export 
-runetlwithcontrib: export sequence concept load contrib export 
-runetllight: export concept load 
+runetl: sequence concept load export 
+runetlwithcontrib: sequence concept load contrib export 
+runetllight: concept load 
