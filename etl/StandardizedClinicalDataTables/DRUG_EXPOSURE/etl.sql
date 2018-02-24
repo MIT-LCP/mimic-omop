@@ -3,8 +3,7 @@
 WITH
 "drug_exposure" AS (
 	SELECT
-	   drug as drug_source_value
-	, 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']' as concept_name
+	 'drug:['|| coalesce(drug, drug_name_poe, drug_name_generic,'') ||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'') || ']' || 'dose_unit_rx:[' || coalesce(dose_unit_rx,'') || ']' as concept_name
 	, subject_id
 	, hadm_id
 	, dose_val_rx
@@ -14,7 +13,9 @@ WITH
 	, coalesce(c2.concept_id, c3.concept_id) as drug_concept_id
 	, gcpt_route_to_concept.concept_id as route_concept_id
 	, route as route_source_value --TODO: add route as local concept
-	, dose_unit_rx as dose_unit_source_value --TODO: add unit as local concept
+	, form_unit_disp as dose_unit_source_value --TODO: add unit as local concept
+	, ndc as drug_source_value -- ndc was used for automatic/manual mapping
+	, form_val_disp
 	FROM prescriptions
 	left join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
 	join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
@@ -38,7 +39,7 @@ WITH
 , 38000177 as drug_type_concept_id
 , null::text as stop_reason
 , null::integer as refills
-, extract_value_period_decimal(dose_val_rx) as quantity --extract quantity from pure numeric when possible
+, extract_value_period_decimal(form_val_disp) as quantity --extract quantity from pure numeric when possible
 , null::integer as days_supply
 , null::text  as sig
 , route_concept_id

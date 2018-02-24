@@ -173,7 +173,7 @@ FROM d_labitems;
 WITH tmp as 
 (
 select 
- 'drug:['||coalesce(drug,'')||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'')||']'  as concept_name --this will be joined to the drug_exposure table
+ 'drug:['|| coalesce(drug, drug_name_poe, drug_name_generic,'') ||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'') || ']' || 'dose_unit_rx:[' || coalesce(dose_unit_rx,'') || ']'  as concept_name --this will be joined to the drug_exposure table
 , 'Drug_exposure'::text as domain_id
 , 'MIMIC prescriptions' as vocabulary_id
 , '' as concept_class_id

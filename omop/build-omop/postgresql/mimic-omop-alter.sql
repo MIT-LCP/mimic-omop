@@ -122,6 +122,7 @@ ALTER TABLE specimen ALTER COLUMN   specimen_source_id TYPE text;
 -- this allows populating them
 ALTER TABLE drug_exposure ALTER COLUMN drug_exposure_start_date DROP NOT NULL;
 ALTER TABLE drug_exposure ALTER COLUMN drug_exposure_end_date DROP NOT NULL;
+ALTER TABLE dose_era ALTER COLUMN dose_era_end_date DROP NOT NULL;
 
 
 

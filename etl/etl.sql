@@ -42,6 +42,7 @@ TRUNCATE TABLE  omop.fact_relationship CASCADE;
 \i etl/StandardizedClinicalDataTables/OBSERVATION/etl.sql
 \i etl/StandardizedClinicalDataTables/MEASUREMENT/etl.sql
 \i etl/StandardizedClinicalDataTables/SPECIMEN/etl.sql
+\i etl/StandardizedDerivedElements/DOSE_ERA/etl.sql
 
 --\i omop/build-omop/postgresql/mimic-omop-enable-trigger.sql
 --ROLLBACK;
