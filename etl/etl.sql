@@ -24,8 +24,7 @@ TRUNCATE TABLE  omop.note_nlp CASCADE;
 TRUNCATE TABLE  omop.fact_relationship CASCADE;
 
 
-\i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
-
+--\i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql
 \i etl/pg_function.sql
 \i etl/StandardizedVocabularies/CONCEPT/etl.sql -- SHALL be first loaded table
 \i etl/StandardizedHealthSystemDataTables/CARE_SITE/etl.sql

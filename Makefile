@@ -1,6 +1,6 @@
 MIMIC_SCHEMA=mimic
 HOST_OMOP=localhost
-PG_USER=postgres
+PG_USER=apa
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
 sequence: 
