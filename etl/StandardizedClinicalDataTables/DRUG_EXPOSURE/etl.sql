@@ -234,7 +234,7 @@ SELECT
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
-, quantity:text as quantity_source_value
+, quantity::text as quantity_source_value
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
