@@ -30,3 +30,14 @@
 --
 --ALTER TABLE omop.visit_detail ADD COLUMN discharge_delay double precision;
 --COMMENT ON COLUMN omop.visit_detail.discharge_delay IS '[CONTRIB] Delay between discharge decision and effective discharge';
+
+
+-- those are usefull
+ALTER TABLE omop.dose_era ADD COLUMN temporal_unit_concept_id integer;
+COMMENT ON COLUMN omop.dose_era.temporal_unit_concept_id  IS 'Stores temporal unit, daily, hourly ...';
+
+ALTER TABLE omop.dose_era ADD COLUMN temporal_value numeric;
+COMMENT ON COLUMN omop.dose_era.temporal_value IS 'Stores temporal value';
+
+ALTER TABLE omop.drug_exposure ADD COLUMN quantity_source_value text ;
+COMMENT ON COLUMN omop.drug_exposure.quantity_source_value IS 'Stores the source quantity value';
