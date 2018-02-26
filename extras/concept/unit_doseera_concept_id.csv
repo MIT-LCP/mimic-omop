@@ -1,28 +1,28 @@
-label,concept_id,concept_name
-mEq,9551,milliequivalent
-mEQ,9551,milliequivalent
-mEq.,9551,milliequivalent
-mEq./hour,,
-mEq./kg/hour,,
-pg,8564,picogram
-mcg,9655,microgram
-mcg/kg/min,,
-mcg/min,8774,microgram per minute
-mcg/kg/hour,9690,microgram per kilogram per hour
-mcg/hour,44777645,microgram per hour
-mg,8576,milligram
-mg/hour,44777610,milligram per hour
-mg/min,44777611,milligram per minute
-mg/kg/hour,9691,milligram per kilogram per hour
-gm,8504,gram
-grams,8504,gram
-grams/min,,
-grams/kg/min,,
-grams/hour,44777594,gram per hour
-mmol,9584,mole
-International Units,8718,international unit
-U,8718,international unit
-units/kg/hour,,
-units,8718,international unit
-units/min,,
-units/hour,8630,unit per hour
+label,unit_concept_id,concept_name,temporal_unit_concept_id,temporal_name
+mEq,9551,milliequivalent,8512,day
+mEQ,9551,milliequivalent,8512,day
+mEq.,9551,milliequivalent,8512,day
+mEq./hour,9551,milliequivalent,8505,hour
+mEq./kg/hour,9556,milliequivalent per kilogram,8505,hour
+pg,8564,picogram,8512,day
+mcg,9655,microgram,8512,day
+mcg/kg/min,9662,microgram per kilogram,8550,minute
+mcg/min,9655,microgram,8550,minute
+mcg/kg/hour,9662,microgram per kilogram,8505,hour
+mcg/hour,9655,microgram,8505,hour
+mg,8576,milligram,8512,day
+mg/hour,8576,milligram,8505,hour
+mg/min,8576,milligram,8550,minute
+mg/kg/hour,9562,milligram per kilogram,8505,hour
+gm,8504,gram,8512,day
+grams,8504,gram,8512,day
+grams/min,8504,gram,8550,minute
+grams/kg/min,9512,gram per kilogram,8550,minute
+grams/hour,8502,gram,8505,hour
+mmol,9584,mole,8512,day
+§International Units,8718,international unit,8512,day
+U,8718,international unit,8512,day
+units/kg/hour,9335,international unit per kilogram,8505,hour
+units,8718,international unit,8512,day
+units/min,8718,international unit,8550,minute
+units/hour,8718,international unit,8505,hour
