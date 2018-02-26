@@ -73,7 +73,7 @@ SELECT
 , dose_value          
 , dose_era_start_date 
 , dose_era_end_date   
-, 8512 as temporal_unit_concept_id
+, 8512 as temporal_unit_concept_id --hour
 , null::numeric temporal_value
 from insert_dose_era_written;
 
@@ -103,7 +103,9 @@ drug_exposure_id
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
+, quantity_source_value
 , unit_concept_id
+, temporal_unit_concept_id
 FROM omop.drug_exposure
 INNER JOIN 
 	(SELECT label AS dose_unit_source_value, unit_concept_id, temporal_unit_concept_id 
