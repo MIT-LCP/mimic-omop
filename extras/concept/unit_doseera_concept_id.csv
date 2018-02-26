@@ -1,0 +1,28 @@
+label,concept_id,concept_name
+mEq,9551,milliequivalent
+mEQ,9551,milliequivalent
+mEq.,9551,milliequivalent
+mEq./hour,,
+mEq./kg/hour,,
+pg,8564,picogram
+mcg,9655,microgram
+mcg/kg/min,,
+mcg/min,8774,microgram per minute
+mcg/kg/hour,9690,microgram per kilogram per hour
+mcg/hour,44777645,microgram per hour
+mg,8576,milligram
+mg/hour,44777610,milligram per hour
+mg/min,44777611,milligram per minute
+mg/kg/hour,9691,milligram per kilogram per hour
+gm,8504,gram
+grams,8504,gram
+grams/min,,
+grams/kg/min,,
+grams/hour,44777594,gram per hour
+mmol,9584,mole
+International Units,8718,international unit
+U,8718,international unit
+units/kg/hour,,
+units,8718,international unit
+units/min,,
+units/hour,8630,unit per hour

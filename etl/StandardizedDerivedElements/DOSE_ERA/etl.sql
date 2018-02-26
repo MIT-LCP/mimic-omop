@@ -16,7 +16,7 @@ WITH
 FROM omop.drug_strength
 where amount_value is not null
 ),
-"filter_on_drug_exposure" as (
+"prescription_written" as (
 	SELECT
   drug_exposure_id
 , person_id
@@ -43,10 +43,12 @@ where amount_value is not null
 , dose_unit_source_value
 FROM omop.drug_exposure
 WHERE TRUE
+AND drug_type_concept_id = 38000177   -- concept.concept_name = 'Prescription written'
 AND dose_unit_source_value IN ('TAB', 'mg', 'g', 'dose', 'SUPP', 'TAB', 'LOZ', 'TROC')
 AND quantity IS NOT NULL
-),
-"insert_dose_era" as (
+)
+,
+"insert_dose_era_written" as (
 	SELECT
 nextval('mimic_id_seq') as dose_era_id
 , person_id
@@ -59,7 +61,7 @@ nextval('mimic_id_seq') as dose_era_id
        else numerator_value / denominator_value * quantity end as dose_value
 , drug_exposure_start_date             AS dose_era_start_date
 , drug_exposure_end_date               AS dose_era_end_date     --we removed not null constraint
-FROM filter_on_drug_exposure drug_exposure
+FROM prescription_written drug_exposure
 JOIN drug_strength USING (drug_concept_id)
 )
 INSERT INTO omop.dose_era
@@ -71,4 +73,52 @@ SELECT
 , dose_value          
 , dose_era_start_date 
 , dose_era_end_date   
-from insert_dose_era;
+from insert_dose_era_written;
+
+WITH
+C
+"gcpt_unit_doseera_concept_id" AS (SELECT label AS dose_unit_source_value, concept_id AS unit_concept_id FROM gcpt_unit_doseera_concept_id),
+"insert_dose_era_administration" as (
+	SELECT
+, person_id
+, drug_concept_id
+, drug_exposure_start_date
+, drug_exposure_start_datetime
+, drug_exposure_end_date
+, drug_exposure_end_datetime
+, verbatim_end_date
+, drug_type_concept_id
+, stop_reason
+, refills
+, quantity
+, days_supply
+, sig
+, route_concept_id
+, lot_number
+, provider_id
+, visit_occurrence_id
+, visit_detail_id
+, drug_source_value
+, drug_source_concept_id
+, route_source_value
+, dose_unit_source_value
+, unit_concept_id
+FROM omop.drug_exposure
+INNER JOIN 
+	(SELECT * 
+	FROM  gcpt_unit_doseera_concept_id) --mEq, mEQ ...
+	unit_driven USING (dose_unit_source_value)
+WHERE TRUE
+AND drug_type_concept_id = 38000180   -- concept.concept_name = 'Inpatient administration'
+AND quantity IS NOT NULL
+)
+INSERT INTO omop.dose_era
+SELECT
+nextval('mimic_id_seq') as dose_era_id
+, person_id           
+, drug_concept_id     
+, unit_concept_id     
+, quantity::double precision AS dose_value
+, drug_exposure_start_date             AS dose_era_start_date
+, drug_exposure_end_date               AS dose_era_end_date     --we removed not null constraint
+from insert_dose_era_administration;

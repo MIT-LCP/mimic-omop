@@ -2,9 +2,12 @@ dose_unit_source_value,dose_unit_source_value_new
 mcghr,mcg/hour
 mcgkghr,mcg/kg/hour
 mcgkgmin,mcg/kg/min
-mcgmin,mcp/min
+mcgmin,mcg/min
 mghr,mg/hour
 mgkghr,mg/kg/hour
 mgmin,mg/min
 Uhr,units/hour
 Umin,units/min
+gmhr,grams/hour
+mEqkghr,mEq./kg/hour
+Ukghr,units/kg/hour
