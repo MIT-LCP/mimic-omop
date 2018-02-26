@@ -51,6 +51,7 @@ WITH
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
+, form_val_disp as quantity_source_value
 FROM drug_exposure
 LEFT JOIN omop_local_drug USING (concept_name)
 LEFT JOIN patients USING (subject_id)
@@ -81,6 +82,7 @@ SELECT
 , row_to_insert.drug_source_concept_id
 , row_to_insert.route_source_value
 , row_to_insert.dose_unit_source_value
+, row_to_insert.quantity_source_value
 FROM row_to_insert;
 
 -- MEASUREMENT / inputevent
@@ -232,6 +234,7 @@ SELECT
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
+, quantity:text as quantity_source_value
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
@@ -369,6 +372,7 @@ SELECT
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
+, quantity::text as quantity_source_value
 FROM row_to_insert
 LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
