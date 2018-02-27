@@ -17,9 +17,9 @@ WITH
 	, ndc as drug_source_value -- ndc was used for automatic/manual mapping
 	, form_val_disp
 	FROM prescriptions
-	left join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
-	join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
-	join omop.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
+	LEFT join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
+	LEFT join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
+	LEFT join omop.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
 	LEFT JOIN gcpt_route_to_concept using (route)
 	LEFT JOIN gcpt_prescriptions_ndcisnullzero_to_concept as c3 ON coalesce(drug, drug_name_poe, drug_name_generic,'') || ' ' || coalesce(prod_strength, '') = c3.label -- this improve to 85% mapping and save most of ndc = 0
 ),
