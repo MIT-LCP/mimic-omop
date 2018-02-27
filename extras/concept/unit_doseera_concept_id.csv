@@ -20,9 +20,12 @@ grams/min,8504,gram,8550,minute
 grams/kg/min,9512,gram per kilogram,8550,minute
 grams/hour,8502,gram,8505,hour
 mmol,9584,mole,8512,day
-§International Units,8718,international unit,8512,day
+International Units,8718,international unit,8512,day
 U,8718,international unit,8512,day
 units/kg/hour,9335,international unit per kilogram,8505,hour
 units,8718,international unit,8512,day
 units/min,8718,international unit,8550,minute
 units/hour,8718,international unit,8505,hour
+
+
+

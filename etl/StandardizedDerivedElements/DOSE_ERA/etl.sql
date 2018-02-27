@@ -1,3 +1,4 @@
+-- prescriptions
 WITH
 "drug_strength" AS (
 	SELECT
@@ -73,9 +74,13 @@ SELECT
 , dose_value          
 , dose_era_start_date 
 , dose_era_end_date   
-, 8512 as temporal_unit_concept_id --hour
+, 8512 as temporal_unit_concept_id --daily
 , null::numeric temporal_value
 from insert_dose_era_written;
+
+-- inputevents_mv and inputevents_cv
+-- when the drug (in drug_exposure) is a dose of a specific active ingredient (mg, mg/h) we duplicate it here
+-- when the drug (in drug_exposure) is a quantity of a specific active ingredient (ml, /h) we don't
 
 WITH
 "insert_dose_era_administration" as (
