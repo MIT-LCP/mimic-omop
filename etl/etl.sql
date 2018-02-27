@@ -22,6 +22,7 @@ TRUNCATE TABLE  omop.specimen CASCADE;
 TRUNCATE TABLE  omop.note CASCADE;
 TRUNCATE TABLE  omop.note_nlp CASCADE;
 TRUNCATE TABLE  omop.fact_relationship CASCADE;
+TRUNCATE TABLE  omop.dose_era CASCADE;
 
 
 --\i omop/build-omop/postgresql/mimic-omop-disable-trigger.sql

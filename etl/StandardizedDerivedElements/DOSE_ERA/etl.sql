@@ -1,3 +1,4 @@
+-- prescriptions
 WITH
 "drug_strength" AS (
 	SELECT
@@ -14,7 +15,7 @@ WITH
 , valid_end_date
 , invalid_reason
 FROM omop.drug_strength
-where amount_value is not null
+WHERE amount_value is not null
 ),
 "prescription_written" as (
 	SELECT
@@ -62,7 +63,7 @@ nextval('mimic_id_seq') as dose_era_id
 , drug_exposure_start_date             AS dose_era_start_date
 , drug_exposure_end_date               AS dose_era_end_date     --we removed not null constraint
 FROM prescription_written drug_exposure
-JOIN drug_strength USING (drug_concept_id)
+INNER JOIN drug_strength USING (drug_concept_id)
 )
 INSERT INTO omop.dose_era
 SELECT
@@ -73,13 +74,18 @@ SELECT
 , dose_value          
 , dose_era_start_date 
 , dose_era_end_date   
+, 8512 as temporal_unit_concept_id --daily
+, null::numeric temporal_value
 from insert_dose_era_written;
 
+-- inputevents_mv and inputevents_cv
+-- when the drug (in drug_exposure) is a dose of a specific active ingredient (mg, mg/h) we duplicate it here
+-- when the drug (in drug_exposure) is a quantity of a specific active ingredient (ml, /h) we don't
+
 WITH
-C
-"gcpt_unit_doseera_concept_id" AS (SELECT label AS dose_unit_source_value, concept_id AS unit_concept_id FROM gcpt_unit_doseera_concept_id),
 "insert_dose_era_administration" as (
 	SELECT
+drug_exposure_id
 , person_id
 , drug_concept_id
 , drug_exposure_start_date
@@ -102,15 +108,18 @@ C
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
+, quantity_source_value
 , unit_concept_id
+, temporal_unit_concept_id
 FROM omop.drug_exposure
 INNER JOIN 
-	(SELECT * 
+	(SELECT label AS dose_unit_source_value, unit_concept_id, temporal_unit_concept_id 
 	FROM  gcpt_unit_doseera_concept_id) --mEq, mEQ ...
 	unit_driven USING (dose_unit_source_value)
 WHERE TRUE
 AND drug_type_concept_id = 38000180   -- concept.concept_name = 'Inpatient administration'
 AND quantity IS NOT NULL
+AND drug_concept_id != 0
 )
 INSERT INTO omop.dose_era
 SELECT
@@ -121,4 +130,6 @@ nextval('mimic_id_seq') as dose_era_id
 , quantity::double precision AS dose_value
 , drug_exposure_start_date             AS dose_era_start_date
 , drug_exposure_end_date               AS dose_era_end_date     --we removed not null constraint
+, temporal_unit_concept_id
+, null::numeric temporal_value
 from insert_dose_era_administration;
