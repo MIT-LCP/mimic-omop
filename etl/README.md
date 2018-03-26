@@ -1,5 +1,5 @@
-HOW TO
-======
+INTRODUCTION
+============
 
 - each folder shall contain a mapping.csv file with common header (to be improved)
 - it will be easily readeble from github when comma separated
@@ -7,6 +7,11 @@ HOW TO
 	- `Rscript generate_sql.R StandardizedClinicalDataTables/DEATH/mapping.csv`
 	- generates a etl_template.sql
 - the command does the trick: `find . -name "mapping.csv" -exec Rscript generate_sql.R {} \;`
+
+RUN THE ETL
+===========
+
+See the README-run-etl.md file in the root folder of this repository for details on running the ETL.
 
 Insertion Order (infered by from schemaspy tool)
 ================================================
@@ -49,4 +54,3 @@ Insertion Order (infered by from schemaspy tool)
 1. measurement
 1. observation
 1. cdm_source
-
