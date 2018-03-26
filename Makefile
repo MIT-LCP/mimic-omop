@@ -1,6 +1,12 @@
-MIMIC_SCHEMA=mimic
+MIMIC_SCHEMA=mimiciii
 HOST_OMOP=localhost
-PG_USER=apa
+PG_USER=postgres
+buildomop:
+	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/omop_ddl_comments.sql &&\
+	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/mimic-omop-add-column.sql &&\
+	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/mimic-omop-alter.sql
+loadvocab:
+	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/omop_vocab_load.sql
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
 sequence: 
@@ -19,6 +25,6 @@ export:
 	cp etl/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
-runetl: sequence concept load export 
+runetl: sequence concept load
 runetlwithcontrib: sequence concept load contrib export 
 runetllight: concept load 

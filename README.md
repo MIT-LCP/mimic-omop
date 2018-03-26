@@ -130,6 +130,54 @@ REMARKS
 INSTALLATION
 =============
 
-- postgresql > 9
-- R
-  - rpostgres
+# Linux
+
+This etl works on linux or macos X
+
+# Postgresql
+
+This etl works with postgresql >= 9.x. A postgreqsl client should also be installed.
+
+- mimiciii should be loaded into a postgresql instance
+- the password should be stored in a ``/home/$USER/.psql`` file as described in the postgresql documentation so that the `psql` program can connect to the database
+
+# R
+
+R is used to load the concept lookup tables stored ir `extras/concept/`
+
+1. install R >= 3.3
+1. install RPosgres
+1. install DBI
+
+# MakeFile
+
+1. edit the Makefile 
+    1. `MIMIC_SCHEMA=the_mimic_schema_you installed mimic` (eg: `mimiciii`)
+    1. `HOST_OMOP=the_host_you_have_both_mimic_and_omop` (eg: `localhost`)
+    1. `DB_USER=your_super_user` (eg: postgres)
+
+# Create the omop schema/tables
+
+This will generate an omop schema into `$HOST_OMOP.omop`
+
+- `psql -h localhost postgres postgres -f build-omop.sql`
+- make buildomop
+
+# Load the omop concepts into omop
+
+- download the csv from athena
+- put them into `./extras/athena/`
+- run `make loadvocab`
+
+# Run the etl
+
+There is multiple kind of etl. Some of them need private data that cannot be shared in the repository.
+This loads the omop schema from the mimic tables.
+- make runetl (no need for private data)
+- make runetllight  (needs private data)
+
+# Export the data
+
+Since the omop schema is not intended to support analysis (it is based on unlogged tables), we advise to load the resulting export into an other schema, or database that would be then indexed.
+This produces a tar file containing both scripts and data to load the mimic-omop into an other database, including indexes.
+- `make export`

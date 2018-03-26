@@ -55,16 +55,14 @@ TRUNCATE TABLE concept_ancestor CASCADE;
 TRUNCATE TABLE concept_relationship CASCADE;
 TRUNCATE TABLE drug_strength CASCADE;
 
-\copy CONCEPT FROM '../../athena/CONCEPT.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy CONCEPT_CLASS FROM '../../athena/CONCEPT_CLASS.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy VOCABULARY FROM '../../athena/VOCABULARY.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy DOMAIN FROM '../../athena/DOMAIN.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy RELATIONSHIP FROM '../../athena/RELATIONSHIP.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy CONCEPT_SYNONYM FROM '../../athena/CONCEPT_SYNONYM.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy CONCEPT_ANCESTOR FROM '../../athena/CONCEPT_ANCESTOR.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy CONCEPT_RELATIONSHIP FROM '../../athena/CONCEPT_RELATIONSHIP.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
-\copy DRUG_STRENGTH FROM '../../athena/DRUG_STRENGTH.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy CONCEPT FROM 'extras/athena/CONCEPT.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy CONCEPT_CLASS FROM 'extras/athena/CONCEPT_CLASS.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy VOCABULARY FROM 'extras/athena/VOCABULARY.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy DOMAIN FROM 'extras/athena/DOMAIN.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy RELATIONSHIP FROM 'extras/athena/RELATIONSHIP.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy CONCEPT_SYNONYM FROM 'extras/athena/CONCEPT_SYNONYM.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy CONCEPT_ANCESTOR FROM 'extras/athena/CONCEPT_ANCESTOR.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy CONCEPT_RELATIONSHIP FROM 'extras/athena/CONCEPT_RELATIONSHIP.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
+\copy DRUG_STRENGTH FROM 'extras/athena/DRUG_STRENGTH.csv' WITH DELIMITER E'\t' CSV HEADER QUOTE E'\b' ;
 COMMIT;
-
-INSERT INTO concept (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, valid_start_date, valid_end_date) VALUES (9204 , 'Intensive Care Unit Visit' , 'Visit'     , 'Visit'         , 'Visit'            , 'S'                , 'ER'           , '1970-01-01'       , '2099-12-31'   );
 
