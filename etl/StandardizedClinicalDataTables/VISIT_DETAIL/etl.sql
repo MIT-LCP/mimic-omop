@@ -323,12 +323,12 @@ FROM visit_detail_service;
  SELECT
    visit_detail_id
  , visit_occurrence_id
- , visit_detail_start_datetime as visit_start_datetime
- , visit_detail_end_datetime as visit_end_datetime
- , visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_detail_start_datetime ASC ) AS  is_first
- , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_detail_start_datetime ASC range between current row and unbounded following) AS is_last
+ , visit_start_datetime
+ , visit_end_datetime
+ , visit_detail_id = first_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC ) AS  is_first
+ , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following) AS is_last
  , visit_detail_concept_id = 581382 AS is_icu
  , visit_detail_concept_id = 581381 AS is_emergency
  FROM  omop.visit_detail
- WHERE visit_detail_type_concept_id = 2000000006 -- only ward kind
+ WHERE visit_type_concept_id = 2000000006 -- only ward kind
  ;
