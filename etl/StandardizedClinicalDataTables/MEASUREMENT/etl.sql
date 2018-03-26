@@ -80,6 +80,23 @@ FROM row_to_insert
 ),
 "insert_specimen_lab" AS (
 INSERT INTO omop.specimen
+(
+	  specimen_id
+	, person_id
+	, specimen_concept_id
+	, specimen_type_concept_id
+	, specimen_date
+	, specimen_datetime
+	, quantity
+	, unit_concept_id
+	, anatomic_site_concept_id
+	, disease_status_concept_id
+	, specimen_source_id
+	, specimen_source_value
+	, unit_source_value
+	, anatomic_site_source_value
+	, disease_status_source_value
+)
 SELECT
   specimen_id    -- non NULL
 , person_id                         -- non NULL
@@ -119,6 +136,27 @@ RETURNING *
     )
 )
 INSERT INTO omop.measurement
+(
+	  measurement_id
+	, person_id
+	, measurement_concept_id
+	, measurement_date
+	, measurement_datetime
+	, measurement_type_concept_id
+	, operator_concept_id
+	, value_as_number
+	, value_as_concept_id
+	, unit_concept_id
+	, range_low
+	, range_high
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, measurement_source_value
+	, measurement_source_concept_id
+	, unit_source_value
+	, value_source_value
+)
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id
@@ -238,6 +276,23 @@ FROM row_to_insert
 ),
 "insert_specimen_lab" AS (
 INSERT INTO omop.specimen
+(
+	  specimen_id
+	, person_id
+	, specimen_concept_id
+	, specimen_type_concept_id
+	, specimen_date
+	, specimen_datetime
+	, quantity
+	, unit_concept_id
+	, anatomic_site_concept_id
+	, disease_status_concept_id
+	, specimen_source_id
+	, specimen_source_value
+	, unit_source_value
+	, anatomic_site_source_value
+	, disease_status_source_value
+)
 SELECT
   specimen_id    -- non NULL
 , person_id                         -- non NULL
@@ -277,6 +332,27 @@ RETURNING *
     )
 )
 INSERT INTO omop.measurement
+(
+	  measurement_id
+	, person_id
+	, measurement_concept_id
+	, measurement_date
+	, measurement_datetime
+	, measurement_type_concept_id
+	, operator_concept_id
+	, value_as_number
+	, value_as_concept_id
+	, unit_concept_id
+	, range_low
+	, range_high
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id --no visit_detail assignation since datetime is not relevant
+	, measurement_source_value
+	, measurement_source_concept_id
+	, unit_source_value
+	, value_source_value
+)
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id
@@ -395,6 +471,23 @@ LEFT JOIN patients USING (subject_id)
 ),
 "insert_specimen_culture" AS (
 INSERT INTO omop.specimen
+(
+	  specimen_id
+	, person_id
+	, specimen_concept_id
+	, specimen_type_concept_id
+	, specimen_date
+	, specimen_datetime
+	, quantity
+	, unit_concept_id
+	, anatomic_site_concept_id
+	, disease_status_concept_id
+	, specimen_source_id
+	, specimen_source_value
+	, unit_source_value
+	, anatomic_site_source_value
+	, disease_status_source_value
+)
 SELECT
   specimen_id    -- non NULL
 , person_id                         -- non NULL
@@ -495,6 +588,27 @@ LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN omop_operator USING (operator_name)
 )
 INSERT INTO omop.measurement
+(
+	  measurement_id
+	, person_id
+	, measurement_concept_id
+	, measurement_date
+	, measurement_datetime
+	, measurement_type_concept_id
+	, operator_concept_id
+	, value_as_number
+	, value_as_concept_id
+	, unit_concept_id
+	, range_low
+	, range_high
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, measurement_source_value
+	, measurement_source_concept_id
+	, unit_source_value
+	, value_source_value
+)
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id
@@ -633,6 +747,27 @@ LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN admissions USING (hadm_id))
 INSERT INTO omop.measurement
+(
+	  measurement_id
+	, person_id
+	, measurement_concept_id
+	, measurement_date
+	, measurement_datetime
+	, measurement_type_concept_id
+	, operator_concept_id
+	, value_as_number
+	, value_as_concept_id
+	, unit_concept_id
+	, range_low
+	, range_high
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, measurement_source_value
+	, measurement_source_concept_id
+	, unit_source_value
+	, value_source_value
+)
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id
@@ -717,6 +852,27 @@ LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN admissions USING (hadm_id))
 INSERT INTO omop.measurement
+(
+	  measurement_id
+	, person_id
+	, measurement_concept_id
+	, measurement_date
+	, measurement_datetime
+	, measurement_type_concept_id
+	, operator_concept_id
+	, value_as_number
+	, value_as_concept_id
+	, unit_concept_id
+	, range_low
+	, range_high
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, measurement_source_value
+	, measurement_source_concept_id
+	, unit_source_value
+	, value_source_value
+)
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id
@@ -786,6 +942,27 @@ select
 	WHERE patientweight is not null
 )
 INSERT INTO omop.measurement
+(
+	  measurement_id
+	, person_id
+	, measurement_concept_id
+	, measurement_date
+	, measurement_datetime
+	, measurement_type_concept_id
+	, operator_concept_id
+	, value_as_number
+	, value_as_concept_id
+	, unit_concept_id
+	, range_low
+	, range_high
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, measurement_source_value
+	, measurement_source_concept_id
+	, unit_source_value
+	, value_source_value
+)
 SELECT
   row_to_insert.measurement_id
 , row_to_insert.person_id

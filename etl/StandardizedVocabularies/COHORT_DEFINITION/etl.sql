@@ -8,7 +8,7 @@ INSERT INTO omop.cohort_definition
 , cohort_definition_syntax
 , subject_concept_id
 , cohort_initiation_date
- )
+)
 VALUES
 (         0
         , 'No particular cohort'

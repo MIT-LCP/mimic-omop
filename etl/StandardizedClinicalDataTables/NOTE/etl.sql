@@ -1,10 +1,10 @@
- WITH 
+ WITH
 "noteevents" AS (
-SELECT 
+SELECT
   mimic_id as note_id
 , cgid
 , subject_id
-, hadm_id 
+, hadm_id
 , chartdate as note_date
 , charttime as note_datetime
 , description as note_title
@@ -41,6 +41,22 @@ LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
 )
 INSERT INTO omop.NOTE
+(
+    note_id
+  , person_id
+  , note_date
+  , note_datetime
+  , note_type_concept_id
+  , note_class_concept_id
+  , note_title
+  , note_text
+  , encoding_concept_id
+  , language_concept_id
+  , provider_id
+  , visit_occurrence_id
+  , note_source_value
+  , visit_detail_id
+)
 SELECT
   note_id
 , person_id

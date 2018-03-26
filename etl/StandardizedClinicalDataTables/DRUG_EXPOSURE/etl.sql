@@ -58,6 +58,31 @@ LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 )
 INSERT INTO omop.drug_exposure
+(
+		drug_exposure_id
+	,	person_id
+	,	drug_concept_id
+	,	drug_exposure_start_date
+	,	drug_exposure_start_datetime
+	,	drug_exposure_end_date
+	,	drug_exposure_end_datetime
+	,	verbatim_end_date
+	,	drug_type_concept_id
+	,	stop_reason
+	,	refills
+	,	quantity
+	,	days_supply
+	,	sig
+	,	route_concept_id
+	,	lot_number
+	,	provider_id
+	,	visit_occurrence_id
+	,	visit_detail_id
+	,	drug_source_value
+	,	drug_source_concept_id
+	,	route_source_value
+	,	dose_unit_source_value
+)
 SELECT
   row_to_insert.drug_exposure_id
 , row_to_insert.person_id
@@ -162,7 +187,6 @@ INSERT INTO omop.fact_relationship
 , domain_concept_id_2
 , fact_id_2
 , relationship_concept_id
-
 )
 SELECT
 DISTINCT
@@ -210,6 +234,31 @@ LEFT JOIN d_items USING (itemid)
 LEFT JOIN rxnorm_map USING (drug_source_value)
 )
 INSERT INTO omop.drug_exposure
+(
+	  drug_exposure_id
+	, person_id
+	, drug_concept_id
+	, drug_exposure_start_date
+	, drug_exposure_start_datetime
+	, drug_exposure_end_date
+	, drug_exposure_end_datetime
+	, verbatim_end_date
+	, drug_type_concept_id
+	, stop_reason
+	, refills
+	, quantity
+	, days_supply
+	, sig
+	, route_concept_id
+	, lot_number
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, drug_source_value
+	, drug_source_concept_id
+	, route_source_value
+	, dose_unit_source_value
+)
 SELECT
   drug_exposure_id
 , person_id
@@ -348,6 +397,31 @@ LEFT JOIN gcpt_map_route_to_concept USING (originalroute)
 LEFT JOIN gcpt_continuous_unit_carevue USING (dose_unit_source_value)
 )
 INSERT INTO omop.drug_exposure
+(
+	  drug_exposure_id
+	, person_id
+	, drug_concept_id
+	, drug_exposure_start_date
+	, drug_exposure_start_datetime
+	, drug_exposure_end_date
+	, drug_exposure_end_datetime
+	, verbatim_end_date
+	, drug_type_concept_id
+	, stop_reason
+	, refills
+	, quantity
+	, days_supply
+	, sig
+	, route_concept_id
+	, lot_number
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, drug_source_value
+	, drug_source_concept_id
+	, route_source_value
+	, dose_unit_source_value
+)
 SELECT
   drug_exposure_id
 , person_id

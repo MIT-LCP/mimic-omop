@@ -1,13 +1,12 @@
-INSERT INTO omop.attribute_definition 
+INSERT INTO omop.attribute_definition
 (
-  attribute_definition_id 
-, attribute_name            
-, attribute_description     
-, attribute_type_concept_id 
-, attribute_syntax          
-
+  attribute_definition_id
+, attribute_name
+, attribute_description
+, attribute_type_concept_id
+, attribute_syntax
 )
-VALUES 
+VALUES
   (1, 'Callout Delay', null, 0, null)
 , (2, 'Visit Detail Delay', null, 0, null)
 , (3, 'Visit Occurrence Delay', null, 0, null)
@@ -53,4 +52,3 @@ VALUES
 , (43, 'psychoses', 'elixhauser_ahrq - psychoses',  0, null)
 , (44, 'depression', 'elixhauser_ahrq - depression',  0, null)
 ;
-
