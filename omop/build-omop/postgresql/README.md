@@ -68,13 +68,13 @@ Import the vocabulary:
 psql "$OMOP" -f "omop/build-omop/postgresql/omop_vocab_load.sql"
 ```
 
-(Optional) Build indexes and primary key constraints:
+(Optional, recommended) Build indexes and primary key constraints:
 
 ```bash
 psql "$OMOP" -f "omop/build-omop/postgresql/OMOP CDM postgresql indexes.txt"
 ```
 
-(Optional) Build foreign key constraints (slows things down usually but can be useful to ensure integrity of data):
+(Optional, experimental) Build foreign key constraints (slows things down usually but can be useful to ensure integrity of data):
 
 ```bash
 psql "$OMOP" -f "omop/build-omop/postgresql/OMOP CDM postgresql constraints.txt"
