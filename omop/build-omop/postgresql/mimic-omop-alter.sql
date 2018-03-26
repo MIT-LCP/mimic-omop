@@ -80,7 +80,7 @@ ALTER TABLE specimen ALTER COLUMN   specimen_source_id TYPE text;
  ALTER TABLE visit_detail ALTER COLUMN   admitting_source_value TYPE text;
  ALTER TABLE visit_detail ALTER COLUMN   discharge_to_source_value TYPE text;
  ALTER TABLE procedure_occurrence ALTER COLUMN   procedure_source_value TYPE text;
- ALTER TABLE procedure_occurrence ALTER COLUMN   qualifier_source_value TYPE text;
+ ALTER TABLE procedure_occurrence ALTER COLUMN   modifier_source_value TYPE text;
  ALTER TABLE drug_exposure ALTER COLUMN   stop_reason TYPE text;
  ALTER TABLE drug_exposure ALTER COLUMN   lot_number TYPE text;
  ALTER TABLE drug_exposure ALTER COLUMN   drug_source_value TYPE text;
