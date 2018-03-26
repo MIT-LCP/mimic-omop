@@ -160,6 +160,15 @@ LEFT JOIN gcpt_care_site USING (care_site_name)
 ),
 "insert_callout_delay" AS (
 	INSERT INTO omop.cohort_attribute
+  (
+  	  cohort_definition_id
+  	, cohort_start_date
+  	, cohort_end_date
+  	, subject_id
+  	, attribute_definition_id
+  	, value_as_number
+  	, value_as_concept_id
+  )
 	SELECT
 	0 AS cohort_definition_id
 	, cohort_start_date
@@ -172,6 +181,15 @@ LEFT JOIN gcpt_care_site USING (care_site_name)
 ),
 "insert_visit_detail_delay" AS (
 	INSERT INTO omop.cohort_attribute
+  (
+  	  cohort_definition_id
+  	, cohort_start_date
+  	, cohort_end_date
+  	, subject_id
+  	, attribute_definition_id
+  	, value_as_number
+  	, value_as_concept_id
+  )
 	SELECT
 	0 AS cohort_definition_id
 	, visit_start_datetime as  cohort_start_date
@@ -242,6 +260,7 @@ WITH
       , gcpt_care_site.care_site_id
       , null::integer preceding_visit_detail_id
       , null::integer visit_detail_parent_id
+      , serv.visit_occurrence_id
         FROM serv
 	LEFT JOIN gcpt_care_site ON (care_site_name = curr_service)
 	LEFT JOIN patients using (subject_id)
