@@ -1,16 +1,29 @@
+-- Modify some of the tables: rearranging and adding columns
+-- These changes will likely be incorporated into a future version of OMOP CDM
 
+ALTER TABLE observation_period ADD COLUMN "observation_period_start_datetime" TIMESTAMP NOT NULL ;
+ALTER TABLE observation_period ADD COLUMN "observation_period_end_datetime" TIMESTAMP NOT NULL ;
+
+
+ALTER TABLE visit_occurrence ADD COLUMN "admitting_concept_id" INTEGER NOT NULL ;
+ALTER TABLE visit_occurrence ADD COLUMN "discharge_to_source_concept_id" INTEGER NOT NULL ;
+
+ALTER TABLE visit_detail ADD COLUMN "visit_detail_source_value" VARCHAR(50) ;
+ALTER TABLE visit_detail ADD COLUMN "visit_detail_source_concept_id" INTEGER NOT NULL ;
+ALTER TABLE visit_detail ADD COLUMN "admitting_concept_id" INTEGER NOT NULL ;
+ALTER TABLE visit_detail ADD COLUMN "discharge_to_source_concept_id" INTEGER NOT NULL ;
 
 -- there is actually no need to limit the character size in postgres.
 -- limiting them is error prone and does not improve any performances or etl security
 -- the omop spec says it is possible to alter the text length
 
--- SELECT                  
+-- SELECT
 --     'ALTER TABLE '||columns.table_name||' ALTER COLUMN   '||columns.column_name||' TYPE text;'
---  FROM 
+--  FROM
 --     information_schema.columns
---  WHERE 
---    columns.table_catalog = 'mimic' AND 
---    columns.table_schema = 'omop' AND 
+--  WHERE
+--    columns.table_catalog = 'mimic' AND
+--    columns.table_schema = 'omop' AND
 --    columns.data_type ilike 'character%';
  ALTER TABLE attribute_definition ALTER COLUMN   attribute_name TYPE text;
  ALTER TABLE cdm_source ALTER COLUMN   cdm_source_name TYPE text;
@@ -138,13 +151,13 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 
 -- bigint is a better choice for future and international database merging challenges
 
---  SELECT                  
+--  SELECT
 --    'ALTER TABLE '||columns.table_name||' ALTER COLUMN   '||columns.column_name||' TYPE bigint;'
--- FROM 
+-- FROM
 --    information_schema.columns
--- WHERE 
---   columns.table_catalog = 'mimic' AND 
---   columns.table_schema = 'omop' AND 
+-- WHERE
+--   columns.table_catalog = 'mimic' AND
+--   columns.table_schema = 'omop' AND
 --   columns.data_type = 'integer';
 -- ALTER TABLE concept_class ALTER COLUMN   concept_class_concept_id TYPE bigint;
 -- ALTER TABLE source_to_concept_map ALTER COLUMN   source_concept_id TYPE bigint;
