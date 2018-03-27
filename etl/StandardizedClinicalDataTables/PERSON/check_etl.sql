@@ -20,8 +20,8 @@ FROM omop.person;
 '
 SELECT COUNT(*) AS num_persons_count
 FROM patients;
-' 
-,'Death table -- number patients checker'
+'
+,'PERSON -- number patients match'
 );
 
 SELECT results_eq
@@ -40,7 +40,7 @@ FROM patients
 GROUP BY gender
 ORDER BY num_persons_count DESC;
 '
-,'Death table -- race checker'
+,'PERSON -- gender distribution matches'
 );
 
 SELECT results_eq
@@ -106,7 +106,7 @@ SELECT percentile_25
     ) as percentile_table, omop.person
   GROUP BY percentile_25, median, percentile_75;
 '
-,'Death table -- distribution checker'
+,'PERSON -- date of birth year distributions match'
 );
 
 SELECT results_eq
@@ -125,8 +125,8 @@ WITH tmp AS
 
 )
 SELECT max(abnormal) FROM tmp;
-' 
-,'-- death table : birth after death'
+'
+,'PERSON -- no births after deaths'
 );
 
 

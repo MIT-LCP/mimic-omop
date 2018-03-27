@@ -16,6 +16,15 @@ SELECT plan( 7 );
 SELECT results_eq
 (
 '
+SELECT hadm_id, count(1) as total
+from omop.visit_detail v
+JOIN admissions a ON v.visit_occurrence_id = a.mimic_id
+WHERE v.visit_type_concept_id = 4079617
+GROUP BY 1
+ORDER BY 2 DESC, 1;
+'
+,
+'
 WITH tmp as
 (
         SELECT hadm_id, count(1) counter
@@ -34,17 +43,10 @@ SELECT hadm_id,
    case when nb_minus is null then counter else counter - nb_minus end as total
 FROM tmp
 LEFT JOIN minus_bed_changement USING (hadm_id)
-order by 2 desc;'
-,
+ORDER BY 2 desc, 1;
 '
-SELECT hadm_id, count(1) as total
-from omop.visit_detail v
-JOIN admissions a ON v.visit_occurrence_id = a.mimic_id
-WHERE v.visit_type_concept_id = 4079617
-group by 1 order by 2 desc
-;'
 ,
-'Visit_detail table -- not same number transfers'
+'VISIT_DETAIL -- test same number transfers'
 );
 
 
@@ -52,97 +54,127 @@ group by 1 order by 2 desc
 SELECT results_eq
 (
 '
-SELECT count(visit_source_concept_id) FROM omop.visit_detail group by visit_source_concept_id order by 1 desc;
-'
-,
-'
-SELECT count(visit_source_value) FROM omop.visit_detail group by visit_source_value order by 1 desc;
-'
-,
-'Visit_detail table -- not same visit source/concept_id'
-);
-
-
-
-SELECT results_eq
-(
-'
-SELECT count(admitting_source_concept_id) FROM omop.visit_detail group by admitting_source_concept_id order by 1 desc;
-'
-,
-'
-SELECT count(admitting_source_value) FROM omop.visit_detail group by admitting_source_value order by 1 desc;
-'
-,
-'Visit_detail table -- not same admitting source/concept_id'
-);
-
-
-
-SELECT results_eq
-(
-'
-SELECT COUNT(distinct subject_id), COUNT(distinct hadm_id)
-FROM icustays;
-
-'
-,
-'
-SELECT COUNT(distinct person_id), COUNT(distinct visit_occurrence_id)
+SELECT count(visit_source_concept_id)
 FROM omop.visit_detail
-WHERE visit_detail_concept_id = 581382                             -- concept.concept_name = 'Inpatient Intensive Care Facility'
+GROUP BY visit_source_concept_id
+ORDER BY 1 DESC;
+'
+,
+'
+SELECT count(visit_source_value)
+FROM omop.visit_detail
+GROUP BY visit_source_value
+ORDER BY 1 DESC;
+'
+,
+'VISIT_DETAIL -- test visit_source_value and visit_source_concept_id match'
+);
+
+
+
+SELECT results_eq
+(
+'
+SELECT COUNT(admitting_source_concept_id)
+FROM omop.visit_detail
+GROUP BY admitting_source_concept_id
+ORDER BY 1 DESC;
+'
+,
+'
+SELECT COUNT(admitting_source_value)
+FROM omop.visit_detail
+GROUP BY admitting_source_value
+ORDER BY 1 DESC;
+'
+,
+'VISIT_DETAIL -- test admitting_source_concept_id and admitting_source_value match'
+);
+
+
+
+SELECT results_eq
+(
+'
+SELECT COUNT(distinct person_id)
+  , COUNT(distinct visit_occurrence_id)
+FROM omop.visit_detail
+WHERE visit_detail_concept_id = 581382
 AND visit_type_concept_id = 2000000006;
 '
 ,
-'Visit_detail table -- not same patients number in visit_detail/icustays'
+'
+SELECT COUNT(distinct subject_id)
+  , COUNT(distinct hadm_id)
+FROM icustays;
+'
+,
+'VISIT_DETAIL -- test patients number in visit_detail/icustays'
 );
 
 
 
 SELECT results_eq
 (
- '
-select 0::integer;
-'
-,
 '
 WITH tmp AS
 (
-        SELECT visit_detail_id, visit_occurrence_id, CASE WHEN visit_end_datetime < visit_start_datetime THEN 1 ELSE 0 END AS abnormal
-        FROM omop.visit_detail
+  SELECT visit_detail_id, visit_occurrence_id
+  , CASE
+      WHEN visit_end_datetime < visit_start_datetime
+      THEN 1
+    ELSE 0 END AS abnormal
+  FROM omop.visit_detail
 )
-SELECT max(abnormal) FROM tmp;
+SELECT sum(abnormal) FROM tmp;
 '
 ,
-'Visit_detail table -- start_datetime > end_datetime'
+'
+select 0::integer;
+'
+,
+'VISIT_DETAIL -- check start_datetime < end_datetime'
 );
 
 
 
 SELECT results_eq
 (
- '
-select 0::integer;
-'
-,
 '
 WITH tmp AS
 (
-        SELECT visit_detail_id, visit_occurrence_id, CASE WHEN visit_end_date < visit_start_date THEN 1 ELSE 0 END AS abnormal
-        FROM omop.visit_detail
+  SELECT visit_detail_id, visit_occurrence_id
+    , CASE
+        WHEN visit_end_date < visit_start_date
+        THEN 1
+        ELSE 0
+      END AS abnormal
+  FROM omop.visit_detail
 )
-SELECT max(abnormal) FROM tmp;
+SELECT sum(abnormal) FROM tmp;
 '
 ,
-'Visit_detail table -- start_date > end_date'
+'
+select 0::integer;
+'
+,
+'VISIT_DETAIL -- check start_date < end_date'
 );
 
 select results_eq
 (
-	'select count(*) as res from omop.visit_detail where care_site_id IS NULL;'
-	,'select 0::integer as res;'
-	, 'all join to care site'
-)
+'
+SELECT COUNT(*)::INTEGER AS res
+FROM omop.visit_detail
+WHERE care_site_id IS NULL;
+'
+,
+'
+SELECT 0::INTEGER AS res;
+'
+,
+'VISIT_DETAIL -- check care site is never null'
+);
 
 SELECT * FROM finish();
 ROLLBACK;

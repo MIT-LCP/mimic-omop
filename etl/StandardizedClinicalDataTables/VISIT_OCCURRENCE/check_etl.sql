@@ -9,22 +9,38 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 5 );
+SELECT plan ( 7 );
 
 SELECT results_eq
 (
 '
 SELECT count(*) FROM admissions;
 '
-
 ,
 '
 SELECT count(*) FROM omop.visit_occurrence;
-' 
+'
 ,
 'Visit_occurrence table -- same number admission'
 );
 
+SELECT results_eq
+(
+ '
+SELECT COUNT(*)
+FROM admissions
+WHERE hospital_expire_flag = 1
+OR diagnosis ILIKE ''%organ donor%'';
+'
+,
+'
+SELECT count(distinct visit_occurrence_id)
+FROM omop.visit_occurrence
+WHERE discharge_to_concept_id = 4216643
+OR discharge_to_concept_id = 4022058;
+'
+, 'number of hospital admissions who die in-hospital match'
+);
 
 SELECT results_eq
 (
@@ -43,11 +59,25 @@ SELECT cast (visit_source_value as TEXT), count(1) FROM omop.visit_occurrence gr
 SELECT results_eq
 (
 '
-SELECT cast(admission_location as TEXT) as admitting_source_value, count(1) FROM admissions group by 1 ORDER BY 2,1 DESC;
+SELECT
+  CAST(
+    CASE WHEN diagnosis ~* ''organ donor'' THEN ''DEAD/EXPIRED''
+    ELSE admission_location END
+  AS TEXT) as admitting_source_value
+  , count(1)
+  FROM admissions
+  GROUP BY 1
+  ORDER BY 2,1 DESC;
 '
 ,
 '
-SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
+SELECT
+  CAST(admitting_source_value
+    AS TEXT) as admitting_source_value
+  , count(1)
+  FROM omop.visit_occurrence
+  GROUP BY 1
+  ORDER BY 2,1 DESC;
 '
 ,
 'Visit_occurrence table -- distribution admit source value'
@@ -57,11 +87,26 @@ SELECT cast(admitting_source_value as TEXT), count(1) FROM omop.visit_occurrence
 SELECT results_eq
 (
 '
-SELECT cast(discharge_location as TEXT) as discharge_to_source_value, count(1) FROM admissions group by 1 ORDER BY 2,1 DESC;
+SELECT
+  CAST(
+    CASE WHEN diagnosis ~* ''organ donor'' THEN diagnosis
+    ELSE discharge_location END
+  AS TEXT) as discharge_to_source_value
+  , count(1)
+  FROM admissions
+  GROUP BY 1
+  ORDER BY 2,1 DESC;
 '
 ,
 '
-SELECT cast(discharge_to_source_value as TEXT), count(1) FROM omop.visit_occurrence group by 1 ORDER BY 2,1 DESC;
+SELECT
+  CAST(
+    discharge_to_source_value
+  AS TEXT) as discharge_to_source_value
+, count(1)
+FROM omop.visit_occurrence
+GROUP BY 1
+ORDER BY 2,1 DESC;
 '
 ,
 'Visit_occurrence table -- repartition discharge_to_source_value'
@@ -81,7 +126,7 @@ SELECT count(visit_source_value) FROM omop.visit_occurrence group by visit_sourc
 'Visit_occurrence table -- links checker'
 );
 
--- the same check with timestamp is wrong even before ETL 
+-- the same check with timestamp is wrong even before ETL
 SELECT results_eq
 (
  '

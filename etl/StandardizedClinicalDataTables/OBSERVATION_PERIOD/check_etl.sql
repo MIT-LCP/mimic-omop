@@ -19,11 +19,9 @@ SELECT count(1) from omop.visit_occurrence;
 ,
 '
 select count(1) from omop.observation_period;
-' 
-,'-- 1. observation_period checker'
+'
+,'OBSERVATION_PERIOD -- row count matches visit_occurrence'
 );
-
-SELECT pass( 'observation_period pass, w00t!' );
 
 SELECT * FROM finish();
 ROLLBACK;

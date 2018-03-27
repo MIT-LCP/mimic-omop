@@ -10,36 +10,19 @@
 
 BEGIN;
 
-SELECT plan ( 2  );
+SELECT plan ( 1 );
 
 SELECT results_eq
 (
- '
-SELECT count(distinct subject_id) from admissions where hospital_expire_flag = 1;
+'
+SELECT count(dod) FROM patients;
 '
 ,
 '
-SELECT count(distinct visit_occurrence_id)
-FROM omop.visit_occurrence
-WHERE discharge_to_concept_id = 4216643;
+SELECT count(death_date) FROM omop.death
 '
-, 'dead number in hospital'
+, 'number of unique patients who die in the database'
 );
-
-SELECT results_eq
-(
- '
-SELECT count(*) from admissions where hospital_expire_flag = 1;
-'
-,
-'
-SELECT count(distinct visit_occurrence_id)
-FROM omop.visit_occurrence
-WHERE discharge_to_concept_id = 4216643 or discharge_to_concept_id = 4022058 ; -- dead / organ_donor
-'
-, 'organ_donor'
-);
-
 
 SELECT * FROM finish();
 ROLLBACK;
