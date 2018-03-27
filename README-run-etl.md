@@ -65,3 +65,26 @@ Be sure to run this from the *root* folder of the repository, or the relative pa
 ```sh
 psql "$MIMIC" -f "etl/etl.sql"
 ```
+
+## 5. Check the ETL has run properly
+
+In order to run the checks, you'll need [pgTap](http://pgtap.org/). pgTap is a testing framework for postgres.
+You can install pgtap by either:
+
+* using a package manager, e.g. on Ubuntu using: `sudo apt-get install pgtap`.
+* from source, following the [install instructions here](https://pgxn.org/dist/pgtap/)
+
+If building from source, pay careful attention to the make output. You may need to install additional perl modules in order to use functions such as pg_prove, using `cpan TAP::Parser::SourceHandler::pgTAP`.
+You may also need to run the installation `make` files as the postgres user, who has superuser privileges to the postgres database.
+
+After you install it, be sure to enable the extension as follows:
+
+```sh
+psql "$MIMIC" -c "CREATE EXTENSION pgtap;"
+```
+
+Now the extension is available database-wide, and we can run the ETL.
+
+```sh
+psql "$MIMIC" -f "etl/check_etl.sql"
+```
