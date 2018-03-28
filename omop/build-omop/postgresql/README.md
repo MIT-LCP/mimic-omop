@@ -10,10 +10,13 @@ cd mimic-omop
 
 All the following commands are assumed to be run in the root path of the repository, i.e. the mimic-omop folder you just cloned and changed into.
 
-Copy the OMOP Common Data Model DDL to this folder, e.g.:
+Now clone the OMOP Common Data Model DDL to a subfolder. Note that we reset the sub-repository to a specific commit to ensure that the DDL copied is always the same.
 
 ```bash
 git clone https://github.com/OHDSI/CommonDataModel.git
+cd CommonDataModel
+git reset --hard 0ac0f4bd56c7372dcd3417461a91f17a6b118901
+cd ..
 cp CommonDataModel/PostgreSQL/*.txt omop/build-omop/postgresql/
 ```
 
