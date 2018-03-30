@@ -250,7 +250,6 @@ WITH
         SELECT
         nextval('mimic_id_seq') as visit_detail_id
       , person_id
-      , visit_occurrence_id
       , coalesce(gcpt_care_site.visit_detail_concept_id, 0) as visit_detail_concept_id
       , serv.visit_start_datetime::date as visit_start_date
       , serv.visit_start_datetime
