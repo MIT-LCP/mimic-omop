@@ -1,12 +1,11 @@
 INTRODUCTION
 ============
 
-- each folder shall contain a mapping.csv file with common header (to be improved)
-- it will be easily readeble from github when comma separated
-- from that mapping file, the generate_sql.R program generates a sql template:
-	- `Rscript generate_sql.R StandardizedClinicalDataTables/DEATH/mapping.csv`
-	- generates a etl_template.sql
-- the command does the trick: `find . -name "mapping.csv" -exec Rscript generate_sql.R {} \;`
+Each folder corresponds to the name of an OMOP table. Inside the folder are 1-3 files:
+
+* `etl.sql` - which inserts data into the table from the corresponding MIMIC table(s)
+* `check_etl.sql` - a script which tests the ETL is correct
+* `README.md` - description of the source table and details of the ETL
 
 RUN THE ETL
 ===========
