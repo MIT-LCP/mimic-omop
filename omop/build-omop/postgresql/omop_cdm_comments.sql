@@ -37,7 +37,7 @@ COMMENT ON COLUMN condition_occurrence. visit_detail_id             IS 'A foreig
 COMMENT ON COLUMN condition_occurrence. condition_source_value          IS 'The source code for the condition as it appears in the source data. This code is mapped to a standard condition concept in the Standardized Vocabularies and the original code is stored here for reference.';
 COMMENT ON COLUMN condition_occurrence. condition_source_concept_id     IS 'A foreign key to a Condition Concept that refers to the code used in the source.';
 COMMENT ON COLUMN condition_occurrence. condition_status_source_value   IS 'The source code for the condition status as it appears in the source data.';
-COMMENT ON COLUMN condition_occurrence. condition_status_concept_id     IS 'A foreign key to the predefined concept in the standard vocabulary reflecting the condition status';                                                                                                                               
+COMMENT ON COLUMN condition_occurrence. condition_status_concept_id     IS 'A foreign key to the predefined concept in the standard vocabulary reflecting the condition status';
 -- DEATH
 COMMENT ON TABLE death IS '[CLINICAL] The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as:';
 COMMENT ON COLUMN death.person_id IS 'A foreign key identifier to the deceased person. The demographic details of that person are stored in the person table.';
@@ -184,7 +184,7 @@ COMMENT ON COLUMN PROCEDURE_OCCURRENCE.provider_id IS 'A foreign key to the prov
 COMMENT ON COLUMN PROCEDURE_OCCURRENCE.visit_occurrence_id IS 'A foreign key to the visit in the visit table during which the Procedure was carried out.';
 COMMENT ON COLUMN PROCEDURE_OCCURRENCE.procedure_source_value IS 'The source code for the Procedure as it appears in the source data. This code is mapped to a standard procedure Concept in the Standardized Vocabularies and the original code is, stored here for reference. Procedure source codes are typically ICD-9-Proc, CPT-4, HCPCS or OPCS-4 codes.';
 COMMENT ON COLUMN PROCEDURE_OCCURRENCE.procedure_source_concept_id IS 'A foreign key to a Procedure Concept that refers to the code used in the source.';
-COMMENT ON COLUMN PROCEDURE_OCCURRENCE.qualifier_source_value IS 'The source code for the qualifier as it appears in the source data.';
+COMMENT ON COLUMN PROCEDURE_OCCURRENCE.modifier_source_value IS 'The source code for the qualifier as it appears in the source data.';
 COMMENT ON COLUMN PROCEDURE_OCCURRENCE.visit_detail_id IS 'A foreign key to the visit in the visit table during which the Procedure was carried out.';
 -- PERSON
 COMMENT ON TABLE PERSON IS '[CLINICAL] The Person Domain contains records that uniquely identify each patient in the source data who is time at-risk to have clinical observations recorded within the source systems.';

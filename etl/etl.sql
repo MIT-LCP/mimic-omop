@@ -1,6 +1,5 @@
 --BEGIN;
 \set ON_ERROR_STOP true
-set search_path to :'mimicschema';
 \timing
 
 TRUNCATE TABLE  omop.care_site CASCADE;

@@ -1,7 +1,7 @@
 -- from drug_exposure
 -- mapping is 85% done from gsn coding
 WITH
-"drug_exposure" AS (
+"pr" AS (
 	SELECT
 	 'drug:['|| coalesce(drug, drug_name_poe, drug_name_generic,'') ||']'||  'prod_strength:['||coalesce(prod_strength,'')||']'|| 'drug_type:['||coalesce(drug_type,'')||']'|| 'formulary_drug_cd:['||coalesce(formulary_drug_cd,'') || ']' || 'dose_unit_rx:[' || coalesce(dose_unit_rx,'') || ']' as concept_name
 	, subject_id
@@ -25,7 +25,7 @@ WITH
 ),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
-"omop_local_drug" AS (SELECT concept_name, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC Local Codes'),
+"omop_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC prescriptions'),
 "row_to_insert" AS (
 	SELECT
   drug_exposure_id
@@ -47,17 +47,43 @@ WITH
 , null::integer as provider_id
 , visit_occurrence_id
 , null::integer as visit_detail_id
-, drug_exposure.drug_source_value
+, drug_source_value
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
 , form_val_disp as quantity_source_value
-FROM drug_exposure
-LEFT JOIN omop_local_drug USING (concept_name)
+FROM pr
+LEFT JOIN omop_local_drug USING (drug_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 )
 INSERT INTO omop.drug_exposure
+(
+		drug_exposure_id
+	,	person_id
+	,	drug_concept_id
+	,	drug_exposure_start_date
+	,	drug_exposure_start_datetime
+	,	drug_exposure_end_date
+	,	drug_exposure_end_datetime
+	,	verbatim_end_date
+	,	drug_type_concept_id
+	,	stop_reason
+	,	refills
+	,	quantity
+	,	days_supply
+	,	sig
+	,	route_concept_id
+	,	lot_number
+	,	provider_id
+	,	visit_occurrence_id
+	,	visit_detail_id
+	,	drug_source_value
+	,	drug_source_concept_id
+	,	route_source_value
+	,	dose_unit_source_value
+	,	quantity_source_value
+)
 SELECT
   row_to_insert.drug_exposure_id
 , row_to_insert.person_id
@@ -100,7 +126,7 @@ FROM row_to_insert;
 -- when orderid then fact_relationship with 44818791 -- Has temporal context [SNOMED]
 -- weight into observation/measurement
 WITH
-"inputevents_mv" AS (
+"imv" AS (
 SELECT
   mimic_id AS drug_exposure_id
 , subject_id
@@ -147,12 +173,12 @@ INSERT INTO omop.fact_relationship
 SELECT
 DISTINCT
   13 As fact_id_1 --Drug
-,  mv2.drug_exposure_id AS domain_concept_id_1
+, mv2.drug_exposure_id AS domain_concept_id_1
 , 13 As fact_id_2 --Drug
 , mv1.drug_exposure_id AS domain_concept_id_2
 , 44818791 AS relationship_concept_id -- Has temporal context [SNOMED]
-FROM inputevents_mv mv1
-LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.linkorderid AND mv2.is_leader IS TRUE)
+FROM imv mv1
+LEFT JOIN imv mv2 ON (mv2.orderid = mv1.linkorderid AND mv2.is_leader IS TRUE)
 ),
 "fact_relationship_order" AS (
 INSERT INTO omop.fact_relationship
@@ -162,17 +188,16 @@ INSERT INTO omop.fact_relationship
 , domain_concept_id_2
 , fact_id_2
 , relationship_concept_id
-
 )
 SELECT
 DISTINCT
   13 As fact_id_1 --Drug
-,  mv2.drug_exposure_id AS domain_concept_id_1
+, mv2.drug_exposure_id AS domain_concept_id_1
 , 13 As fact_id_2 --Drug
 , mv1.drug_exposure_id AS domain_concept_id_2
 , 44818784 AS relationship_concept_id -- Has associated procedure [SNOMED]
-FROM inputevents_mv mv1
-LEFT JOIN inputevents_mv mv2 ON (mv2.orderid = mv1.orderid AND mv2.is_orderid_leader IS TRUE)
+FROM imv mv1
+LEFT JOIN imv mv2 ON (mv2.orderid = mv1.orderid AND mv2.is_orderid_leader IS TRUE)
 ),
 "row_to_insert" AS (
 SELECT
@@ -199,7 +224,7 @@ SELECT
 , d_items.drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
-FROM inputevents_mv
+FROM imv
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
@@ -210,6 +235,32 @@ LEFT JOIN d_items USING (itemid)
 LEFT JOIN rxnorm_map USING (drug_source_value)
 )
 INSERT INTO omop.drug_exposure
+(
+	  drug_exposure_id
+	, person_id
+	, drug_concept_id
+	, drug_exposure_start_date
+	, drug_exposure_start_datetime
+	, drug_exposure_end_date
+	, drug_exposure_end_datetime
+	, verbatim_end_date
+	, drug_type_concept_id
+	, stop_reason
+	, refills
+	, quantity
+	, days_supply
+	, sig
+	, route_concept_id
+	, lot_number
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, drug_source_value
+	, drug_source_concept_id
+	, route_source_value
+	, dose_unit_source_value
+	, quantity_source_value
+)
 SELECT
   drug_exposure_id
 , person_id
@@ -256,7 +307,7 @@ OR -- middle
 -- concept_id gcpt_inputevents_drug_to_concept, gcpt_mv_input_label_to_concept, gcpt_cv_input_label_to_concept
 -- route = NULL  (!= originalroute, original* never considered)
 WITH
-"inputevents_cv" AS  (
+"icv" AS  (
 SELECT
   mimic_id AS drug_exposure_id
 , subject_id
@@ -302,12 +353,12 @@ INSERT INTO omop.fact_relationship
 SELECT
 DISTINCT
   13 As fact_id_1 --Drug
-,  cv2.drug_exposure_id AS domain_concept_id_1
+, cv2.drug_exposure_id AS domain_concept_id_1
 , 13 As fact_id_2 --Drug
 , cv1.drug_exposure_id AS domain_concept_id_2
 , 44818791 AS relationship_concept_id -- Has temporal context [SNOMED]
-FROM inputevents_cv cv1
-LEFT JOIN inputevents_cv cv2 ON (cv2.orderid = cv1.linkorderid AND cv2.is_leader IS TRUE)
+FROM icv cv1
+LEFT JOIN icv cv2 ON (cv2.orderid = cv1.linkorderid AND cv2.is_leader IS TRUE)
 WHERE cv2.drug_exposure_id IS NOT NULL
 RETURNING *
 ),
@@ -336,7 +387,7 @@ SELECT
 , d_items.drug_source_concept_id
 , null::text route_source_value
 , coalesce(gcpt_continuous_unit_carevue.dose_unit_source_value_new, dose_unit_source_value) as dose_unit_source_value
-FROM inputevents_cv
+FROM icv
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
@@ -348,6 +399,32 @@ LEFT JOIN gcpt_map_route_to_concept USING (originalroute)
 LEFT JOIN gcpt_continuous_unit_carevue USING (dose_unit_source_value)
 )
 INSERT INTO omop.drug_exposure
+(
+	  drug_exposure_id
+	, person_id
+	, drug_concept_id
+	, drug_exposure_start_date
+	, drug_exposure_start_datetime
+	, drug_exposure_end_date
+	, drug_exposure_end_datetime
+	, verbatim_end_date
+	, drug_type_concept_id
+	, stop_reason
+	, refills
+	, quantity
+	, days_supply
+	, sig
+	, route_concept_id
+	, lot_number
+	, provider_id
+	, visit_occurrence_id
+	, visit_detail_id
+	, drug_source_value
+	, drug_source_concept_id
+	, route_source_value
+	, dose_unit_source_value
+	, quantity_source_value
+)
 SELECT
   drug_exposure_id
 , person_id

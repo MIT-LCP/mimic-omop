@@ -9,74 +9,75 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 8 );
+SELECT plan ( 4 );
 
 -- 1. visit_occurrence_nb
 SELECT results_eq
 (
 '
-SELECT count(distinct person_id), count(distinct visit_occurrence_id)
+SELECT COUNT(distinct person_id), COUNT(distinct visit_occurrence_id)
 FROM omop.drug_exposure
-where drug_type_concept_id = 38000177;
+WHERE drug_type_concept_id = 38000177;
 '
 ,
 '
-SELECT count(distinct subject_id), count(distinct hadm_id) 
+SELECT COUNT(distinct subject_id), COUNT(distinct hadm_id)
 FROM prescriptions;
-' 
-,'nb patient with prescription'
+'
+,'DRUG_EXPOSURE -- check number of patients with prescription matches'
 );
 
 -- 2.  principaux medicaments de prescripitoin
 SELECT results_eq
 (
 '
-SELECT drug::text, count(1)
-from prescriptions 
-group by drug 
-ORDER by 2,1 desc;
+SELECT drug_source_value::text, COUNT(1)
+FROM omop.drug_exposure
+where drug_type_concept_id = 38000177
+GROUP BY 1
+ORDER BY 2,1 DESC;
 '
 ,
 '
-SELECT drug_source_value::text, count(1) 
-from omop.drug_exposure
-where drug_type_concept_id = 38000177 
-GROUP BY 1 ORDER BY 2,1 desc;
-' 
-,'same drugs for prescrip'
+SELECT drug::text, COUNT(1)
+FROM prescriptions
+GROUP BY 1
+ORDER by 2,1 DESC;
+'
+,'DRUG_EXPOSURE -- check drug_source_value matches source'
 );
 
 -- 3.  principaux medicaments de prescripitoin
 SELECT results_eq
 (
 '
-SELECT count(1)::integer
-FROM omop.drug_exposure 
-where drug_source_concept_id = 0;
+SELECT COUNT(1)::integer
+FROM omop.drug_exposure
+WHERE drug_source_concept_id = 0;
 '
 ,
 '
 SELECT 0::integer;
-' 
-,'is concept source id full filled'
+'
+,'DRUG_EXPOSURE -- is concept source id full filled'
 );
 
 SELECT results_eq
 (
 '
-select 0::integer;
-'
-,
-'
-SELECT count(1)::integer
-FROM omop.measurement
-LEFT JOIN omop.concept ON measurement_concept_id = concept_id
-WHERE 
-measurement_concept_id != 0
+SELECT COUNT(1)::integer
+FROM omop.drug_exposure
+LEFT JOIN omop.concept
+  ON drug_concept_id = concept_id
+WHERE drug_concept_id != 0
 AND standard_concept != ''S'';
 '
 ,
-'Standard concept checker'
+'
+SELECT 0::INTEGER;
+'
+,
+'DRUG_EXPOSURE -- Standard concept checker'
 );
 
 SELECT * FROM finish();

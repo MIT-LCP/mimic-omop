@@ -15,8 +15,8 @@ getValueFromConfFile <- function(file, pattern){
 }
 
 connect <- function(){
-	connectionFile <- file.path("~/mimic-omop.cfg")
-	conn <- RPostgres::dbConnect(RPostgres::Postgres() 
+	connectionFile <- file.path("mimic-omop.cfg")
+	conn <- RPostgres::dbConnect(RPostgres::Postgres()
 				     ,dbname = getValueFromConfFile(connectionFile,"dbname")
 				     ,host = getValueFromConfFile(connectionFile,"host")
 				     ,port = getValueFromConfFile(connectionFile,"port")

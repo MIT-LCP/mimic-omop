@@ -19,10 +19,9 @@ SELECT count(*) from omop.provider;
 ,
 '
 SELECT count(*) from caregivers;
-' 
-,'-- 1. count providers'
+'
+,'PROVIDER -- check caregivers/providers match'
 );
-
 
 SELECT * FROM finish();
 ROLLBACK;

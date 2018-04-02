@@ -1,12 +1,12 @@
  -- from datetimeevents
- WITH 
+ WITH
 "datetimeevents" AS (SELECT subject_id, hadm_id, itemid, cgid, mimic_id as observation_id, coalesce(value,charttime)::date as observation_date, value as observation_datetime FROM datetimeevents where error is null or error = 0),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "caregivers" AS (SELECT cgid, mimic_id as provider_id FROM caregivers),
 "admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, insurance, marital_status, language, diagnosis, religion, ethnicity, admittime FROM admissions),
 "d_items" AS (SELECT itemid, label as value_as_string FROM d_items),
 "row_to_insert" AS
- (SELECT 
+ (SELECT
         datetimeevents.observation_id
       , patients.person_id
       , 4085802 as observation_concept_id -- Referred by nurse
@@ -31,28 +31,48 @@
  LEFT JOIN caregivers USING (cgid)
  LEFT JOIN d_items USING (itemid)
 )
- INSERT INTO omop.OBSERVATION 
-SELECT 
-          observation_id
-        , person_id
-        , observation_concept_id
-        , observation_date
-        , observation_datetime
-        , observation_type_concept_id
-        , value_as_number
-        , value_as_string
-        , value_as_concept_id
-        , qualifier_concept_id
-        , unit_concept_id
-        , provider_id
-        , row_to_insert.visit_occurrence_id
-        , visit_detail_assign.visit_detail_id
-        , observation_source_value
-        , observation_source_concept_id
-        , unit_source_value
-        , qualifier_source_value
+INSERT INTO omop.OBSERVATION
+(
+    observation_id
+  , person_id
+  , observation_concept_id
+  , observation_date
+  , observation_datetime
+  , observation_type_concept_id
+  , value_as_number
+  , value_as_string
+  , value_as_concept_id
+  , qualifier_concept_id
+  , unit_concept_id
+  , provider_id
+  , visit_occurrence_id
+  , visit_detail_id
+  , observation_source_value
+  , observation_source_concept_id
+  , unit_source_value
+  , qualifier_source_value
+)
+SELECT
+  observation_id
+, person_id
+, observation_concept_id
+, observation_date
+, observation_datetime
+, observation_type_concept_id
+, value_as_number
+, value_as_string
+, value_as_concept_id
+, qualifier_concept_id
+, unit_concept_id
+, provider_id
+, row_to_insert.visit_occurrence_id
+, visit_detail_assign.visit_detail_id
+, observation_source_value
+, observation_source_concept_id
+, unit_source_value
+, qualifier_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign 
+LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -85,7 +105,7 @@ WITH
       , 38000280 as observation_type_concept_id -- Observation recorded from EHR
       , null::double precision as value_as_number
       , adm.INSURANCE as value_as_string
-      , map.concept_id as value_as_concept_id 
+      , map.concept_id as value_as_concept_id
       , null::integer as qualifier_concept_id
       , null::integer as provider_id
       , null::integer as unit_concept_id
@@ -99,7 +119,7 @@ WITH
     LEFT JOIN gcpt_insurance_to_concept AS map USING (insurance)
     LEFT JOIN patients USING (subject_id)
   WHERE adm.insurance IS NOT NULL
-UNION ALL 
+UNION ALL
   SELECT
         nextval('mimic_id_seq') AS observation_id
       , patients.person_id
@@ -123,7 +143,7 @@ UNION ALL
     LEFT JOIN gcpt_marital_status_to_concept as map USING (marital_status)
     LEFT JOIN patients USING (subject_id)
   WHERE adm.marital_status IS NOT NULL
-UNION ALL 
+UNION ALL
   SELECT
         nextval('mimic_id_seq') AS observation_id
       , patients.person_id
@@ -147,7 +167,7 @@ UNION ALL
     JOIN gcpt_religion_to_concept as map USING (religion)
     LEFT JOIN patients USING (subject_id)
   WHERE adm.religion IS NOT NULL
-UNION ALL 
+UNION ALL
   SELECT
         nextval('mimic_id_seq') AS observation_id
       , patients.person_id
@@ -195,8 +215,8 @@ UNION ALL
     JOIN gcpt_ethnicity_to_concept as map USING (ethnicity)
     LEFT JOIN patients USING (subject_id)
   WHERE adm.ethnicity IS NOT NULL)
- INSERT INTO omop.OBSERVATION 
-SELECT 
+ INSERT INTO omop.OBSERVATION
+SELECT
           observation_id
         , person_id
         , observation_concept_id
@@ -257,7 +277,7 @@ SELECT
 	LEFT JOIN gcpt_drgcode_to_concept USING (description)
 )
 INSERT INTO omop.observation
-SELECT 
+SELECT
           observation_id
         , person_id
         , observation_concept_id
@@ -282,21 +302,21 @@ FROM row_to_insert;
 -- Chartevents.text
 WITH
 "chartevents_text" AS (
-        SELECT 
+        SELECT
                chartevents.mimic_id as observation_id
              , subject_id
              , cgid
              , hadm_id
              , charttime as observation_datetime
              , value as value_as_string
-             , valuenum as value_as_number 
+             , valuenum as value_as_number
              , concept.concept_id as observation_source_concept_id
              , concept.concept_code as observation_source_value
           FROM chartevents
 	  JOIN omop.concept ON  -- concept driven dispatcher
 		(           concept_code  = itemid::Text
-			AND domain_id     = 'Observation' 
-			AND vocabulary_id = 'MIMIC d_items' 
+			AND domain_id     = 'Observation'
+			AND vocabulary_id = 'MIMIC d_items'
 		)
 	WHERE error IS NULL OR error= 0
        ),
@@ -348,7 +368,7 @@ SELECT
         , unit_source_value
         , qualifier_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign 
+LEFT JOIN omop.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -361,4 +381,3 @@ OR -- middle
 (is_last IS FALSE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
 )
 ;
-

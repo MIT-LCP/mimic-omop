@@ -1,4 +1,4 @@
-WITH 
+WITH
 "proc_icd" as (SELECT mimic_id as procedure_occurrence_id, subject_id, hadm_id, icd9_code as procedure_source_value, CASE WHEN length(cast(ICD9_CODE as text)) = 2 THEN cast(ICD9_CODE as text) ELSE concat(substr(cast(ICD9_CODE as text), 1, 2), '.', substr(cast(ICD9_CODE as text), 3)) END AS concept_code FROM procedures_icd),
 "local_proc_icd" AS (SELECT concept_id as procedure_source_concept_id, concept_code as procedure_source_value FROM omop.concept WHERE domain_id = 'd_icd_procedures' AND vocabulary_id = 'MIMIC Local Codes'),
 "concept_proc_icd9" as ( SELECT concept_id as procedure_concept_id, concept_code FROM omop.concept WHERE vocabulary_id = 'ICD9Proc'),
@@ -18,7 +18,7 @@ WITH
      FROM procedureevents_mv
      LEFT JOIN d_items USING (itemid)
      where cancelreason = 0 -- not cancelled
-), 
+),
 "gcpt_procedure_to_concept" as (SELECT item_id as itemid, concept_id as procedure_concept_id from gcpt_procedure_to_concept),
 "cpt_event" AS ( SELECT mimic_id as procedure_occurrence_id , subject_id , hadm_id , chartdate as procedure_datetime, cpt_cd, subsectionheader as procedure_source_value FROM cptevents),
 "omop_cpt4" as (SELECT concept_id as procedure_source_concept_id, concept_code as cpt_cd FROM omop.concept where vocabulary_id = 'CPT4'),
@@ -27,10 +27,10 @@ WITH
 	from omop.concept c1
 	join omop.concept_relationship cr on concept_id_1 = c1.concept_id and relationship_id IN ('CPT4 - SNOMED eq','Maps to')
 	left join omop.concept c2 on concept_id_2 = c2.concept_id
-	WHERE 
+	WHERE
 	    c1.vocabulary_id ='CPT4'
 	and c2.standard_concept = 'S'
-), 
+),
 "row_to_insert" AS (
 SELECT
   procedure_occurrence_id
@@ -46,7 +46,7 @@ SELECT
 , null::integer as visit_detail_id -- the chartdate is never a time, when exist
 , cpt_event.procedure_source_value
 , omop_cpt4.procedure_source_concept_id as procedure_source_concept_id
-, null::text as qualifier_source_value
+, null::text as modifier_source_value
 FROM cpt_event
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -67,7 +67,7 @@ SELECT
 , visit_detail_assign.visit_detail_id as visit_detail_id
 , procedure_source_value
 , procedure_source_concept_id -- from d_items mimic_id
-, null as qualifier_source_value
+, null as modifier_source_value
 FROM proc_event
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
@@ -99,15 +99,31 @@ SELECT
 , null as visit_detail_id
 , proc_icd.procedure_source_value
 , coalesce(procedure_source_concept_id,0) as procedure_source_concept_id
-, null as qualifier_source_value
+, null as modifier_source_value
 FROM proc_icd
 LEFT JOIN local_proc_icd USING (procedure_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN concept_proc_icd9 USING (concept_code)
 )
-INSERT INTO omop.procedure_occurrence 
-SELECT 
+INSERT INTO omop.procedure_occurrence
+(
+    procedure_occurrence_id
+  , person_id
+  , procedure_concept_id
+  , procedure_date
+  , procedure_datetime
+  , procedure_type_concept_id
+  , modifier_concept_id
+  , quantity
+  , provider_id
+  , visit_occurrence_id
+  , visit_detail_id
+  , procedure_source_value
+  , procedure_source_concept_id
+  , modifier_source_value
+)
+SELECT
   procedure_occurrence_id
 , person_id
 , procedure_concept_id
@@ -121,5 +137,5 @@ SELECT
 , visit_detail_id
 , procedure_source_value
 , procedure_source_concept_id
-, qualifier_source_value
+, modifier_source_value
 FROM row_to_insert;

@@ -9,143 +9,169 @@
 -- --------------------------------------------------
 
 BEGIN;
-SELECT plan ( 7 );
+SELECT plan ( 8 );
 
 SELECT results_eq
 (
 '
-SELECT count(distinct person_id), count(distinct visit_occurrence_id)
+SELECT COUNT(distinct person_id), COUNT(distinct visit_occurrence_id)
 FROM omop.condition_occurrence
 WHERE condition_type_concept_id != 42894222;
 '
 ,
 '
-SELECT count(distinct subject_id), count(distinct hadm_id) FROM diagnoses_icd where icd9_code is not null;
-' 
+SELECT COUNT(distinct subject_id), COUNT(distinct hadm_id)
+FROM diagnoses_icd
+WHERE icd9_code IS NOT NULL;
+'
 ,
-'Condition_occurrence table -- nb icd'
+'CONDITION OCCURRENCE -- check ICD diagnoses row count matches'
 );
 
 SELECT results_eq
 (
 '
-WITH tmp as 
-(SELECT distinct on (visit_occurrence_id) * from omop.condition_occurrence where condition_type_concept_id = 42894222)
-SELECT condition_source_value::text, count(1) 
-FROM tmp  
-group by condition_source_value order by count(condition_source_value) desc;
+WITH tmp as
+(
+  SELECT distinct on (visit_occurrence_id) *
+  FROM omop.condition_occurrence
+  WHERE condition_type_concept_id = 42894222
+)
+SELECT condition_source_value::text, COUNT(1)
+FROM tmp
+GROUP BY 1
+ORDER BY 2, 1;
 '
 ,
 '
-SELECT diagnosis::text, count(1) from admissions group by diagnosis order by count(1) desc;
-' 
+SELECT diagnosis::text, COUNT(1)
+FROM admissions
+GROUP BY 1
+ORDER BY 2, 1;
+'
 ,
-'Condition_occurrence table -- diagnosis in admission same '
+'CONDITION OCCURRENCE -- diagnosis in admission same'
 );
 
 SELECT results_eq
 (
 '
-with tmp as 
-(SELECT distinct on (visit_occurrence_id) * from omop.condition_occurrence where condition_type_concept_id = 42894222)
-SELECT condition_source_value::text, count(1) 
-FROM tmp 
-group by condition_source_value order by count(condition_source_value) desc;
+with tmp as
+(
+  SELECT distinct on (visit_occurrence_id) *
+  FROM omop.condition_occurrence
+  WHERE condition_type_concept_id = 42894222
+)
+SELECT condition_source_value::text, COUNT(1)
+FROM tmp
+GROUP BY 1
+ORDER BY 2, 1;
 '
 ,
 '
-SELECT diagnosis::text, count(1) from admissions group by 1 order by 2 desc
-' 
+SELECT diagnosis::text, COUNT(1)
+FROM admissions
+GROUP BY 1
+ORDER BY 2, 1
+'
 ,
-'Condition_occurrence table -- distrib diagnosis the same'
+'CONDITION OCCURRENCE -- distrib diagnosis the same'
 );
 
 SELECT results_eq
 (
 '
-select 0::integer;
-'
-,
-'
-SELECT count(1)::integer
+SELECT COUNT(1)::INTEGER
 FROM omop.condition_occurrence
-where condition_source_concept_id = 0;
+WHERE condition_source_concept_id = 0;
 '
 ,
-'Condition_occurrence table -- there is source concept in measurement not described'
+'
+SELECT 0::INTEGER;
+'
+,
+'CONDITION OCCURRENCE -- there is source concept in measurement not described'
 );
 
 SELECT results_eq
 (
 '
-select 0::integer;
+SELECT COUNT(1)::INTEGER
+FROM
+(
+  SELECT COUNT(1)::INTEGER
+  FROM omop.condition_occurrence
+  GROUP BY condition_occurrence_id
+  having COUNT(1) > 1
+) as t;
 '
 ,
 '
-select count(1)::integer from (
-SELECT count(1)::integer
-FROM omop.condition_occurrence
-group by condition_occurrence_id
-having count(1) > 1) as t;
+SELECT 0::INTEGER;
 '
 ,
-'Condition_occurrence table -- primary key checker'
+'CONDITION OCCURRENCE -- primary key checker'
 );
 
 SELECT results_eq
 (
 '
-select 0::integer;
-'
-,
-'
-SELECT count(1)::integer
+SELECT COUNT(1)::INTEGER
 FROM omop.condition_occurrence
 LEFT JOIN omop.concept ON condition_concept_id = concept_id
-WHERE 
-condition_concept_id != 0
+WHERE condition_concept_id != 0
 AND standard_concept != ''S'';
 '
 ,
-'Condition_occurrence table -- standard concept checker'
+'
+SELECT 0::INTEGER;
+'
+,
+'CONDITION OCCURRENCE -- standard concept checker'
 );
 
 SELECT results_eq
 (
 '
-select 0::integer;
-'
-,
-'
 WITH tmp AS
 (
-        SELECT visit_detail_id, visit_occurrence_id, CASE WHEN condition_end_datetime < condition_start_datetime THEN 1 ELSE 0 END AS abnormal
-        FROM omop.condition_occurrence
-
+  SELECT visit_detail_id, visit_occurrence_id
+  , CASE
+      WHEN condition_end_datetime < condition_start_datetime
+      THEN 1
+    ELSE 0 END AS abnormal
+  FROM omop.condition_occurrence
 )
-SELECT max(abnormal) FROM tmp;
+SELECT sum(abnormal)::INTEGER FROM tmp;
 '
 ,
-'Condition_occurrence table -- start_datetime > end_datetime'
+'
+SELECT 0::INTEGER;
+'
+,
+'CONDITION OCCURRENCE -- start_datetime should be > end_datetime'
 );
 
 SELECT results_eq
 (
 '
-select 0::integer;
-'
-,
-'
 WITH tmp AS
 (
-        SELECT visit_detail_id, visit_occurrence_id, CASE WHEN condition_end_date < condition_start_date THEN 1 ELSE 0 END AS abnormal
-        FROM omop.condition_occurrence
-
+  SELECT visit_detail_id, visit_occurrence_id
+  , CASE
+      WHEN condition_end_date < condition_start_date
+      THEN 1
+    ELSE 0 END AS abnormal
+  FROM omop.condition_occurrence
 )
-SELECT max(abnormal) FROM tmp;
+SELECT sum(abnormal)::INTEGER FROM tmp;
 '
 ,
-'Condition_occurrence table -- start_date > end_date'
+'
+SELECT 0::INTEGER;
+'
+,
+'CONDITION OCCURRENCE -- start_date should be > end_date'
 );
 
 SELECT * FROM finish();

@@ -1,10 +1,9 @@
-INSERT INTO omop.cohort 
+INSERT INTO omop.cohort
 (
-  cohort_definition_id 
-, subject_id          
-, cohort_start_date   
-, cohort_end_date     
-
+  cohort_definition_id
+, subject_id
+, cohort_start_date
+, cohort_end_date
 )
 SELECT
 1 -- angus severe
