@@ -1,22 +1,34 @@
-MIMIC_SCHEMA=mimiciii
-HOST_OMOP=localhost
-PG_USER=postgres
+MIMIC_SCHEMA=mimic
+OMOP_SCHEMA=omop
+MIMIC="host=localhost dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA)"
+OMOP="host=localhost dbname=mimic user=postgres options=--search_path=omop$(OMOP_SCHEMA)"
+
+runetl: sequence concept load
+runetlcontrib: runetl contrib
+
 buildomop:
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/omop_ddl_comments.sql &&\
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/mimic-omop-add-column.sql &&\
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/mimic-omop-alter.sql
+	psql $(OMOP) -f omop/build-omop/postgresql/omop_ddl_comments.sql &&\
+	psql $(OMOP) -f omop/build-omop/postgresql/mimic-omop-add-column.sql &&\
+	psql $(OMOP) -f omop/build-omop/postgresql/mimic-omop-alter.sql
+
 loadvocab:
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f omop/build-omop/postgresql/omop_vocab_load.sql
+	psql $(OMOP)  -f omop/build-omop/postgresql/omop_vocab_load.sql
+
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
+
 sequence: 
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f etl/etl_sequence.sql 
+	psql $(MIMIC)  -f mimic/build-mimic/postgres_create_mimic_id.sql
+
 load: 
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f etl/etl.sql 
+	psql $(MIMIC)  -f etl/etl.sql 
+
 contrib: 
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f etl/etl_contrib.sql 
+	psql  $(MIMIC) -f etl/etl_contrib.sql 
+
 check:
-	psql --set=mimicschema="$(MIMIC_SCHEMA)" -h  $(HOST_OMOP)  -d mimic $(PG_USER)  -f etl/check_etl.sql 
+	psql $(MIMIC) -f etl/check_etl.sql 
+
 export:
 	find etl/Result/ -name "*.gz" -delete &&\
 	find etl/Result/ -name "*.tar" -delete &&\
@@ -25,6 +37,7 @@ export:
 	cp import/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
+
 exportmonet:
 	find etl/Result/ -name "*.gz" -delete &&\
 	find etl/Result/ -name "*.tar" -delete &&\
@@ -33,6 +46,4 @@ exportmonet:
 	cp import/import_mimic_omop_monetdb.sh etl/Result/ &&\
 	cp omop/build-omop/monetdb/ddl_monetdb.sql etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
-runetl: sequence concept load
-runetlwithcontrib: sequence concept load contrib export 
-runetllight: concept load 
+	
