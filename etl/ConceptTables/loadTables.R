@@ -50,6 +50,7 @@ dbSendQuery(con, sql)
 PATH_CSV <- "extras/concept/"
 fichs <- list.files(PATH_CSV,pattern="*.csv")
 for(fich in fichs){
+	print(sprintf("Loaded %s", fich))
 	tmp <- readDf(file.path(PATH_CSV,fich))
 	names(tmp) <- tolower(names(tmp))
 	dropTable(fich, SCHEMA_TARGET)
