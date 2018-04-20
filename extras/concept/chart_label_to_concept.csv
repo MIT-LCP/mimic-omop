@@ -1,4 +1,5 @@
 d_label,label_type,value_lb,value_ub,measurement_concept_id,measurement_type_concept_id,unit_concept_id
+Code Status,resuscitation,,,4127294,44818701,8510
 Eye Opening,gcs,,,3016335,44818701,8510
 GCS - Eye Opening,gcs,,,3016335,44818701,8510
 Verbal Response,gcs,,,3009094,44818701,8510
@@ -287,3 +288,4 @@ VENT CPP,hemodynamic,,,21490695,44818701,8876
 Vent CPP,hemodynamic,,,21490695,44818701,8876
 Camino CPP,hemodynamic,,,21490695,44818701,8876
 CPP WITH CAMINO ICP,hemodynamic,,,21490695,44818701,8876
+
