@@ -16,6 +16,8 @@ CREATE OR REPLACE VIEW omop.measurement_denorm AS
     measurement.value_as_concept_id,
     measurement.unit_concept_id,
     cpt_unit.concept_name AS unit_concept_name,
+    cpt_unit.concept_code AS unit_concept_code,
+    cpt_unit.vocabulary_id AS unit_concept_code_system,
     measurement.range_low,
     measurement.range_high,
     measurement.provider_id,
