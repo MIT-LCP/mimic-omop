@@ -33,7 +33,7 @@ export:
 	find etl/Result/ -name "*.gz" -delete &&\
 	find etl/Result/ -name "*.tar" -delete &&\
 	find etl/Result/ -name "*.sql" -delete &&\
-	psql -h $(HOST_OMOP) -d mimic $(PG_USER)  -f export/export_mimic_omop.sql &&\
+	psql $(MIMIC)  -f export/export_mimic_omop.sql &&\
 	cp import/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
@@ -42,7 +42,7 @@ exportmonet:
 	find etl/Result/ -name "*.gz" -delete &&\
 	find etl/Result/ -name "*.tar" -delete &&\
 	find etl/Result/ -name "*.sql" -delete &&\
-	psql -h $(HOST_OMOP) -d mimic $(PG_USER)  -f export/export_mimic_omop_monetdb.sql &&\
+	psql $(MIMIC)  -f export/export_mimic_omop_monetdb.sql &&\
 	cp import/import_mimic_omop_monetdb.sh etl/Result/ &&\
 	cp omop/build-omop/monetdb/ddl_monetdb.sql etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
