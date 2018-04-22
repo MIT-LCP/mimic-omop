@@ -10,6 +10,7 @@ etl/Result/
 etl.log
 mimic-omop.tar
 mimiciii-omop.tar
+mimic-omop.cfg
 
 # OSX .DS_Store file
 .DS_Store
