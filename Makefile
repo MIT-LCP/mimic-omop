@@ -1,10 +1,10 @@
-MIMIC_SCHEMA=mimic
+MIMIC_SCHEMA=mimiciii
 OMOP_SCHEMA=omop
 MIMIC="host=localhost dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA)"
 OMOP="host=localhost dbname=mimic user=postgres options=--search_path=omop$(OMOP_SCHEMA)"
 
 runetl: sequence concept load
-runetlcontrib: runetl contrib
+runetlprivate: runetl private exportmonetdenorm
 
 buildomop:
 	psql $(OMOP) -f omop/build-omop/postgresql/omop_ddl_comments.sql &&\
@@ -23,27 +23,30 @@ sequence:
 load: 
 	psql $(MIMIC)  -f etl/etl.sql 
 
-contrib: 
+private: 
 	psql  $(MIMIC) -f etl/etl_contrib.sql 
 
 check:
 	psql $(MIMIC) -f etl/check_etl.sql 
 
 export:
-	find etl/Result/ -name "*.gz" -delete &&\
-	find etl/Result/ -name "*.tar" -delete &&\
-	find etl/Result/ -name "*.sql" -delete &&\
 	psql $(MIMIC)  -f export/export_mimic_omop.sql &&\
 	cp import/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
 
 exportmonet:
-	find etl/Result/ -name "*.gz" -delete &&\
-	find etl/Result/ -name "*.tar" -delete &&\
-	find etl/Result/ -name "*.sql" -delete &&\
 	psql $(MIMIC)  -f export/export_mimic_omop_monetdb.sql &&\
 	cp import/import_mimic_omop_monetdb.sh etl/Result/ &&\
 	cp omop/build-omop/monetdb/ddl_monetdb.sql etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
 	
+exportmonetdenorm:
+	psql $(MIMIC)  -f export/export_mimic_omop_monetdb_denorm.sql &&\
+	cp import/import_mimic_omop_monetdb.sh etl/Result/ &&\
+	cp omop/build-omop/monetdb/ddl_monetdb_denorm.sql etl/Result/
+
+purgeresult:
+	find etl/Result/ -name "*.gz" -delete &&\
+	find etl/Result/ -name "*.tar" -delete &&\
+	find etl/Result/ -name "*.sql" -delete 
