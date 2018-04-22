@@ -1,11 +1,16 @@
 d_label,label_type,value_lb,value_ub,measurement_concept_id,measurement_type_concept_id,unit_concept_id
 Code Status,resuscitation,,,4127294,44818701,8510
+Bowel Sounds,sounds,,,4337265,44818701,8510
+Pain Management,pain,,,4192791,44818701,8510
+Pain Assess Method,pain,,,4021323,44818701,8510
+Pain Assessment Method,pain,,,4021323,44818701,8510
 Eye Opening,gcs,,,3016335,44818701,8510
 GCS - Eye Opening,gcs,,,3016335,44818701,8510
 Verbal Response,gcs,,,3009094,44818701,8510
 GCS - Verbal Response,gcs,,,3009094,44818701,8510
 Motor Response,gcs,,,3008223,44818701,8510
 GCS - Motor Response,gcs,,,3008223,44818701,8510
+GCS Total,gcs,,,3032652,44818701,8510
 Pain Present,pain_level,,,40757693,44818701,8510
 Currently experiencing pain,pain_level,,,40757693,44818701,8510
 Pain Level (Rest),pain_level,,,3034263,44818701,8510
@@ -15,8 +20,16 @@ Pain Level/Response,pain_level,,,3034263,44818701,8510
 Riker-SAS Scale,sas_rass,,,21494989,44818701,8510
 Richmond-RAS Scale,sas_rass,,,21494989,44818701,8510
 Admit Wt,height_weight,,,3025315,44818701,9529
+Previous WeightF,height_weight,,,3025315,44818701,9529
+Birth Weight    (kg),height_weight,,,3025315,44818701,9529
+Present Weight  (kg),height_weight,,,3025315,44818701,9529
+Previous Weight (kg),height_weight,,,3025315,44818701,9529
+Previous Weight,height_weight,,,3025315,44818701,9529
+Weight Kg,height_weight,,,3025315,44818701,9529
 Admission Weight (lbs.),height_weight,,,3025315,44818701,9529
 Admission Weight (Kg),height_weight,,,3025315,44818701,9529
+Admission Weight (lbs.),height_weight,,,3025315,44818701,9529
+Height Inches,height_weight,,,3036277,44818701,9546
 Admit Ht,height_weight,,,3036277,44818701,9546
 Height,height_weight,,,3036277,44818701,9546
 Heart Rhythm,heart_rhythm,,,3022318,44818701,8510
@@ -288,4 +301,3 @@ VENT CPP,hemodynamic,,,21490695,44818701,8876
 Vent CPP,hemodynamic,,,21490695,44818701,8876
 Camino CPP,hemodynamic,,,21490695,44818701,8876
 CPP WITH CAMINO ICP,hemodynamic,,,21490695,44818701,8876
-
