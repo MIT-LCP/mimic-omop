@@ -1,5 +1,16 @@
 d_label,label_type,value_lb,value_ub,measurement_concept_id,measurement_type_concept_id,unit_concept_id
 Code Status,resuscitation,,,4127294,44818701,8510
+Dialysis Type,dialysis,,,45884382,44818701,8510
+Fingerstick Glucose,glucose,,,3034962,44818701,8510
+Glucose finger stick,glucose,,,3034962,44818701,8510
+INV Line#1 [Type],dialysis,,,45882941,44818701,8510
+INV Line#2 [Type],dialysis,,,45880764,44818701,8510
+INV Line#3 [Type],dialysis,,,45882279,44818701,8510
+INV Line#4 [Type],dialysis,,,45880765,44818701,8510
+INV Line#5 [Type],dialysis,,,45876994,44818701,8510
+INV Line#6 [Type],dialysis,,,45876711,44818701,8510
+INV Line#7 [Type],dialysis,,,45879196,44818701,8510
+INV Line#8 [Type],dialysis,,,45883840,44818701,8510
 Bowel Sounds,sounds,,,4337265,44818701,8510
 Pain Management,pain,,,4192791,44818701,8510
 Pain Assess Method,pain,,,4021323,44818701,8510
@@ -32,7 +43,11 @@ Admission Weight (lbs.),height_weight,,,3025315,44818701,9529
 Height Inches,height_weight,,,3036277,44818701,9546
 Admit Ht,height_weight,,,3036277,44818701,9546
 Height,height_weight,,,3036277,44818701,9546
+Height (cm),height_weight,,,3036277,44818701,9546
 Heart Rhythm,heart_rhythm,,,3022318,44818701,8510
+Cardiac Rhythm,heart_rhythm,,,3022318,44818701,8510
+Heart Rate,heart_rate,20,300,3027018,44818701,8581
+High Resp. Rate,respiratory_rate,0,100,3024171,44818701,8541
 Respiratory Rate,respiratory_rate,0,100,3024171,44818701,8541
 Respiratory Rate (spontaneous),respiratory_rate,0,100,3024171,44818701,8541
 Respiratory Rate (Total),respiratory_rate,0,100,3024171,44818701,8541
@@ -243,7 +258,6 @@ ABP [Systolic],systolic_bp,20,400,3004249,44818701,8876
 Non Invasive Blood Pressure systolic,systolic_bp,20,400,3004249,44818701,8876
 Manual Blood Pressure Systolic Left,systolic_bp,20,400,3004249,44818701,8876
 Manual Blood Pressure Systolic Right,systolic_bp,20,400,3004249,44818701,8876
-Heart Rate,heart_rate,20,300,3027018,44818701,8581
 Temperature F,temperature,30,45,3020891,44818701,4122393
 Temperature C (calc),temperature,30,45,3020891,44818701,4122393
 Temp Skin [C],temperature,30,45,3020891,44818701,4122393
