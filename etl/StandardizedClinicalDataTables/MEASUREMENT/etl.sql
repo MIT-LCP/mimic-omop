@@ -688,6 +688,7 @@ SELECT
 	           WHEN d_items.LABEL ~* 'lb' THEN 0.453592 * c.VALUENUM
 		   ELSE NULL
 		   END
+		WHEN d_items.LABEL ~ 'cm' THEN c.VALUENUM / 100::numeric
 		ELSE 0.0254 * c.VALUENUM
 		END
 	ELSE NULL
