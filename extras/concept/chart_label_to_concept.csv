@@ -81,6 +81,10 @@ O2 Flow,o2flow,0,100,3014080,44818701,8698
 O2 Flow (lpm) #2,o2flow,0,100,3014080,44818701,8698
 O2 Flow (additional cannula),o2flow,0,100,3014080,44818701,8698
 Additional Gas (lpm),o2flow,0,100,3014080,44818701,8698
+O2 Delivery Device,o2delivery,,,4036936,44818701,8510
+O2 Delivery Device#2,o2delivery,,,4036936,44818701,8510
+O2 Delivery Mode,o2delivery,,,4036936,44818701,8510
+O2 Delivery Device(s),o2delivery,,,4036936,44818701,8510
 BIPAP - O2 lpm,o2flow,0,100,3014080,44818701,8698
 BiPap O2 Flow,o2flow,0,100,3014080,44818701,8698
 Flow-By (lpm),o2flow,0,100,3014080,44818701,8698
