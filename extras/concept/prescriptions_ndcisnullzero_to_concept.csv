@@ -305,7 +305,6 @@ Astepro 0.15 % (205.5 mcg) Nasal Spray,36250116,Azelastine hydrochloride 0.206 M
 Prednisone Prednisone Oral Concentrate,40127030,Prednisone Oral Solution [Prednisone Intensol]
 Hydromorphone P.F. 1000mcg/1mL Amp,1126658,Hydromorphone
 Ertapenem 500 mg,1717963,ertapenem
-Advair Diskus 100/50MCG,40170634,fluticasone / salmeterol Dry Powder Inhaler [Advair]
 Advair Diskus 100/50MCG,40171027,Fluticasone propionate 0.1 MG/ACTUAT / salmeterol 0.05 MG/ACTUAT [Advair]
 Klonopin 0.5 mg Tab,19031562,Clonazepam 0.5 MG Oral Tablet [Klonopin]
 Morphine Sulfate Given in OR,1110410,Morphine
@@ -572,8 +571,7 @@ Claritin-D 12 Hour  5-120 1 tablet,42705763,Loratadine 5 MG / Pseudoephedrine su
 Meloxicam 15mg,1150373,meloxicam 15 MG
 Ocuvite Lutein tab,40169442,Ascorbic Acid / cuprous oxide / Lutein / Vitamin E / Zinc Oxide Oral Capsule [Ocuvite Lutein]
 HYDROmorphone PCA (Dilaudid) ,1126658,Hydromorphone
-Meperidine HCl 100MG/2ML AMP,1102527,Meperidine
-Meperidine HCl 100MG/2ML AMP,40164998,Meperidine Hydrochloride 100 MG/ML
+Meperidine HCl 100MG/2ML AMP,43653663,Meperidine 50 MG/ML [Dolantin]
 Lotrel 5-20,40171561,Amlodipine 5 MG / Benazepril hydrochloride 20 MG [Lotrel]
 Lotrel 10 mg-40 mg Cap,40171551,Amlodipine 10 MG / Benazepril hydrochloride 40 MG Oral Capsule [Lotrel]
 Vigamox 1 gtt,40057468,moxifloxacin Ophthalmic Solution [Vigamox]
@@ -1209,7 +1207,6 @@ Lotemax 0.5,40238170,loteprednol etabonate 0.005 MG/MG [Lotemax]
 Phenylephrine HCl 1% Phenylephrine 1%,1135766,Phenylephrine
 CONCERTA 18mg,40236428,Methylphenidate Hydrochloride 18 MG [Concerta]
 desvenlafaxine 100 mg,19129663,Desvenlafaxine 100 MG
-desvenlafaxine 100 mg,1593106,desvenlafaxine succinate 100 MG
 Haloperidol ,766529,Haloperidol
 Flonase 50 mcg/actuation,40171024,Fluticasone propionate 0.05 MG/ACTUAT [Flonase]
 Ambien CR 12.5 mg Tab,40163498,Zolpidem tartrate 12.5 MG [Ambien]
