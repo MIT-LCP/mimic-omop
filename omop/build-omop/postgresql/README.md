@@ -71,13 +71,13 @@ Import the vocabulary:
 psql "$OMOP" -f "omop/build-omop/postgresql/omop_vocab_load.sql"
 ```
 
-(Optional, recommended) Build indexes and primary key constraints:
+(Optional) Indexes may slow down importing of data - so you may want to only build these *after* running the full ETL.
 
 ```bash
 psql "$OMOP" -f "omop/build-omop/postgresql/OMOP CDM postgresql indexes.txt"
 ```
 
-(Optional, experimental) Build foreign key constraints (slows things down usually but can be useful to ensure integrity of data):
+(Optional, experimental) For a similar reason as above, you may want to run this after the full ETL. Note also that since the foreign keys were not used during the construction of the ETL, they may have been violated by the process.
 
 ```bash
 psql "$OMOP" -f "omop/build-omop/postgresql/OMOP CDM postgresql constraints.txt"
