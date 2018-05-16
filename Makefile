@@ -1,10 +1,10 @@
 MIMIC_SCHEMA=mimiciii
 OMOP_SCHEMA=omop
 MIMIC="host=localhost dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA)"
-OMOP="host=localhost dbname=mimic user=postgres options=--search_path=omop$(OMOP_SCHEMA)"
+OMOP="host=localhost dbname=mimic user=postgres options=--search_path=$(OMOP_SCHEMA)"
 
 runetl: sequence concept load
-runetlprivate: runetl private exportmonetdenorm
+runetlprivate: runetl private
 
 buildomop:
 	psql $(OMOP) -f omop/build-omop/postgresql/omop_ddl_comments.sql &&\
