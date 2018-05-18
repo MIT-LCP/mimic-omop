@@ -17,15 +17,15 @@ WITH
 	, ndc as drug_source_value -- ndc was used for automatic/manual mapping
 	, form_val_disp
 	FROM prescriptions
-	LEFT join omop.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
-	LEFT join omop.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
-	LEFT join omop.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
+	LEFT join :OMOP_SCHEMA.concept on domain_id = 'Drug' and concept_code = ndc::text --this covers 85% of direct mapping but no standard
+	LEFT join :OMOP_SCHEMA.concept_relationship on concept_id = concept_id_1 and relationship_id = 'Maps to'
+	LEFT join :OMOP_SCHEMA.concept c2 on c2.concept_id = concept_id_2 and c2.standard_concept = 'S' --covers 71% of rxnorm standards concepts
 	LEFT JOIN gcpt_route_to_concept using (route)
 	LEFT JOIN gcpt_prescriptions_ndcisnullzero_to_concept as c3 ON coalesce(drug, drug_name_poe, drug_name_generic,'') || ' ' || coalesce(prod_strength, '') = c3.label -- this improve to 85% mapping and save most of ndc = 0
 ),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
-"omop_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM omop.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC prescriptions'),
+":OMOP_SCHEMA_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM :OMOP_SCHEMA.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC prescriptions'),
 "row_to_insert" AS (
 	SELECT
   drug_exposure_id
@@ -53,11 +53,11 @@ WITH
 , dose_unit_source_value
 , form_val_disp as quantity_source_value
 FROM pr
-LEFT JOIN omop_local_drug USING (drug_source_value)
+LEFT JOIN :OMOP_SCHEMA_local_drug USING (drug_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 )
-INSERT INTO omop.drug_exposure
+INSERT INTO :OMOP_SCHEMA.drug_exposure
 (
 		drug_exposure_id
 	,	person_id
@@ -150,9 +150,9 @@ SELECT
 FROM inputevents_mv
 WHERE cancelreason = 0
 ),
---"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+--"rxnorm_map" AS (SELECT distinct on (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM mimic.gcpt_gdata_drug_exposure LEFT JOIN :OMOP_SCHEMA.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "rxnorm_map" AS (-- exploit the mapping based on ndc
-select distinct drug_concept_id, concept_name as drug_source_value from omop.drug_exposure left join omop.concept on drug_concept_id = concept_id where drug_concept_id != 0),
+select distinct drug_concept_id, concept_name as drug_source_value from :OMOP_SCHEMA.drug_exposure left join :OMOP_SCHEMA.concept on drug_concept_id = concept_id where drug_concept_id != 0),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
@@ -161,7 +161,7 @@ select distinct drug_concept_id, concept_name as drug_source_value from omop.dru
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
 "d_items" AS (SELECT itemid, label as drug_source_value, mimic_id as drug_source_concept_id FROM d_items),
 "fact_relationship" AS (
-INSERT INTO omop.fact_relationship
+INSERT INTO :OMOP_SCHEMA.fact_relationship
 (
   domain_concept_id_1
 , fact_id_1
@@ -181,7 +181,7 @@ FROM imv mv1
 LEFT JOIN imv mv2 ON (mv2.orderid = mv1.linkorderid AND mv2.is_leader IS TRUE)
 ),
 "fact_relationship_order" AS (
-INSERT INTO omop.fact_relationship
+INSERT INTO :OMOP_SCHEMA.fact_relationship
 (
   domain_concept_id_1
 , fact_id_1
@@ -234,7 +234,7 @@ LEFT JOIN gcpt_map_route_to_concept USING (ordercategoryname)
 LEFT JOIN d_items USING (itemid)
 LEFT JOIN rxnorm_map USING (drug_source_value)
 )
-INSERT INTO omop.drug_exposure
+INSERT INTO :OMOP_SCHEMA.drug_exposure
 (
 	  drug_exposure_id
 	, person_id
@@ -287,7 +287,7 @@ SELECT
 , dose_unit_source_value
 , quantity::text as quantity_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign
+LEFT JOIN :OMOP_SCHEMA.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -330,9 +330,9 @@ FROM inputevents_cv
 ),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
---"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM .gcpt_gdata_drug_exposure LEFT JOIN omop.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
+--"rxnorm_map" AS (SELECT DISTINCT ON (drug_source_value) concept_id as drug_concept_id, drug_source_value FROM .gcpt_gdata_drug_exposure LEFT JOIN :OMOP_SCHEMA.concept ON drug_concept_id::text = concept_code AND domain_id = 'Drug' WHERE drug_concept_id IS NOT NULL),
 "rxnorm_map" AS (-- exploit the mapping based on ndc
-select distinct drug_concept_id, concept_name as drug_source_value from omop.drug_exposure left join omop.concept on drug_concept_id = concept_id where drug_concept_id != 0),
+select distinct drug_concept_id, concept_name as drug_source_value from :OMOP_SCHEMA.drug_exposure left join :OMOP_SCHEMA.concept on drug_concept_id = concept_id where drug_concept_id != 0),
 "gcpt_inputevents_drug_to_concept" AS (SELECT itemid, concept_id as drug_concept_id FROM gcpt_inputevents_drug_to_concept),
 "gcpt_cv_input_label_to_concept" AS (SELECT DISTINCT ON (item_id) item_id as itemid, concept_id as drug_concept_id FROM gcpt_mv_input_label_to_concept),
 "caregivers" AS (SELECT mimic_id AS provider_id, cgid FROM caregivers),
@@ -342,7 +342,7 @@ select distinct drug_concept_id, concept_name as drug_source_value from omop.dru
 	select dose_unit_source_value, dose_unit_source_value_new
  from gcpt_continuous_unit_carevue),
 "fact_relationship" AS (
-INSERT INTO omop.fact_relationship
+INSERT INTO :OMOP_SCHEMA.fact_relationship
 (
   domain_concept_id_1
 , fact_id_1
@@ -398,7 +398,7 @@ LEFT JOIN rxnorm_map USING (drug_source_value)
 LEFT JOIN gcpt_map_route_to_concept USING (originalroute)
 LEFT JOIN gcpt_continuous_unit_carevue USING (dose_unit_source_value)
 )
-INSERT INTO omop.drug_exposure
+INSERT INTO :OMOP_SCHEMA.drug_exposure
 (
 	  drug_exposure_id
 	, person_id
@@ -451,7 +451,7 @@ SELECT
 , dose_unit_source_value
 , quantity::text as quantity_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign
+LEFT JOIN :OMOP_SCHEMA.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail

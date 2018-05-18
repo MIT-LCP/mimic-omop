@@ -32,7 +32,7 @@ UNION ALL
        SELECT care_site.care_site_name
             , care_site.care_site_id
             , visit_detail_concept_id
-       FROM omop.care_site
+       FROM :OMOP_SCHEMA.care_site
        left join gcpt_care_site on gcpt_care_site.care_site_name = care_site.care_site_source_value
 ),
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
@@ -92,7 +92,7 @@ UNION ALL
 	LEFT JOIN gcpt_discharge_location_to_concept USING (discharge_location)
 ),
 "insert_visit_detail_ward" AS (
-INSERT INTO omop.visit_detail
+INSERT INTO :OMOP_SCHEMA.visit_detail
 (
     visit_detail_id
   , person_id
@@ -159,7 +159,7 @@ LEFT JOIN gcpt_care_site USING (care_site_name)
 	WHERE callout_outcome not ilike 'cancel%' AND visit_detail_id IS NOT NULL
 ),
 "insert_callout_delay" AS (
-	INSERT INTO omop.cohort_attribute
+	INSERT INTO :OMOP_SCHEMA.cohort_attribute
   (
   	  cohort_definition_id
   	, cohort_start_date
@@ -180,7 +180,7 @@ LEFT JOIN gcpt_care_site USING (care_site_name)
 	FROM callout_delay
 ),
 "insert_visit_detail_delay" AS (
-	INSERT INTO omop.cohort_attribute
+	INSERT INTO :OMOP_SCHEMA.cohort_attribute
   (
   	  cohort_definition_id
   	, cohort_start_date
@@ -214,7 +214,7 @@ WITH
 	   care_site.care_site_name
 	 , care_site.care_site_id
 	 , visit_detail_concept_id
-	      FROM omop.care_site
+	      FROM :OMOP_SCHEMA.care_site
 	      LEFT JOIN gcpt_care_site on gcpt_care_site.care_site_name = care_site.care_site_source_value
 ),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
@@ -317,8 +317,8 @@ FROM visit_detail_service;
 -- the way of assigning is quite simple right now
 -- but simple error is better than complicate error
 -- meaning, those links are artificial watever we do
- DROP TABLE IF EXISTS omop.visit_detail_assign;
- CREATE TABLE omop.visit_detail_assign AS
+ DROP TABLE IF EXISTS :OMOP_SCHEMA.visit_detail_assign;
+ CREATE TABLE :OMOP_SCHEMA.visit_detail_assign AS
  SELECT
    visit_detail_id
  , visit_occurrence_id
@@ -328,6 +328,6 @@ FROM visit_detail_service;
  , visit_detail_id = last_value(visit_detail_id) OVER(PARTITION BY visit_occurrence_id ORDER BY visit_start_datetime ASC range between current row and unbounded following) AS is_last
  , visit_detail_concept_id = 581382 AS is_icu
  , visit_detail_concept_id = 581381 AS is_emergency
- FROM  omop.visit_detail
+ FROM  :OMOP_SCHEMA.visit_detail
  WHERE visit_type_concept_id = 2000000006 -- only ward kind
  ;
