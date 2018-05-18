@@ -25,7 +25,7 @@ WITH
 ),
 "patients" AS (SELECT subject_id, mimic_id as person_id from patients),
 "admissions" AS (SELECT hadm_id, mimic_id as visit_occurrence_id FROM admissions),
-":OMOP_SCHEMA_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM :OMOP_SCHEMA.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC prescriptions'),
+"omop_local_drug" AS (SELECT concept_name as drug_source_value, concept_id as drug_source_concept_id FROM :OMOP_SCHEMA.concept WHERE domain_id = 'prescriptions' AND vocabulary_id = 'MIMIC prescriptions'),
 "row_to_insert" AS (
 	SELECT
   drug_exposure_id
@@ -53,7 +53,7 @@ WITH
 , dose_unit_source_value
 , form_val_disp as quantity_source_value
 FROM pr
-LEFT JOIN :OMOP_SCHEMA_local_drug USING (drug_source_value)
+LEFT JOIN omop_local_drug USING (drug_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 )

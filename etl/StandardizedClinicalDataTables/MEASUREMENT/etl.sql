@@ -18,14 +18,14 @@ WITH
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "d_labitems" AS (SELECT itemid, label as measurement_source_value, fluid, loinc_code, category, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label as measurement_source_value, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
-":OMOP_SCHEMA_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as loinc_code FROM :OMOP_SCHEMA.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
-":OMOP_SCHEMA_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as loinc_code FROM :OMOP_SCHEMA.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
 "row_to_insert" AS (
 SELECT
   labevents.measurement_id
 , patients.person_id
-, coalesce(:OMOP_SCHEMA_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id
+, coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id
 , labevents.measurement_datetime::date AS measurement_date
 , labevents.measurement_datetime AS measurement_datetime
 , CASE
@@ -52,8 +52,8 @@ FROM labevents
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN d_labitems USING (itemid)
-LEFT JOIN :OMOP_SCHEMA_loinc USING (loinc_code)
-LEFT JOIN :OMOP_SCHEMA_operator USING (operator_name)
+LEFT JOIN omop_loinc USING (loinc_code)
+LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (measurement_source_value)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value)
 LEFT JOIN gcpt_labs_specimen_to_concept ON (d_labitems.fluid =  gcpt_labs_specimen_to_concept.label)
@@ -206,8 +206,8 @@ WITH
 "d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-":OMOP_SCHEMA_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
-":OMOP_SCHEMA_loinc" AS (
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_loinc" AS (
 	SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label
 	FROM :OMOP_SCHEMA.concept
 	WHERE vocabulary_id = 'LOINC'
@@ -220,7 +220,7 @@ WITH
 	SELECT
   chartevents_lab.measurement_id
 , patients.person_id
-, coalesce(:OMOP_SCHEMA_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id
+, coalesce(omop_loinc.measurement_concept_id, gcpt_lab_label_to_concept.measurement_concept_id, 0) as measurement_concept_id
 , chartevents_lab.measurement_datetime::date AS measurement_date
 , chartevents_lab.measurement_datetime AS measurement_datetime
 , CASE
@@ -248,8 +248,8 @@ WITH
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN d_items USING (itemid)
-LEFT JOIN :OMOP_SCHEMA_loinc USING (label)
-LEFT JOIN :OMOP_SCHEMA_operator USING (operator_name)
+LEFT JOIN omop_loinc USING (label)
+LEFT JOIN omop_operator USING (operator_name)
 LEFT JOIN gcpt_lab_label_to_concept USING (label)
 LEFT JOIN gcpt_labs_from_chartevents_to_concept USING (category, label)
 LEFT JOIN gcpt_lab_unit_to_concept USING (unit_source_value)
@@ -526,7 +526,7 @@ RETURNING *
     FROM specimen_culture
     )
 ),
-":OMOP_SCHEMA_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_resistance_to_concept" AS (SELECT * FROM gcpt_resistance_to_concept),
 "gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN :OMOP_SCHEMA.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')),
 "gcpt_spec_type_to_concept" AS (SELECT concept_id as measurement_concept_id, spec_type_desc as measurement_source_value FROM gcpt_spec_type_to_concept LEFT JOIN :OMOP_SCHEMA.concept ON (loinc = concept_code AND standard_concept ='S' AND domain_id = 'Measurement')),
@@ -585,7 +585,7 @@ LEFT JOIN gcpt_resistance_to_concept USING (interpretation)
 LEFT JOIN gcpt_atb_to_concept USING (measurement_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
-LEFT JOIN :OMOP_SCHEMA_operator USING (operator_name)
+LEFT JOIN omop_operator USING (operator_name)
 )
 INSERT INTO :OMOP_SCHEMA.measurement
 (

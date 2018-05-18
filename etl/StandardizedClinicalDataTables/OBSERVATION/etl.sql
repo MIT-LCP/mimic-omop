@@ -255,7 +255,7 @@ FROM drgcodes
 SELECT
           observation_id
         , person_id
-        , 4296248 as observation_concept_id -- Cost containment drgcode should be in cost table apparently.... http://forums.ohdsi.org/t/most-appropriate-:OMOP_SCHEMA-table-to-house-drg-information/1591/9
+        , 4296248 as observation_concept_id -- Cost containment drgcode should be in cost table apparently.... http://forums.ohdsi.org/t/most-appropriate-omop-table-to-house-drg-information/1591/9
         , observation_datetime::date as observation_date
         , observation_datetime
         , 38000280 as observation_type_concept_id -- Observation recorded from EHR

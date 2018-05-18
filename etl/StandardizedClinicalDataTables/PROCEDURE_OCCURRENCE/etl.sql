@@ -21,7 +21,7 @@ WITH
 ),
 "gcpt_procedure_to_concept" as (SELECT item_id as itemid, concept_id as procedure_concept_id from gcpt_procedure_to_concept),
 "cpt_event" AS ( SELECT mimic_id as procedure_occurrence_id , subject_id , hadm_id , chartdate as procedure_datetime, cpt_cd, subsectionheader as procedure_source_value FROM cptevents),
-":OMOP_SCHEMA_cpt4" as (SELECT concept_id as procedure_source_concept_id, concept_code as cpt_cd FROM :OMOP_SCHEMA.concept where vocabulary_id = 'CPT4'),
+"omop_cpt4" as (SELECT concept_id as procedure_source_concept_id, concept_code as cpt_cd FROM :OMOP_SCHEMA.concept where vocabulary_id = 'CPT4'),
 "standard_cpt4" as (
 	select distinct on (c1.concept_id) first_value(c2.concept_id) over(partition by c1.concept_id order by relationship_id ASC) as procedure_concept_id, c1.concept_code as cpt_cd --keep snomed in predilection
 	from :OMOP_SCHEMA.concept c1
@@ -45,12 +45,12 @@ SELECT
 , admissions.visit_occurrence_id
 , null::integer as visit_detail_id -- the chartdate is never a time, when exist
 , cpt_event.procedure_source_value
-, :OMOP_SCHEMA_cpt4.procedure_source_concept_id as procedure_source_concept_id
+, omop_cpt4.procedure_source_concept_id as procedure_source_concept_id
 , null::text as modifier_source_value
 FROM cpt_event
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
-LEFT JOIN :OMOP_SCHEMA_cpt4 USING (cpt_cd)
+LEFT JOIN omop_cpt4 USING (cpt_cd)
 LEFT JOIN standard_cpt4 USING (cpt_cd)
 UNION ALL
 SELECT
