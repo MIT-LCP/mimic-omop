@@ -8,8 +8,8 @@ ALTER TABLE observation_period ADD COLUMN "observation_period_end_datetime" TIME
 ALTER TABLE visit_occurrence ADD COLUMN "admitting_concept_id" INTEGER NULL ;
 ALTER TABLE visit_occurrence ADD COLUMN "discharge_to_source_concept_id" INTEGER NULL ;
 
-ALTER TABLE visit_detail ADD COLUMN visit_detail_source_value" VARCHAR(50) NULL ;
-ALTER TABLE visit_detail ADD COLUMN visit_detail_source_concept_id" INTEGER NULL ;
+ALTER TABLE visit_detail ADD COLUMN "visit_detail_source_value" VARCHAR(50) NULL ;
+ALTER TABLE visit_detail ADD COLUMN "visit_detail_source_concept_id" INTEGER NULL ;
 ALTER TABLE visit_detail ADD COLUMN "admitting_concept_id" INTEGER NULL ;
 ALTER TABLE visit_detail ADD COLUMN "discharge_to_source_concept_id" INTEGER NULL;
 
