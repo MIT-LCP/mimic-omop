@@ -40,7 +40,7 @@ LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
 )
-INSERT INTO omop.NOTE
+INSERT INTO :OMOP_SCHEMA.NOTE
 (
     note_id
   , person_id

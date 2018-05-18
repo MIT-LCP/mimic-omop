@@ -14,7 +14,7 @@ WITH
 , valid_start_date
 , valid_end_date
 , invalid_reason
-FROM omop.drug_strength
+FROM :OMOP_SCHEMA.drug_strength
 WHERE amount_value is not null
 ),
 "prescription_written" as (
@@ -42,7 +42,7 @@ WHERE amount_value is not null
 , drug_source_concept_id
 , route_source_value
 , dose_unit_source_value
-FROM omop.drug_exposure
+FROM :OMOP_SCHEMA.drug_exposure
 WHERE TRUE
 AND drug_type_concept_id = 38000177   -- concept.concept_name = 'Prescription written'
 AND dose_unit_source_value IN ('TAB', 'mg', 'g', 'dose', 'SUPP', 'TAB', 'LOZ', 'TROC')
@@ -65,7 +65,7 @@ nextval('mimic_id_seq') as dose_era_id
 FROM prescription_written drug_exposure
 INNER JOIN drug_strength USING (drug_concept_id)
 )
-INSERT INTO omop.dose_era
+INSERT INTO :OMOP_SCHEMA.dose_era
 SELECT
   dose_era_id         
 , person_id           
@@ -111,7 +111,7 @@ drug_exposure_id
 , quantity_source_value
 , unit_concept_id
 , temporal_unit_concept_id
-FROM omop.drug_exposure
+FROM :OMOP_SCHEMA.drug_exposure
 INNER JOIN 
 	(SELECT label AS dose_unit_source_value, unit_concept_id, temporal_unit_concept_id 
 	FROM  gcpt_unit_doseera_concept_id) --mEq, mEQ ...
@@ -121,7 +121,7 @@ AND drug_type_concept_id = 38000180   -- concept.concept_name = 'Inpatient admin
 AND quantity IS NOT NULL
 AND drug_concept_id != 0
 )
-INSERT INTO omop.dose_era
+INSERT INTO :OMOP_SCHEMA.dose_era
 SELECT
 nextval('mimic_id_seq') as dose_era_id
 , person_id           
