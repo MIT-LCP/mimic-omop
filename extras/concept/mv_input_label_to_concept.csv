@@ -1,4 +1,13 @@
 label,item_id,route,concept_id
+Fresh Frozen Plasma,220970,7,4022171
+OR FFP Intake,226367,15,4022171
+PACU FFP Intake,227072,15,4022171
+Platelets,225170,7,4130829
+OR Platelet Intake,226369,15,4130829
+PACU Platelet Intake,227071,15,4130829
+OR Packed RBC Intake,226368,15,4022173
+PACU Packed RBC Intake,227070,15,4022173
+Packed Red Blood Cells,225168,7,4022173
 Dextrose 5%,220949,1,3037253
 NaCl 0.9%,225158,1,3037253
 Sterile Water,225944,1,3037253
@@ -38,9 +47,6 @@ Albumin 5%,220864,4,3037253
 Albumin 25%,220862,4,3037253
 Hetastarch (Hespan) 6%,225174,4,3037253
 Dextran 40,225795,4,3037253
-Packed Red Blood Cells,225168,7,3037253
-Fresh Frozen Plasma,220970,7,3037253
-Platelets,225170,7,3037253
 Cryoprecipitate,225171,7,3037253
 IV Immune Globulin (IVIG),227530,7,3037253
 Plasma Pheresis,227532,7,3037253
@@ -51,19 +57,13 @@ NaCl 0.9%,225158,8,3037253
 Sterile Water,225944,8,3037253
 OR Crystalloid Intake,226364,15,3037253
 Pre-Admission Intake,226361,15,3037253
-OR Packed RBC Intake,226368,15,3037253
 OR Cell Saver Intake,226372,15,3037253
 OR Colloid Intake,226365,15,3037253
-OR FFP Intake,226367,15,3037253
 PACU Crystalloid Intake,226375,15,3037253
 Cath Lab Intake,226363,15,3037253
-OR Platelet Intake,226369,15,3037253
 PACU Colloid Intake,226376,15,3037253
 OR Cryoprecipitate Intake,226371,15,3037253
 OR Autologous Blood Intake,226370,15,3037253
-PACU Packed RBC Intake,227070,15,3037253
-PACU FFP Intake,227072,15,3037253
-PACU Platelet Intake,227071,15,3037253
 Replete with Fiber (Full),225936,13,3006552
 Fibersource HN (Full),227695,13,3006552
 Nutren Pulmonary (Full),226880,13,3006552
