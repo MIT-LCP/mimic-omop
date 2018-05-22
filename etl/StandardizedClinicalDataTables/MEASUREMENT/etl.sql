@@ -18,8 +18,8 @@ WITH
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
 "d_labitems" AS (SELECT itemid, label as measurement_source_value, fluid, loinc_code, category, mimic_id FROM d_labitems),
 "gcpt_lab_label_to_concept" AS (SELECT label as measurement_source_value, concept_id as measurement_concept_id FROM gcpt_lab_label_to_concept),
-"omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as loinc_code FROM omop.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
-"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_loinc" AS (SELECT concept_id AS measurement_concept_id, concept_code as loinc_code FROM :OMOP_SCHEMA.concept WHERE vocabulary_id = 'LOINC' AND domain_id = 'Measurement'),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_lab_unit_to_concept" AS (SELECT unit as unit_source_value, concept_id as unit_concept_id FROM gcpt_lab_unit_to_concept),
 "row_to_insert" AS (
 SELECT
@@ -79,7 +79,7 @@ SELECT
 FROM row_to_insert
 ),
 "insert_specimen_lab" AS (
-INSERT INTO omop.specimen
+INSERT INTO :OMOP_SCHEMA.specimen
 (
 	  specimen_id
 	, person_id
@@ -117,7 +117,7 @@ FROM specimen_lab
 RETURNING *
 ),
 "insert_fact_relationship_specimen_measurement" AS (
-    INSERT INTO omop.fact_relationship
+    INSERT INTO :OMOP_SCHEMA.fact_relationship
     (SELECT
       36 AS domain_concept_id_1 -- Specimen
     , specimen_id as fact_id_1
@@ -135,7 +135,7 @@ RETURNING *
     FROM specimen_lab
     )
 )
-INSERT INTO omop.measurement
+INSERT INTO :OMOP_SCHEMA.measurement
 (
 	  measurement_id
 	, person_id
@@ -194,7 +194,7 @@ WITH
 	, extract_value_period_decimal(value)    as value_as_number
 	, coalesce(valueuom, extract_unit(value)) AS unit_source_value
 	FROM chartevents
-        JOIN omop.concept -- concept driven dispatcher
+        JOIN :OMOP_SCHEMA.concept -- concept driven dispatcher
         ON (    concept_code  = itemid::Text
             AND domain_id     = 'Measurement'
             AND vocabulary_id = 'MIMIC d_items'
@@ -206,10 +206,10 @@ WITH
 "d_items" AS (SELECT itemid, category, label, mimic_id FROM d_items),
 "patients" AS (SELECT mimic_id AS person_id, subject_id FROM patients),
 "admissions" AS (SELECT mimic_id AS visit_occurrence_id, hadm_id FROM admissions),
-"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "omop_loinc" AS (
 	SELECT distinct on (concept_name) concept_id AS measurement_concept_id, concept_name as label
-	FROM omop.concept
+	FROM :OMOP_SCHEMA.concept
 	WHERE vocabulary_id = 'LOINC'
 	AND domain_id = 'Measurement'
 	AND standard_concept = 'S'),
@@ -275,7 +275,7 @@ SELECT
 FROM row_to_insert
 ),
 "insert_specimen_lab" AS (
-INSERT INTO omop.specimen
+INSERT INTO :OMOP_SCHEMA.specimen
 (
 	  specimen_id
 	, person_id
@@ -313,7 +313,7 @@ FROM specimen_lab
 RETURNING *
 ),
 "insert_fact_relationship_specimen_measurement" AS (
-    INSERT INTO omop.fact_relationship
+    INSERT INTO :OMOP_SCHEMA.fact_relationship
     (SELECT
       36 AS domain_concept_id_1 -- Specimen
     , specimen_id as fact_id_1
@@ -331,7 +331,7 @@ RETURNING *
     FROM specimen_lab
     )
 )
-INSERT INTO omop.measurement
+INSERT INTO :OMOP_SCHEMA.measurement
 (
 	  measurement_id
 	, person_id
@@ -428,7 +428,7 @@ WITH
 		AND coalesce(resistance.org_name,'') = coalesce(culture.org_name,''))
 ),
 "insert_fact_relationship" AS (
-    INSERT INTO omop.fact_relationship
+    INSERT INTO :OMOP_SCHEMA.fact_relationship
     (SELECT
       21 AS domain_concept_id_1 -- Measurement
     , fact_id_1
@@ -470,7 +470,7 @@ FROM culture
 LEFT JOIN patients USING (subject_id)
 ),
 "insert_specimen_culture" AS (
-INSERT INTO omop.specimen
+INSERT INTO :OMOP_SCHEMA.specimen
 (
 	  specimen_id
 	, person_id
@@ -508,7 +508,7 @@ FROM specimen_culture
 RETURNING *
 ),
 "insert_fact_relationship_specimen_measurement" AS (
-    INSERT INTO omop.fact_relationship
+    INSERT INTO :OMOP_SCHEMA.fact_relationship
     (SELECT
       36 AS domain_concept_id_1 -- Specimen
     , specimen_id as fact_id_1
@@ -526,11 +526,11 @@ RETURNING *
     FROM specimen_culture
     )
 ),
-"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM omop.concept WHERE  domain_id ilike 'Meas Value Operator'),
+"omop_operator" AS (SELECT concept_name as operator_name, concept_id as operator_concept_id FROM :OMOP_SCHEMA.concept WHERE  domain_id ilike 'Meas Value Operator'),
 "gcpt_resistance_to_concept" AS (SELECT * FROM gcpt_resistance_to_concept),
-"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN omop.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')),
-"gcpt_spec_type_to_concept" AS (SELECT concept_id as measurement_concept_id, spec_type_desc as measurement_source_value FROM gcpt_spec_type_to_concept LEFT JOIN omop.concept ON (loinc = concept_code AND standard_concept ='S' AND domain_id = 'Measurement')),
-"gcpt_atb_to_concept" AS (SELECT concept_id as measurement_concept_id, ab_name as measurement_source_value FROM gcpt_atb_to_concept LEFT JOIN omop.concept ON (concept.concept_code = gcpt_atb_to_concept.concept_code AND standard_concept = 'S' AND domain_id = 'Measurement')),
+"gcpt_org_name_to_concept" AS (SELECT org_name, concept_id AS value_as_concept_id FROM gcpt_org_name_to_concept JOIN :OMOP_SCHEMA.concept ON (concept_code = snomed::text AND vocabulary_id = 'SNOMED')),
+"gcpt_spec_type_to_concept" AS (SELECT concept_id as measurement_concept_id, spec_type_desc as measurement_source_value FROM gcpt_spec_type_to_concept LEFT JOIN :OMOP_SCHEMA.concept ON (loinc = concept_code AND standard_concept ='S' AND domain_id = 'Measurement')),
+"gcpt_atb_to_concept" AS (SELECT concept_id as measurement_concept_id, ab_name as measurement_source_value FROM gcpt_atb_to_concept LEFT JOIN :OMOP_SCHEMA.concept ON (concept.concept_code = gcpt_atb_to_concept.concept_code AND standard_concept = 'S' AND domain_id = 'Measurement')),
 "d_items" AS (SELECT mimic_id as measurement_source_concept_id, itemid FROM d_items WHERE category IN ( 'SPECIMEN', 'ORGANISM')),
 "row_to_insert" AS (SELECT
   culture.measurement_id AS measurement_id
@@ -587,7 +587,7 @@ LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN omop_operator USING (operator_name)
 )
-INSERT INTO omop.measurement
+INSERT INTO :OMOP_SCHEMA.measurement
 (
 	  measurement_id
 	, person_id
@@ -698,7 +698,7 @@ SELECT
       m.value_ub as value_ub,
       concept.concept_code AS measurement_source_value
     FROM chartevents as c
-    JOIN omop.concept -- concept driven dispatcher
+    JOIN :OMOP_SCHEMA.concept -- concept driven dispatcher
     ON (    concept_code  = c.itemid::Text
 	AND domain_id     = 'Measurement'
 	AND vocabulary_id = 'MIMIC d_items'
@@ -747,7 +747,7 @@ FROM chartevents
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN admissions USING (hadm_id))
-INSERT INTO omop.measurement
+INSERT INTO :OMOP_SCHEMA.measurement
 (
 	  measurement_id
 	, person_id
@@ -790,7 +790,7 @@ SELECT
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign
+LEFT JOIN :OMOP_SCHEMA.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -852,7 +852,7 @@ LEFT JOIN d_items USING (itemid)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN caregivers USING (cgid)
 LEFT JOIN admissions USING (hadm_id))
-INSERT INTO omop.measurement
+INSERT INTO :OMOP_SCHEMA.measurement
 (
 	  measurement_id
 	, person_id
@@ -895,7 +895,7 @@ SELECT
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign
+LEFT JOIN :OMOP_SCHEMA.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail
@@ -942,7 +942,7 @@ select
         LEFT JOIN admissions USING (hadm_id)
 	WHERE patientweight is not null
 )
-INSERT INTO omop.measurement
+INSERT INTO :OMOP_SCHEMA.measurement
 (
 	  measurement_id
 	, person_id
@@ -985,7 +985,7 @@ SELECT
 , row_to_insert.unit_source_value
 , row_to_insert.value_source_value
 FROM row_to_insert
-LEFT JOIN omop.visit_detail_assign
+LEFT JOIN :OMOP_SCHEMA.visit_detail_assign
 ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
 AND
 (--only one visit_detail

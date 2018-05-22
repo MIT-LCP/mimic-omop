@@ -15,54 +15,54 @@ ALTER TABLE visit_detail ADD COLUMN "discharge_to_source_concept_id" INTEGER NUL
 
 
 -- those are usefull
-ALTER TABLE omop.dose_era ADD COLUMN temporal_unit_concept_id integer;
-COMMENT ON COLUMN omop.dose_era.temporal_unit_concept_id  IS 'Stores temporal unit, daily, hourly ...';
+ALTER TABLE dose_era ADD COLUMN temporal_unit_concept_id integer;
+COMMENT ON COLUMN dose_era.temporal_unit_concept_id  IS 'Stores temporal unit, daily, hourly ...';
 
-ALTER TABLE omop.dose_era ADD COLUMN temporal_value numeric;
-COMMENT ON COLUMN omop.dose_era.temporal_value IS 'Stores temporal value';
+ALTER TABLE dose_era ADD COLUMN temporal_value numeric;
+COMMENT ON COLUMN dose_era.temporal_value IS 'Stores temporal value';
 
-ALTER TABLE omop.drug_exposure ADD COLUMN quantity_source_value text ;
-COMMENT ON COLUMN omop.drug_exposure.quantity_source_value IS 'Stores the source quantity value';
+ALTER TABLE drug_exposure ADD COLUMN quantity_source_value text ;
+COMMENT ON COLUMN drug_exposure.quantity_source_value IS 'Stores the source quantity value';
 
 -- Below are columns we are considering adding
 
---ALTER TABLE omop.death ADD COLUMN visit_detail_id BIGINT;
---COMMENT ON COLUMN omop.death.visit_detail_id             IS '[CONTRIB] A foreign key to the visit in the VISIT_DETAIL table during where the death occured';
+--ALTER TABLE death ADD COLUMN visit_detail_id BIGINT;
+--COMMENT ON COLUMN death.visit_detail_id             IS '[CONTRIB] A foreign key to the visit in the VISIT_DETAIL table during where the death occured';
 
---ALTER TABLE omop.death ADD COLUMN visit_occurrence_id BIGINT;
---COMMENT ON COLUMN omop.death.visit_occurrence_id             IS '[CONTRIB] A foreign key to the visit in the VISIT_OCCURRENCE table during where the death occured';
+--ALTER TABLE death ADD COLUMN visit_occurrence_id BIGINT;
+--COMMENT ON COLUMN death.visit_occurrence_id             IS '[CONTRIB] A foreign key to the visit in the VISIT_OCCURRENCE table during where the death occured';
 --
---ALTER TABLE omop.death ADD COLUMN death_visit_detail_delay double precision;
---COMMENT ON COLUMN omop.death.death_visit_detail_delay             IS '[CONTRIB] Difference between deathtime and visit_start_datetime of VISIT_DETAIL table';
+--ALTER TABLE death ADD COLUMN death_visit_detail_delay double precision;
+--COMMENT ON COLUMN death.death_visit_detail_delay             IS '[CONTRIB] Difference between deathtime and visit_start_datetime of VISIT_DETAIL table';
 --
---ALTER TABLE omop.death ADD COLUMN death_visit_occurrence_delay double precision;
---COMMENT ON COLUMN omop.death.death_visit_occurrence_delay      IS '[CONTRIB] Difference between deathtime and visit_start_datetime of VISIT_OCCURRENCE table';
+--ALTER TABLE death ADD COLUMN death_visit_occurrence_delay double precision;
+--COMMENT ON COLUMN death.death_visit_occurrence_delay      IS '[CONTRIB] Difference between deathtime and visit_start_datetime of VISIT_OCCURRENCE table';
 --
---ALTER TABLE omop.measurement ADD COLUMN quality_concept_id bigint;
---COMMENT ON COLUMN omop.measurement.quality_concept_id             IS '[CONTRIB] Quality mask, can be queried with regex, to filter based on quality aspects';
+--ALTER TABLE measurement ADD COLUMN quality_concept_id bigint;
+--COMMENT ON COLUMN measurement.quality_concept_id             IS '[CONTRIB] Quality mask, can be queried with regex, to filter based on quality aspects';
 --
---ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_year integer;
---COMMENT ON COLUMN omop.visit_occurrence.age_in_year             IS '[CONTRIB] Age at visit';
+--ALTER TABLE visit_occurrence.ADD COLUMN age_in_year integer;
+--COMMENT ON COLUMN visit_occurrence.age_in_year             IS '[CONTRIB] Age at visit';
 --
---ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_month integer;
---COMMENT ON COLUMN omop.visit_occurrence.age_in_month             IS '[CONTRIB] Age at visit';
+--ALTER TABLE visit_occurrence.ADD COLUMN age_in_month integer;
+--COMMENT ON COLUMN visit_occurrence.age_in_month             IS '[CONTRIB] Age at visit';
 --
---ALTER TABLE omop.visit_occurrence ADD COLUMN age_in_day integer;
---COMMENT ON COLUMN omop.visit_occurrence.age_in_day IS '[CONTRIB] Age at visit';
+--ALTER TABLE visit_occurrence.ADD COLUMN age_in_day integer;
+--COMMENT ON COLUMN visit_occurrence.age_in_day IS '[CONTRIB] Age at visit';
 --
---ALTER TABLE omop.visit_occurrence ADD COLUMN visit_occurrence_length double precision;
---COMMENT ON COLUMN omop.visit_occurrence.visit_occurrence_length IS '[CONTRIB] Length of visit occurrence';
+--ALTER TABLE visit_occurrence.ADD COLUMN visit_occurrence_length double precision;
+--COMMENT ON COLUMN visit_occurrence.visit_occurrence_length IS '[CONTRIB] Length of visit occurrence';
 --
---ALTER TABLE omop.visit_detail ADD COLUMN visit_detail_length double precision;
---COMMENT ON COLUMN omop.visit_detail.visit_detail_length IS '[CONTRIB] Length of visit detail';
+--ALTER TABLE visit_detail ADD COLUMN visit_detail_length double precision;
+--COMMENT ON COLUMN visit_detail.visit_detail_length IS '[CONTRIB] Length of visit detail';
 --
---ALTER TABLE omop.visit_detail ADD COLUMN discharge_delay double precision;
---COMMENT ON COLUMN omop.visit_detail.discharge_delay IS '[CONTRIB] Delay between discharge decision and effective discharge';
+--ALTER TABLE visit_detail ADD COLUMN discharge_delay double precision;
+--COMMENT ON COLUMN visit_detail.discharge_delay IS '[CONTRIB] Delay between discharge decision and effective discharge';
 
 
 -- there is actually no need to limit the character size in postgres.
 -- limiting them is error prone and does not improve any performances or etl security
--- the omop spec says it is possible to alter the text length
+-- the  spec says it is possible to alter the text length
 
 -- SELECT
 --     'ALTER TABLE '||columns.table_name||' ALTER COLUMN   '||columns.column_name||' TYPE text;'
@@ -70,7 +70,7 @@ COMMENT ON COLUMN omop.drug_exposure.quantity_source_value IS 'Stores the source
 --     information_schema.columns
 --  WHERE
 --    columns.table_catalog = 'mimic' AND
---    columns.table_schema = 'omop' AND
+--    columns.table_schema = '' AND
 --    columns.data_type ilike 'character%';
  ALTER TABLE attribute_definition ALTER COLUMN   attribute_name TYPE text;
  ALTER TABLE cdm_source ALTER COLUMN   cdm_source_name TYPE text;
@@ -163,7 +163,7 @@ ALTER TABLE specimen ALTER COLUMN   specimen_source_id TYPE text;
  ALTER TABLE cost ALTER COLUMN   drg_source_value TYPE text;
  ALTER TABLE device_exposure ALTER COLUMN   unique_device_id TYPE text;
  ALTER TABLE device_exposure ALTER COLUMN   device_source_value TYPE text;
- ALTER TABLE measurement ALTER COLUMN   measurement_source_value TYPE text;
+ ALTER TABLE measurement ALTER COLUMN  measurement_source_value TYPE text;
  ALTER TABLE measurement ALTER COLUMN   unit_source_value TYPE text;
  ALTER TABLE measurement ALTER COLUMN   value_source_value TYPE text;
  ALTER TABLE visit_occurrence ALTER COLUMN   visit_source_value TYPE text;
@@ -204,33 +204,33 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 --    information_schema.columns
 -- WHERE
 --   columns.table_catalog = 'mimic' AND
---   columns.table_schema = 'omop' AND
+--   columns.table_schema = '' AND
 --   columns.data_type = 'integer';
 -- ALTER TABLE concept_class ALTER COLUMN   concept_class_concept_id TYPE bigint;
 -- ALTER TABLE source_to_concept_map ALTER COLUMN   source_concept_id TYPE bigint;
 -- ALTER TABLE source_to_concept_map ALTER COLUMN   target_concept_id TYPE bigint;
--- ALTER TABLE measurement ALTER COLUMN   measurement_id TYPE bigint;
+-- ALTER TABLE measurement ALTER COLUMN  measurement_id TYPE bigint;
 -- ALTER TABLE measurement ALTER COLUMN   person_id TYPE bigint;
--- ALTER TABLE measurement ALTER COLUMN   measurement_concept_id TYPE bigint;
--- ALTER TABLE measurement ALTER COLUMN   measurement_type_concept_id TYPE bigint;
+-- ALTER TABLE measurement ALTER COLUMN  measurement_concept_id TYPE bigint;
+-- ALTER TABLE measurement ALTER COLUMN  measurement_type_concept_id TYPE bigint;
 -- ALTER TABLE measurement ALTER COLUMN   operator_concept_id TYPE bigint;
 -- ALTER TABLE measurement ALTER COLUMN   value_as_concept_id TYPE bigint;
 -- ALTER TABLE measurement ALTER COLUMN   unit_concept_id TYPE bigint;
 -- ALTER TABLE measurement ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE measurement ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE measurement ALTER COLUMN   visit_detail_id TYPE bigint;
--- ALTER TABLE measurement ALTER COLUMN   measurement_source_concept_id TYPE bigint;
+-- ALTER TABLE measurement ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE measurement ALTER COLUMN  visit_detail_id TYPE bigint;
+-- ALTER TABLE measurement ALTER COLUMN  measurement_source_concept_id TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   device_exposure_id TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   person_id TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   device_concept_id TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   device_type_concept_id TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   quantity TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE device_exposure ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE device_exposure ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE device_exposure ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE device_exposure ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE device_exposure ALTER COLUMN   device_source_concept_id TYPE bigint;
 -- ALTER TABLE vocabulary ALTER COLUMN   vocabulary_concept_id TYPE bigint;
--- ALTER TABLE visit_occurrence ALTER COLUMN   visit_occurrence_id TYPE bigint;
+-- ALTER TABLE visit_occurrence ALTER COLUMN  visit_occurrence.id TYPE bigint;
 -- ALTER TABLE visit_occurrence ALTER COLUMN   person_id TYPE bigint;
 -- ALTER TABLE visit_occurrence ALTER COLUMN   visit_concept_id TYPE bigint;
 -- ALTER TABLE visit_occurrence ALTER COLUMN   visit_type_concept_id TYPE bigint;
@@ -306,16 +306,16 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 -- ALTER TABLE condition_occurrence ALTER COLUMN   condition_concept_id TYPE bigint;
 -- ALTER TABLE condition_occurrence ALTER COLUMN   condition_type_concept_id TYPE bigint;
 -- ALTER TABLE condition_occurrence ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE condition_occurrence ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE condition_occurrence ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE condition_occurrence ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE condition_occurrence ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE condition_occurrence ALTER COLUMN   condition_source_concept_id TYPE bigint;
 -- ALTER TABLE condition_occurrence ALTER COLUMN   condition_status_concept_id TYPE bigint;
 -- ALTER TABLE observation_period ALTER COLUMN   observation_period_id TYPE bigint;
 -- ALTER TABLE observation_period ALTER COLUMN   person_id TYPE bigint;
 -- ALTER TABLE observation_period ALTER COLUMN   period_type_concept_id TYPE bigint;
--- ALTER TABLE visit_detail ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE visit_detail ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE visit_detail ALTER COLUMN   person_id TYPE bigint;
--- ALTER TABLE visit_detail ALTER COLUMN   visit_detail_concept_id TYPE bigint;
+-- ALTER TABLE visit_detail ALTER COLUMN  visit_detail_concept_id TYPE bigint;
 -- ALTER TABLE visit_detail ALTER COLUMN   visit_type_concept_id TYPE bigint;
 -- ALTER TABLE visit_detail ALTER COLUMN   provider_id TYPE bigint;
 -- ALTER TABLE visit_detail ALTER COLUMN   care_site_id TYPE bigint;
@@ -323,8 +323,8 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 -- ALTER TABLE visit_detail ALTER COLUMN   admitting_concept_id TYPE bigint;
 -- ALTER TABLE visit_detail ALTER COLUMN   discharge_to_concept_id TYPE bigint;
 -- ALTER TABLE visit_detail ALTER COLUMN   preceding_visit_detail_id TYPE bigint;
--- ALTER TABLE visit_detail ALTER COLUMN   visit_detail_parent_id TYPE bigint;
--- ALTER TABLE visit_detail ALTER COLUMN   visit_occurrence_id TYPE bigint;
+-- ALTER TABLE visit_detail ALTER COLUMN  visit_detail_parent_id TYPE bigint;
+-- ALTER TABLE visit_detail ALTER COLUMN  visit_occurrence.id TYPE bigint;
 -- ALTER TABLE drug_exposure ALTER COLUMN   drug_exposure_id TYPE bigint;
 -- ALTER TABLE drug_exposure ALTER COLUMN   person_id TYPE bigint;
 -- ALTER TABLE drug_exposure ALTER COLUMN   drug_concept_id TYPE bigint;
@@ -333,8 +333,8 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 -- ALTER TABLE drug_exposure ALTER COLUMN   days_supply TYPE bigint;
 -- ALTER TABLE drug_exposure ALTER COLUMN   route_concept_id TYPE bigint;
 -- ALTER TABLE drug_exposure ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE drug_exposure ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE drug_exposure ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE drug_exposure ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE drug_exposure ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE drug_exposure ALTER COLUMN   drug_source_concept_id TYPE bigint;
 -- ALTER TABLE note ALTER COLUMN   note_id TYPE bigint;
 -- ALTER TABLE note ALTER COLUMN   person_id TYPE bigint;
@@ -343,8 +343,8 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 -- ALTER TABLE note ALTER COLUMN   encoding_concept_id TYPE bigint;
 -- ALTER TABLE note ALTER COLUMN   language_concept_id TYPE bigint;
 -- ALTER TABLE note ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE note ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE note ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE note ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE note ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE location ALTER COLUMN   location_id TYPE bigint;
 -- ALTER TABLE cohort_definition ALTER COLUMN   cohort_definition_id TYPE bigint;
 -- ALTER TABLE cohort_definition ALTER COLUMN   definition_type_concept_id TYPE bigint;
@@ -357,8 +357,8 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 -- ALTER TABLE observation ALTER COLUMN   qualifier_concept_id TYPE bigint;
 -- ALTER TABLE observation ALTER COLUMN   unit_concept_id TYPE bigint;
 -- ALTER TABLE observation ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE observation ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE observation ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE observation ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE observation ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE observation ALTER COLUMN   observation_source_concept_id TYPE bigint;
 -- ALTER TABLE provider ALTER COLUMN   provider_id TYPE bigint;
 -- ALTER TABLE provider ALTER COLUMN   specialty_concept_id TYPE bigint;
@@ -383,8 +383,8 @@ ALTER TABLE note_nlp ADD COLUMN "section_source_concept_id" integer ;
 -- ALTER TABLE procedure_occurrence ALTER COLUMN   modifier_concept_id TYPE bigint;
 -- ALTER TABLE procedure_occurrence ALTER COLUMN   quantity TYPE bigint;
 -- ALTER TABLE procedure_occurrence ALTER COLUMN   provider_id TYPE bigint;
--- ALTER TABLE procedure_occurrence ALTER COLUMN   visit_occurrence_id TYPE bigint;
--- ALTER TABLE procedure_occurrence ALTER COLUMN   visit_detail_id TYPE bigint;
+-- ALTER TABLE procedure_occurrence ALTER COLUMN  visit_occurrence.id TYPE bigint;
+-- ALTER TABLE procedure_occurrence ALTER COLUMN  visit_detail_id TYPE bigint;
 -- ALTER TABLE procedure_occurrence ALTER COLUMN   procedure_source_concept_id TYPE bigint;
 -- ALTER TABLE person ALTER COLUMN   person_id TYPE bigint;
 -- ALTER TABLE person ALTER COLUMN   gender_concept_id TYPE bigint;
