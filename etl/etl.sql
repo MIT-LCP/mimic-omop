@@ -1,5 +1,5 @@
 --BEGIN;
-\set ON_ERROR_STOP false
+\set ON_ERROR_STOP true
 \timing
 
 TRUNCATE TABLE  :OMOP_SCHEMA.care_site CASCADE;

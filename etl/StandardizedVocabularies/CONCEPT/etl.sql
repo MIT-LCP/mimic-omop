@@ -161,7 +161,7 @@ SELECT
 , 'label:[' || coalesce(label,'') || ']fluid:[' || coalesce(fluid,'') || ']loinc:[' || coalesce(loinc_code,'') || ']' as concept_name
 , 'Measurement'::text as domain_id
 , 'MIMIC d_labitems' as vocabulary_id
-, coalesce(category,'') as concept_class_id -- :OMOP_SCHEMA Lab Test
+, coalesce(category,'') as concept_class_id -- OMOP Lab Test
 , itemid::Text as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
@@ -273,7 +273,7 @@ SELECT
 , label as concept_name
 , 'Note Nlp'::text as domain_id
 , 'MIMIC Generated' as vocabulary_id
-, 'Section' as concept_class_id -- :OMOP_SCHEMA Lab Test
+, 'Section' as concept_class_id -- OMOP Lab Test
 , section_id as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
@@ -288,7 +288,7 @@ SELECT
 , label_mapped as concept_name
 , 'Note Nlp'::text as domain_id
 ,  category as vocabulary_id
-, 'Section' as concept_class_id -- :OMOP_SCHEMA Lab Test
+, 'Section' as concept_class_id -- OMOP Lab Test
 , 'MIMIC Generated' as concept_code
 , '1979-01-01' as valid_start_date
 , '2099-01-01' as valid_end_date
