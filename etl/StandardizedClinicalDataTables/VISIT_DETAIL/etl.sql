@@ -264,7 +264,7 @@ WITH
 	LEFT JOIN gcpt_care_site ON (care_site_name = curr_service)
 	LEFT JOIN patients using (subject_id)
 )
-INSERT INTO OMOP.visit_detail -- SERVICE INFORMATIONS
+INSERT INTO :OMOP_SCHEMA.visit_detail -- SERVICE INFORMATIONS
 (
     visit_detail_id
   , person_id
