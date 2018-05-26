@@ -4,6 +4,7 @@
 # Source Tables(mimic)
 
 ## [transfers](https://mimic.physionet.org/mimictables/transfers/)
+## [admissions](https://mimic.physionet.org/mimictables/admissions/)
 
 - the room or bed movement have been removed so that only ward change are logged in the table
 - the emergency stays have been added in has conventional stays (may introduce strange gap in times)
