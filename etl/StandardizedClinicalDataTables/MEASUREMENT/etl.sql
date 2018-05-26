@@ -406,8 +406,8 @@ WITH
 	, charttime as measurement_datetime
 	, subject_id
 	, hadm_id
-	, extract_operator(dilution_comparison) as operator_name
-	, extract_value_period_decimal(dilution_comparison) as value_as_number
+	, extract_operator(dilution_text) as operator_name
+	, extract_value_period_decimal(dilution_text) as value_as_number
 	, ab_name as measurement_source_value
 	, interpretation
 	, dilution_text as value_source_value
