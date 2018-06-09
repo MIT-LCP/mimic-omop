@@ -1,5 +1,5 @@
 WITH caregivers AS (SELECT mimic_id as provider_id, label as provider_source_value, description as specialty_source_value FROM caregivers)
-INSERT INTO omop.PROVIDER
+INSERT INTO :OMOP_SCHEMA.PROVIDER
 (
   provider_id
  , provider_source_value

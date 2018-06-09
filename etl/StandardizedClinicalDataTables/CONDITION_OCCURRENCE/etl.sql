@@ -1,6 +1,6 @@
 WITH
 "gcpt_seq_num_to_concept" as (SELECT seq_num, concept_id as condition_type_concept_id FROM gcpt_seq_num_to_concept),
-"icd9_concept" as ( SELECT concept_id, concept_code FROM omop.concept WHERE vocabulary_id = 'ICD9CM'),
+"icd9_concept" as ( SELECT concept_id, concept_code FROM :OMOP_SCHEMA.concept WHERE vocabulary_id = 'ICD9CM'),
 "diag" as (
 SELECT
     mimic_id as condition_occurrence_id
@@ -20,10 +20,10 @@ WHERE icd9_code IS NOT NULL
 "snomed_map" as (
    SELECT rel.concept_id_1
         , min(rel.concept_id_2) AS condition_concept_id
-     FROM omop.concept_relationship as rel
-     JOIN omop.concept as c1
+     FROM :OMOP_SCHEMA.concept_relationship as rel
+     JOIN :OMOP_SCHEMA.concept as c1
        ON (concept_id_1       = c1.concept_id)
-     JOIN omop.concept as c2
+     JOIN :OMOP_SCHEMA.concept as c2
        ON (concept_id_2       = c2.concept_id)
     WHERE rel.relationship_id = 'Maps to'
       AND c1.vocabulary_id    = 'ICD9CM'
@@ -79,7 +79,7 @@ SELECT
 FROM admissions
 LEFT JOIN patients ON (subject_id = hadm_subject_id)
 LEFT JOIN adm_diag_cpt USING (diagnosis))
-INSERT INTO omop.condition_occurrence
+INSERT INTO :OMOP_SCHEMA.condition_occurrence
 (
     condition_occurrence_id
   , person_id

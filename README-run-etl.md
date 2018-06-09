@@ -16,7 +16,8 @@ To simplify the reusability of these scripts, we define a few environment variab
 First is the connection string used to connect to the database. Note this also specifies the schema using `search_path`.
 
 ```bash
-export OMOP='host=localhost dbname=postgres user=postgres options=--search_path=omop'
+export OMOP_SCHEMA='omop'
+export OMOP='host=localhost dbname=postgres user=postgres options=--search_path='$OMOP_SCHEMA
 export MIMIC='host=localhost dbname=postgres user=postgres options=--search_path=mimiciii'
 # or, e.g., export OMOP="dbname=mimic options=--search_path=omop"
 ```
@@ -63,7 +64,7 @@ This will load various manual mappings to the database under the `mimiciii` sche
 Be sure to run this from the *root* folder of the repository, or the relative path names will cause errors.
 
 ```sh
-psql "$MIMIC" -f "etl/etl.sql"
+psql "$MIMIC" --set=OMOP_SCHEMA="$OMOP_SCHEMA" -f "etl/etl.sql"
 ```
 
 ## 5. Check the ETL has run properly

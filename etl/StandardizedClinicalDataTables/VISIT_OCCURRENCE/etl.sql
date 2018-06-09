@@ -22,8 +22,8 @@ WITH
 "gcpt_admission_type_to_concept" AS (SELECT mimic_id as visit_source_concept_id, admission_type as visit_source_value FROM gcpt_admission_type_to_concept),
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_concept_id, mimic_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, mimic_id as discharge_to_source_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
-"care_site" as (select care_site_id from omop.care_site where care_site_name = 'BIDMC') -- Beth Israel hospital for all
- INSERT INTO omop.VISIT_OCCURRENCE
+"care_site" as (select care_site_id from :OMOP_SCHEMA.care_site where care_site_name = 'BIDMC') -- Beth Israel hospital for all
+ INSERT INTO :OMOP_SCHEMA.VISIT_OCCURRENCE
  (
       visit_occurrence_id
     , person_id
