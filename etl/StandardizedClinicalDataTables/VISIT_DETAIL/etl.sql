@@ -3,13 +3,13 @@
 WITH
 "transfers" AS ( -- including  emergency
     SELECT
-      subject_id
-    , hadm_id
-    , curr_careunit
-    , curr_wardid
-    , intime
-    , outtime
-    , mimic_id
+      subject_id    
+    , hadm_id       
+    , curr_careunit 
+    , curr_wardid   
+    , intime        
+    , outtime       
+    , mimic_id      
     FROM transfers
     WHERE eventtype!= 'discharge' -- these are not useful
 UNION ALL
@@ -19,10 +19,10 @@ UNION ALL
          , 'EMERGENCY' as curr_careunit
 	 , null::integer as curr_wardid
          , edregtime as intime
-         , min(intime) OVER(PARTITION BY hadm_id) as dischtime
-    -- the end of the emergency is considered the begin of the the admission
+         , min(intime) OVER(PARTITION BY hadm_id) as dischtime 
+    -- the end of the emergency is considered the begin of the the admission 
     -- the admittime is sometime after the first transfer
-	 , nextval('mimic_id_seq') as mimic_id
+	 , nextval('mimic_id_seq') as mimic_id	
      FROM admissions
      LEFT JOIN transfers USING (hadm_id)
      WHERE edregtime IS NOT NULL -- only those having a emergency timestamped
@@ -34,31 +34,31 @@ UNION ALL
             , visit_detail_concept_id
        FROM omop.care_site
        left join gcpt_care_site on gcpt_care_site.care_site_name = care_site.care_site_source_value
-),
-"gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
+), 
+"gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "admissions" AS (SELECT hadm_id, admission_location, discharge_location, mimic_id as visit_occurrence_id, admittime, dischtime FROM admissions),
 "transfers_chained" AS (
             select t1.*
                  , sum(group_flag) over ( partition by hadm_id order by intime) as grp
               from (
-                select
+                select 
 			  transfers.subject_id
 			, transfers.hadm_id
 			, transfers.curr_careunit
 			, transfers.curr_wardid
-			, transfers.intime
+			, transfers.intime 
 			, coalesce(transfers.outtime,dischtime) as outtime
-			, transfers.mimic_id
-			, case
-			    when lag(curr_wardid) over ( partition by hadm_id order by intime) = curr_wardid then null
+			, transfers.mimic_id 
+			, case 
+			    when lag(curr_wardid) over ( partition by hadm_id order by intime) = curr_wardid then null 
 		            else 1 end as group_flag
                from transfers --ie including emergency
                left join admissions USING (hadm_id)
    ) t1
 ),
 "transfers_no_bed" as (
-   SELECT DISTINCT ON (hadm_id, grp)
+   SELECT DISTINCT ON (hadm_id, grp) 
           transfers_chained.*
         , min(intime) OVER (PARTITION BY hadm_id, grp) as intime_real
         , max(outtime) OVER (PARTITION BY hadm_id, grp) as outtime_real
@@ -66,7 +66,7 @@ UNION ALL
     ORDER BY hadm_id, grp, intime
 ),
 "visit_detail_ward" AS (
-	 SELECT
+	 SELECT 
 		 mimic_id as visit_detail_id
 	       , patients.person_id
 	       , admissions.visit_occurrence_id
@@ -80,42 +80,19 @@ UNION ALL
 	       , mimic_id = first_value(mimic_id) OVER(PARTITION BY visit_occurrence_id ORDER BY intime_real ASC ) AS  is_first
 	       , mimic_id = last_value(mimic_id) OVER(PARTITION BY visit_occurrence_id ORDER BY intime_real ASC range between current row and unbounded following) AS is_last
 	       , LAG(mimic_id) OVER ( PARTITION BY hadm_id ORDER BY transfers_no_bed.intime_real ASC) as preceding_visit_detail_id
-	       , admitting_source_concept_id
+	       , admitting_concept_id
 	       , discharge_to_concept_id
 	       , admission_location
 	       , discharge_location
 	       , format_ward(curr_careunit, curr_wardid) as care_site_name
 	FROM transfers_no_bed
 	LEFT JOIN patients USING (subject_id)
-	LEFT JOIN admissions USING (hadm_id)
+	LEFT JOIN admissions USING (hadm_id) 
 	LEFT JOIN gcpt_admission_location_to_concept USING (admission_location)
 	LEFT JOIN gcpt_discharge_location_to_concept USING (discharge_location)
 ),
 "insert_visit_detail_ward" AS (
 INSERT INTO omop.visit_detail
-(
-    visit_detail_id
-  , person_id
-  , visit_detail_concept_id
-  , visit_start_date
-  , visit_start_datetime
-  , visit_end_date
-  , visit_end_datetime
-  , visit_type_concept_id
-  , provider_id
-  , care_site_id
-  , visit_source_value
-  , visit_source_concept_id
-  , admitting_concept_id
-  , admitting_source_value
-  , admitting_source_concept_id
-  , discharge_to_concept_id
-  , discharge_to_source_value
-  , discharge_to_source_concept_id
-  , preceding_visit_detail_id
-  , visit_detail_parent_id
-  , visit_occurrence_id
-)
 SELECT
   visit_detail_id
 , person_id
@@ -129,12 +106,24 @@ SELECT
 , care_site_id
 , null::text visit_source_value
 , null::integer visit_source_concept_id
-, null::integer admitting_concept_id
-, null::text admitting_source_value
-, null::integer admitting_source_concept_id
-, null::integer discharge_to_concept_id
-, null::text discharge_to_source_value
-, null::integer discharge_to_source_concept_id
+, CASE 
+    WHEN is_first IS FALSE THEN 4030023
+    ELSE admitting_concept_id
+  END AS admitting_concept_id
+, CASE 
+    WHEN is_first IS FALSE THEN 'transfer'
+    ELSE admission_location
+  END AS admitting_source_value
+, null::integer as admitting_source_concept_id
+, CASE 
+    WHEN is_last IS FALSE THEN 4030023
+    ELSE discharge_to_concept_id
+  END AS discharge_to_concept_id
+, CASE 
+    WHEN is_last IS FALSE THEN 'transfer'
+    ELSE discharge_location
+  END AS discharge_to_source_value
+, null::integer as discharge_to_source_concept_id
 , preceding_visit_detail_id
 , null::integer visit_detail_parent_id
 , visit_occurrence_id
