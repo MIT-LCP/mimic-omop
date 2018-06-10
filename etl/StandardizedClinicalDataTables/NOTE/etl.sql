@@ -32,10 +32,10 @@ SELECT
 , 40639385 as language_concept_id -- English (from metadata, maybe not the best)
 , provider_id
 , visit_occurrence_id
-, note_source_value AS note_source_value
+, noteevents.note_source_value AS note_source_value
 , null::integer visit_detail_id
 FROM noteevents
-LEFT JOIN gcpt_note_category_to_concept USING (note_source_value)
+LEFT JOIN gcpt_note_category_to_concept ON trim(noteevents.note_source_value) = trim(gcpt_note_category_to_concept.note_source_value)
 LEFT JOIN patients USING (subject_id)
 LEFT JOIN admissions USING (hadm_id)
 LEFT JOIN caregivers USING (cgid)
