@@ -264,30 +264,16 @@ where short_title is not null
 and long_title IS NOT NULL;
 
 
--- NOTE_NLP sections
-INSERT INTO :OMOP_SCHEMA.concept (
-concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
-)
-SELECT
-  mimic_id as concept_id
-, label as concept_name
-, 'Note Nlp'::text as domain_id
-, 'MIMIC Generated' as vocabulary_id
-, 'Section' as concept_class_id -- OMOP Lab Test
-, section_id as concept_code
-, '1979-01-01' as valid_start_date
-, '2099-01-01' as valid_end_date
-FROM gcpt_note_section_to_concept;
-
 -- NOTE_NLP mapped sections
 INSERT INTO :OMOP_SCHEMA.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
 )
 SELECT
-  nextval('mimic_id_concept_seq') as concept_id
+distinct on (label_mapped)
+  mimic_id as concept_id
 , label_mapped as concept_name
 , 'Note Nlp'::text as domain_id
-,  category as vocabulary_id
+, 'MIMIC Generated' as vocabulary_id
 , 'Section' as concept_class_id -- OMOP Lab Test
 , 'MIMIC Generated' as concept_code
 , '1979-01-01' as valid_start_date

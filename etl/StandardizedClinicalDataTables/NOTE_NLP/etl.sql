@@ -4,19 +4,23 @@ with
 select
   noteevents.mimic_id as note_id
 , nextval('mimic_id_seq') as note_nlp_id
-, coalesce(concept.concept_id, 0) as section_concept_id
+--, coalesce(concept.concept_id, 0) as section_concept_id
+, 0 as section_concept_id
 , section_begin as offset_begin
 , section_end as offset_end
 , section_text as lexical_variant
 , 'UIMA Section Extractor v1.0'::text as nlp_system
 , now()::date as nlp_date
 , now() as nlp_datetime
-, gcpt_note_section_to_concept.label as section_source_value
-, gcpt_note_section_to_concept.mimic_id as section_source_concept_id
+, concept.concept_name as section_source_value
+, concept.concept_id as section_source_concept_id
 from :OMOP_SCHEMA.tmp_note_nlp
 join noteevents using (row_id)
-left join gcpt_note_section_to_concept ON section_code = section_id
-left join :OMOP_SCHEMA.concept on label = concept_name AND concept_code = 'MIMIC Generated' AND domain_id = 'Note Nlp' and concept.vocabulary_id = noteevents.category
+left join gcpt_note_section_to_concept ON section_code = section_id -- the local section
+left join :OMOP_SCHEMA.concept 
+	ON label_mapped = concept_name 
+	AND concept_code = 'MIMIC Generated' 
+	AND domain_id = 'Note Nlp' 
 WHERE iserror IS NULL
 )
 INSERT INTO :OMOP_SCHEMA.note_nlp
