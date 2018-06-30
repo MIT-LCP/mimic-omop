@@ -1,0 +1,156 @@
+label,observation_concept_id,observation_concept_name,itemid,observation_source_concept_id
+14 Gauge Insertion Date,42536500,Insertion of catheter into peripheral vein,225757,2001028908
+16 Gauge Insertion Date,42536500,Insertion of catheter into peripheral vein,225756,2001028907
+18 Gauge Insertion Date,42536500,Insertion of catheter into peripheral vein,225755,2001029239
+20 Gauge Insertion Date,42536500,Insertion of catheter into peripheral vein,225754,2001029238
+22 Gauge Insertion Date,42536500,Insertion of catheter into peripheral vein,225753,2001029237
+Arterial line Cap Change,4078442,Catheter procedure,224284,2001027803
+Arterial line Change over Wire Date,4213288,Insertion of catheter into artery,224285,2001027804
+Arterial Line Dressing Change,4078442,Catheter procedure,224287,2001027805
+Arterial line Insertion Date,4213288,Insertion of catheter into artery,224288,2001027806
+Arterial line Tubing Change,4078442,Catheter procedure,224290,2001028598
+AVA Cap Change,4078442,Catheter procedure,227720,2001029835
+AVA Change over Wire Date,4141149,Open insertion of central venous catheter,227721,2001029836
+AVA Dressing Change,4078442,Catheter procedure,227722,2001029837
+AVA Insertion Date,4141149,Open insertion of central venous catheter,227724,2001029839
+AVA Tubing Change,4078442,Catheter procedure,227729,2001029844
+CCO PAC Cap Change,4078442,Catheter procedure,225221,2001027160
+CCO PAC Change over Wire Date,4305794,Introduction of catheter into pulmonary artery,225222,2001027161
+CCO PAC Dressing Change,4078442,Catheter procedure,225224,2001027162
+CCO PAC Insertion Date,4305794,Introduction of catheter into pulmonary artery,225316,2001030897
+CCO PAC Tubing Change,4078442,Catheter procedure,225226,2001030012
+Cordis/Introducer Cap Change,4078442,Catheter procedure,224292,2001028600
+Cordis/Introducer Change over Wire Date,4078442,Catheter procedure,224293,2001028601
+Cordis/Introducer Dressing Change,4078442,Catheter procedure,224295,2001028603
+Cordis/Introducer Insertion Date,4141149,Open insertion of central venous catheter,224296,2001028604
+Cordis/Introducer Tubing Change,4078442,Catheter procedure,224298,2001028606
+Date - Student,0,,227907,2001029532
+Date - Therapist,0,,227911,2001029533
+Date of Birth,0,,226515,2001030327
+Dialysis Catheter Cap Change,4078442,Catheter procedure,225318,2001030899
+Dialysis Catheter Change over Wire Date,4141149,Open insertion of central venous catheter,225319,2001030900
+Dialysis Catheter Dressing Change,4078442,Catheter procedure,225321,2001030901
+Dialysis Catheter Insertion Date,4141149,Open insertion of central venous catheter,225322,2001030902
+Dialysis CatheterTubing Change,4078442,Catheter procedure,225324,2001030904
+Equip Change [MM],0,,3411,2001020280
+GU Catheter D/C Date,4078442,Catheter procedure,227584,2001028736
+GU Catheter Insertion Date,36715149,Introduction of urinary catheter,224878,2001030266
+Hospital Admit Date,0,,226724,2001030752
+IABP Change over Wire Date,4309033,Percutaneous insertion of intra-aortic balloon catheter,225336,2001027837
+IABP Dressing Change,4078442,Catheter procedure,225337,2001027838
+IABP Insertion Date,4309033,Percutaneous insertion of intra-aortic balloon catheter,225338,2001027839
+IABP Tubing Change,4078442,Catheter procedure,225340,2001027841
+ICP Line Dressing Change,4078442,Catheter procedure,226126,2001029815
+ICP Line Insertion Date,4048955,Introduction of intracranial pressure catheter,226128,2001029817
+ICP Line Tubing Change,4078442,Catheter procedure,226132,2001029821
+Impaired Skin  - Dressing Change #1,4195428,Impaired skin integrity,227790,2001029040
+Impaired Skin  - Dressing Change #10,4195428,Impaired skin integrity,227800,2001029049
+Impaired Skin  - Dressing Change #2,4195428,Impaired skin integrity,227791,2001029041
+Impaired Skin  - Dressing Change #3,4195428,Impaired skin integrity,227792,2001029042
+Impaired Skin  - Dressing Change #4,4195428,Impaired skin integrity,227793,2001029043
+Impaired Skin  - Dressing Change #5,4195428,Impaired skin integrity,227794,2001029044
+Impaired Skin  - Dressing Change #6,4195428,Impaired skin integrity,227795,2001029045
+Impaired Skin  - Dressing Change #7,4195428,Impaired skin integrity,227796,2001029046
+Impaired Skin  - Dressing Change #8,4195428,Impaired skin integrity,227797,2001029047
+Impaired Skin  - Dressing Change #9,4195428,Impaired skin integrity,227798,2001029048
+Impella Aortic Pressure Tubing Change,4275142,Implantation of heart assist system,228160,2001027663
+Impella Daily Tubing Change,4078442,Catheter procedure,228165,2001027667
+Impella Dressing Change,4078442,Catheter procedure,228166,2001027668
+Impella Insertion Date,4275142,Implantation of heart assist system,228168,2001027670
+In-Line Sx Change [MM],4078442,Catheter procedure,7152,2001022713
+Indwelling (PortaCath) Dressing Change,4078442,Catheter procedure,227361,2001028403
+Indwelling (PortaCath) Port #1 Date Accessed,4078442,Catheter procedure,227126,2001027212
+Indwelling (PortaCath) Port #1 Date De-accessed,4078442,Catheter procedure,227198,2001027223
+Indwelling (PortaCath) Port #2 Date Accessed,4078442,Catheter procedure,227197,2001027222
+Indwelling (PortaCath) Port #2 Date De-accessed,4078442,Catheter procedure,227199,2001027224
+Indwelling Port (PortaCath) Cap Change,4078442,Catheter procedure,225375,2001028660
+Indwelling Port (PortaCath) Insertion Date,4197894,Insertion of implantable venous access port,225378,2001027165
+Indwelling Port (PortaCath)Tubing Change,4078442,Catheter procedure,225380,2001027167
+INV#1 Cap Change [MM],0,,6703,2001023513
+INV#1 Dsg Change [MM],0,,5684,2001020783
+INV#1 Tubing Change [MM],0,,6704,2001023514
+INV#2 Cap Change [MM],0,,6705,2001023515
+INV#2 Dsg Change [MM],0,,5685,2001020784
+INV#2 Tubing Change [MM],0,,6706,2001023516
+INV#3 Cap Change [MM],0,,6707,2001023517
+INV#3 Dsg Change [MM],0,,5686,2001020785
+INV#3 Tubing Change [MM],0,,6708,2001023518
+INV#4 Cap Change [MM],0,,6709,2001023519
+INV#4 Dsg Change [MM],0,,5687,2001020786
+INV#4 Tubing Change [MM],0,,6710,2001023520
+INV#5 Cap Change [MM],0,,6711,2001023521
+INV#5 Dsg Change [MM],0,,5688,2001020787
+INV#5 Tubing Change [MM],0,,6712,2001023522
+INV#6 Cap Change [MM],0,,6713,2001023523
+INV#6 Dsg Change [MM],0,,5689,2001020788
+INV#6 Tubing Change [MM],0,,6714,2001023524
+INV#7 Cap Change [MM],0,,6715,2001023525
+INV#7 Dsg Change [MM],0,,5690,2001020789
+INV#7 Tubing Change [MM],0,,6716,2001023526
+INV#8 Cap Change [MM],0,,6717,2001023527
+INV#8 Dsg Change [MM],0,,5691,2001020790
+INV#8 Tubing Change [MM],0,,6718,2001023528
+IO Insertion Date,4257889,Insertion of needle for intraosseous infusion,228291,2001027248
+Last dialysis,0,,225128,2001030560
+Last menses,0,,226719,2001030751
+Midline Cap Change,4078442,Catheter procedure,225343,2001027844
+Midline Change over Wire Date,42689574,Ultrasonography guided insertion of midline intravenous catheter,225344,2001027845
+Midline Dressing Change,4078442,Catheter procedure,225345,2001027846
+Midline Insertion Date,42689574,Ultrasonography guided insertion of midline intravenous catheter,225346,2001027847
+Midline Tubing Change,4078442,Catheter procedure,225348,2001027849
+Multi Lumen Cap Change,4078442,Catheter procedure,224261,2001027784
+Multi Lumen Change over Wire Date,4141149,Open insertion of central venous catheter,224262,2001027785
+Multi Lumen Dressing Change,4078442,Catheter procedure,224279,2001027798
+Multi Lumen Insertion Date,4141149,Open insertion of central venous catheter,224280,2001027799
+Multi Lumen Tubing Change,4078442,Catheter procedure,224282,2001027801
+Organ Bank Notified,0,,226532,2001030337
+PA Catheter Cap Change,4078442,Catheter procedure,225351,2001027850
+PA Catheter Change over Wire Date,4305794,Introduction of catheter into pulmonary artery,225352,2001027851
+PA Catheter Dressing Change,4078442,Catheter procedure,225353,2001027852
+PA Catheter Insertion Date,4305794,Introduction of catheter into pulmonary artery,225354,2001027853
+PA Catheter Tubing Change,4078442,Catheter procedure,225356,2001027855
+Pheresis Catheter Cap Change,4078442,Catheter procedure,225367,2001028654
+Pheresis Catheter Change over Wire Date,4141149,Open insertion of central venous catheter,225368,2001028655
+Pheresis Catheter Dressing Change,4078442,Catheter procedure,225369,2001028656
+Pheresis Catheter Insertion Date,4141149,Open insertion of central venous catheter,225370,2001028657
+Pheresis Catheter Tubing Change,4078442,Catheter procedure,225372,2001028659
+PICC Line Cap Change,4078442,Catheter procedure,224183,2001027774
+PICC Line Change over Wire Date,45890031,"Insertion of peripherally inserted central venous catheter (PICC), without subcutaneous port or pump",224185,2001027776
+PICC Line Dressing Change,4078442,Catheter procedure,224186,2001027777
+PICC Line Insertion Date,45890031,"Insertion of peripherally inserted central venous catheter (PICC), without subcutaneous port or pump",224184,2001027775
+PICC Line Tubing Change,4078442,Catheter procedure,224187,2001027778
+Pregnancy due date,0,,225083,2001030536
+Presep Catheter Cap Change,4078442,Catheter procedure,225383,2001027168
+Presep Catheter Change over Wire Date,4141149,Open insertion of central venous catheter,225384,2001027169
+Presep Catheter Dressing Change,4078442,Catheter procedure,225385,2001027170
+Presep Catheter Insertion Date,4141149,Open insertion of central venous catheter,225386,2001027171
+Presep Catheter Tubing Change,4078442,Catheter procedure,225390,2001027175
+Referral Date,0,,227817,2001029242
+RIC Insertion Date,4141149,Open insertion of central venous catheter,225758,2001028909
+ScvO2 (Presep) Calibrated,4078442,Catheter procedure,227542,2001028716
+Sheath Cap Change,4078442,Catheter procedure,225762,2001028913
+Sheath Change over Wire Date,4078442,Catheter procedure,225763,2001028914
+Sheath Dressing Change,4078442,Catheter procedure,225765,2001028916
+Sheath Insertion Date,4078442,Catheter procedure,225766,2001028917
+Sheath Tubing Change,4078442,Catheter procedure,225769,2001028920
+SvO2 Calibrated,4078442,Catheter procedure,227541,2001028715
+Tandem Heart Access Line Dressing Change,4078442,Catheter procedure,228207,2001029882
+Tandem Heart Access Line Insertion Date,4078442,Catheter procedure,228209,2001029884
+Tandem Heart Access Line Tubing Change,4078442,Catheter procedure,228215,2001029890
+Tandem Heart Return Cannula Dressing Change,4078442,Catheter procedure,228218,2001029893
+Tandem Heart Return Cannula Insertion Date,4078442,Catheter procedure,228221,2001029895
+Trauma Line Cap Change,4078442,Catheter procedure,225213,2001027155
+Trauma Line Change over Wire Date,4078442,Catheter procedure,225214,2001027156
+Trauma Line Dressing Change,4078442,Catheter procedure,225216,2001027157
+Trauma Line Insertion Date,4078442,Catheter procedure,225317,2001030898
+Trauma Line Tubing Change,4078442,Catheter procedure,225218,2001027159
+Triple Introducer Cap Change,4078442,Catheter procedure,225391,2001027346
+Triple Introducer Change over Wire Date,4078442,Catheter procedure,225392,2001027348
+Triple Introducer Dressing Change,4078442,Catheter procedure,225393,2001027349
+Triple Introducer Insertion Date,4078442,Catheter procedure,225394,2001027350
+Triple Introducer Tubing Change,4078442,Catheter procedure,225396,2001027352
+Tunneled (Hickman) Cap Change,4078442,Catheter procedure,225327,2001030905
+Tunneled (Hickman) Change over Wire Date,4168999,pen insertion of Hickman central venous catheter,225328,2001030906
+Tunneled (Hickman) Dressing Change,4078442,Catheter procedure,225329,2001030907
+Tunneled (Hickman) Insertion Date,4168999,Open insertion of Hickman central venous catheter,225330,2001030908
+Tunneled (Hickman) Tubing Change,4078442,Catheter procedure,225332,2001027835
