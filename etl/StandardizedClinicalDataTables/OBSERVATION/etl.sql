@@ -248,7 +248,7 @@ SELECT
 , description
 FROM drgcodes
 ),
-"gcpt_drgcode_to_concept" AS (SELECT description, concept_id AS value_as_concept_id FROM gcpt_drgcode_to_concept),
+"gcpt_drgcode_to_concept" AS (SELECT description, non_standard_concept_id, standard_concept_id FROM gcpt_drgcode_to_concept),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
 "admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, coalesce(edregtime, admittime) as observation_datetime FROM admissions),
 "row_to_insert" AS (
@@ -261,7 +261,7 @@ SELECT
         , 38000280 as observation_type_concept_id -- Observation recorded from EHR
         , null::numeric value_as_number
         , description as value_as_string
-        , coalesce(value_as_concept_id, 0) as value_as_concept_id
+        , coalesce(standard_concept_id, non_standard_concept_id, 0) as value_as_concept_id
         , null::integer qualifier_concept_id
         , null::integer unit_concept_id
         , null::integer provider_id

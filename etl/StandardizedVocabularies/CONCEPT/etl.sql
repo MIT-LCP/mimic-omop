@@ -99,6 +99,7 @@ SELECT
 , 926    --Religion
 , 226543 --Religion
 ) THEN 'Observation'::Text
+  WHEN itemid IN (SELECT distinct itemid FROM datetimeevents) THEN 'Observation'::Text
   ELSE 'Measurement'::Text END as domain_id
 , 'MIMIC d_items' as vocabulary_id
 , coalesce(category, '') as concept_class_id
