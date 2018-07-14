@@ -20,7 +20,7 @@ SELECT org.person_id 			AS person_id
 , atb.measurement_source_value  	AS antibiotic_source_value
 , atb.value_as_concept_id       	AS antibiotic_interpretation_concept_id
 , resistance.concept_name       	AS antibiotic_interpretation_concept_name
-, atb.value_source_value            	AS antibiotic_MIC_interpration -- TODO extract operateur et la value in 2 != columns
+, atb.value_source_value            	AS antibiotic_MIC_interpration 						-- TODO extract operateur et la value in 2 != columns
 
 FROM
 (
@@ -30,16 +30,16 @@ FROM
 	(
         	SELECT measurement_id
         	FROM measurement
-        	WHERE measurement_type_concept_id = 2000000007
+        	WHERE measurement_type_concept_id = 2000000007 							-- concept.concept_name = 'Labs - Culture Organisms'
     	
 	)
-	AND relationship_concept_id = 44818757
+	AND relationship_concept_id = 44818757 									-- concept.concept_name = 'Has interpretation (SNOMED)'
 
 
 ) as fact
-JOIN measurement org ON org.measurement_id = fact.fact_id_1 and org.measurement_type_concept_id = 2000000007
+JOIN measurement org ON org.measurement_id = fact.fact_id_1 and org.measurement_type_concept_id = 2000000007 	-- concept.concept_name = 'Labs - Culture Organisms'
 	JOIN concept org_concept ON org_concept.concept_id = org.measurement_concept_id
-JOIN measurement atb ON atb.measurement_id = fact.fact_id_2 and atb.measurement_type_concept_id = 2000000008
+JOIN measurement atb ON atb.measurement_id = fact.fact_id_2 and atb.measurement_type_concept_id = 2000000008 	-- concept.concept_name = 'Labs - Culture Sensitivity'
 	JOIN concept atb_concept ON atb_concept.concept_id = atb.measurement_concept_id
 	JOIN concept resistance ON resistance.concept_id = atb.value_as_concept_id
 
@@ -74,6 +74,6 @@ SELECT o.person_id
 -- if all the informations related to a specimen are in this view, linker is equal 0 ; else 1
 
 FROM org_res o
-JOIN fact_relationship f ON o.measurement_id = f.fact_id_1 and f.relationship_concept_id = 44818756
+JOIN fact_relationship f ON o.measurement_id = f.fact_id_1 and f.relationship_concept_id = 44818756 		-- concept.concept_name = 'Has specimen (SNOMED)'
 JOIN specimen ON specimen.specimen_id = f.fact_id_2
 	JOIN concept specimen_concept ON specimen_concept.concept_id = specimen.specimen_concept_id;
