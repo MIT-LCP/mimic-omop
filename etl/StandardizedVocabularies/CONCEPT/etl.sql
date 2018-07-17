@@ -296,6 +296,21 @@ SELECT
 , '2099-01-01' as valid_end_date
 FROM gcpt_derived_to_concept;
 
+--visit_occurrence_concept
+INSERT INTO :OMOP_SCHEMA.concept (
+concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date
+)
+SELECT
+  mimic_id as concept_id
+, admission_type as concept_name
+, 'Visit'::text as domain_id
+, 'MIMIC admissions' as vocabulary_id
+, 'Visit' as concept_class_id
+, '' as concept_code
+, '1979-01-01' as valid_start_date
+, '2099-01-01' as valid_end_date
+FROM gcpt_admission_type_to_concept;
+
 --visit_occurrence_admitting
 INSERT INTO :OMOP_SCHEMA.concept (
 concept_id,concept_name,domain_id,vocabulary_id,concept_class_id,concept_code,valid_start_date,valid_end_date

@@ -153,7 +153,6 @@ Cardiac Pacemaker & Defibrillator Device Replacement,,,38001101,Cardiac pacemake
 Cardiac Pacemaker & Defibrillator Revision Except Device Replacement,,,,
 CARDIAC PACEMAKER DEVICE REPLACEMENT,38000414,Cardiac Pacemaker Device Replacement,38001101,Cardiac pacemaker device replacement w/o MCC
 CARDIAC PACEMAKER DEVICE REPLACEMENT W MCC,,,38001100,Cardiac pacemaker device replacement w MCC
-CARDIAC PACEMAKER REVISION EXCEPT DEVICE REPLACEMENT,38000413,Cardiac Pacemaker Revision Except Device Replacement,38001102,Cardiac pacemaker revision except device replacement w MCC
 CARDIAC PACEMAKER REVISION EXCEPT DEVICE REPLACEMENT,38000413,Cardiac Pacemaker Revision Except Device Replacement,38001104,Cardiac pacemaker revision except device replacement w/o CC/MCC
 CARDIAC PACEMAKER REVISION EXCEPT DEVICE REPLACEMENT W CC,,,38001103,Cardiac pacemaker revision except device replacement w CC
 CARDIAC PACEMAKER REVISION EXCEPT DEVICE REPLACEMENT W MCC,,,38001102,Cardiac pacemaker revision except device replacement w MCC
@@ -514,8 +513,6 @@ INTRACRANIAL VASCULAR PROCEDURES W PDX HEMORRHAGE W CC,,,38000903,Intracranial v
 INTRACRANIAL VASCULAR PROCEDURES W PDX HEMORRHAGE W MCC,,,38000902,Intracranial vascular procedures w PDX hemorrhage w MCC
 INTRACRANIAL VASCULAR PROCEDURES W PDX HEMORRHAGE W/O CC/MCC,,,38000904,Intracranial vascular procedures w PDX hemorrhage w/o CC/MCC
 INTRA CRANIAL VASCULAR PROCEDURE WITH PRINCIPAL DIAGNOSIS OF HEMORRHAGE,38000834,Intra Cranial Vascular Procedure with Principal Diagnosis of Hemorrhage,38000904,Intracranial vascular procedures w PDX hemorrhage w/o CC/MCC
-INTRA CRANIAL VASCULAR PROCEDURE WITH PRINCIPAL DIAGNOSIS OF HEMORRHAGE,38000834,Intra Cranial Vascular Procedure with Principal Diagnosis of Hemorrhage,38000902,Intracranial vascular procedures w PDX hemorrhage w MCC
-INTRA CRANIAL VASCULAR PROCEDURE WITH PRINCIPAL DIAGNOSIS OF HEMORRHAGE,38000834,Intra Cranial Vascular Procedure with Principal Diagnosis of Hemorrhage,38000903,Intracranial vascular procedures w PDX hemorrhage w CC
 Kidney Transplant,38000600,Kidney Transplant,38001396,Kidney transplant
 KIDNEY TRANSPLANT,38000600,Kidney Transplant,38001396,Kidney transplant
 "KIDNEY, URETER & MAJOR BLADDER PROCEDURES FOR NEOPLASM",38000601,"Kidney, Ureter and Major Bladder Procedures For Neoplasm",,
@@ -819,8 +816,7 @@ OTHER ANTEPARTUM DIAGNOSES W/O MEDICAL COMPLICATIONS,,,38001499,Other antepartum
 Other Bladder Procedures,,,,
 OTHER CARDIAC PACEMAKER IMPLANTATION,38000412,Other Cardiac Pacemaker Implantation,,
 OTHER CARDIOTHORACIC PROCEDURES,38000401,Other Cardiothoracic Procedures,38001070,Other cardiothoracic procedures w/o CC/MCC
-Other Cardiothoracic Procedures,38000401,Other Cardiothoracic Procedures,,
-OTHER CARDIOTHORACIC PROCEDURES,38000401,Other Cardiothoracic Procedures,38001070,Other cardiothoracic procedures w/o CC/MCC
+Other Cardiothoracic Procedures,38000401,Other Cardiothoracic Procedures,38001070,Other cardiothoracic procedures w/o CC/MCC
 OTHER CARDIOTHORACIC PROCEDURES W CC,,,38001069,Other cardiothoracic procedures w CC
 OTHER CARDIOTHORACIC PROCEDURES W MCC,,,38001068,Other cardiothoracic procedures w MCC
 OTHER CARDIOTHORACIC PROCEDURES W/O CC/MCC,,,38001070,Other cardiothoracic procedures w/o CC/MCC
@@ -1348,7 +1344,6 @@ VIRAL ILLNESS W MCC,,,38001558,Viral illness w MCC
 VIRAL ILLNESS W/O MCC,,,38001559,Viral illness w/o MCC
 Viral Meningitis,,,38000948,Viral Meningitis
 VIRAL MENINGITIS,38000309,Viral Meningitis,38000949,Viral meningitis w/o CC/MCC
-VIRAL MENINGITIS,38000309,Viral Meningitis,38000948,Viral meningitis w CC/MCC
 VIRAL MENINGITIS W CC/MCC,,,38000948,Viral meningitis w CC/MCC
 VIRAL MENINGITIS W/O CC/MCC,,,38000949,Viral meningitis w/o CC/MCC
 "WND DEBRID & SKN GRFT EXC HAND, FOR MUSCULO-CONN TISS DIS W CC",,,38001253,"Wnd debrid & skn grft exc hand, for musculo-conn tiss dis w CC"
