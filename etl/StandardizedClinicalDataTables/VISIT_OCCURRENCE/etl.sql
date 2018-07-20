@@ -5,7 +5,6 @@ WITH
                                 , admission_location
                                 , discharge_location
                                 , mimic_id as visit_occurrence_id
-                                , CASE WHEN edregtime IS NOT NULL THEN 262 ELSE 9201 END as visit_concept_id
                                 , admittime::date as visit_start_date
                                 , admittime as visit_start_datetime
                                 , dischtime::date as visit_end_date
@@ -19,7 +18,7 @@ WITH
              FROM admissions_emerged
                   ),
 "patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
-"gcpt_admission_type_to_concept" AS (SELECT mimic_id as visit_source_concept_id, admission_type as visit_source_value FROM gcpt_admission_type_to_concept),
+"gcpt_admission_type_to_concept" AS (SELECT mimic_id as visit_source_concept_id, admission_type as visit_source_value, visit_concept_id FROM gcpt_admission_type_to_concept),
 "gcpt_admission_location_to_concept" AS (SELECT concept_id as admitting_concept_id, mimic_id as admitting_source_concept_id, admission_location FROM gcpt_admission_location_to_concept),
 "gcpt_discharge_location_to_concept" AS (SELECT concept_id as discharge_to_concept_id, mimic_id as discharge_to_source_concept_id, discharge_location FROM gcpt_discharge_location_to_concept),
 "care_site" as (select care_site_id from :OMOP_SCHEMA.care_site where care_site_name = 'BIDMC') -- Beth Israel hospital for all
@@ -48,7 +47,7 @@ WITH
  SELECT
    admissions.visit_occurrence_id
  , patients.person_id
- , admissions.visit_concept_id
+ , gcpt_admission_type_to_concept.visit_concept_id
  , admissions.visit_start_date
  , admissions.visit_start_datetime
  , admissions.visit_end_date
@@ -74,5 +73,4 @@ WITH
  LEFT JOIN gcpt_discharge_location_to_concept USING (discharge_location)
  LEFT JOIN gcpt_admission_type_to_concept USING (visit_source_value)
  LEFT JOIN patients USING (subject_id)
- left join care_site ON (1=1)
-;
+ left join care_site ON (1=1);
