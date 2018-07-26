@@ -11,7 +11,7 @@
 	- the admission start datetime becomes the emergency start datetime
 	- that emergency stay is added to transfers (in the `visit_detail` table)
 - `visit_type_concept_id` is always equals to 44818518 (visit derived from EHR)
-- `visit_concept_id` is either equals to 9201 (inpatient visit) or 262 (emergency room and inpatient visit) when admitting by emergency
+- `visit_concept_id` is either equals to 9201 (inpatient visit) or 262 (emergency room and inpatient visit) to unplanned medical care (urgent care)
 - in mimic when patient is organ donor, patient died twice. In omop format
         - a new admission category is created as Patient died (concept_id = 4216643)
         - a new discharge category is created as Organ donor (concept_id = 4022058)
