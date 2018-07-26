@@ -14,7 +14,9 @@
 ## [inputevents_cv](https://mimic.physionet.org/mimictables/inputevents_cv/)
 
 - `drug_type_concept_id` = 38000180 ("Inpatient administration")
-- `drug_exposure_end_datetime` is always null (because there is no end charttime in inputevents_cv)
+- `drug_exposure_start_datetime` or `drug_exposure_end_datetime` are null (because there is no end charttime in inputevents_cv)
+   As provided on physionet "For amounts received (usually volumes), the CHARTTIME represents the time at which that volume was received. That is, it can be considered an “end time”, i.e. X millilitres of solution was administered to the patient by this CHARTTIME. For rates, the CHARTTIME represents the time at which that rate was set. That is, it can be considered a “start time”, i.e. the patient is now receiving X mcg/kg/min of a drug at this CHARTTIME"
+  We choose not to infer missing times. So amount have no starttime and rates have no endtime!
 - `visit_detail_id` is assigned
 
 ## [inputevents_mv](https://mimic.physionet.org/mimictables/inputevents_cv/)
