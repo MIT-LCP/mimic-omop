@@ -139,3 +139,93 @@ SELECT
 , procedure_source_concept_id
 , modifier_source_value
 FROM row_to_insert;
+
+
+ -- from datetimeevents
+ WITH
+"datetimeevents" AS (SELECT subject_id, hadm_id, itemid, cgid, mimic_id as observation_id, coalesce(value,charttime)::date as observation_date, value as observation_datetime FROM datetimeevents where error is null or error = 0),
+"gcpt_datetimeevents_to_concept" AS (SELECT label as value_as_string, observation_concept_id, itemid, observation_source_concept_id from gcpt_datetimeevents_to_concept),
+"patients" AS (SELECT subject_id, mimic_id as person_id FROM patients),
+"caregivers" AS (SELECT cgid, mimic_id as provider_id FROM caregivers),
+"admissions" AS (SELECT subject_id, hadm_id, mimic_id as visit_occurrence_id, insurance, marital_status, language, diagnosis, religion, ethnicity, admittime FROM admissions),
+"row_to_insert" AS
+ (SELECT
+        datetimeevents.observation_id
+      , patients.person_id
+      , gcpt.observation_concept_id
+      , datetimeevents.observation_date
+      , (datetimeevents.observation_datetime) as observation_datetime
+      , 38000280 as observation_type_concept_id -- Observation recorded from EHR
+      , null::double precision as value_as_number
+      , gcpt.value_as_string as value_as_string
+      , null::bigint as value_as_concept_id
+      , null::bigint as qualifier_concept_id
+      , null::bigint as unit_concept_id
+      , caregivers.provider_id
+      , admissions.visit_occurrence_id
+      , null::bigint as  visit_detail_id
+      , null::text as observation_source_value
+      , gcpt.observation_source_concept_id
+      , null as unit_source_value
+      , null as qualifier_source_value
+   FROM datetimeevents
+ LEFT JOIN patients USING (subject_id)
+ LEFT JOIN admissions USING (hadm_id)
+ LEFT JOIN caregivers USING (cgid)
+ LEFT JOIN gcpt_datetimeevents_to_concept gcpt USING (itemid)
+ WHERE gcpt.observation_concept_id != 0
+)
+INSERT INTO :OMOP_SCHEMA.OBSERVATION
+(
+    observation_id
+  , person_id
+  , observation_concept_id
+  , observation_date
+  , observation_datetime
+  , observation_type_concept_id
+  , value_as_number
+  , value_as_string
+  , value_as_concept_id
+  , qualifier_concept_id
+  , unit_concept_id
+  , provider_id
+  , visit_occurrence_id
+  , visit_detail_id
+  , observation_source_value
+  , observation_source_concept_id
+  , unit_source_value
+  , qualifier_source_value
+)
+SELECT
+  observation_id
+, person_id
+, observation_concept_id
+, observation_date
+, observation_datetime
+, observation_type_concept_id
+, value_as_number
+, value_as_string
+, value_as_concept_id
+, qualifier_concept_id
+, unit_concept_id
+, provider_id
+, row_to_insert.visit_occurrence_id
+, visit_detail_assign.visit_detail_id
+, observation_source_value
+, observation_source_concept_id
+, unit_source_value
+, qualifier_source_value
+FROM row_to_insert
+LEFT JOIN :OMOP_SCHEMA.visit_detail_assign
+ON row_to_insert.visit_occurrence_id = visit_detail_assign.visit_occurrence_id
+AND
+(--only one visit_detail
+(is_first IS TRUE AND is_last IS TRUE)
+OR -- first
+(is_first IS TRUE AND is_last IS FALSE AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
+OR -- last
+(is_last IS TRUE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime)
+OR -- middle
+(is_last IS FALSE AND is_first IS FALSE AND row_to_insert.observation_datetime > visit_detail_assign.visit_start_datetime AND row_to_insert.observation_datetime <= visit_detail_assign.visit_end_datetime)
+)
+;
