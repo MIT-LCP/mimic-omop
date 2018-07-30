@@ -35,7 +35,7 @@ WITH
 , null::integer location_id
 , null::integer provider_id
 , null::integer care_site_id
-, null::text person_source_value
+, patients.subject_id::text person_source_value
 , patients.gender_source_value
 , null::integer gender_source_concept_id
 , admissions.race_source_value
