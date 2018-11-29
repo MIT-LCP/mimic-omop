@@ -6,9 +6,10 @@ This repository contains an Extract-Transform-Load (ETL) process for mapping the
 DOCUMENTATION
 ===============
 
-- [Achilles](https://mit-lcp.github.io/mimic-omop/AchillesWeb)
-- [OMOP Data Model](https://mit-lcp.github.io/mimic-omop/schemaspy-omop)
-- [MIMIC Data Model](https://mit-lcp.github.io/mimic-omop/schemaspy-mimic)
+- [Resources](https://mit-lcp.github.io/mimic-omop/)
+    - [Achilles](https://mit-lcp.github.io/mimic-omop/AchillesWeb)
+    - [OMOP Data Model](https://mit-lcp.github.io/mimic-omop/schemaspy-omop)
+    - [MIMIC Data Model](https://mit-lcp.github.io/mimic-omop/schemaspy-mimic)
 
 "WHERE IS ..."
 ===================================================
