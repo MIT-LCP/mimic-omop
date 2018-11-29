@@ -1,0 +1,3 @@
+ { "datasources":[
+	 { "name":"MIMIC-OMOP full", "folder":"achilleResult", "cdmVersion": 5 }
+ ] }
