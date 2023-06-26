@@ -2,6 +2,8 @@
 
 This README overviews running the MIMIC-OMOP ETL from the ground up on a PostgreSQL server. You will need an installation of PostgreSQL 9.6+ in order to run the ETL. You will also need MIMIC-III installed on this instance of postgres, see here for details: https://mimic.physionet.org/gettingstarted/dbsetup/
 
+**WARNING:** By following the steps for MIMIC-III postgres set-up, the MIMIC-III data will be located in a new database called `mimic` within your postgres instance. For the following steps, you may need to change the `dbname` variable to `mimic` to reflect this or otherwise, the ETL will not be able to find the correct paths across your postgres instance.
+
 This README will assume the following:
 
 * MIMIC-III v1.4 is available in the `mimic` database under the `mimiciii` schema
