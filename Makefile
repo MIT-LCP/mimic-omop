@@ -1,6 +1,6 @@
 OMOP_SCHEMA=omop
-MIMIC="host=$(DB_HOST) dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA)"
-OMOP="host=$(DB_HOST) dbname=mimic user=postgres options=--search_path=$(OMOP_SCHEMA)"
+MIMIC="host=$(DB_HOST) dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA),public"
+OMOP="host=$(DB_HOST) dbname=mimic user=postgres options=--search_path=$(OMOP_SCHEMA),public"
 
 build: buildmimic buildomop
 runetl: sequence concept load

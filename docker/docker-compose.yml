@@ -1,9 +1,9 @@
 version: '3.9'
 services:
   db:
-    # we can not use version >= 12 because of the way CTE are handled
-    # see https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-CTE-MATERIALIZATION
-    image: postgres:11
+    build:
+        context: .
+        dockerfile: Dockerfile-pg
     environment:
       - POSTGRES_DB=mimic
       - POSTGRES_USER=postgres

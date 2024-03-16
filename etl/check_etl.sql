@@ -12,6 +12,8 @@
 \set ON_ERROR_STOP false
 \set QUIET 1
 
+CREATE EXTENSION IF NOT EXISTS pgtap;
+
 \i etl/StandardizedVocabularies/CONCEPT/check_etl.sql
 \i etl/StandardizedVocabularies/COHORT_DEFINITION/check_etl.sql
 \i etl/StandardizedVocabularies/ATTRIBUTE_DEFINITION/check_etl.sql
