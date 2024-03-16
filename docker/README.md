@@ -11,6 +11,8 @@ You will also need to download from athena the vocabulary and place it in the `e
 
 Then run in the root folder:
 ```shell
+# edit docker/.env to choose either mimiciii or mimicdemo
+docker compose -f docker/docker-compose.yml build
 docker compose -f docker/docker-compose.yml up
 ```
 
