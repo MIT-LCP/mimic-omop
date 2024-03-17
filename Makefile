@@ -32,6 +32,7 @@ check:
 export:
 	psql $(MIMIC)  --set=OMOP_SCHEMA="$(OMOP_SCHEMA)" -f export/export_mimic_omop.sql &&\
 	cp import/import_mimic_omop.sql etl/Result/ &&\
+	cp import/import_mimic_omop_duckdb.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/
 #	tar -cf $(MIMIC_SCHEMA)-omop.tar etl/Result/
 
