@@ -1,0 +1,7 @@
+# we can not use version >= 12 because of the way CTE are handled
+# see https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-CTE-MATERIALIZATION
+FROM postgres:11-alpine
+
+RUN apk update && apk add wget unzip make perl patch
+RUN wget https://api.pgxn.org/dist/pgtap/1.3.2/pgtap-1.3.2.zip  && unzip  pgtap-1.3.2.zip
+RUN cd pgtap-1.3.2 && make && make install

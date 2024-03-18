@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  db:
+    build:
+        context: .
+        dockerfile: Dockerfile-pg
+    environment:
+      - POSTGRES_DB=mimic
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mypassword
+    ports:
+      - 5432:5432
+    volumes:
+      - $PWD/docker/postgres.conf:/etc/postgresql/postgresql.conf
+#      - $PWD/db-data/:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U postgres -d mimic -c 'select 1' | grep -q column"]
+      interval: 5s
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+
+  etl:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - PGPASSWORD=mypassword
+      - MIMIC_DATA_DIR=/opt/mimic-omop/mimic/data-${MIMIC_SCHEMA}
+    volumes:
+      - "$PWD:/opt/mimic-omop/"
+    env_file:
+      - .env
+    entrypoint: /opt/mimic-omop/docker/entrypoint.sh
+#    command: ["tail", "-f", "/dev/null"]

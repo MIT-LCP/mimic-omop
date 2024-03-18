@@ -1,18 +1,24 @@
-MIMIC_SCHEMA=mimic
 OMOP_SCHEMA=omop
-MIMIC="host=localhost dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA)"
-OMOP="host=localhost dbname=mimic user=postgres options=--search_path=$(OMOP_SCHEMA)"
+MIMIC="host=$(DB_HOST) dbname=mimic user=postgres options=--search_path=$(MIMIC_SCHEMA),public"
+OMOP="host=$(DB_HOST) dbname=mimic user=postgres options=--search_path=$(OMOP_SCHEMA),public"
 
+build: buildmimic buildomop
 runetl: sequence concept load
 runetlprivate: runetl private
 
-buildomop:
-	psql $(OMOP) -f omop/build-omop/postgresql/omop_ddl_comments.sql &&\
-	psql $(OMOP) -f omop/build-omop/postgresql/mimic-omop-add-column.sql &&\
-	psql $(OMOP) -f omop/build-omop/postgresql/mimic-omop-alter.sql
+buildmimic:
+	cd mimic/build-mimic &&\
+	psql $(MIMIC) -v mimic_data_dir="$(MIMIC_DATA_DIR)"  -f build-$(MIMIC_SCHEMA).sql &&\
+	psql $(MIMIC) -v mimic_data_dir="$(MIMIC_DATA_DIR)"  -f postgres_add_indexes.sql &&\
+	psql $(MIMIC) -v mimic_data_dir="$(MIMIC_DATA_DIR)"  -f analyze.sql
 
-loadvocab:
-	psql $(OMOP)  -f omop/build-omop/postgresql/omop_vocab_load.sql
+buildomop:
+	psql $(OMOP) -f "omop/build-omop/postgresql/OMOP CDM postgresql ddl.txt" &&\
+	psql $(OMOP) -f omop/build-omop/postgresql/omop_cdm_comments.sql &&\
+	psql $(OMOP) -f omop/build-omop/postgresql/mimic-omop-alter.sql &&\
+	psql $(OMOP) -f omop/build-omop/postgresql/omop_vocab_load.sql &&\
+	psql $(OMOP) -f "omop/build-omop/postgresql/OMOP CDM indexes required - PostgreSQL.sql" &&\
+	psql $(OMOP) --set=OMOP_SCHEMA="$(OMOP_SCHEMA)" -f "omop/build-omop/postgresql/analyze.sql"
 
 concept:
 	Rscript --vanilla etl/ConceptTables/loadTables.R $(MIMIC_SCHEMA)
@@ -29,7 +35,7 @@ private:
 check:
 	psql $(MIMIC) --set=OMOP_SCHEMA="$(OMOP_SCHEMA)" -f etl/check_etl.sql 
 
-export:
+exporter:
 	psql $(MIMIC)  --set=OMOP_SCHEMA="$(OMOP_SCHEMA)" -f export/export_mimic_omop.sql &&\
 	cp import/import_mimic_omop.sql etl/Result/ &&\
 	cp omop/build-omop/postgresql/* etl/Result/

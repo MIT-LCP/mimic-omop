@@ -18,6 +18,12 @@ Below in the README, we provide two sections. The first section, *OMOP TABLES LO
 
 The second section, *MIMIC TABLES EQUIVALENCE*, lists all the tables in MIMIC-III, and shows where the data now exists in the OMOP CDM. For example, we can see that the MIMIC-III table *patients* was used to populate the OMOP CDM tables *person* and *death*.
 
+INSTALLATION INSTRUCTIONS
+=========================
+
+- [Manual](./README-run-etl.md)
+- [Docker-compose](./docker/README.md)
+
 OMOP TABLES LOADED
 ==================
 
